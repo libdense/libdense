@@ -1,0 +1,1094 @@
+
+Dense Python wheel builder
+Repository: /home/meganerd/Documents/github/libdense
+Started:    2026-07-17T15:19:14-04:00
+
+ERROR: could not find python3.12
+
+ERROR on line 90 while running: PYTHONS["$version"]="$(find_python "$version")"
+
+Dense Python wheel build FAILED with exit code 1.
+Build log: /home/meganerd/Documents/github/libdense/build-python-wheels.log
+
+Press Enter to close...
+Dense Python wheel builder
+Repository: /home/meganerd/Documents/github/libdense
+Started:    2026-07-17T15:32:01-04:00
+
+ERROR: could not find python3.13
+
+ERROR on line 90 while running: PYTHONS["$version"]="$(find_python "$version")"
+
+Dense Python wheel build FAILED with exit code 1.
+Build log: /home/meganerd/Documents/github/libdense/build-python-wheels.log
+
+Press Enter to close...
+Dense Python wheel builder
+Repository: /home/meganerd/Documents/github/libdense
+Started:    2026-07-17T15:32:31-04:00
+
+ERROR: could not find python3.13
+
+ERROR on line 90 while running: PYTHONS["$version"]="$(find_python "$version")"
+
+Dense Python wheel build FAILED with exit code 1.
+Build log: /home/meganerd/Documents/github/libdense/build-python-wheels.log
+
+Press Enter to close...
+Dense Python wheel builder
+Repository: /home/meganerd/Documents/github/libdense
+Started:    2026-07-17T15:37:07-04:00
+
+Detected Python interpreters:
+  Python 3.11: /usr/bin/python3.11
+Python 3.11.2
+  Python 3.12: /usr/local/bin/python3.12
+Python 3.12.13
+  Python 3.13: /usr/local/bin/python3.13
+Python 3.13.14
+  Python 3.14: /usr/local/bin/python3.14
+Python 3.14.6
+
+Poetry (version 2.4.1)
+Creating virtualenv dense-wheel-builder-MEfgRQ9g-py3.14 in /home/meganerd/.cache/pypoetry/virtualenvs
+Updating dependencies
+Resolving dependencies...
+
+Writing lock file
+
+============================================================
+Building Dense wheel with Python 3.11
+Interpreter: /usr/bin/python3.11
+============================================================
+Creating virtualenv dense-wheel-builder-MEfgRQ9g-py3.11 in /home/meganerd/.cache/pypoetry/virtualenvs
+Using virtualenv: /home/meganerd/.cache/pypoetry/virtualenvs/dense-wheel-builder-MEfgRQ9g-py3.11
+Installing dependencies from lock file
+
+Package operations: 35 installs, 0 updates, 0 removals
+
+  - Installing auditwheel (6.7.0)
+  - Installing backports-tarfile (1.2.0)
+  - Installing build (1.5.0)
+  - Installing certifi (2026.6.17)
+  - Installing cffi (2.1.0)
+  - Installing charset-normalizer (3.4.9)
+  - Installing cryptography (49.0.0)
+  - Installing docutils (0.23)
+  - Installing id (1.6.1)
+  - Installing idna (3.18)
+  - Installing importlib-metadata (9.0.0)
+  - Installing jaraco-classes (3.4.0)
+  - Installing jaraco-context (6.1.2)
+  - Installing jaraco-functools (4.6.0)
+  - Installing jeepney (0.9.0)
+  - Installing keyring (25.7.0)
+  - Installing markdown-it-py (4.2.0)
+  - Installing mdurl (0.1.2)
+  - Installing more-itertools (11.1.0)
+  - Installing nh3 (0.3.6)
+  - Installing packaging (26.2)
+  - Installing pycparser (3.0)
+  - Installing pyelftools (0.33)
+  - Installing pygments (2.20.0)
+  - Installing pyproject-hooks (1.2.0)
+  - Installing readme-renderer (45.0)
+  - Installing requests (2.34.2)
+  - Installing requests-toolbelt (1.0.0)
+  - Installing rfc3986 (2.0.0)
+  - Installing rich (15.0.0)
+  - Installing secretstorage (3.5.0)
+  - Installing twine (6.2.0)
+  - Installing urllib3 (2.7.0)
+  - Installing wheel (0.47.0)
+  - Installing zipp (4.1.0)
+Python 3.11.2
+* Creating isolated environment: venv+pip...
+* Installing packages in isolated environment:
+  - setuptools>=68
+  - wheel
+* Getting build dependencies for wheel...
+running egg_info
+creating src/dense_sim.egg-info
+writing src/dense_sim.egg-info/PKG-INFO
+writing dependency_links to src/dense_sim.egg-info/dependency_links.txt
+writing top-level names to src/dense_sim.egg-info/top_level.txt
+writing manifest file 'src/dense_sim.egg-info/SOURCES.txt'
+reading manifest file 'src/dense_sim.egg-info/SOURCES.txt'
+adding license file 'LICENSE.md'
+adding license file 'COMMERCIAL-LICENSE.md'
+writing manifest file 'src/dense_sim.egg-info/SOURCES.txt'
+* Building wheel...
+running bdist_wheel
+running build
+running build_py
+creating build/lib.linux-x86_64-cpython-311/dense_sim
+copying src/dense_sim/__init__.py -> build/lib.linux-x86_64-cpython-311/dense_sim
+copying src/dense_sim/__init__.pyi -> build/lib.linux-x86_64-cpython-311/dense_sim
+copying src/dense_sim/py.typed -> build/lib.linux-x86_64-cpython-311/dense_sim
+running build_ext
+building 'dense_sim._dense_sim' extension
+creating build/temp.linux-x86_64-cpython-311/src/dense_sim
+x86_64-linux-gnu-gcc -Wsign-compare -DNDEBUG -g -fwrapv -O2 -Wall -g -fstack-protector-strong -Wformat -Werror=format-security -g -fwrapv -O2 -fPIC -I/home/meganerd/Documents/github/libdense/include/dense -I/tmp/build-env-250wyuxf/include -I/usr/include/python3.11 -c src/dense_sim/_dense_sim.c -o build/temp.linux-x86_64-cpython-311/src/dense_sim/_dense_sim.o -std=c11 -O3 -Wall -Wextra -Wpedantic -Wconversion -Wshadow
+x86_64-linux-gnu-gcc -shared -Wl,-O1 -Wl,-Bsymbolic-functions -g -fwrapv -O2 build/temp.linux-x86_64-cpython-311/src/dense_sim/_dense_sim.o /home/meganerd/Documents/github/libdense/lib/linux-x86_64/libdense_sim.a -L/usr/lib/x86_64-linux-gnu -lm -o build/lib.linux-x86_64-cpython-311/dense_sim/_dense_sim.cpython-311-x86_64-linux-gnu.so
+installing to build/bdist.linux-x86_64/wheel
+running install
+running install_lib
+creating build/bdist.linux-x86_64/wheel
+creating build/bdist.linux-x86_64/wheel/dense_sim
+copying build/lib.linux-x86_64-cpython-311/dense_sim/py.typed -> build/bdist.linux-x86_64/wheel/./dense_sim
+copying build/lib.linux-x86_64-cpython-311/dense_sim/__init__.pyi -> build/bdist.linux-x86_64/wheel/./dense_sim
+copying build/lib.linux-x86_64-cpython-311/dense_sim/_dense_sim.cpython-311-x86_64-linux-gnu.so -> build/bdist.linux-x86_64/wheel/./dense_sim
+copying build/lib.linux-x86_64-cpython-311/dense_sim/__init__.py -> build/bdist.linux-x86_64/wheel/./dense_sim
+running install_egg_info
+running egg_info
+writing src/dense_sim.egg-info/PKG-INFO
+writing dependency_links to src/dense_sim.egg-info/dependency_links.txt
+writing top-level names to src/dense_sim.egg-info/top_level.txt
+reading manifest file 'src/dense_sim.egg-info/SOURCES.txt'
+adding license file 'LICENSE.md'
+adding license file 'COMMERCIAL-LICENSE.md'
+writing manifest file 'src/dense_sim.egg-info/SOURCES.txt'
+Copying src/dense_sim.egg-info to build/bdist.linux-x86_64/wheel/./dense_sim-0.1.0rc1-py3.11.egg-info
+running install_scripts
+creating build/bdist.linux-x86_64/wheel/dense_sim-0.1.0rc1.dist-info/WHEEL
+creating '/home/meganerd/Documents/github/libdense/bindings/python/dist/raw/.tmp-gygjbsk9/dense_sim-0.1.0rc1-cp311-cp311-linux_x86_64.whl' and adding 'build/bdist.linux-x86_64/wheel' to it
+adding 'dense_sim/__init__.py'
+adding 'dense_sim/__init__.pyi'
+adding 'dense_sim/_dense_sim.cpython-311-x86_64-linux-gnu.so'
+adding 'dense_sim/py.typed'
+adding 'dense_sim-0.1.0rc1.dist-info/licenses/COMMERCIAL-LICENSE.md'
+adding 'dense_sim-0.1.0rc1.dist-info/licenses/LICENSE.md'
+adding 'dense_sim-0.1.0rc1.dist-info/METADATA'
+adding 'dense_sim-0.1.0rc1.dist-info/WHEEL'
+adding 'dense_sim-0.1.0rc1.dist-info/top_level.txt'
+adding 'dense_sim-0.1.0rc1.dist-info/RECORD'
+removing build/bdist.linux-x86_64/wheel
+Successfully built dense_sim-0.1.0rc1-cp311-cp311-linux_x86_64.whl
+
+============================================================
+Building Dense wheel with Python 3.12
+Interpreter: /usr/local/bin/python3.12
+============================================================
+Creating virtualenv dense-wheel-builder-MEfgRQ9g-py3.12 in /home/meganerd/.cache/pypoetry/virtualenvs
+Using virtualenv: /home/meganerd/.cache/pypoetry/virtualenvs/dense-wheel-builder-MEfgRQ9g-py3.12
+Installing dependencies from lock file
+
+Package operations: 32 installs, 0 updates, 0 removals
+
+  - Installing auditwheel (6.7.0)
+  - Installing build (1.5.0)
+  - Installing certifi (2026.6.17)
+  - Installing cffi (2.1.0)
+  - Installing charset-normalizer (3.4.9)
+  - Installing cryptography (49.0.0)
+  - Installing docutils (0.23)
+  - Installing id (1.6.1)
+  - Installing idna (3.18)
+  - Installing jaraco-classes (3.4.0)
+  - Installing jaraco-context (6.1.2)
+  - Installing jaraco-functools (4.6.0)
+  - Installing jeepney (0.9.0)
+  - Installing keyring (25.7.0)
+  - Installing markdown-it-py (4.2.0)
+  - Installing mdurl (0.1.2)
+  - Installing more-itertools (11.1.0)
+  - Installing nh3 (0.3.6)
+  - Installing packaging (26.2)
+  - Installing pycparser (3.0)
+  - Installing pyelftools (0.33)
+  - Installing pygments (2.20.0)
+  - Installing pyproject-hooks (1.2.0)
+  - Installing readme-renderer (45.0)
+  - Installing requests (2.34.2)
+  - Installing requests-toolbelt (1.0.0)
+  - Installing rfc3986 (2.0.0)
+  - Installing rich (15.0.0)
+  - Installing secretstorage (3.5.0)
+  - Installing twine (6.2.0)
+  - Installing urllib3 (2.7.0)
+  - Installing wheel (0.47.0)
+Python 3.12.13
+* Creating isolated environment: venv+pip...
+* Installing packages in isolated environment:
+  - setuptools>=68
+  - wheel
+* Getting build dependencies for wheel...
+running egg_info
+creating src/dense_sim.egg-info
+writing src/dense_sim.egg-info/PKG-INFO
+writing dependency_links to src/dense_sim.egg-info/dependency_links.txt
+writing top-level names to src/dense_sim.egg-info/top_level.txt
+writing manifest file 'src/dense_sim.egg-info/SOURCES.txt'
+reading manifest file 'src/dense_sim.egg-info/SOURCES.txt'
+adding license file 'LICENSE.md'
+adding license file 'COMMERCIAL-LICENSE.md'
+writing manifest file 'src/dense_sim.egg-info/SOURCES.txt'
+* Building wheel...
+running bdist_wheel
+running build
+running build_py
+creating build/lib.linux-x86_64-cpython-312/dense_sim
+copying src/dense_sim/__init__.py -> build/lib.linux-x86_64-cpython-312/dense_sim
+copying src/dense_sim/__init__.pyi -> build/lib.linux-x86_64-cpython-312/dense_sim
+copying src/dense_sim/py.typed -> build/lib.linux-x86_64-cpython-312/dense_sim
+running build_ext
+building 'dense_sim._dense_sim' extension
+creating build/temp.linux-x86_64-cpython-312/src/dense_sim
+gcc -fno-strict-overflow -Wsign-compare -DNDEBUG -g -O3 -Wall -fPIC -I/home/meganerd/Documents/github/libdense/include/dense -I/tmp/build-env-ron5yqwi/include -I/usr/local/include/python3.12 -c src/dense_sim/_dense_sim.c -o build/temp.linux-x86_64-cpython-312/src/dense_sim/_dense_sim.o -std=c11 -O3 -Wall -Wextra -Wpedantic -Wconversion -Wshadow
+gcc -shared build/temp.linux-x86_64-cpython-312/src/dense_sim/_dense_sim.o /home/meganerd/Documents/github/libdense/lib/linux-x86_64/libdense_sim.a -lm -o build/lib.linux-x86_64-cpython-312/dense_sim/_dense_sim.cpython-312-x86_64-linux-gnu.so
+installing to build/bdist.linux-x86_64/wheel
+running install
+running install_lib
+creating build/bdist.linux-x86_64/wheel
+creating build/bdist.linux-x86_64/wheel/dense_sim
+copying build/lib.linux-x86_64-cpython-312/dense_sim/_dense_sim.cpython-312-x86_64-linux-gnu.so -> build/bdist.linux-x86_64/wheel/./dense_sim
+copying build/lib.linux-x86_64-cpython-312/dense_sim/py.typed -> build/bdist.linux-x86_64/wheel/./dense_sim
+copying build/lib.linux-x86_64-cpython-312/dense_sim/__init__.pyi -> build/bdist.linux-x86_64/wheel/./dense_sim
+copying build/lib.linux-x86_64-cpython-312/dense_sim/__init__.py -> build/bdist.linux-x86_64/wheel/./dense_sim
+running install_egg_info
+running egg_info
+writing src/dense_sim.egg-info/PKG-INFO
+writing dependency_links to src/dense_sim.egg-info/dependency_links.txt
+writing top-level names to src/dense_sim.egg-info/top_level.txt
+reading manifest file 'src/dense_sim.egg-info/SOURCES.txt'
+adding license file 'LICENSE.md'
+adding license file 'COMMERCIAL-LICENSE.md'
+writing manifest file 'src/dense_sim.egg-info/SOURCES.txt'
+Copying src/dense_sim.egg-info to build/bdist.linux-x86_64/wheel/./dense_sim-0.1.0rc1-py3.12.egg-info
+running install_scripts
+creating build/bdist.linux-x86_64/wheel/dense_sim-0.1.0rc1.dist-info/WHEEL
+creating '/home/meganerd/Documents/github/libdense/bindings/python/dist/raw/.tmp-9zosyz9c/dense_sim-0.1.0rc1-cp312-cp312-linux_x86_64.whl' and adding 'build/bdist.linux-x86_64/wheel' to it
+adding 'dense_sim/__init__.py'
+adding 'dense_sim/__init__.pyi'
+adding 'dense_sim/_dense_sim.cpython-312-x86_64-linux-gnu.so'
+adding 'dense_sim/py.typed'
+adding 'dense_sim-0.1.0rc1.dist-info/licenses/COMMERCIAL-LICENSE.md'
+adding 'dense_sim-0.1.0rc1.dist-info/licenses/LICENSE.md'
+adding 'dense_sim-0.1.0rc1.dist-info/METADATA'
+adding 'dense_sim-0.1.0rc1.dist-info/WHEEL'
+adding 'dense_sim-0.1.0rc1.dist-info/top_level.txt'
+adding 'dense_sim-0.1.0rc1.dist-info/RECORD'
+removing build/bdist.linux-x86_64/wheel
+Successfully built dense_sim-0.1.0rc1-cp312-cp312-linux_x86_64.whl
+
+============================================================
+Building Dense wheel with Python 3.13
+Interpreter: /usr/local/bin/python3.13
+============================================================
+Creating virtualenv dense-wheel-builder-MEfgRQ9g-py3.13 in /home/meganerd/.cache/pypoetry/virtualenvs
+Using virtualenv: /home/meganerd/.cache/pypoetry/virtualenvs/dense-wheel-builder-MEfgRQ9g-py3.13
+Installing dependencies from lock file
+
+Package operations: 32 installs, 0 updates, 0 removals
+
+  - Installing auditwheel (6.7.0)
+  - Installing build (1.5.0)
+  - Installing certifi (2026.6.17)
+  - Installing cffi (2.1.0)
+  - Installing charset-normalizer (3.4.9)
+  - Installing cryptography (49.0.0)
+  - Installing docutils (0.23)
+  - Installing id (1.6.1)
+  - Installing idna (3.18)
+  - Installing jaraco-classes (3.4.0)
+  - Installing jaraco-context (6.1.2)
+  - Installing jaraco-functools (4.6.0)
+  - Installing jeepney (0.9.0)
+  - Installing keyring (25.7.0)
+  - Installing markdown-it-py (4.2.0)
+  - Installing mdurl (0.1.2)
+  - Installing more-itertools (11.1.0)
+  - Installing nh3 (0.3.6)
+  - Installing packaging (26.2)
+  - Installing pycparser (3.0)
+  - Installing pyelftools (0.33)
+  - Installing pygments (2.20.0)
+  - Installing pyproject-hooks (1.2.0)
+  - Installing readme-renderer (45.0)
+  - Installing requests (2.34.2)
+  - Installing requests-toolbelt (1.0.0)
+  - Installing rfc3986 (2.0.0)
+  - Installing rich (15.0.0)
+  - Installing secretstorage (3.5.0)
+  - Installing twine (6.2.0)
+  - Installing urllib3 (2.7.0)
+  - Installing wheel (0.47.0)
+Python 3.13.14
+* Creating isolated environment: venv+pip...
+* Installing packages in isolated environment:
+  - setuptools>=68
+  - wheel
+* Getting build dependencies for wheel...
+running egg_info
+creating src/dense_sim.egg-info
+writing src/dense_sim.egg-info/PKG-INFO
+writing dependency_links to src/dense_sim.egg-info/dependency_links.txt
+writing top-level names to src/dense_sim.egg-info/top_level.txt
+writing manifest file 'src/dense_sim.egg-info/SOURCES.txt'
+reading manifest file 'src/dense_sim.egg-info/SOURCES.txt'
+adding license file 'LICENSE.md'
+adding license file 'COMMERCIAL-LICENSE.md'
+writing manifest file 'src/dense_sim.egg-info/SOURCES.txt'
+* Building wheel...
+running bdist_wheel
+running build
+running build_py
+creating build/lib.linux-x86_64-cpython-313/dense_sim
+copying src/dense_sim/__init__.py -> build/lib.linux-x86_64-cpython-313/dense_sim
+copying src/dense_sim/__init__.pyi -> build/lib.linux-x86_64-cpython-313/dense_sim
+copying src/dense_sim/py.typed -> build/lib.linux-x86_64-cpython-313/dense_sim
+running build_ext
+building 'dense_sim._dense_sim' extension
+creating build/temp.linux-x86_64-cpython-313/src/dense_sim
+gcc -fno-strict-overflow -Wsign-compare -DNDEBUG -g -O3 -Wall -fPIC -I/home/meganerd/Documents/github/libdense/include/dense -I/tmp/build-env-6y0cuc11/include -I/usr/local/include/python3.13 -c src/dense_sim/_dense_sim.c -o build/temp.linux-x86_64-cpython-313/src/dense_sim/_dense_sim.o -std=c11 -O3 -Wall -Wextra -Wpedantic -Wconversion -Wshadow
+gcc -shared build/temp.linux-x86_64-cpython-313/src/dense_sim/_dense_sim.o /home/meganerd/Documents/github/libdense/lib/linux-x86_64/libdense_sim.a -lm -o build/lib.linux-x86_64-cpython-313/dense_sim/_dense_sim.cpython-313-x86_64-linux-gnu.so
+installing to build/bdist.linux-x86_64/wheel
+running install
+running install_lib
+creating build/bdist.linux-x86_64/wheel
+creating build/bdist.linux-x86_64/wheel/dense_sim
+copying build/lib.linux-x86_64-cpython-313/dense_sim/_dense_sim.cpython-313-x86_64-linux-gnu.so -> build/bdist.linux-x86_64/wheel/./dense_sim
+copying build/lib.linux-x86_64-cpython-313/dense_sim/py.typed -> build/bdist.linux-x86_64/wheel/./dense_sim
+copying build/lib.linux-x86_64-cpython-313/dense_sim/__init__.pyi -> build/bdist.linux-x86_64/wheel/./dense_sim
+copying build/lib.linux-x86_64-cpython-313/dense_sim/__init__.py -> build/bdist.linux-x86_64/wheel/./dense_sim
+running install_egg_info
+running egg_info
+writing src/dense_sim.egg-info/PKG-INFO
+writing dependency_links to src/dense_sim.egg-info/dependency_links.txt
+writing top-level names to src/dense_sim.egg-info/top_level.txt
+reading manifest file 'src/dense_sim.egg-info/SOURCES.txt'
+adding license file 'LICENSE.md'
+adding license file 'COMMERCIAL-LICENSE.md'
+writing manifest file 'src/dense_sim.egg-info/SOURCES.txt'
+Copying src/dense_sim.egg-info to build/bdist.linux-x86_64/wheel/./dense_sim-0.1.0rc1-py3.13.egg-info
+running install_scripts
+creating build/bdist.linux-x86_64/wheel/dense_sim-0.1.0rc1.dist-info/WHEEL
+creating '/home/meganerd/Documents/github/libdense/bindings/python/dist/raw/.tmp-5144wlt7/dense_sim-0.1.0rc1-cp313-cp313-linux_x86_64.whl' and adding 'build/bdist.linux-x86_64/wheel' to it
+adding 'dense_sim/__init__.py'
+adding 'dense_sim/__init__.pyi'
+adding 'dense_sim/_dense_sim.cpython-313-x86_64-linux-gnu.so'
+adding 'dense_sim/py.typed'
+adding 'dense_sim-0.1.0rc1.dist-info/licenses/COMMERCIAL-LICENSE.md'
+adding 'dense_sim-0.1.0rc1.dist-info/licenses/LICENSE.md'
+adding 'dense_sim-0.1.0rc1.dist-info/METADATA'
+adding 'dense_sim-0.1.0rc1.dist-info/WHEEL'
+adding 'dense_sim-0.1.0rc1.dist-info/top_level.txt'
+adding 'dense_sim-0.1.0rc1.dist-info/RECORD'
+removing build/bdist.linux-x86_64/wheel
+Successfully built dense_sim-0.1.0rc1-cp313-cp313-linux_x86_64.whl
+
+============================================================
+Building Dense wheel with Python 3.14
+Interpreter: /usr/local/bin/python3.14
+============================================================
+Using virtualenv: /home/meganerd/.cache/pypoetry/virtualenvs/dense-wheel-builder-MEfgRQ9g-py3.14
+Installing dependencies from lock file
+
+Package operations: 32 installs, 0 updates, 0 removals
+
+  - Installing auditwheel (6.7.0)
+  - Installing build (1.5.0)
+  - Installing certifi (2026.6.17)
+  - Installing cffi (2.1.0)
+  - Installing charset-normalizer (3.4.9)
+  - Installing cryptography (49.0.0)
+  - Installing docutils (0.23)
+  - Installing id (1.6.1)
+  - Installing idna (3.18)
+  - Installing jaraco-classes (3.4.0)
+  - Installing jaraco-context (6.1.2)
+  - Installing jaraco-functools (4.6.0)
+  - Installing jeepney (0.9.0)
+  - Installing keyring (25.7.0)
+  - Installing markdown-it-py (4.2.0)
+  - Installing mdurl (0.1.2)
+  - Installing more-itertools (11.1.0)
+  - Installing nh3 (0.3.6)
+  - Installing packaging (26.2)
+  - Installing pycparser (3.0)
+  - Installing pyelftools (0.33)
+  - Installing pygments (2.20.0)
+  - Installing pyproject-hooks (1.2.0)
+  - Installing readme-renderer (45.0)
+  - Installing requests (2.34.2)
+  - Installing requests-toolbelt (1.0.0)
+  - Installing rfc3986 (2.0.0)
+  - Installing rich (15.0.0)
+  - Installing secretstorage (3.5.0)
+  - Installing twine (6.2.0)
+  - Installing urllib3 (2.7.0)
+  - Installing wheel (0.47.0)
+Python 3.14.6
+* Creating isolated environment: venv+pip...
+* Installing packages in isolated environment:
+  - setuptools>=68
+  - wheel
+* Getting build dependencies for wheel...
+running egg_info
+creating src/dense_sim.egg-info
+writing src/dense_sim.egg-info/PKG-INFO
+writing dependency_links to src/dense_sim.egg-info/dependency_links.txt
+writing top-level names to src/dense_sim.egg-info/top_level.txt
+writing manifest file 'src/dense_sim.egg-info/SOURCES.txt'
+reading manifest file 'src/dense_sim.egg-info/SOURCES.txt'
+adding license file 'LICENSE.md'
+adding license file 'COMMERCIAL-LICENSE.md'
+writing manifest file 'src/dense_sim.egg-info/SOURCES.txt'
+* Building wheel...
+running bdist_wheel
+running build
+running build_py
+creating build/lib.linux-x86_64-cpython-314/dense_sim
+copying src/dense_sim/__init__.py -> build/lib.linux-x86_64-cpython-314/dense_sim
+copying src/dense_sim/__init__.pyi -> build/lib.linux-x86_64-cpython-314/dense_sim
+copying src/dense_sim/py.typed -> build/lib.linux-x86_64-cpython-314/dense_sim
+running build_ext
+building 'dense_sim._dense_sim' extension
+creating build/temp.linux-x86_64-cpython-314/src/dense_sim
+gcc -fno-strict-overflow -Wsign-compare -DNDEBUG -g -O3 -Wall -O3 -march=native -pipe -fno-semantic-interposition -O3 -march=native -pipe -fno-semantic-interposition -fPIC -I/home/meganerd/Documents/github/libdense/include/dense -I/tmp/build-env-t630ae5s/include -I/usr/local/include/python3.14 -c src/dense_sim/_dense_sim.c -o build/temp.linux-x86_64-cpython-314/src/dense_sim/_dense_sim.o -std=c11 -O3 -Wall -Wextra -Wpedantic -Wconversion -Wshadow
+gcc -shared -Wl,-O2 -Wl,-O2 build/temp.linux-x86_64-cpython-314/src/dense_sim/_dense_sim.o /home/meganerd/Documents/github/libdense/lib/linux-x86_64/libdense_sim.a -L/usr/local/lib -lm -o build/lib.linux-x86_64-cpython-314/dense_sim/_dense_sim.cpython-314-x86_64-linux-gnu.so
+installing to build/bdist.linux-x86_64/wheel
+running install
+running install_lib
+creating build/bdist.linux-x86_64/wheel
+creating build/bdist.linux-x86_64/wheel/dense_sim
+copying build/lib.linux-x86_64-cpython-314/dense_sim/_dense_sim.cpython-314-x86_64-linux-gnu.so -> build/bdist.linux-x86_64/wheel/./dense_sim
+copying build/lib.linux-x86_64-cpython-314/dense_sim/py.typed -> build/bdist.linux-x86_64/wheel/./dense_sim
+copying build/lib.linux-x86_64-cpython-314/dense_sim/__init__.pyi -> build/bdist.linux-x86_64/wheel/./dense_sim
+copying build/lib.linux-x86_64-cpython-314/dense_sim/__init__.py -> build/bdist.linux-x86_64/wheel/./dense_sim
+running install_egg_info
+running egg_info
+writing src/dense_sim.egg-info/PKG-INFO
+writing dependency_links to src/dense_sim.egg-info/dependency_links.txt
+writing top-level names to src/dense_sim.egg-info/top_level.txt
+reading manifest file 'src/dense_sim.egg-info/SOURCES.txt'
+adding license file 'LICENSE.md'
+adding license file 'COMMERCIAL-LICENSE.md'
+writing manifest file 'src/dense_sim.egg-info/SOURCES.txt'
+Copying src/dense_sim.egg-info to build/bdist.linux-x86_64/wheel/./dense_sim-0.1.0rc1-py3.14.egg-info
+running install_scripts
+creating build/bdist.linux-x86_64/wheel/dense_sim-0.1.0rc1.dist-info/WHEEL
+creating '/home/meganerd/Documents/github/libdense/bindings/python/dist/raw/.tmp-soo47wc9/dense_sim-0.1.0rc1-cp314-cp314-linux_x86_64.whl' and adding 'build/bdist.linux-x86_64/wheel' to it
+adding 'dense_sim/__init__.py'
+adding 'dense_sim/__init__.pyi'
+adding 'dense_sim/_dense_sim.cpython-314-x86_64-linux-gnu.so'
+adding 'dense_sim/py.typed'
+adding 'dense_sim-0.1.0rc1.dist-info/licenses/COMMERCIAL-LICENSE.md'
+adding 'dense_sim-0.1.0rc1.dist-info/licenses/LICENSE.md'
+adding 'dense_sim-0.1.0rc1.dist-info/METADATA'
+adding 'dense_sim-0.1.0rc1.dist-info/WHEEL'
+adding 'dense_sim-0.1.0rc1.dist-info/top_level.txt'
+adding 'dense_sim-0.1.0rc1.dist-info/RECORD'
+removing build/bdist.linux-x86_64/wheel
+Successfully built dense_sim-0.1.0rc1-cp314-cp314-linux_x86_64.whl
+
+Raw wheels:
+  dense_sim-0.1.0rc1-cp311-cp311-linux_x86_64.whl
+  dense_sim-0.1.0rc1-cp312-cp312-linux_x86_64.whl
+  dense_sim-0.1.0rc1-cp313-cp313-linux_x86_64.whl
+  dense_sim-0.1.0rc1-cp314-cp314-linux_x86_64.whl
+
+Repairing wheels as manylinux_2_17_x86_64...
+Using virtualenv: /home/meganerd/.cache/pypoetry/virtualenvs/dense-wheel-builder-MEfgRQ9g-py3.13
+Installing dependencies from lock file
+
+No dependencies to install or update
+
+Inspecting dense_sim-0.1.0rc1-cp311-cp311-linux_x86_64.whl
+INFO:auditwheel.wheel_abi:setting libc to glibc
+
+dense_sim-0.1.0rc1-cp311-cp311-linux_x86_64.whl is consistent with the
+following platform tag: "manylinux_2_17_x86_64".
+
+The wheel references external versioned symbols in these
+system-provided shared libraries: libm.so.6 with versions
+{'GLIBC_2.2.5'}, libc.so.6 with versions {'GLIBC_2.2.5', 'GLIBC_2.4',
+'GLIBC_2.14'}
+
+This constrains the platform tag to "manylinux_2_17_x86_64". In order
+to achieve a more compatible tag, you would need to recompile a new
+wheel from source on a system with earlier versions of these
+libraries, such as a recent manylinux image.
+INFO:auditwheel.main_repair:Repairing dense_sim-0.1.0rc1-cp311-cp311-linux_x86_64.whl
+INFO:auditwheel.wheeltools:Previous filename tags: linux_x86_64
+INFO:auditwheel.wheeltools:New filename tags: manylinux_2_17_x86_64, manylinux2014_x86_64
+INFO:auditwheel.wheeltools:Previous WHEEL info tags: cp311-cp311-linux_x86_64
+INFO:auditwheel.wheeltools:New WHEEL info tags: cp311-cp311-manylinux_2_17_x86_64, cp311-cp311-manylinux2014_x86_64
+INFO:auditwheel.main_repair:
+Fixed-up wheel written to /home/meganerd/Documents/github/libdense/bindings/python/dist/wheelhouse/dense_sim-0.1.0rc1-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.whl
+
+Inspecting dense_sim-0.1.0rc1-cp312-cp312-linux_x86_64.whl
+INFO:auditwheel.wheel_abi:setting libc to glibc
+
+dense_sim-0.1.0rc1-cp312-cp312-linux_x86_64.whl is consistent with the
+following platform tag: "manylinux_2_17_x86_64".
+
+The wheel references external versioned symbols in these
+system-provided shared libraries: libm.so.6 with versions
+{'GLIBC_2.2.5'}, libc.so.6 with versions {'GLIBC_2.2.5', 'GLIBC_2.14'}
+
+This constrains the platform tag to "manylinux_2_17_x86_64". In order
+to achieve a more compatible tag, you would need to recompile a new
+wheel from source on a system with earlier versions of these
+libraries, such as a recent manylinux image.
+INFO:auditwheel.main_repair:Repairing dense_sim-0.1.0rc1-cp312-cp312-linux_x86_64.whl
+INFO:auditwheel.wheeltools:Previous filename tags: linux_x86_64
+INFO:auditwheel.wheeltools:New filename tags: manylinux_2_17_x86_64, manylinux2014_x86_64
+INFO:auditwheel.wheeltools:Previous WHEEL info tags: cp312-cp312-linux_x86_64
+INFO:auditwheel.wheeltools:New WHEEL info tags: cp312-cp312-manylinux_2_17_x86_64, cp312-cp312-manylinux2014_x86_64
+INFO:auditwheel.main_repair:
+Fixed-up wheel written to /home/meganerd/Documents/github/libdense/bindings/python/dist/wheelhouse/dense_sim-0.1.0rc1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl
+
+Inspecting dense_sim-0.1.0rc1-cp313-cp313-linux_x86_64.whl
+INFO:auditwheel.wheel_abi:setting libc to glibc
+
+dense_sim-0.1.0rc1-cp313-cp313-linux_x86_64.whl is consistent with the
+following platform tag: "manylinux_2_17_x86_64".
+
+The wheel references external versioned symbols in these
+system-provided shared libraries: libm.so.6 with versions
+{'GLIBC_2.2.5'}, libc.so.6 with versions {'GLIBC_2.2.5', 'GLIBC_2.14'}
+
+This constrains the platform tag to "manylinux_2_17_x86_64". In order
+to achieve a more compatible tag, you would need to recompile a new
+wheel from source on a system with earlier versions of these
+libraries, such as a recent manylinux image.
+INFO:auditwheel.main_repair:Repairing dense_sim-0.1.0rc1-cp313-cp313-linux_x86_64.whl
+INFO:auditwheel.wheeltools:Previous filename tags: linux_x86_64
+INFO:auditwheel.wheeltools:New filename tags: manylinux_2_17_x86_64, manylinux2014_x86_64
+INFO:auditwheel.wheeltools:Previous WHEEL info tags: cp313-cp313-linux_x86_64
+INFO:auditwheel.wheeltools:New WHEEL info tags: cp313-cp313-manylinux_2_17_x86_64, cp313-cp313-manylinux2014_x86_64
+INFO:auditwheel.main_repair:
+Fixed-up wheel written to /home/meganerd/Documents/github/libdense/bindings/python/dist/wheelhouse/dense_sim-0.1.0rc1-cp313-cp313-manylinux2014_x86_64.manylinux_2_17_x86_64.whl
+
+Inspecting dense_sim-0.1.0rc1-cp314-cp314-linux_x86_64.whl
+INFO:auditwheel.wheel_abi:setting libc to glibc
+
+dense_sim-0.1.0rc1-cp314-cp314-linux_x86_64.whl is consistent with the
+following platform tag: "manylinux_2_17_x86_64".
+
+The wheel references external versioned symbols in these
+system-provided shared libraries: libm.so.6 with versions
+{'GLIBC_2.2.5'}, libc.so.6 with versions {'GLIBC_2.14', 'GLIBC_2.2.5'}
+
+This constrains the platform tag to "manylinux_2_17_x86_64". In order
+to achieve a more compatible tag, you would need to recompile a new
+wheel from source on a system with earlier versions of these
+libraries, such as a recent manylinux image.
+INFO:auditwheel.main_repair:Repairing dense_sim-0.1.0rc1-cp314-cp314-linux_x86_64.whl
+INFO:auditwheel.wheeltools:Previous filename tags: linux_x86_64
+INFO:auditwheel.wheeltools:New filename tags: manylinux_2_17_x86_64, manylinux2014_x86_64
+INFO:auditwheel.wheeltools:Previous WHEEL info tags: cp314-cp314-linux_x86_64
+INFO:auditwheel.wheeltools:New WHEEL info tags: cp314-cp314-manylinux_2_17_x86_64, cp314-cp314-manylinux2014_x86_64
+INFO:auditwheel.main_repair:
+Fixed-up wheel written to /home/meganerd/Documents/github/libdense/bindings/python/dist/wheelhouse/dense_sim-0.1.0rc1-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.whl
+
+Checking final wheel metadata...
+Checking /home/meganerd/Documents/github/libdense/bindings/python/dist/wheelhouse/dense_sim-0.1.0rc1-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.whl: [32mPASSED[0m
+Checking /home/meganerd/Documents/github/libdense/bindings/python/dist/wheelhouse/dense_sim-0.1.0rc1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl: [32mPASSED[0m
+Checking /home/meganerd/Documents/github/libdense/bindings/python/dist/wheelhouse/dense_sim-0.1.0rc1-cp313-cp313-manylinux2014_x86_64.manylinux_2_17_x86_64.whl: [32mPASSED[0m
+Checking /home/meganerd/Documents/github/libdense/bindings/python/dist/wheelhouse/dense_sim-0.1.0rc1-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.whl: [32mPASSED[0m
+
+Testing each wheel with its matching interpreter...
+
+Testing Python 3.11 with dense_sim-0.1.0rc1-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.whl
+Using virtualenv: /home/meganerd/.cache/pypoetry/virtualenvs/dense-wheel-builder-MEfgRQ9g-py3.11
+Installing dependencies from lock file
+
+No dependencies to install or update
+Processing /home/meganerd/Documents/github/libdense/bindings/python/dist/wheelhouse/dense_sim-0.1.0rc1-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.whl
+INFO: pip is looking at multiple versions of dense-sim to determine which version is compatible with other requirements. This could take a while.
+ERROR: Package 'dense-sim' requires a different Python: 3.11.2 not in '>=3.13'
+
+ERROR on line 313 while running: poetry run python -m pip install --force-reinstall --no-deps "$WHEEL"
+
+Dense Python wheel build FAILED with exit code 1.
+Build log: /home/meganerd/Documents/github/libdense/build-python-wheels.log
+
+Press Enter to close...
+Dense Python wheel builder
+Repository: /home/meganerd/Documents/github/libdense
+Started:    2026-07-17T15:40:07-04:00
+
+Detected Python interpreters:
+  Python 3.11: /usr/bin/python3.11
+Python 3.11.2
+  Python 3.12: /usr/local/bin/python3.12
+Python 3.12.13
+  Python 3.13: /usr/local/bin/python3.13
+Python 3.13.14
+  Python 3.14: /usr/local/bin/python3.14
+Python 3.14.6
+
+Poetry (version 2.4.1)
+Updating dependencies
+Resolving dependencies...
+
+Writing lock file
+
+============================================================
+Building Dense wheel with Python 3.11
+Interpreter: /usr/bin/python3.11
+============================================================
+Using virtualenv: /home/meganerd/.cache/pypoetry/virtualenvs/dense-wheel-builder-MEfgRQ9g-py3.11
+Installing dependencies from lock file
+
+No dependencies to install or update
+Python 3.11.2
+* Creating isolated environment: venv+pip...
+* Installing packages in isolated environment:
+  - setuptools>=68
+  - wheel
+* Getting build dependencies for wheel...
+running egg_info
+creating src/dense_sim.egg-info
+writing src/dense_sim.egg-info/PKG-INFO
+writing dependency_links to src/dense_sim.egg-info/dependency_links.txt
+writing top-level names to src/dense_sim.egg-info/top_level.txt
+writing manifest file 'src/dense_sim.egg-info/SOURCES.txt'
+reading manifest file 'src/dense_sim.egg-info/SOURCES.txt'
+adding license file 'LICENSE.md'
+adding license file 'COMMERCIAL-LICENSE.md'
+writing manifest file 'src/dense_sim.egg-info/SOURCES.txt'
+* Building wheel...
+running bdist_wheel
+running build
+running build_py
+creating build/lib.linux-x86_64-cpython-311/dense_sim
+copying src/dense_sim/__init__.py -> build/lib.linux-x86_64-cpython-311/dense_sim
+copying src/dense_sim/__init__.pyi -> build/lib.linux-x86_64-cpython-311/dense_sim
+copying src/dense_sim/py.typed -> build/lib.linux-x86_64-cpython-311/dense_sim
+running build_ext
+building 'dense_sim._dense_sim' extension
+creating build/temp.linux-x86_64-cpython-311/src/dense_sim
+x86_64-linux-gnu-gcc -Wsign-compare -DNDEBUG -g -fwrapv -O2 -Wall -g -fstack-protector-strong -Wformat -Werror=format-security -g -fwrapv -O2 -fPIC -I/home/meganerd/Documents/github/libdense/include/dense -I/tmp/build-env-b1qpsoxl/include -I/usr/include/python3.11 -c src/dense_sim/_dense_sim.c -o build/temp.linux-x86_64-cpython-311/src/dense_sim/_dense_sim.o -std=c11 -O3 -Wall -Wextra -Wpedantic -Wconversion -Wshadow
+x86_64-linux-gnu-gcc -shared -Wl,-O1 -Wl,-Bsymbolic-functions -g -fwrapv -O2 build/temp.linux-x86_64-cpython-311/src/dense_sim/_dense_sim.o /home/meganerd/Documents/github/libdense/lib/linux-x86_64/libdense_sim.a -L/usr/lib/x86_64-linux-gnu -lm -o build/lib.linux-x86_64-cpython-311/dense_sim/_dense_sim.cpython-311-x86_64-linux-gnu.so
+installing to build/bdist.linux-x86_64/wheel
+running install
+running install_lib
+creating build/bdist.linux-x86_64/wheel
+creating build/bdist.linux-x86_64/wheel/dense_sim
+copying build/lib.linux-x86_64-cpython-311/dense_sim/py.typed -> build/bdist.linux-x86_64/wheel/./dense_sim
+copying build/lib.linux-x86_64-cpython-311/dense_sim/__init__.pyi -> build/bdist.linux-x86_64/wheel/./dense_sim
+copying build/lib.linux-x86_64-cpython-311/dense_sim/_dense_sim.cpython-311-x86_64-linux-gnu.so -> build/bdist.linux-x86_64/wheel/./dense_sim
+copying build/lib.linux-x86_64-cpython-311/dense_sim/__init__.py -> build/bdist.linux-x86_64/wheel/./dense_sim
+running install_egg_info
+running egg_info
+writing src/dense_sim.egg-info/PKG-INFO
+writing dependency_links to src/dense_sim.egg-info/dependency_links.txt
+writing top-level names to src/dense_sim.egg-info/top_level.txt
+reading manifest file 'src/dense_sim.egg-info/SOURCES.txt'
+adding license file 'LICENSE.md'
+adding license file 'COMMERCIAL-LICENSE.md'
+writing manifest file 'src/dense_sim.egg-info/SOURCES.txt'
+Copying src/dense_sim.egg-info to build/bdist.linux-x86_64/wheel/./dense_sim-0.1.0rc1-py3.11.egg-info
+running install_scripts
+creating build/bdist.linux-x86_64/wheel/dense_sim-0.1.0rc1.dist-info/WHEEL
+creating '/home/meganerd/Documents/github/libdense/bindings/python/dist/raw/.tmp-50ttogsy/dense_sim-0.1.0rc1-cp311-cp311-linux_x86_64.whl' and adding 'build/bdist.linux-x86_64/wheel' to it
+adding 'dense_sim/__init__.py'
+adding 'dense_sim/__init__.pyi'
+adding 'dense_sim/_dense_sim.cpython-311-x86_64-linux-gnu.so'
+adding 'dense_sim/py.typed'
+adding 'dense_sim-0.1.0rc1.dist-info/licenses/COMMERCIAL-LICENSE.md'
+adding 'dense_sim-0.1.0rc1.dist-info/licenses/LICENSE.md'
+adding 'dense_sim-0.1.0rc1.dist-info/METADATA'
+adding 'dense_sim-0.1.0rc1.dist-info/WHEEL'
+adding 'dense_sim-0.1.0rc1.dist-info/top_level.txt'
+adding 'dense_sim-0.1.0rc1.dist-info/RECORD'
+removing build/bdist.linux-x86_64/wheel
+Successfully built dense_sim-0.1.0rc1-cp311-cp311-linux_x86_64.whl
+
+============================================================
+Building Dense wheel with Python 3.12
+Interpreter: /usr/local/bin/python3.12
+============================================================
+Using virtualenv: /home/meganerd/.cache/pypoetry/virtualenvs/dense-wheel-builder-MEfgRQ9g-py3.12
+Installing dependencies from lock file
+
+No dependencies to install or update
+Python 3.12.13
+* Creating isolated environment: venv+pip...
+* Installing packages in isolated environment:
+  - setuptools>=68
+  - wheel
+* Getting build dependencies for wheel...
+running egg_info
+creating src/dense_sim.egg-info
+writing src/dense_sim.egg-info/PKG-INFO
+writing dependency_links to src/dense_sim.egg-info/dependency_links.txt
+writing top-level names to src/dense_sim.egg-info/top_level.txt
+writing manifest file 'src/dense_sim.egg-info/SOURCES.txt'
+reading manifest file 'src/dense_sim.egg-info/SOURCES.txt'
+adding license file 'LICENSE.md'
+adding license file 'COMMERCIAL-LICENSE.md'
+writing manifest file 'src/dense_sim.egg-info/SOURCES.txt'
+* Building wheel...
+running bdist_wheel
+running build
+running build_py
+creating build/lib.linux-x86_64-cpython-312/dense_sim
+copying src/dense_sim/__init__.py -> build/lib.linux-x86_64-cpython-312/dense_sim
+copying src/dense_sim/__init__.pyi -> build/lib.linux-x86_64-cpython-312/dense_sim
+copying src/dense_sim/py.typed -> build/lib.linux-x86_64-cpython-312/dense_sim
+running build_ext
+building 'dense_sim._dense_sim' extension
+creating build/temp.linux-x86_64-cpython-312/src/dense_sim
+gcc -fno-strict-overflow -Wsign-compare -DNDEBUG -g -O3 -Wall -fPIC -I/home/meganerd/Documents/github/libdense/include/dense -I/tmp/build-env-nt5dhxaq/include -I/usr/local/include/python3.12 -c src/dense_sim/_dense_sim.c -o build/temp.linux-x86_64-cpython-312/src/dense_sim/_dense_sim.o -std=c11 -O3 -Wall -Wextra -Wpedantic -Wconversion -Wshadow
+gcc -shared build/temp.linux-x86_64-cpython-312/src/dense_sim/_dense_sim.o /home/meganerd/Documents/github/libdense/lib/linux-x86_64/libdense_sim.a -lm -o build/lib.linux-x86_64-cpython-312/dense_sim/_dense_sim.cpython-312-x86_64-linux-gnu.so
+installing to build/bdist.linux-x86_64/wheel
+running install
+running install_lib
+creating build/bdist.linux-x86_64/wheel
+creating build/bdist.linux-x86_64/wheel/dense_sim
+copying build/lib.linux-x86_64-cpython-312/dense_sim/_dense_sim.cpython-312-x86_64-linux-gnu.so -> build/bdist.linux-x86_64/wheel/./dense_sim
+copying build/lib.linux-x86_64-cpython-312/dense_sim/py.typed -> build/bdist.linux-x86_64/wheel/./dense_sim
+copying build/lib.linux-x86_64-cpython-312/dense_sim/__init__.pyi -> build/bdist.linux-x86_64/wheel/./dense_sim
+copying build/lib.linux-x86_64-cpython-312/dense_sim/__init__.py -> build/bdist.linux-x86_64/wheel/./dense_sim
+running install_egg_info
+running egg_info
+writing src/dense_sim.egg-info/PKG-INFO
+writing dependency_links to src/dense_sim.egg-info/dependency_links.txt
+writing top-level names to src/dense_sim.egg-info/top_level.txt
+reading manifest file 'src/dense_sim.egg-info/SOURCES.txt'
+adding license file 'LICENSE.md'
+adding license file 'COMMERCIAL-LICENSE.md'
+writing manifest file 'src/dense_sim.egg-info/SOURCES.txt'
+Copying src/dense_sim.egg-info to build/bdist.linux-x86_64/wheel/./dense_sim-0.1.0rc1-py3.12.egg-info
+running install_scripts
+creating build/bdist.linux-x86_64/wheel/dense_sim-0.1.0rc1.dist-info/WHEEL
+creating '/home/meganerd/Documents/github/libdense/bindings/python/dist/raw/.tmp-e_4p1ic8/dense_sim-0.1.0rc1-cp312-cp312-linux_x86_64.whl' and adding 'build/bdist.linux-x86_64/wheel' to it
+adding 'dense_sim/__init__.py'
+adding 'dense_sim/__init__.pyi'
+adding 'dense_sim/_dense_sim.cpython-312-x86_64-linux-gnu.so'
+adding 'dense_sim/py.typed'
+adding 'dense_sim-0.1.0rc1.dist-info/licenses/COMMERCIAL-LICENSE.md'
+adding 'dense_sim-0.1.0rc1.dist-info/licenses/LICENSE.md'
+adding 'dense_sim-0.1.0rc1.dist-info/METADATA'
+adding 'dense_sim-0.1.0rc1.dist-info/WHEEL'
+adding 'dense_sim-0.1.0rc1.dist-info/top_level.txt'
+adding 'dense_sim-0.1.0rc1.dist-info/RECORD'
+removing build/bdist.linux-x86_64/wheel
+Successfully built dense_sim-0.1.0rc1-cp312-cp312-linux_x86_64.whl
+
+============================================================
+Building Dense wheel with Python 3.13
+Interpreter: /usr/local/bin/python3.13
+============================================================
+Using virtualenv: /home/meganerd/.cache/pypoetry/virtualenvs/dense-wheel-builder-MEfgRQ9g-py3.13
+Installing dependencies from lock file
+
+No dependencies to install or update
+Python 3.13.14
+* Creating isolated environment: venv+pip...
+* Installing packages in isolated environment:
+  - setuptools>=68
+  - wheel
+* Getting build dependencies for wheel...
+running egg_info
+creating src/dense_sim.egg-info
+writing src/dense_sim.egg-info/PKG-INFO
+writing dependency_links to src/dense_sim.egg-info/dependency_links.txt
+writing top-level names to src/dense_sim.egg-info/top_level.txt
+writing manifest file 'src/dense_sim.egg-info/SOURCES.txt'
+reading manifest file 'src/dense_sim.egg-info/SOURCES.txt'
+adding license file 'LICENSE.md'
+adding license file 'COMMERCIAL-LICENSE.md'
+writing manifest file 'src/dense_sim.egg-info/SOURCES.txt'
+* Building wheel...
+running bdist_wheel
+running build
+running build_py
+creating build/lib.linux-x86_64-cpython-313/dense_sim
+copying src/dense_sim/__init__.py -> build/lib.linux-x86_64-cpython-313/dense_sim
+copying src/dense_sim/__init__.pyi -> build/lib.linux-x86_64-cpython-313/dense_sim
+copying src/dense_sim/py.typed -> build/lib.linux-x86_64-cpython-313/dense_sim
+running build_ext
+building 'dense_sim._dense_sim' extension
+creating build/temp.linux-x86_64-cpython-313/src/dense_sim
+gcc -fno-strict-overflow -Wsign-compare -DNDEBUG -g -O3 -Wall -fPIC -I/home/meganerd/Documents/github/libdense/include/dense -I/tmp/build-env-dbq4lto_/include -I/usr/local/include/python3.13 -c src/dense_sim/_dense_sim.c -o build/temp.linux-x86_64-cpython-313/src/dense_sim/_dense_sim.o -std=c11 -O3 -Wall -Wextra -Wpedantic -Wconversion -Wshadow
+gcc -shared build/temp.linux-x86_64-cpython-313/src/dense_sim/_dense_sim.o /home/meganerd/Documents/github/libdense/lib/linux-x86_64/libdense_sim.a -lm -o build/lib.linux-x86_64-cpython-313/dense_sim/_dense_sim.cpython-313-x86_64-linux-gnu.so
+installing to build/bdist.linux-x86_64/wheel
+running install
+running install_lib
+creating build/bdist.linux-x86_64/wheel
+creating build/bdist.linux-x86_64/wheel/dense_sim
+copying build/lib.linux-x86_64-cpython-313/dense_sim/_dense_sim.cpython-313-x86_64-linux-gnu.so -> build/bdist.linux-x86_64/wheel/./dense_sim
+copying build/lib.linux-x86_64-cpython-313/dense_sim/py.typed -> build/bdist.linux-x86_64/wheel/./dense_sim
+copying build/lib.linux-x86_64-cpython-313/dense_sim/__init__.pyi -> build/bdist.linux-x86_64/wheel/./dense_sim
+copying build/lib.linux-x86_64-cpython-313/dense_sim/__init__.py -> build/bdist.linux-x86_64/wheel/./dense_sim
+running install_egg_info
+running egg_info
+writing src/dense_sim.egg-info/PKG-INFO
+writing dependency_links to src/dense_sim.egg-info/dependency_links.txt
+writing top-level names to src/dense_sim.egg-info/top_level.txt
+reading manifest file 'src/dense_sim.egg-info/SOURCES.txt'
+adding license file 'LICENSE.md'
+adding license file 'COMMERCIAL-LICENSE.md'
+writing manifest file 'src/dense_sim.egg-info/SOURCES.txt'
+Copying src/dense_sim.egg-info to build/bdist.linux-x86_64/wheel/./dense_sim-0.1.0rc1-py3.13.egg-info
+running install_scripts
+creating build/bdist.linux-x86_64/wheel/dense_sim-0.1.0rc1.dist-info/WHEEL
+creating '/home/meganerd/Documents/github/libdense/bindings/python/dist/raw/.tmp-qxg1214s/dense_sim-0.1.0rc1-cp313-cp313-linux_x86_64.whl' and adding 'build/bdist.linux-x86_64/wheel' to it
+adding 'dense_sim/__init__.py'
+adding 'dense_sim/__init__.pyi'
+adding 'dense_sim/_dense_sim.cpython-313-x86_64-linux-gnu.so'
+adding 'dense_sim/py.typed'
+adding 'dense_sim-0.1.0rc1.dist-info/licenses/COMMERCIAL-LICENSE.md'
+adding 'dense_sim-0.1.0rc1.dist-info/licenses/LICENSE.md'
+adding 'dense_sim-0.1.0rc1.dist-info/METADATA'
+adding 'dense_sim-0.1.0rc1.dist-info/WHEEL'
+adding 'dense_sim-0.1.0rc1.dist-info/top_level.txt'
+adding 'dense_sim-0.1.0rc1.dist-info/RECORD'
+removing build/bdist.linux-x86_64/wheel
+Successfully built dense_sim-0.1.0rc1-cp313-cp313-linux_x86_64.whl
+
+============================================================
+Building Dense wheel with Python 3.14
+Interpreter: /usr/local/bin/python3.14
+============================================================
+Using virtualenv: /home/meganerd/.cache/pypoetry/virtualenvs/dense-wheel-builder-MEfgRQ9g-py3.14
+Installing dependencies from lock file
+
+No dependencies to install or update
+Python 3.14.6
+* Creating isolated environment: venv+pip...
+* Installing packages in isolated environment:
+  - setuptools>=68
+  - wheel
+* Getting build dependencies for wheel...
+running egg_info
+creating src/dense_sim.egg-info
+writing src/dense_sim.egg-info/PKG-INFO
+writing dependency_links to src/dense_sim.egg-info/dependency_links.txt
+writing top-level names to src/dense_sim.egg-info/top_level.txt
+writing manifest file 'src/dense_sim.egg-info/SOURCES.txt'
+reading manifest file 'src/dense_sim.egg-info/SOURCES.txt'
+adding license file 'LICENSE.md'
+adding license file 'COMMERCIAL-LICENSE.md'
+writing manifest file 'src/dense_sim.egg-info/SOURCES.txt'
+* Building wheel...
+running bdist_wheel
+running build
+running build_py
+creating build/lib.linux-x86_64-cpython-314/dense_sim
+copying src/dense_sim/__init__.py -> build/lib.linux-x86_64-cpython-314/dense_sim
+copying src/dense_sim/__init__.pyi -> build/lib.linux-x86_64-cpython-314/dense_sim
+copying src/dense_sim/py.typed -> build/lib.linux-x86_64-cpython-314/dense_sim
+running build_ext
+building 'dense_sim._dense_sim' extension
+creating build/temp.linux-x86_64-cpython-314/src/dense_sim
+gcc -fno-strict-overflow -Wsign-compare -DNDEBUG -g -O3 -Wall -O3 -march=native -pipe -fno-semantic-interposition -O3 -march=native -pipe -fno-semantic-interposition -fPIC -I/home/meganerd/Documents/github/libdense/include/dense -I/tmp/build-env-q9ti3hlw/include -I/usr/local/include/python3.14 -c src/dense_sim/_dense_sim.c -o build/temp.linux-x86_64-cpython-314/src/dense_sim/_dense_sim.o -std=c11 -O3 -Wall -Wextra -Wpedantic -Wconversion -Wshadow
+gcc -shared -Wl,-O2 -Wl,-O2 build/temp.linux-x86_64-cpython-314/src/dense_sim/_dense_sim.o /home/meganerd/Documents/github/libdense/lib/linux-x86_64/libdense_sim.a -L/usr/local/lib -lm -o build/lib.linux-x86_64-cpython-314/dense_sim/_dense_sim.cpython-314-x86_64-linux-gnu.so
+installing to build/bdist.linux-x86_64/wheel
+running install
+running install_lib
+creating build/bdist.linux-x86_64/wheel
+creating build/bdist.linux-x86_64/wheel/dense_sim
+copying build/lib.linux-x86_64-cpython-314/dense_sim/_dense_sim.cpython-314-x86_64-linux-gnu.so -> build/bdist.linux-x86_64/wheel/./dense_sim
+copying build/lib.linux-x86_64-cpython-314/dense_sim/py.typed -> build/bdist.linux-x86_64/wheel/./dense_sim
+copying build/lib.linux-x86_64-cpython-314/dense_sim/__init__.pyi -> build/bdist.linux-x86_64/wheel/./dense_sim
+copying build/lib.linux-x86_64-cpython-314/dense_sim/__init__.py -> build/bdist.linux-x86_64/wheel/./dense_sim
+running install_egg_info
+running egg_info
+writing src/dense_sim.egg-info/PKG-INFO
+writing dependency_links to src/dense_sim.egg-info/dependency_links.txt
+writing top-level names to src/dense_sim.egg-info/top_level.txt
+reading manifest file 'src/dense_sim.egg-info/SOURCES.txt'
+adding license file 'LICENSE.md'
+adding license file 'COMMERCIAL-LICENSE.md'
+writing manifest file 'src/dense_sim.egg-info/SOURCES.txt'
+Copying src/dense_sim.egg-info to build/bdist.linux-x86_64/wheel/./dense_sim-0.1.0rc1-py3.14.egg-info
+running install_scripts
+creating build/bdist.linux-x86_64/wheel/dense_sim-0.1.0rc1.dist-info/WHEEL
+creating '/home/meganerd/Documents/github/libdense/bindings/python/dist/raw/.tmp-uxfofn5v/dense_sim-0.1.0rc1-cp314-cp314-linux_x86_64.whl' and adding 'build/bdist.linux-x86_64/wheel' to it
+adding 'dense_sim/__init__.py'
+adding 'dense_sim/__init__.pyi'
+adding 'dense_sim/_dense_sim.cpython-314-x86_64-linux-gnu.so'
+adding 'dense_sim/py.typed'
+adding 'dense_sim-0.1.0rc1.dist-info/licenses/COMMERCIAL-LICENSE.md'
+adding 'dense_sim-0.1.0rc1.dist-info/licenses/LICENSE.md'
+adding 'dense_sim-0.1.0rc1.dist-info/METADATA'
+adding 'dense_sim-0.1.0rc1.dist-info/WHEEL'
+adding 'dense_sim-0.1.0rc1.dist-info/top_level.txt'
+adding 'dense_sim-0.1.0rc1.dist-info/RECORD'
+removing build/bdist.linux-x86_64/wheel
+Successfully built dense_sim-0.1.0rc1-cp314-cp314-linux_x86_64.whl
+
+Raw wheels:
+  dense_sim-0.1.0rc1-cp311-cp311-linux_x86_64.whl
+  dense_sim-0.1.0rc1-cp312-cp312-linux_x86_64.whl
+  dense_sim-0.1.0rc1-cp313-cp313-linux_x86_64.whl
+  dense_sim-0.1.0rc1-cp314-cp314-linux_x86_64.whl
+
+Repairing wheels as manylinux_2_17_x86_64...
+Using virtualenv: /home/meganerd/.cache/pypoetry/virtualenvs/dense-wheel-builder-MEfgRQ9g-py3.13
+Installing dependencies from lock file
+
+No dependencies to install or update
+
+Inspecting dense_sim-0.1.0rc1-cp311-cp311-linux_x86_64.whl
+INFO:auditwheel.wheel_abi:setting libc to glibc
+
+dense_sim-0.1.0rc1-cp311-cp311-linux_x86_64.whl is consistent with the
+following platform tag: "manylinux_2_17_x86_64".
+
+The wheel references external versioned symbols in these
+system-provided shared libraries: libm.so.6 with versions
+{'GLIBC_2.2.5'}, libc.so.6 with versions {'GLIBC_2.14', 'GLIBC_2.2.5',
+'GLIBC_2.4'}
+
+This constrains the platform tag to "manylinux_2_17_x86_64". In order
+to achieve a more compatible tag, you would need to recompile a new
+wheel from source on a system with earlier versions of these
+libraries, such as a recent manylinux image.
+INFO:auditwheel.main_repair:Repairing dense_sim-0.1.0rc1-cp311-cp311-linux_x86_64.whl
+INFO:auditwheel.wheeltools:Previous filename tags: linux_x86_64
+INFO:auditwheel.wheeltools:New filename tags: manylinux_2_17_x86_64, manylinux2014_x86_64
+INFO:auditwheel.wheeltools:Previous WHEEL info tags: cp311-cp311-linux_x86_64
+INFO:auditwheel.wheeltools:New WHEEL info tags: cp311-cp311-manylinux_2_17_x86_64, cp311-cp311-manylinux2014_x86_64
+INFO:auditwheel.main_repair:
+Fixed-up wheel written to /home/meganerd/Documents/github/libdense/bindings/python/dist/wheelhouse/dense_sim-0.1.0rc1-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.whl
+
+Inspecting dense_sim-0.1.0rc1-cp312-cp312-linux_x86_64.whl
+INFO:auditwheel.wheel_abi:setting libc to glibc
+
+dense_sim-0.1.0rc1-cp312-cp312-linux_x86_64.whl is consistent with the
+following platform tag: "manylinux_2_17_x86_64".
+
+The wheel references external versioned symbols in these
+system-provided shared libraries: libm.so.6 with versions
+{'GLIBC_2.2.5'}, libc.so.6 with versions {'GLIBC_2.14', 'GLIBC_2.2.5'}
+
+This constrains the platform tag to "manylinux_2_17_x86_64". In order
+to achieve a more compatible tag, you would need to recompile a new
+wheel from source on a system with earlier versions of these
+libraries, such as a recent manylinux image.
+INFO:auditwheel.main_repair:Repairing dense_sim-0.1.0rc1-cp312-cp312-linux_x86_64.whl
+INFO:auditwheel.wheeltools:Previous filename tags: linux_x86_64
+INFO:auditwheel.wheeltools:New filename tags: manylinux_2_17_x86_64, manylinux2014_x86_64
+INFO:auditwheel.wheeltools:Previous WHEEL info tags: cp312-cp312-linux_x86_64
+INFO:auditwheel.wheeltools:New WHEEL info tags: cp312-cp312-manylinux_2_17_x86_64, cp312-cp312-manylinux2014_x86_64
+INFO:auditwheel.main_repair:
+Fixed-up wheel written to /home/meganerd/Documents/github/libdense/bindings/python/dist/wheelhouse/dense_sim-0.1.0rc1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl
+
+Inspecting dense_sim-0.1.0rc1-cp313-cp313-linux_x86_64.whl
+INFO:auditwheel.wheel_abi:setting libc to glibc
+
+dense_sim-0.1.0rc1-cp313-cp313-linux_x86_64.whl is consistent with the
+following platform tag: "manylinux_2_17_x86_64".
+
+The wheel references external versioned symbols in these
+system-provided shared libraries: libm.so.6 with versions
+{'GLIBC_2.2.5'}, libc.so.6 with versions {'GLIBC_2.14', 'GLIBC_2.2.5'}
+
+This constrains the platform tag to "manylinux_2_17_x86_64". In order
+to achieve a more compatible tag, you would need to recompile a new
+wheel from source on a system with earlier versions of these
+libraries, such as a recent manylinux image.
+INFO:auditwheel.main_repair:Repairing dense_sim-0.1.0rc1-cp313-cp313-linux_x86_64.whl
+INFO:auditwheel.wheeltools:Previous filename tags: linux_x86_64
+INFO:auditwheel.wheeltools:New filename tags: manylinux_2_17_x86_64, manylinux2014_x86_64
+INFO:auditwheel.wheeltools:Previous WHEEL info tags: cp313-cp313-linux_x86_64
+INFO:auditwheel.wheeltools:New WHEEL info tags: cp313-cp313-manylinux_2_17_x86_64, cp313-cp313-manylinux2014_x86_64
+INFO:auditwheel.main_repair:
+Fixed-up wheel written to /home/meganerd/Documents/github/libdense/bindings/python/dist/wheelhouse/dense_sim-0.1.0rc1-cp313-cp313-manylinux2014_x86_64.manylinux_2_17_x86_64.whl
+
+Inspecting dense_sim-0.1.0rc1-cp314-cp314-linux_x86_64.whl
+INFO:auditwheel.wheel_abi:setting libc to glibc
+
+dense_sim-0.1.0rc1-cp314-cp314-linux_x86_64.whl is consistent with the
+following platform tag: "manylinux_2_17_x86_64".
+
+The wheel references external versioned symbols in these
+system-provided shared libraries: libm.so.6 with versions
+{'GLIBC_2.2.5'}, libc.so.6 with versions {'GLIBC_2.14', 'GLIBC_2.2.5'}
+
+This constrains the platform tag to "manylinux_2_17_x86_64". In order
+to achieve a more compatible tag, you would need to recompile a new
+wheel from source on a system with earlier versions of these
+libraries, such as a recent manylinux image.
+INFO:auditwheel.main_repair:Repairing dense_sim-0.1.0rc1-cp314-cp314-linux_x86_64.whl
+INFO:auditwheel.wheeltools:Previous filename tags: linux_x86_64
+INFO:auditwheel.wheeltools:New filename tags: manylinux_2_17_x86_64, manylinux2014_x86_64
+INFO:auditwheel.wheeltools:Previous WHEEL info tags: cp314-cp314-linux_x86_64
+INFO:auditwheel.wheeltools:New WHEEL info tags: cp314-cp314-manylinux_2_17_x86_64, cp314-cp314-manylinux2014_x86_64
+INFO:auditwheel.main_repair:
+Fixed-up wheel written to /home/meganerd/Documents/github/libdense/bindings/python/dist/wheelhouse/dense_sim-0.1.0rc1-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.whl
+
+Checking final wheel metadata...
+Checking /home/meganerd/Documents/github/libdense/bindings/python/dist/wheelhouse/dense_sim-0.1.0rc1-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.whl: [32mPASSED[0m
+Checking /home/meganerd/Documents/github/libdense/bindings/python/dist/wheelhouse/dense_sim-0.1.0rc1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl: [32mPASSED[0m
+Checking /home/meganerd/Documents/github/libdense/bindings/python/dist/wheelhouse/dense_sim-0.1.0rc1-cp313-cp313-manylinux2014_x86_64.manylinux_2_17_x86_64.whl: [32mPASSED[0m
+Checking /home/meganerd/Documents/github/libdense/bindings/python/dist/wheelhouse/dense_sim-0.1.0rc1-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.whl: [32mPASSED[0m
+
+Testing each wheel with its matching interpreter...
+
+Testing Python 3.11 with dense_sim-0.1.0rc1-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.whl
+Using virtualenv: /home/meganerd/.cache/pypoetry/virtualenvs/dense-wheel-builder-MEfgRQ9g-py3.11
+Installing dependencies from lock file
+
+No dependencies to install or update
+Processing /home/meganerd/Documents/github/libdense/bindings/python/dist/wheelhouse/dense_sim-0.1.0rc1-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.whl
+Installing collected packages: dense-sim
+Successfully installed dense-sim-0.1.0rc1
+Python 3.11.2: dense_sim 0.1.0rc1
+
+Testing Python 3.12 with dense_sim-0.1.0rc1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl
+Using virtualenv: /home/meganerd/.cache/pypoetry/virtualenvs/dense-wheel-builder-MEfgRQ9g-py3.12
+Installing dependencies from lock file
+
+No dependencies to install or update
+Processing /home/meganerd/Documents/github/libdense/bindings/python/dist/wheelhouse/dense_sim-0.1.0rc1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl
+Installing collected packages: dense-sim
+Successfully installed dense-sim-0.1.0rc1
+Python 3.12.13: dense_sim 0.1.0rc1
+
+Testing Python 3.13 with dense_sim-0.1.0rc1-cp313-cp313-manylinux2014_x86_64.manylinux_2_17_x86_64.whl
+Using virtualenv: /home/meganerd/.cache/pypoetry/virtualenvs/dense-wheel-builder-MEfgRQ9g-py3.13
+Installing dependencies from lock file
+
+No dependencies to install or update
+Processing /home/meganerd/Documents/github/libdense/bindings/python/dist/wheelhouse/dense_sim-0.1.0rc1-cp313-cp313-manylinux2014_x86_64.manylinux_2_17_x86_64.whl
+Installing collected packages: dense-sim
+Successfully installed dense-sim-0.1.0rc1
+Python 3.13.14: dense_sim 0.1.0rc1
+
+Testing Python 3.14 with dense_sim-0.1.0rc1-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.whl
+Using virtualenv: /home/meganerd/.cache/pypoetry/virtualenvs/dense-wheel-builder-MEfgRQ9g-py3.14
+Installing dependencies from lock file
+
+No dependencies to install or update
+Processing /home/meganerd/Documents/github/libdense/bindings/python/dist/wheelhouse/dense_sim-0.1.0rc1-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.whl
+Installing collected packages: dense-sim
+Successfully installed dense-sim-0.1.0rc1
+Python 3.14.6: dense_sim 0.1.0rc1
+
+============================================================
+BUILD COMPLETE
+============================================================
+
+Poetry environments:
+/home/meganerd/.cache/pypoetry/virtualenvs/dense-wheel-builder-MEfgRQ9g-py3.11
+/home/meganerd/.cache/pypoetry/virtualenvs/dense-wheel-builder-MEfgRQ9g-py3.12
+/home/meganerd/.cache/pypoetry/virtualenvs/dense-wheel-builder-MEfgRQ9g-py3.13
+/home/meganerd/.cache/pypoetry/virtualenvs/dense-wheel-builder-MEfgRQ9g-py3.14 (Activated)
+
+Final PyPI wheels:
+  /home/meganerd/Documents/github/libdense/bindings/python/dist/wheelhouse/dense_sim-0.1.0rc1-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.whl
+  /home/meganerd/Documents/github/libdense/bindings/python/dist/wheelhouse/dense_sim-0.1.0rc1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl
+  /home/meganerd/Documents/github/libdense/bindings/python/dist/wheelhouse/dense_sim-0.1.0rc1-cp313-cp313-manylinux2014_x86_64.manylinux_2_17_x86_64.whl
+  /home/meganerd/Documents/github/libdense/bindings/python/dist/wheelhouse/dense_sim-0.1.0rc1-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.whl
+
+SHA-256 checksums:
+99f4233831c84254974bb5f54ddae0db538f9b78485da1be1fe9dda46dd25691  ./dense_sim-0.1.0rc1-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.whl
+9868d876cd1fc35ff76c5d71b937edcc0280eec841741111fc6921bf6121cb3a  ./dense_sim-0.1.0rc1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl
+6148576b79ce9ec52f4c729b591fc1ea180240972956f3617e6ce31af4a504c5  ./dense_sim-0.1.0rc1-cp313-cp313-manylinux2014_x86_64.manylinux_2_17_x86_64.whl
+c8cfeea342e5dc93684c98a54ac96e52457a332328dad0af980c66d7dddc273c  ./dense_sim-0.1.0rc1-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.whl
+
+Upload only the wheels from:
+  /home/meganerd/Documents/github/libdense/bindings/python/dist/wheelhouse
+
+Dense Python wheel build completed successfully.
+Final wheels: /home/meganerd/Documents/github/libdense/bindings/python/dist/wheelhouse
+
+Press Enter to close...

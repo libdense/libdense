@@ -1,0 +1,11 @@
+stage/
+package/
+SHA256SUMS.tmp
+bindings/python/build/
+bindings/python/*.egg-info/
+bindings/python/src/*.egg-info/
+bindings/python/src/dense_sim/_dense_sim*.so
+bindings/cpp/build/
+bindings/rust/target/
+**/__pycache__/
+*.pyc

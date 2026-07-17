@@ -1,0 +1,12 @@
+prefix=@PREFIX@
+exec_prefix=${prefix}
+libdir=${prefix}/@LIBDIR@
+includedir=${prefix}/include/dense
+
+Name: libdensedb
+Description: DenseDB spatial state database
+Version: @VERSION@
+Requires: libdense_sim >= 0.1.0
+Libs: -L${libdir} -ldensedb
+Libs.private: -lm
+Cflags: -I${includedir}

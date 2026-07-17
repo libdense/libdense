@@ -1,0 +1,11 @@
+prefix=@PREFIX@
+exec_prefix=${prefix}
+libdir=${prefix}/@LIBDIR@
+includedir=${prefix}/include/dense
+
+Name: libdense_sim
+Description: Dense spatial subscription and fanout planning kernel
+Version: @VERSION@
+Libs: -L${libdir} -ldense_sim
+Libs.private: -lm
+Cflags: -I${includedir}

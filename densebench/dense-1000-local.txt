@@ -1,0 +1,162 @@
+===== RUN 1 =====
+milestone 6 dense_all_to_all: 1000 players, 100 ticks, 24x24 box
+  scenario matches reference random walk; every player is an anchored radius-40 observer
+known-slot core path
+  mean 0.277 ms  p50 0.274  p95 0.295  p99 0.424  worst 0.424
+  phase mean: mutation 0.034 ms  subscriptions 0.164 ms  fanout 0.078 ms
+  work/tick: dirty=868.3 channels=868.3 cell_cross=106.6 chunk_cross=54.3
+             obs_trans=53.7 enter=0.0 leave=0.0 groups=4.0 deltas=868.3
+             subscriber_refs=4000.0 implied_deliveries=868300.0
+  reserved: persistent 68.86 MiB  tick/fanout 24.37 MiB
+public-ID C ABI path
+  mean 0.290 ms  p50 0.288  p95 0.305  p99 0.400  worst 0.400
+  phase mean: mutation 0.047 ms  subscriptions 0.165 ms  fanout 0.078 ms
+  work/tick: dirty=868.3 channels=868.3 cell_cross=106.6 chunk_cross=54.3
+             obs_trans=53.7 enter=0.0 leave=0.0 groups=4.0 deltas=868.3
+             subscriber_refs=4000.0 implied_deliveries=868300.0
+  reserved: persistent 68.86 MiB  tick/fanout 24.37 MiB
+  public/core mean ratio: 1.05x
+===== RUN 2 =====
+milestone 6 dense_all_to_all: 1000 players, 100 ticks, 24x24 box
+  scenario matches reference random walk; every player is an anchored radius-40 observer
+known-slot core path
+  mean 0.280 ms  p50 0.277  p95 0.294  p99 0.412  worst 0.412
+  phase mean: mutation 0.035 ms  subscriptions 0.166 ms  fanout 0.078 ms
+  work/tick: dirty=868.3 channels=868.3 cell_cross=106.6 chunk_cross=54.3
+             obs_trans=53.7 enter=0.0 leave=0.0 groups=4.0 deltas=868.3
+             subscriber_refs=4000.0 implied_deliveries=868300.0
+  reserved: persistent 68.86 MiB  tick/fanout 24.37 MiB
+public-ID C ABI path
+  mean 0.286 ms  p50 0.284  p95 0.304  p99 0.393  worst 0.393
+  phase mean: mutation 0.048 ms  subscriptions 0.160 ms  fanout 0.078 ms
+  work/tick: dirty=868.3 channels=868.3 cell_cross=106.6 chunk_cross=54.3
+             obs_trans=53.7 enter=0.0 leave=0.0 groups=4.0 deltas=868.3
+             subscriber_refs=4000.0 implied_deliveries=868300.0
+  reserved: persistent 68.86 MiB  tick/fanout 24.37 MiB
+  public/core mean ratio: 1.02x
+===== RUN 3 =====
+milestone 6 dense_all_to_all: 1000 players, 100 ticks, 24x24 box
+  scenario matches reference random walk; every player is an anchored radius-40 observer
+known-slot core path
+  mean 0.278 ms  p50 0.275  p95 0.295  p99 0.410  worst 0.410
+  phase mean: mutation 0.035 ms  subscriptions 0.165 ms  fanout 0.078 ms
+  work/tick: dirty=868.3 channels=868.3 cell_cross=106.6 chunk_cross=54.3
+             obs_trans=53.7 enter=0.0 leave=0.0 groups=4.0 deltas=868.3
+             subscriber_refs=4000.0 implied_deliveries=868300.0
+  reserved: persistent 68.86 MiB  tick/fanout 24.37 MiB
+public-ID C ABI path
+  mean 0.286 ms  p50 0.284  p95 0.303  p99 0.395  worst 0.395
+  phase mean: mutation 0.047 ms  subscriptions 0.161 ms  fanout 0.078 ms
+  work/tick: dirty=868.3 channels=868.3 cell_cross=106.6 chunk_cross=54.3
+             obs_trans=53.7 enter=0.0 leave=0.0 groups=4.0 deltas=868.3
+             subscriber_refs=4000.0 implied_deliveries=868300.0
+  reserved: persistent 68.86 MiB  tick/fanout 24.37 MiB
+  public/core mean ratio: 1.03x
+===== RUN 4 =====
+milestone 6 dense_all_to_all: 1000 players, 100 ticks, 24x24 box
+  scenario matches reference random walk; every player is an anchored radius-40 observer
+known-slot core path
+  mean 0.277 ms  p50 0.274  p95 0.295  p99 0.416  worst 0.416
+  phase mean: mutation 0.035 ms  subscriptions 0.164 ms  fanout 0.078 ms
+  work/tick: dirty=868.3 channels=868.3 cell_cross=106.6 chunk_cross=54.3
+             obs_trans=53.7 enter=0.0 leave=0.0 groups=4.0 deltas=868.3
+             subscriber_refs=4000.0 implied_deliveries=868300.0
+  reserved: persistent 68.86 MiB  tick/fanout 24.37 MiB
+public-ID C ABI path
+  mean 0.286 ms  p50 0.283  p95 0.303  p99 0.392  worst 0.392
+  phase mean: mutation 0.047 ms  subscriptions 0.161 ms  fanout 0.078 ms
+  work/tick: dirty=868.3 channels=868.3 cell_cross=106.6 chunk_cross=54.3
+             obs_trans=53.7 enter=0.0 leave=0.0 groups=4.0 deltas=868.3
+             subscriber_refs=4000.0 implied_deliveries=868300.0
+  reserved: persistent 68.86 MiB  tick/fanout 24.37 MiB
+  public/core mean ratio: 1.03x
+===== RUN 5 =====
+milestone 6 dense_all_to_all: 1000 players, 100 ticks, 24x24 box
+  scenario matches reference random walk; every player is an anchored radius-40 observer
+known-slot core path
+  mean 0.278 ms  p50 0.275  p95 0.295  p99 0.428  worst 0.428
+  phase mean: mutation 0.034 ms  subscriptions 0.165 ms  fanout 0.079 ms
+  work/tick: dirty=868.3 channels=868.3 cell_cross=106.6 chunk_cross=54.3
+             obs_trans=53.7 enter=0.0 leave=0.0 groups=4.0 deltas=868.3
+             subscriber_refs=4000.0 implied_deliveries=868300.0
+  reserved: persistent 68.86 MiB  tick/fanout 24.37 MiB
+public-ID C ABI path
+  mean 0.288 ms  p50 0.285  p95 0.305  p99 0.397  worst 0.397
+  phase mean: mutation 0.047 ms  subscriptions 0.163 ms  fanout 0.078 ms
+  work/tick: dirty=868.3 channels=868.3 cell_cross=106.6 chunk_cross=54.3
+             obs_trans=53.7 enter=0.0 leave=0.0 groups=4.0 deltas=868.3
+             subscriber_refs=4000.0 implied_deliveries=868300.0
+  reserved: persistent 68.86 MiB  tick/fanout 24.37 MiB
+  public/core mean ratio: 1.04x
+===== RUN 6 =====
+milestone 6 dense_all_to_all: 1000 players, 100 ticks, 24x24 box
+  scenario matches reference random walk; every player is an anchored radius-40 observer
+known-slot core path
+  mean 0.276 ms  p50 0.274  p95 0.292  p99 0.427  worst 0.427
+  phase mean: mutation 0.034 ms  subscriptions 0.163 ms  fanout 0.078 ms
+  work/tick: dirty=868.3 channels=868.3 cell_cross=106.6 chunk_cross=54.3
+             obs_trans=53.7 enter=0.0 leave=0.0 groups=4.0 deltas=868.3
+             subscriber_refs=4000.0 implied_deliveries=868300.0
+  reserved: persistent 68.86 MiB  tick/fanout 24.37 MiB
+public-ID C ABI path
+  mean 0.288 ms  p50 0.287  p95 0.303  p99 0.400  worst 0.400
+  phase mean: mutation 0.048 ms  subscriptions 0.163 ms  fanout 0.078 ms
+  work/tick: dirty=868.3 channels=868.3 cell_cross=106.6 chunk_cross=54.3
+             obs_trans=53.7 enter=0.0 leave=0.0 groups=4.0 deltas=868.3
+             subscriber_refs=4000.0 implied_deliveries=868300.0
+  reserved: persistent 68.86 MiB  tick/fanout 24.37 MiB
+  public/core mean ratio: 1.04x
+===== RUN 7 =====
+milestone 6 dense_all_to_all: 1000 players, 100 ticks, 24x24 box
+  scenario matches reference random walk; every player is an anchored radius-40 observer
+known-slot core path
+  mean 0.278 ms  p50 0.275  p95 0.292  p99 0.415  worst 0.415
+  phase mean: mutation 0.034 ms  subscriptions 0.165 ms  fanout 0.079 ms
+  work/tick: dirty=868.3 channels=868.3 cell_cross=106.6 chunk_cross=54.3
+             obs_trans=53.7 enter=0.0 leave=0.0 groups=4.0 deltas=868.3
+             subscriber_refs=4000.0 implied_deliveries=868300.0
+  reserved: persistent 68.86 MiB  tick/fanout 24.37 MiB
+public-ID C ABI path
+  mean 0.293 ms  p50 0.292  p95 0.310  p99 0.399  worst 0.399
+  phase mean: mutation 0.048 ms  subscriptions 0.167 ms  fanout 0.078 ms
+  work/tick: dirty=868.3 channels=868.3 cell_cross=106.6 chunk_cross=54.3
+             obs_trans=53.7 enter=0.0 leave=0.0 groups=4.0 deltas=868.3
+             subscriber_refs=4000.0 implied_deliveries=868300.0
+  reserved: persistent 68.86 MiB  tick/fanout 24.37 MiB
+  public/core mean ratio: 1.06x
+===== RUN 8 =====
+milestone 6 dense_all_to_all: 1000 players, 100 ticks, 24x24 box
+  scenario matches reference random walk; every player is an anchored radius-40 observer
+known-slot core path
+  mean 0.278 ms  p50 0.275  p95 0.295  p99 0.420  worst 0.420
+  phase mean: mutation 0.034 ms  subscriptions 0.165 ms  fanout 0.078 ms
+  work/tick: dirty=868.3 channels=868.3 cell_cross=106.6 chunk_cross=54.3
+             obs_trans=53.7 enter=0.0 leave=0.0 groups=4.0 deltas=868.3
+             subscriber_refs=4000.0 implied_deliveries=868300.0
+  reserved: persistent 68.86 MiB  tick/fanout 24.37 MiB
+public-ID C ABI path
+  mean 0.286 ms  p50 0.283  p95 0.305  p99 0.396  worst 0.396
+  phase mean: mutation 0.047 ms  subscriptions 0.161 ms  fanout 0.078 ms
+  work/tick: dirty=868.3 channels=868.3 cell_cross=106.6 chunk_cross=54.3
+             obs_trans=53.7 enter=0.0 leave=0.0 groups=4.0 deltas=868.3
+             subscriber_refs=4000.0 implied_deliveries=868300.0
+  reserved: persistent 68.86 MiB  tick/fanout 24.37 MiB
+  public/core mean ratio: 1.03x
+===== RUN 9 =====
+milestone 6 dense_all_to_all: 1000 players, 100 ticks, 24x24 box
+  scenario matches reference random walk; every player is an anchored radius-40 observer
+known-slot core path
+  mean 0.278 ms  p50 0.275  p95 0.293  p99 0.414  worst 0.414
+  phase mean: mutation 0.035 ms  subscriptions 0.165 ms  fanout 0.078 ms
+  work/tick: dirty=868.3 channels=868.3 cell_cross=106.6 chunk_cross=54.3
+             obs_trans=53.7 enter=0.0 leave=0.0 groups=4.0 deltas=868.3
+             subscriber_refs=4000.0 implied_deliveries=868300.0
+  reserved: persistent 68.86 MiB  tick/fanout 24.37 MiB
+public-ID C ABI path
+  mean 0.290 ms  p50 0.288  p95 0.308  p99 0.403  worst 0.403
+  phase mean: mutation 0.049 ms  subscriptions 0.163 ms  fanout 0.078 ms
+  work/tick: dirty=868.3 channels=868.3 cell_cross=106.6 chunk_cross=54.3
+             obs_trans=53.7 enter=0.0 leave=0.0 groups=4.0 deltas=868.3
+             subscriber_refs=4000.0 implied_deliveries=868300.0
+  reserved: persistent 68.86 MiB  tick/fanout 24.37 MiB
+  public/core mean ratio: 1.05x

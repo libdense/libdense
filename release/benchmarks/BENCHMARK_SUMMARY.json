@@ -1,0 +1,85 @@
+{
+  "cpp_binding": {
+    "c_ns": 17.96,
+    "cpp_ns": 17.94,
+    "ratio": 0.993
+  },
+  "dense_box": {
+    "core_ms": 0.258,
+    "deltas_per_tick": 868.3,
+    "dirty_per_tick": 868.3,
+    "fanout_ms": 0.073,
+    "groups_per_tick": 4.0,
+    "implied_deliveries_per_tick": 868300.0,
+    "mutation_ms": 0.033,
+    "naive_ms": 18.238,
+    "optimized_ms": 0.406,
+    "subscriber_refs_per_tick": 4000.0,
+    "subscriptions_ms": 0.151
+  },
+  "densedb10": {
+    "appearance_ms": 15.888,
+    "bytes": 558600000,
+    "position_ms": 17.531,
+    "scan_ms": 0.054,
+    "vitals_ms": 12.85,
+    "writes": 8400000
+  },
+  "densedb11": {
+    "deltas_per_tick": 120000,
+    "fields_per_tick": 180000,
+    "snapshot_ms": 1.61,
+    "unselected_finalize_ms": 0.05,
+    "vitals_finalize_ms": 0.064,
+    "watch_finalize_ms": 5.867,
+    "watch_move_ms": 0.039
+  },
+  "densedb12": {
+    "checkpoint_ms": 17.153,
+    "empty_sync_commit_ms": 0.021,
+    "initial_commit_ms": 14.742,
+    "snapshot_bytes": 1040299,
+    "snapshot_recovery_ms": 19.946,
+    "snapshot_wal_recovery_ms": 136.009,
+    "update_build_ms": 0.613,
+    "wal_bytes": 5803232,
+    "wal_commit_ms": 0.285
+  },
+  "derived": {
+    "dirty_entities_per_second": 2994137.9310344825,
+    "implied_deliveries_per_second": 2994137931.034483,
+    "invalid_implied_to_spacetimedb_ratio": 9851.730491690192,
+    "materialization_avoidance_ratio": 178.35794835979704,
+    "naive_speedup": 70.68992248062015,
+    "optimized_time_ratio": 1.5736434108527133,
+    "rc_ticks_per_second": 3448.2758620689656,
+    "repair_speedup": 9.879844961240309
+  },
+  "generated": "2026-07-15",
+  "kinetic": {
+    "k10_vs_core": 1.1,
+    "k20_vs_core": 0.94,
+    "sampled_core_ms": 0.0426,
+    "sampled_public_ms": 0.0544,
+    "stable_ms": 0.0321,
+    "stable_vs_core": 0.75,
+    "stable_vs_public": 0.59
+  },
+  "pre_repair_ms": 2.549,
+  "python_binding": {
+    "dirty_batch_ms": 2.349,
+    "dirty_scalar_ms": 7.983,
+    "dirty_speedup": 3.4,
+    "move_batch_ms": 1.608,
+    "move_scalar_ms": 15.211,
+    "move_speedup": 9.46,
+    "python": "3.13.5"
+  },
+  "rc": {
+    "boundary_fanout_ms": 0.818,
+    "boundary_ms": 4.357,
+    "dense_ms": 0.29,
+    "fragmentation64_ms": 1.285,
+    "town_ms": 0.18
+  }
+}

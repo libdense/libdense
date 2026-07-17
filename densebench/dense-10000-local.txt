@@ -1,0 +1,18 @@
+===== RUN 1 =====
+milestone 6 dense_all_to_all: 10000 players, 100 ticks, 24x24 box
+  scenario matches reference random walk; every player is an anchored radius-40 observer
+known-slot core path
+  mean 4.568 ms  p50 4.566  p95 4.735  p99 5.496  worst 5.496
+  phase mean: mutation 0.346 ms  subscriptions 3.317 ms  fanout 0.905 ms
+  work/tick: dirty=8696.5 channels=8696.5 cell_cross=1081.6 chunk_cross=548.8
+             obs_trans=547.6 enter=0.0 leave=0.0 groups=4.0 deltas=8696.5
+             subscriber_refs=40000.0 implied_deliveries=86965000.0
+  reserved: persistent 7183.21 MiB  tick/fanout 5125.20 MiB
+public-ID C ABI path
+  mean 4.864 ms  p50 4.840  p95 5.016  p99 5.850  worst 5.850
+  phase mean: mutation 0.524 ms  subscriptions 3.431 ms  fanout 0.909 ms
+  work/tick: dirty=8696.5 channels=8696.5 cell_cross=1081.6 chunk_cross=548.8
+             obs_trans=547.6 enter=0.0 leave=0.0 groups=4.0 deltas=8696.5
+             subscriber_refs=40000.0 implied_deliveries=86965000.0
+  reserved: persistent 7183.21 MiB  tick/fanout 5125.20 MiB
+  public/core mean ratio: 1.06x

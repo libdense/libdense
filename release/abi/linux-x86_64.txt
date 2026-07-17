@@ -1,0 +1,63 @@
+type ds_entity_id size=8 align=8
+type ds_observer_id size=8 align=8
+type ds_channel_mask size=8 align=8
+type ds_type_mask size=8 align=8
+type ds_tick size=8 align=8
+type ddb_table_id size=4 align=4
+type ddb_watch_id size=8 align=8
+type ds_world_config size=24 align=8
+field ds_world_config.cell_size offset=0
+field ds_world_config.initial_observer_capacity offset=16
+type ds_observer_config size=16 align=8
+type ds_observer_desc size=48 align=8
+field ds_observer_desc.id offset=0
+field ds_observer_desc.anchored offset=41
+type ds_entity_desc size=24 align=8
+type ds_motion_plan size=48 align=8
+type ds_motion_metrics size=64 align=8
+type ds_delta_entry size=24 align=8
+type ds_chunk_delta size=40 align=8
+field ds_chunk_delta.chunk_x offset=0
+field ds_chunk_delta.subscriber_count offset=32
+type ds_fanout_view size=40 align=8
+type ddb_bytes size=16 align=8
+type ddb_value size=24 align=8
+field ddb_value.type offset=0
+field ddb_value.as offset=8
+type ddb_watch_config size=32 align=8
+type ddb_watch_info size=80 align=8
+type ddb_watch_field size=48 align=8
+type ddb_watch_delta size=48 align=8
+type ddb_watch_view size=56 align=8
+type ddb_durability_config size=16 align=8
+type ddb_durability_info size=40 align=8
+type ddb_database_config size=40 align=8
+type ddb_column_schema size=32 align=8
+type ddb_table_schema size=48 align=8
+type ddb_table_info size=72 align=8
+type ddb_column_info size=40 align=8
+type ddb_column_view size=56 align=8
+type ddb_channel_view size=40 align=8
+type ddb_column_update size=32 align=8
+type ddb_move_command size=16 align=8
+type ddb_metrics size=152 align=8
+field ddb_metrics.rows_inserted offset=0
+field ddb_metrics.recovery_ticks_replayed offset=144
+value DS_ABI_VERSION=1
+value DDB_ABI_VERSION=1
+value DS_OK=0
+value DS_ERR_MOTION_CONFLICT=11
+value DS_MOTION_SAMPLED=0
+value DS_MOTION_KINETIC=1
+value DS_DELTA_UPDATE=0
+value DS_DELTA_REMOVE=4
+value DDB_OK=0
+value DDB_ERR_KERNEL=23
+value DDB_COLUMN_I8=0
+value DDB_COLUMN_FIXED_BYTES=11
+value DDB_WATCH_FIXED=0
+value DDB_WATCH_AROUND_ENTITY=1
+value DDB_WATCH_PHASE_SNAPSHOT=0
+value DDB_WATCH_PHASE_DELTA=1
+value DDB_WATCH_SNAPSHOT=0
+value DDB_WATCH_LEAVE=3

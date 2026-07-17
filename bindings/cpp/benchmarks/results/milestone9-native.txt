@@ -1,0 +1,8 @@
+C++ wrapper overhead benchmark
+  entities:                100000
+  moves/sample:            2000000
+  direct C median:         35.923 ms
+  C++ wrapper median:      35.876 ms
+  C ns/move:               17.96
+  C++ ns/move:             17.94
+  median paired ratio:     0.993x

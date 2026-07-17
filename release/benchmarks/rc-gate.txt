@@ -1,0 +1,5 @@
+v0.1 RC benchmark gate passed
+  dense 1000:       0.290 ms
+  town 100k/1k:     0.180 ms
+  boundary 1000:    4.357 ms (fanout 0.818 ms)
+  fragmentation 64: 1.285 ms
