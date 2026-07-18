@@ -243,6 +243,27 @@ Increasing the population from 1,000 to 10,000 increased implied entity-to-recip
 
 See `docs/BENCHMARK-SCOPE.md` and `release/benchmarks/`.
 
+<p align="center">
+  <img src="densebench/density-wall.png" alt="Density wall" width="1029" height="779">
+</p>
+
+<p align="center">
+  <img src="densebench/densescalingticktime.png" alt="Density" width="800">
+</p>
+
+<p align="center">
+  <img src="densebench/densescalingperplayer.png" alt="Density" width="800">
+</p>
+
+<p align="center">
+  <img src="densebench/dense_bench_swarm.png" alt="Density" width="800">
+</p>
+
+<p align="center">
+  <img src="densebench/dense_bench_all_to_all.png" alt="Density" width="800">
+</p>
+
+
 ## License
 
 Dense is source-available under the **Dense Community Source License 1.0**.
