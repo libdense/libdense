@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The density wall: naive fanout vs libdense_sim</title>
+<style>
+  .viz-root {
+    color-scheme: light;
+    --surface-1: #f4efe3;
+    --page: #e9e2d2;
+    --ink-1: #1c1a16;
+    --ink-2: #55503f;
+    --ink-muted: #877f6b;
+    --grid: #ded6c3;
+    --axis: #a99f87;
+    --border: #b5ac94;
+    --s1: #2a78d6;      /* libdense_sim */
+    --s2: #eb6834;      /* naive reference */
+    --critical: #d03b3b; /* break threshold */
+  }
+  html, body { margin: 0; padding: 0; }
+  .viz-root {
+    background: var(--page);
+    color: var(--ink-1);
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    padding: 20px 14px 40px;
+    box-sizing: border-box;
+    min-height: 100vh;
+  }
+  .wrap { max-width: 860px; margin: 0 auto; }
+  .export { background: var(--page); padding: 12px; border-radius: 4px; }
+  .card {
+    background: var(--surface-1);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 16px 8px;
+    position: relative;
+    box-shadow: 0 1px 0 rgba(28,26,22,0.06);
+  }
+  .card h1 { font-size: 17px; font-weight: 700; margin: 0 0 3px; letter-spacing: -0.01em; }
+  .card p.desc { font-size: 12px; color: var(--ink-2); margin: 0 0 8px; line-height: 1.45; }
+  .kpis { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 10px 0 8px; }
+  .tile { background: var(--page); border: 1px solid var(--border); border-radius: 8px; padding: 8px 12px 7px; }
+  .tile .label { font-size: 10.5px; color: var(--ink-2); margin-bottom: 2px; }
+  .tile .value { font-size: 19px; font-weight: 650; letter-spacing: -0.01em; }
+  .tile .note { font-size: 10px; color: var(--ink-muted); margin-top: 1px; }
+  .legend { display: flex; gap: 16px; font-size: 11.5px; color: var(--ink-2); margin: 0 0 2px; flex-wrap: wrap; }
+  .legend .key { display: inline-flex; align-items: center; gap: 6px; }
+  .legend .stroke { width: 16px; height: 0; border-top: 2.5px solid; border-radius: 2px; }
+  .legend .stroke.dashed { border-top-style: dashed; }
+  svg text { font-family: system-ui, -apple-system, "Segoe UI", sans-serif; }
+  .srcline { font-size: 10px; color: var(--ink-muted); margin: 4px 2px 6px; line-height: 1.5; }
+  .tooltip {
+    position: absolute; pointer-events: none; display: none; z-index: 5;
+    background: var(--surface-1); border: 1px solid var(--border);
+    border-radius: 8px; box-shadow: 0 4px 16px rgba(28,26,22,0.18);
+    padding: 8px 11px; font-size: 12px; min-width: 200px;
+  }
+  .tooltip .tt-title { color: var(--ink-2); margin-bottom: 5px; font-size: 11px; }
+  .tooltip .row { display: flex; align-items: center; gap: 8px; margin: 3px 0; }
+  .tooltip .row .k { width: 16px; height: 0; border-top: 2.5px solid; border-radius: 2px; flex: none; }
+  .tooltip .row .v { font-weight: 650; font-variant-numeric: tabular-nums; }
+  .tooltip .row .n { color: var(--ink-2); }
+</style>
+</head>
+<body>
+<div class="viz-root" id="root">
+  <div class="wrap">
+    <div class="export" id="export1">
+      <div class="card" id="card1">
+        <h1>The density wall - naive fanout vs <code>libdense_sim</code>, one CPU core</h1>
+        <p class="desc">Steady-state tick time as every player becomes visible to every other in one 24&times;24 area,
+        Ryzen 5 5600X, single pinned core. <strong>Break condition: a design breaks when its steady-state tick exceeds
+        100&nbsp;ms</strong> - past that no tick rate holds. The naive design scans all entities per client and
+        encodes a per-recipient payload (no fanout reduction); its cost grows with players&sup2; and hits the wall at
+        &asymp;1,300 players. libdense grows linearly and projects to &asymp;300,000 on the same core.</p>
+        <div class="kpis">
+          <div class="tile">
+            <div class="label">Naive design breaks at</div>
+            <div class="value">&asymp; 1,300 players</div>
+            <div class="note">tick &gt; 100 ms &middot; cost &prop; players&sup2;</div>
+          </div>
+          <div class="tile">
+            <div class="label">libdense_sim breaks at (projected)</div>
+            <div class="value">&asymp; 300,000 players</div>
+            <div class="note">tick &gt; 100 ms &middot; cost &prop; players</div>
+          </div>
+          <div class="tile">
+            <div class="label">Density headroom gained</div>
+            <div class="value">&asymp; 230&times;</div>
+            <div class="note">and the gap widens as crowds grow</div>
+          </div>
+        </div>
+        <div class="legend" id="legend1"></div>
+        <div id="chart1"></div>
+        <div class="tooltip" id="tt1"></div>
+        <p class="srcline">Both axes logarithmic; slope 2 is quadratic, slope 1 is linear. Filled points: measured on the
+        5600X (<code>dense_20000_all_to_all_shared</code>, 20 ticks / 5 warmup). Open points: best-guess estimates -
+        naive is the book&rsquo;s C reference (<code>naive_region.c</code>: per-client full scan + per-recipient JSON
+        encode) measured on a control machine and calibrated to the 5600X by same-machine libdense runs (factor
+        &asymp;2.1&times;); libdense beyond 30,000 extrapolates the measured 0.315&nbsp;&micro;s/player marginal cost.
+        Memory effects may pull the real libdense break somewhat earlier.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  // 5600X-calibrated series: [players, ms, measured]
+  var LIB = [
+    [100, 0.012, true], [1000, 0.225, true], [5000, 1.378, true],
+    [10000, 2.684, true], [30000, 8.987, true],
+    [50000, 15.3, false], [100000, 31.0, false], [200000, 62.5, false], [300000, 94.0, false]
+  ];
+  var NAIVE = [
+    [100, 0.609, false], [200, 2.486, false], [400, 9.373, false],
+    [800, 36.06, false], [1200, 93.16, false], [1600, 155.5, false],
+    [2000, 245.7, false], [3000, 540.5, false], [5000, 1408, false], [10000, 5630, false]
+  ];
+  var BREAKS = [
+    { p: 1300, ms: 100, name: "naive breaks ≈ 1,300", cssVar: "--s2", dx: 10, anchor: "start" },
+    { p: 300000, ms: 100, name: "libdense breaks ≈ 300,000 (projected)", cssVar: "--s1", dx: -12, anchor: "end" }
+  ];
+
+  var root = document.getElementById("root");
+  function cv(name) { return getComputedStyle(root).getPropertyValue(name).trim(); }
+
+  var W = 800, H = 330, PAD_L = 58, PAD_R = 26, PAD_T = 14, PAD_B = 34;
+  var innerW = W - PAD_L - PAD_R, innerH = H - PAD_T - PAD_B;
+
+  var X_LO = Math.log10(100), X_HI = Math.log10(400000);
+  var Y_LO = Math.log10(0.01), Y_HI = Math.log10(10000);
+  function x(p) { return PAD_L + (Math.log10(p) - X_LO) / (X_HI - X_LO) * innerW; }
+  function y(ms) { return PAD_T + innerH - (Math.log10(ms) - Y_LO) / (Y_HI - Y_LO) * innerH; }
+
+  function svgEl(tag, attrs) {
+    var el = document.createElementNS("http://www.w3.org/2000/svg", tag);
+    for (var k in attrs) el.setAttribute(k, attrs[k]);
+    return el;
+  }
+
+  var svg = svgEl("svg", { viewBox: "0 0 " + W + " " + H, width: "100%", role: "img",
+    "aria-label": "Log-log line chart comparing tick time versus player count. The naive design rises with slope two and crosses the 100 millisecond break threshold near 1,300 players. libdense_sim rises with slope one and crosses the threshold near 300,000 players." });
+
+  // gridlines
+  [0.01, 0.1, 1, 10, 100, 1000, 10000].forEach(function (t) {
+    svg.appendChild(svgEl("line", { x1: PAD_L, x2: W - PAD_R, y1: y(t), y2: y(t),
+      stroke: t === 100 ? "none" : "var(--grid)", "stroke-width": 1 }));
+    var lbl = svgEl("text", { x: PAD_L - 7, y: y(t) + 3.5, "text-anchor": "end",
+      "font-size": 10.5, fill: "var(--ink-muted)" });
+    lbl.textContent = t >= 1000 ? (t / 1000) + " s" : t + " ms";
+    svg.appendChild(lbl);
+  });
+  [100, 1000, 10000, 100000].forEach(function (p) {
+    svg.appendChild(svgEl("line", { x1: x(p), x2: x(p), y1: PAD_T, y2: PAD_T + innerH,
+      stroke: "var(--grid)", "stroke-width": 1 }));
+    var lbl = svgEl("text", { x: x(p), y: PAD_T + innerH + 15, "text-anchor": "middle",
+      "font-size": 10.5, fill: "var(--ink-2)" });
+    lbl.textContent = p >= 1000 ? (p / 1000) + "k" : p;
+    svg.appendChild(lbl);
+  });
+  var xTitle = svgEl("text", { x: PAD_L + innerW / 2, y: H - 3, "text-anchor": "middle",
+    "font-size": 10.5, fill: "var(--ink-muted)" });
+  xTitle.textContent = "players in one dense area (log scale)";
+  svg.appendChild(xTitle);
+  var yTitle = svgEl("text", { "font-size": 10.5, fill: "var(--ink-muted)",
+    transform: "translate(13," + (PAD_T + innerH / 2) + ") rotate(-90)", "text-anchor": "middle" });
+  yTitle.textContent = "ms per tick, log scale";
+  svg.appendChild(yTitle);
+
+  // break threshold: 100 ms
+  svg.appendChild(svgEl("line", { x1: PAD_L, x2: W - PAD_R, y1: y(100), y2: y(100),
+    stroke: "var(--critical)", "stroke-width": 1.5 }));
+  var thLbl = svgEl("text", { x: PAD_L + 6, y: y(100) - 6, "font-size": 10.5,
+    fill: "var(--critical)", "font-weight": 650 });
+  thLbl.textContent = "break condition: tick > 100 ms";
+  svg.appendChild(thLbl);
+
+  // headroom span annotation along the threshold
+  var spanY = y(100) + 14;
+  svg.appendChild(svgEl("line", { x1: x(1300), x2: x(300000), y1: spanY, y2: spanY,
+    stroke: "var(--axis)", "stroke-width": 1 }));
+  [1300, 300000].forEach(function (p) {
+    svg.appendChild(svgEl("line", { x1: x(p), x2: x(p), y1: spanY - 3, y2: spanY + 3,
+      stroke: "var(--axis)", "stroke-width": 1 }));
+  });
+  var spanLbl = svgEl("text", { x: (x(1300) + x(300000)) / 2, y: spanY + 13,
+    "text-anchor": "middle", "font-size": 10.5, fill: "var(--ink-2)", "font-weight": 650 });
+  spanLbl.textContent = "≈ 230× more density before break";
+  svg.appendChild(spanLbl);
+
+  function drawSeries(data, cssVar, endLabel, endDy) {
+    // solid path across measured, dashed across estimated/projected segments
+    for (var i = 0; i < data.length - 1; i++) {
+      var a = data[i], b = data[i + 1];
+      var dashed = !(a[2] && b[2]);
+      svg.appendChild(svgEl("line", {
+        x1: x(a[0]), y1: y(a[1]), x2: x(b[0]), y2: y(b[1]),
+        stroke: "var(" + cssVar + ")", "stroke-width": 2,
+        "stroke-linecap": "round",
+        "stroke-dasharray": dashed ? "5 4" : "none"
+      }));
+    }
+    data.forEach(function (d) {
+      svg.appendChild(svgEl("circle", { cx: x(d[0]), cy: y(d[1]), r: 6, fill: "var(--surface-1)" }));
+      svg.appendChild(svgEl("circle", { cx: x(d[0]), cy: y(d[1]), r: 4,
+        fill: d[2] ? "var(" + cssVar + ")" : "var(--surface-1)",
+        stroke: "var(" + cssVar + ")", "stroke-width": 2 }));
+    });
+    var last = data[data.length - 1];
+    var lbl = svgEl("text", { x: x(last[0]) + 10, y: y(last[1]) + endDy, "font-size": 11,
+      fill: "var(--ink-1)", "font-weight": 650, "text-anchor": "start" });
+    lbl.textContent = endLabel;
+    svg.appendChild(lbl);
+  }
+
+  drawSeries(NAIVE, "--s2", "naive: 5.6 s at 10k", -6);
+  drawSeries(LIB, "--s1", "", 0);
+
+  // break markers on the threshold
+  BREAKS.forEach(function (b) {
+    svg.appendChild(svgEl("circle", { cx: x(b.p), cy: y(b.ms), r: 7.5, fill: "var(--surface-1)",
+      stroke: "var(" + b.cssVar + ")", "stroke-width": 2 }));
+    svg.appendChild(svgEl("line", { x1: x(b.p) - 3.2, y1: y(b.ms) - 3.2, x2: x(b.p) + 3.2, y2: y(b.ms) + 3.2,
+      stroke: "var(" + b.cssVar + ")", "stroke-width": 2, "stroke-linecap": "round" }));
+    svg.appendChild(svgEl("line", { x1: x(b.p) - 3.2, y1: y(b.ms) + 3.2, x2: x(b.p) + 3.2, y2: y(b.ms) - 3.2,
+      stroke: "var(" + b.cssVar + ")", "stroke-width": 2, "stroke-linecap": "round" }));
+    var lbl = svgEl("text", { x: x(b.p) + b.dx, y: y(b.ms) - 12, "font-size": 10.5,
+      fill: "var(--ink-1)", "font-weight": 650, "text-anchor": b.anchor });
+    lbl.textContent = b.name;
+    svg.appendChild(lbl);
+  });
+
+  var cross = svgEl("line", { x1: 0, x2: 0, y1: PAD_T, y2: PAD_T + innerH,
+    stroke: "var(--axis)", "stroke-width": 1, visibility: "hidden" });
+  svg.appendChild(cross);
+
+  document.getElementById("chart1").appendChild(svg);
+
+  // legend
+  var legend = document.getElementById("legend1");
+  [
+    { name: "naive fanout (C reference, calibrated estimate)", cssVar: "--s2", dashed: true },
+    { name: "libdense_sim (measured; dashed = projected)", cssVar: "--s1", dashed: false }
+  ].forEach(function (s) {
+    var key = document.createElement("span"); key.className = "key";
+    var st = document.createElement("span"); st.className = "stroke" + (s.dashed ? " dashed" : "");
+    st.style.borderTopColor = cv(s.cssVar);
+    var name = document.createElement("span"); name.textContent = s.name;
+    key.appendChild(st); key.appendChild(name); legend.appendChild(key);
+  });
+
+  // hover: snap to nearest x among union of sample positions
+  var ALL_X = [];
+  LIB.concat(NAIVE).forEach(function (d) { if (ALL_X.indexOf(d[0]) < 0) ALL_X.push(d[0]); });
+  ALL_X.sort(function (a, b) { return a - b; });
+  function lookup(data, p) {
+    for (var i = 0; i < data.length; i++) if (data[i][0] === p) return data[i];
+    return null;
+  }
+  var tooltip = document.getElementById("tt1");
+  var container = document.getElementById("card1");
+  function fmt(ms) { return ms >= 1000 ? (ms / 1000).toFixed(2) + " s" : ms.toFixed(ms < 0.1 ? 3 : ms < 10 ? 3 : 1) + " ms"; }
+  svg.addEventListener("pointermove", function (evt) {
+    var rect = svg.getBoundingClientRect();
+    var sx = (evt.clientX - rect.left) * (W / rect.width);
+    var best = null, bd = 1e9;
+    ALL_X.forEach(function (p) {
+      var dx = Math.abs(x(p) - sx);
+      if (dx < bd) { bd = dx; best = p; }
+    });
+    if (best === null) return;
+    cross.setAttribute("x1", x(best)); cross.setAttribute("x2", x(best));
+    cross.setAttribute("visibility", "visible");
+
+    while (tooltip.firstChild) tooltip.removeChild(tooltip.firstChild);
+    var t = document.createElement("div"); t.className = "tt-title";
+    t.textContent = best.toLocaleString("en-US") + " players";
+    tooltip.appendChild(t);
+    [
+      { d: lookup(NAIVE, best), name: "naive (estimate)", cssVar: "--s2" },
+      { d: lookup(LIB, best), name: "libdense" + (lookup(LIB, best) && !lookup(LIB, best)[2] ? " (projected)" : ""), cssVar: "--s1" }
+    ].forEach(function (r) {
+      if (!r.d) return;
+      var row = document.createElement("div"); row.className = "row";
+      var k = document.createElement("span"); k.className = "k"; k.style.borderTopColor = cv(r.cssVar);
+      var v = document.createElement("span"); v.className = "v"; v.textContent = fmt(r.d[1]);
+      var n = document.createElement("span"); n.className = "n"; n.textContent = r.name;
+      row.appendChild(k); row.appendChild(v); row.appendChild(n);
+      tooltip.appendChild(row);
+    });
+
+    var cardRect = container.getBoundingClientRect();
+    var px = (x(best) / W) * rect.width + (rect.left - cardRect.left);
+    tooltip.style.display = "block";
+    var ttw = tooltip.offsetWidth;
+    var left = px + 14;
+    if (left + ttw > cardRect.width - 8) left = px - ttw - 14;
+    tooltip.style.left = left + "px";
+    tooltip.style.top = ((rect.top - cardRect.top) + 16) + "px";
+  });
+  svg.addEventListener("pointerleave", function () {
+    cross.setAttribute("visibility", "hidden");
+    tooltip.style.display = "none";
+  });
+})();
+</script>
+</body>
+</html>
