@@ -89,3 +89,17 @@ world.mark_dirty_many(entity_ids, CHANNEL_POSITION)
 
 Batch calls are sequential rather than transactional. Borrowed fanout objects
 are invalidated by the next successful `World.begin_tick()` or `World.close()`.
+
+## Python Benchmarks
+
+<p align="center">
+  <img src="../../densebench/dense-bench-scenario.png" alt="Density" width="800">
+</p>
+
+<p align="center">
+  <img src="../../densebench/dense-bench-python-binding.png" alt="Density" width="800">
+</p>
+
+<p align="center">
+  <img src="../../densebench/dense-bench-budget.png" alt="Density" width="800">
+</p>
