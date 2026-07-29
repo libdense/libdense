@@ -4,14 +4,23 @@
 
 ```text
 <PREFIX>/include/dense/dense_sim.h
+<PREFIX>/include/dense/dense_net.h
+<PREFIX>/include/dense/dense_net_sim_bridge.h
+<PREFIX>/include/dense/dense_sched.h
+<PREFIX>/include/dense/dense_collision.h
+<PREFIX>/include/dense/dense_nav.h
+<PREFIX>/include/dense/dense_nav_collision_bridge.h
+<PREFIX>/include/dense/dense_ai.h
 <PREFIX>/include/dense/densedb.h
 <PREFIX>/include/dense/dense_sim.hpp
-<PREFIX>/<LIBDIR>/libdense_sim.so*
-<PREFIX>/<LIBDIR>/libdense_sim.a
-<PREFIX>/<LIBDIR>/libdensedb.so*
-<PREFIX>/<LIBDIR>/libdensedb.a
-<PREFIX>/<LIBDIR>/pkgconfig/libdense_sim.pc
-<PREFIX>/<LIBDIR>/pkgconfig/libdensedb.pc
+<PREFIX>/<LIBDIR>/libdense_sim.so*        libdense_sim.a
+<PREFIX>/<LIBDIR>/libdense_net.so*        libdense_net.a
+<PREFIX>/<LIBDIR>/libdense_sched.so*      libdense_sched.a
+<PREFIX>/<LIBDIR>/libdense_collision.so*  libdense_collision.a
+<PREFIX>/<LIBDIR>/libdense_nav.so*        libdense_nav.a
+<PREFIX>/<LIBDIR>/libdense_ai.so*         libdense_ai.a
+<PREFIX>/<LIBDIR>/libdensedb.so*          libdensedb.a
+<PREFIX>/<LIBDIR>/pkgconfig/libdense_*.pc and libdensedb.pc
 <PREFIX>/share/doc/dense/*
 <PREFIX>/share/dense/install-manifest.txt
 ```
@@ -72,6 +81,11 @@ export LD_LIBRARY_PATH="/opt/dense/lib${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
 ```bash
 export PKG_CONFIG_PATH="/opt/dense/lib/pkgconfig${PKG_CONFIG_PATH:+:$PKG_CONFIG_PATH}"
 pkg-config --cflags --libs libdense_sim
+pkg-config --cflags --libs libdense_net
+pkg-config --cflags --libs libdense_sched
+pkg-config --cflags --libs libdense_collision
+pkg-config --cflags --libs libdense_nav
+pkg-config --cflags --libs libdense_ai
 pkg-config --cflags --libs libdensedb
 ```
 

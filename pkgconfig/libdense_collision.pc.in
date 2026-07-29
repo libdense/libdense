@@ -1,0 +1,11 @@
+prefix=@PREFIX@
+exec_prefix=${prefix}
+libdir=${prefix}/@LIBDIR@
+includedir=${prefix}/include/dense
+
+Name: libdense_collision
+Description: Dense authoritative collision queries, sweeps, triggers, and movement validation
+Version: @VERSION@
+Libs: -L${libdir} -ldense_collision
+Libs.private: -lm
+Cflags: -I${includedir}

@@ -1,0 +1,20 @@
+Dense Phase 8 overload integration and tuning
+tick CPU budget=20.0 ms, nominal tick period=50.0 ms
+
+state       enter/recover ms  input  repl KiB  AI agents  nav exp  near/far  cap  tick ms
+normal        0.0/0.0      2000    3906.2      10000   200000   10/60   open   50.00
+elevated     16.0/12.0     2000    3320.3       7500   150000   20/120  open   50.00
+high         18.0/14.0     1500    2343.8       5000   100000   40/240  open   50.00
+critical     20.0/16.0     1000    1367.2       2500    50000   80/480   500   50.00
+emergency    25.0/18.0      500     781.2       1000    20000  160/960   750   62.50
+
+stress escalation ticks: elevated=63 high=66 critical=68 emergency=69
+stress recovery ticks:  emergency=129 critical=169 high=199 elevated=219 final=normal
+input:       accepted=333000 shed=267000
+replication: sent=596400000 shed=1323600000
+AI:          run=1335000 deferred=1545000
+navigation:  run=26700000 deferred=45300000
+admission:   optional=199 essential=240 of 240
+stress checksum: 614a7253429bfac5
+
+controller: 52.91 ns/observation (1000000 observations), checksum=7010541522355344930

@@ -3,7 +3,7 @@
 ## Native release target
 
 ```text
-Release:       0.1.0-rc1
+Release:       0.2.0
 OS:            Linux
 Architecture:  x86-64
 ELF class:     ELF64

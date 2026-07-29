@@ -6,10 +6,10 @@
 #include <stdint.h>
 
 #define DS_VERSION_MAJOR 0
-#define DS_VERSION_MINOR 1
+#define DS_VERSION_MINOR 2
 #define DS_VERSION_PATCH 0
-#define DS_VERSION_PRERELEASE "rc1"
-#define DS_VERSION_STRING "0.1.0-rc1"
+#define DS_VERSION_PRERELEASE ""
+#define DS_VERSION_STRING "0.2.0"
 #define DS_ABI_VERSION 1
 
 #if defined(_WIN32) && defined(DS_SHARED)
@@ -155,6 +155,13 @@ typedef struct ds_fanout_view {
 
 DS_API const char *ds_result_string(ds_result result);
 
+/*
+ * Resolve process-wide CPU dispatch before worker or shard threads start.
+ * The call is idempotent; ds_world_create invokes it as a safe fallback.
+ */
+DS_API ds_result ds_runtime_init(void);
+DS_API bool ds_runtime_has_avx2(void);
+
 DS_API ds_result ds_world_create(
     const ds_world_config *config,
     ds_world **out_world
@@ -171,6 +178,30 @@ DS_API size_t ds_world_observer_count(const ds_world *world);
 DS_API ds_result ds_world_get_motion_metrics(
     const ds_world *world,
     ds_motion_metrics *out_metrics
+);
+
+typedef struct ds_world_memory_stats {
+    size_t entity_capacity;
+    size_t entity_map_capacity;
+    size_t cell_bucket_capacity;
+    size_t chunk_bucket_capacity;
+    size_t observer_capacity;
+    size_t observer_map_capacity;
+    size_t subscription_capacity;
+    size_t membership_capacity;
+    size_t crossing_capacity;
+    size_t dirty_capacity;
+    size_t observer_dirty_capacity;
+    size_t fanout_chunk_capacity;
+    size_t fanout_entry_capacity;
+    size_t fanout_subscriber_capacity;
+    size_t kinetic_event_capacity;
+    size_t kinetic_bucket_capacity;
+} ds_world_memory_stats;
+
+DS_API ds_result ds_world_get_memory_stats(
+    const ds_world *world,
+    ds_world_memory_stats *out_stats
 );
 /* Returns the finalized tick's borrowed fanout view. The view and all nested
  * spans remain valid until the next successful ds_world_begin_tick() or until
@@ -267,6 +298,28 @@ DS_API ds_result ds_observer_get(
     ds_observer_id observer_id,
     ds_observer_desc *out_observer
 );
+
+/* ------------------------------------------------------------------ */
+/* Family-wide allocation metrics                                     */
+/* ------------------------------------------------------------------ */
+
+typedef struct ds_allocation_metrics {
+    size_t current_retained_bytes;
+    size_t peak_retained_bytes;
+    uint64_t growth_operations;
+    size_t live_object_count;
+    uint64_t allocation_failures;
+    uint64_t steady_state_allocations;
+} ds_allocation_metrics;
+
+/*
+ * Process-wide metrics for memory owned by this library. live_object_count
+ * is the number of retained heap objects currently owned by the module. Growth
+ * and peak counters are lifetime values. Reset starts a post-prewarm window by
+ * clearing failure and steady-state allocation counters only.
+ */
+DS_API void ds_get_allocation_metrics(ds_allocation_metrics *out_metrics);
+DS_API void ds_reset_allocation_counters(void);
 
 #ifdef __cplusplus
 }

@@ -1,0 +1,11 @@
+prefix=@PREFIX@
+exec_prefix=${prefix}
+libdir=${prefix}/@LIBDIR@
+includedir=${prefix}/include/dense
+
+Name: libdense_net
+Description: Dense replication encoding, queues, frames, sessions, and transport
+Version: @VERSION@
+Libs: -L${libdir} -ldense_net
+Libs.private: -lm
+Cflags: -I${includedir}

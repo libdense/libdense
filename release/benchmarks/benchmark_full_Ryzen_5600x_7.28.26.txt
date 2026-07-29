@@ -1,0 +1,590 @@
+make -C dense_core benchmark
+make[1]: Entering directory '/home/meganerd/Documents/github/2/dense/dense_core'
+build/benchmarks/dense_core_bench
+dense_core representative microbenchmarks
+group_map swar :      52.0 million lookups/s
+group_map auto :      32.8 million lookups/s
+span_hash avx2 :    1690.0 million u64/s
+dirty_set mark/clear:     190.2 million marks/s
+arena alloc/reset:        281.2 million allocs/s
+slot_pool alloc/free:     103.9 million pairs/s
+u64 radix sort:            44.0 million values/s
+checksum: 0x112a83b778a7ac40
+make[1]: Leaving directory '/home/meganerd/Documents/github/2/dense/dense_core'
+make -C libdense_sim benchmark
+make[1]: Entering directory '/home/meganerd/Documents/github/2/dense/libdense_sim'
+cc -Iinclude -Isrc -O3  -std=c11 -Wall -Wextra -Wpedantic -Wconversion -Wshadow -Wstrict-prototypes -Wmissing-prototypes benchmarks/entity_store.c build/lib/libdense_sim.a  -lm -o build/benchmarks/entity_store
+cc -Iinclude -Isrc -O3  -std=c11 -Wall -Wextra -Wpedantic -Wconversion -Wshadow -Wstrict-prototypes -Wmissing-prototypes benchmarks/chunk_crossing.c build/lib/libdense_sim.a  -lm -o build/benchmarks/chunk_crossing
+cc -Iinclude -Isrc -O3  -std=c11 -Wall -Wextra -Wpedantic -Wconversion -Wshadow -Wstrict-prototypes -Wmissing-prototypes benchmarks/dirty_channels.c build/lib/libdense_sim.a  -lm -o build/benchmarks/dirty_channels
+cc -Iinclude -Isrc -O3  -std=c11 -Wall -Wextra -Wpedantic -Wconversion -Wshadow -Wstrict-prototypes -Wmissing-prototypes benchmarks/observer_subscriptions.c build/lib/libdense_sim.a  -lm -o build/benchmarks/observer_subscriptions
+cc -Iinclude -Isrc -O3  -std=c11 -Wall -Wextra -Wpedantic -Wconversion -Wshadow -Wstrict-prototypes -Wmissing-prototypes benchmarks/fanout_plan.c build/lib/libdense_sim.a  -lm -o build/benchmarks/fanout_plan
+cc -Iinclude -Isrc -O3  -std=c11 -Wall -Wextra -Wpedantic -Wconversion -Wshadow -Wstrict-prototypes -Wmissing-prototypes benchmarks/kinetic_motion.c build/lib/libdense_sim.a  -lm -o build/benchmarks/kinetic_motion
+build/benchmarks/entity_store
+libdense_sim milestone 2 spawn + lookup baseline
+  spawn path includes cell/chunk membership insertion
+  entities:             1000000
+  final capacity:        1048576
+  spawn total:           211.787 ms
+  spawn throughput:      4721723 entities/s
+  lookup total:          20.637 ms
+  lookup throughput:     48456137 lookups/s
+  checksum:              4295467295500000
+build/benchmarks/chunk_crossing
+libdense_sim milestone 2 spatial transition benchmark: 100000 entities, 200 ticks
+  same-cell fast path      mean   2.536 ms  p50   2.533  p95   2.544  p99   2.733  worst   2.762
+                               39438125 moves/s  crossings=0
+  chunk boundary thrash    mean   8.461 ms  p50   8.180  p95   9.661  p99  10.715  worst  10.911
+                               11818753 moves/s  crossings=20000000
+  crossing cost ratio:      3.34x same-cell mean
+build/benchmarks/dirty_channels
+libdense_sim milestone 3 dirty-channel benchmark: 1000000 entities, 8 repeat passes
+  first dirty mark:           33.452 ms      29893684 marks/s    33.45 ns/mark
+  direct slot first mark:      3.591 ms     278507074 marks/s     3.59 ns/mark
+  public repeat coalesce:    209.237 ms      38234087 marks/s    26.15 ns/mark
+  direct repeat coalesce:     22.012 ms     363434988 marks/s     2.75 ns/mark
+  next-tick dirty reset:       1.294 ms     772895484 entities/s
+  direct-list reset:           1.362 ms     734320059 entities/s
+  finalized dirty count:   1000000
+  checksum:                7000000
+build/benchmarks/observer_subscriptions
+libdense_sim milestone 4 observer-subscription benchmark: 10000 observers, 100 ticks
+  radius/chunk:                 40 / 16
+  subscriptions per observer:  36
+  one-chunk x shift touches:    6 enter + 6 leave
+  same-coverage mean/p50/p95/p99/worst: 0.219 / 0.218 / 0.228 / 0.295 / 0.295 ms
+  boundary-shift mean/p50/p95/p99/worst: 5.140 / 5.050 / 5.728 / 6.334 / 6.334 ms
+  finalized observer transitions:       1000000
+  expected edge relation touches:       12000000
+  persistent subscription relations:    360000
+build/benchmarks/fanout_plan
+libdense_sim milestone 5 fanout plan: 1000 entities, 1000 observers, 100 ticks
+shared recipient set
+  fanout groups:                            1
+  delta entries:                         1000
+  subscriber span references:            1000
+  implied entity deliveries:          1000000
+  mean 0.055 ms  p50 0.053  p95 0.059  p99 0.117  worst 0.117
+8-way type-mask fragmentation
+  fanout groups:                            8
+  delta entries:                         1000
+  subscriber span references:            1000
+  implied entity deliveries:           125000
+  mean 0.094 ms  p50 0.093  p95 0.099  p99 0.117  worst 0.117
+build/benchmarks/kinetic_motion
+libdense_sim selective kinetic motion benchmark
+  entities=2000 measured_ticks=400 cell=8 chunk=16
+
+sampled baselines: public 0.0548 ms, known-slot core 0.0446 ms
+
+experiment A: planned fraction over identical linear trajectories
+     f |   mean ms    p50 ms    p99 ms | events/t  cross/t  stale/t |  vs core   vs pub
+-----------------------------------------------------------------------------------------
+  0.00 |    0.0446    0.0444    0.0485 |      0.0      0.0      0.0 |    1.00x    0.81x
+  0.50 |    0.0377    0.0376    0.0430 |     74.3     74.3      0.0 |    0.85x    0.69x
+  0.90 |    0.0325    0.0324    0.0398 |    132.9    132.9      0.0 |    0.73x    0.59x
+  1.00 |    0.0307    0.0305    0.0381 |    147.6    147.6      0.0 |    0.69x    0.56x
+
+experiment B: staggered same-trajectory plan churn
+  sampled baselines: public 0.0548 ms, known-slot core 0.0446 ms
+
+     K |   mean ms    p50 ms    p99 ms | events/t  cross/t  stale/t |  vs core   vs pub
+-----------------------------------------------------------------------------------------
+     2 |    0.1380    0.1377    0.1490 |   1052.2     73.9    978.3 |    3.09x    2.52x
+     5 |    0.0749    0.0735    0.1066 |    509.1    117.7    391.3 |    1.68x    1.37x
+    10 |    0.0518    0.0516    0.0609 |    328.4    132.7    195.7 |    1.16x    0.95x
+    20 |    0.0419    0.0417    0.0497 |    237.9    140.2     97.8 |    0.94x    0.76x
+    40 |    0.0368    0.0367    0.0441 |    192.8    143.9     48.9 |    0.83x    0.67x
+    80 |    0.0338    0.0336    0.0404 |    170.2    145.7     24.5 |    0.76x    0.62x
+   inf |    0.0310    0.0309    0.0385 |    147.6    147.6      0.0 |    0.69x    0.57x
+make[1]: Leaving directory '/home/meganerd/Documents/github/2/dense/libdense_sim'
+make -C libdense_sim all LTO=0
+make[1]: Entering directory '/home/meganerd/Documents/github/2/dense/libdense_sim'
+make[1]: Nothing to be done for 'all'.
+make[1]: Leaving directory '/home/meganerd/Documents/github/2/dense/libdense_sim'
+make -C libdense_net benchmark DENSE_SIM_DIR=/home/meganerd/Documents/github/2/dense/libdense_sim
+make[1]: Entering directory '/home/meganerd/Documents/github/2/dense/libdense_net'
+build/benchmarks/replication_fanout
+libdense_net replication fanout benchmark
+  entities/group:        256
+  subscriber sessions:   128
+  ticks:                 400
+  frames delivered:      26214400
+  publish (encode+refs):    0.351 ms/tick    10.7 ns/recipient-frame
+  session flush:            0.417 ms/tick    12.7 ns/recipient-frame
+  per-recipient sends:      1.277 ms/tick (naive baseline incl. flush)
+  shared vs naive:       1.66x
+  implied deliveries/s:  85321722
+build/benchmarks/adverse_channel_soak
+libdense_net adverse channel soak
+  weather:               20% drop, 8% dup, 12% reorder (each way)
+  reliable commands:     20000 sent, 20000 delivered in order: yes
+  virtual rounds:        2502 (5.0 virtual seconds)
+  retransmitted packets: 1220
+  dup reliable dropped:  758
+  stale seq dropped:     482
+  snapshots delivered:   13664
+  est. rtt:              2.00 ms
+build/benchmarks/session_scaling
+sessions=1000 lookup_ops=5000000 lookup_ns_per_op=3.98 checksum=2502500000
+sessions=1000 flush_all_ns=114495 ns_per_session=114.50 bytes=42000 visited=1000
+sessions=5000 lookup_ops=5000000 lookup_ns_per_op=5.93 checksum=12502500000
+sessions=5000 flush_all_ns=593383 ns_per_session=118.68 bytes=210000 visited=5000
+make[1]: Leaving directory '/home/meganerd/Documents/github/2/dense/libdense_net'
+make -C libdense_sched benchmark
+make[1]: Entering directory '/home/meganerd/Documents/github/2/dense/libdense_sched'
+build/benchmarks/timer_wheel
+libdense_sched timer wheel benchmark
+  timers:            1000000 over 72000 ticks
+  schedule:             8.1 ns/op  (123.7 M ops/s)
+  cancel:              12.3 ns/op  (81.4 M ops/s)
+  advance+fire:        66.0 ns/fired timer (incl. 72000 empty ticks)
+  fired:             666666
+build/benchmarks/overload_shed
+libdense_sched overload shedding scenario
+  budget:            10.0 ms/tick, 600 ticks
+  load pattern:      6 ms -> 12 ms -> 18 ms offered -> 6 ms
+  shed policy:       -25% cosmetic work per overload level
+  peak state:        critical (max critical)
+  worst tick:        14.25 ms
+  overrun ticks:     52 of 600
+  escalations:       13, recoveries: 13
+  final state:       normal (dispersed)
+build/benchmarks/server_pipeline
+libdense_sched Phase 4 named server pipeline
+ticks=200000, phases/tick=7
+raw budget accounting:       42.56 ns/tick
+named pipeline telemetry:    99.44 ns/tick
+telemetry overhead:          56.88 ns/tick
+AI work high-water:       104 completed, 5 deferred
+busiest phase:            flush
+overload ladder peak:     emergency
+make[1]: Leaving directory '/home/meganerd/Documents/github/2/dense/libdense_sched'
+make -C libdense_collision benchmark
+make[1]: Entering directory '/home/meganerd/Documents/github/2/dense/libdense_collision'
+build/benchmarks/dense_crowd
+libdense_collision dense crowd benchmark
+  crowd:               2000 bodies, 200 ticks
+  world:               53 statics, 8 trigger zones
+  validated moves:     400000 (59492 blocked)
+  per move:            241 ns (slide+bodies+commit+triggers)
+  throughput:          4.14 M moves/s
+  trigger events:      2974
+build/benchmarks/sweep_storm
+libdense_collision sweep storm benchmark
+  field:               400 statics, 1500 bodies
+  swept circles:       200000 (up to 4000 units long)
+  hit rate:            46.7%
+  per sweep:           772 ns
+  throughput:          1.30 M sweeps/s
+make[1]: Leaving directory '/home/meganerd/Documents/github/2/dense/libdense_collision'
+make -C libdense_collision all LTO=0
+make[1]: Entering directory '/home/meganerd/Documents/github/2/dense/libdense_collision'
+make[1]: Nothing to be done for 'all'.
+make[1]: Leaving directory '/home/meganerd/Documents/github/2/dense/libdense_collision'
+make -C libdense_nav benchmark \
+	DENSE_COLLISION_DIR=/home/meganerd/Documents/github/2/dense/libdense_collision
+make[1]: Entering directory '/home/meganerd/Documents/github/2/dense/libdense_nav'
+build/benchmarks/pathfinding
+libdense_nav pathfinding benchmark (256x256, ~22% walls)
+  raw A*:            1568 paths,   1368.4 us/path
+  expansions/search: 4047
+  cached (dense):    16072 paths,     53.7 us/path
+  cache hit rate:    96.2% (15466 hits, 606 misses)
+build/benchmarks/astar_node_map
+libdense_nav Phase 3 A* node-map comparison
+grid=128x128, timed rounds=3, smoothing=off
+scenario                 legacy us  group us   speedup    memory exp/search
+short reachable               1.23      2.19    0.559x    1.041x        7.1
+long reachable              984.06   1146.44    0.858x    1.046x     2826.8
+unreachable                2210.10   2799.26    0.790x    1.046x     8192.0
+high obstacle              1981.03   2419.56    0.819x    1.046x     6474.4
+low obstacle                899.21   1152.56    0.780x    1.046x     2830.4
+maximum budget               61.77     83.46    0.740x    1.043x      256.0
+long-prewarm then short      41.32     56.73    0.728x    1.038x      167.5
+build/benchmarks/flow_node_map
+libdense_nav Phase 3 flow-field node-map comparison
+grid=128x128, timed rounds=3
+scenario                  legacy us   group us   speedup    memory    reached
+small local partial          105.73     184.67    0.573x    1.465x        566
+full local region           4628.36    5547.98    0.834x    1.556x      16384
+partially blocked           4886.58    5686.64    0.859x    1.559x      15164
+budgeted multi-tick         5117.85    5700.11    0.898x    1.559x      15164
+same-region rebuild         3284.65    4984.07    0.659x    1.556x      16384
+shifted local rebuilds      1749.67    2752.95    0.636x   11.414x       1107
+sample hit/miss mix         4419.77   15906.52    0.278x    1.555x       8192
+build/benchmarks/grid_chunk_map
+libdense_nav Phase 3 sparse chunk-map comparison
+timed rounds=3, lookup count=2000000
+scenario                  legacy us   group us   speedup    memory     chunks
+large sparse world         12769.80   42675.16    0.299x    1.000x       2048
+dense town                 17132.48   56303.84    0.304x    1.000x       4096
+mixed populated/empty      12229.33   36902.46    0.331x    1.000x       2048
+chunk mutation              4848.03   13241.09    0.366x    1.000x       2048
+chunk create/destroy        1375.86    2071.14    0.664x    1.025x          0
+build/benchmarks/navigation_hierarchy
+libdense_nav Phase 4 hierarchy and global work benchmark
+direct visible movement (20000 close requests)
+  line of sight:    29.335 ns/request
+  full A*:         880.614 ns/request
+  direct/A*:        30.019x
+  checksum:      160455
+global repath lane (300 simultaneous requests)
+  bounded:       2571 ticks, max 2048/2048 expansions, 1729.469 ms
+  unbounded:     5265129 expansions in one drain, 1737.646 ms
+  work spread:   2570.86x smaller peak expansion burst
+hierarchical long-distance route (512x512 alternating-wall world)
+  full tile A*:  221817 expansions, 63.945 ms
+  hierarchy:     59 local + 14 graph expansions, 0.017 ms
+  tile work:     3759.61x fewer local tile expansions
+  route nodes:   15, route cost=64254
+build/benchmarks/flow_crowd
+libdense_nav flow crowd benchmark (256x256, 18% walls)
+  field build:          19.05 ms (one Dijkstra, 65536 tiles)
+  crowd steering:    10000 agents x 100 ticks =     9.07 ms total
+  per agent-step:    9.1 ns
+  goal arrivals:     164594 agent-ticks at goal
+  amortized:         0.03 us per agent served per tick
+make[1]: Leaving directory '/home/meganerd/Documents/github/2/dense/libdense_nav'
+make -C libdense_ai benchmark
+make[1]: Entering directory '/home/meganerd/Documents/github/2/dense/libdense_ai'
+build/benchmarks/horde
+libdense_ai horde benchmark
+  agents:            10000 sharing one tree, 200 ticks
+  agent-ticks:       2000000
+  per agent-tick:    83 ns (perceive+threat+tree+intent)
+  whole-horde tick:  0.83 ms
+  intents:           2000000
+  nodes evaluated:   8000000
+build/benchmarks/stagger
+libdense_ai stagger benchmark (10000 agents, 100 ticks)
+  slice     0:    8.37 ms total, 100 run calls, 1000000 agent-ticks
+  slice  5000:    8.30 ms total, 200 run calls, 1000000 agent-ticks
+  slice  1000:    8.36 ms total, 1000 run calls, 1000000 agent-ticks
+  slice   250:    8.59 ms total, 4000 run calls, 1000000 agent-ticks
+make[1]: Leaving directory '/home/meganerd/Documents/github/2/dense/libdense_ai'
+make -C densedb benchmark
+make[1]: Entering directory '/home/meganerd/Documents/github/2/dense/densedb'
+build/benchmarks/channel_storage
+DenseDB Milestone 10 channel storage: 100000 rows, logical row width 785 bytes
+  vitals u16 update        mean   13.966 ms  p50   13.650  p95   14.708  p99   17.246
+  position x/y move        mean   17.116 ms  p50   16.996  p95   18.060  p99   18.487
+  appearance 256B update   mean   15.171 ms  p50   14.776  p95   17.158  p99   17.523
+  direct hp SoA scan       mean    0.032 ms  p50    0.032  p95    0.032  p99    0.037
+  measured column writes:      8400000
+  measured bytes written:      558600000
+  direct scan sink:            212100000
+build/benchmarks/watch_streams
+DenseDB Milestone 11 snapshot + channel filtering
+  snapshot: 1000 rows, 5000 fields, 13 bytes/row referenced, 0.470 ms finalize
+  vitals mutation        mean 0.032 ms  p50 0.031  p95 0.031  p99 0.181  worst 0.181
+  vitals finalize        mean 0.076 ms  p50 0.075  p95 0.079  p99 0.219  worst 0.219
+  unselected finalize    mean 0.064 ms  p50 0.062  p95 0.062  p99 0.210  worst 0.210
+  cumulative stream work: deltas=101000 fields=205000 value_bytes_referenced=413000
+  inventory bytes referenced by watch: 0
+
+DenseDB Milestone 11 moving WATCH churn: watches=1000 edge_entities=120 ticks=50
+  watch move commands    mean 0.033 ms  p50 0.032  p95 0.037  p99 0.046  worst 0.046
+  stream finalization    mean 6.213 ms  p50 6.098  p95 6.899  p99 7.291  worst 7.291
+  per tick: 120,000 WATCH deltas, 180,000 borrowed fields
+  total: deltas=6000000 fields=9000000
+build/benchmarks/durability
+DenseDB Milestone 12 durability benchmark
+  rows:                              10000
+  updates/tick:                       1000
+  update ticks:                        100
+  initial mutation build:           16.399 ms
+  initial WAL commit (no sync):      4.452 ms
+  initial WAL bytes:               1440335
+  checkpoint:                       13.556 ms
+  snapshot bytes:                  1040299
+  snapshot-only recovery:           17.756 ms
+  update build mean:                 0.574 ms
+  update build p95:                  0.619 ms
+  WAL commit mean (no sync):         0.149 ms
+  WAL commit p95 (no sync):          0.203 ms
+  post-update WAL bytes:           5803232
+  snapshot + WAL recovery:         124.469 ms
+  durable empty commit mean:         0.503 ms
+  durable empty commit p50:          0.492 ms
+  durable empty commit p95:          0.545 ms
+build/benchmarks/write_behind
+DenseDB Phase 4 write-behind benchmark
+ticks=100 updates/tick=1000 flush budget=4096 bytes
+synchronous end_tick:     617.33 us/tick
+write-behind seal:         38.67 us/tick
+bounded flush work:        81.42 us/tick (1500 calls)
+seal speedup:             15.964x
+make[1]: Leaving directory '/home/meganerd/Documents/github/2/dense/densedb'
+make -C libdense_sim benchmark-m8
+make[1]: Entering directory '/home/meganerd/Documents/github/2/dense/libdense_sim'
+cc -D_POSIX_C_SOURCE=200809L -std=c11 -O3 -Wall -Wextra -Wpedantic benchmarks/reference/kinetic_repair.c  -lm -o build/benchmarks/kinetic_repair
+build/benchmarks/kinetic_motion
+libdense_sim selective kinetic motion benchmark
+  entities=2000 measured_ticks=400 cell=8 chunk=16
+
+sampled baselines: public 0.0543 ms, known-slot core 0.0444 ms
+
+experiment A: planned fraction over identical linear trajectories
+     f |   mean ms    p50 ms    p99 ms | events/t  cross/t  stale/t |  vs core   vs pub
+-----------------------------------------------------------------------------------------
+  0.00 |    0.0444    0.0442    0.0494 |      0.0      0.0      0.0 |    1.00x    0.82x
+  0.50 |    0.0376    0.0375    0.0431 |     74.3     74.3      0.0 |    0.85x    0.69x
+  0.90 |    0.0326    0.0325    0.0398 |    132.9    132.9      0.0 |    0.73x    0.60x
+  1.00 |    0.0308    0.0306    0.0377 |    147.6    147.6      0.0 |    0.69x    0.57x
+
+experiment B: staggered same-trajectory plan churn
+  sampled baselines: public 0.0543 ms, known-slot core 0.0444 ms
+
+     K |   mean ms    p50 ms    p99 ms | events/t  cross/t  stale/t |  vs core   vs pub
+-----------------------------------------------------------------------------------------
+     2 |    0.1382    0.1380    0.1523 |   1052.2     73.9    978.3 |    3.11x    2.54x
+     5 |    0.0746    0.0739    0.1058 |    509.1    117.7    391.3 |    1.68x    1.37x
+    10 |    0.0527    0.0525    0.0600 |    328.4    132.7    195.7 |    1.19x    0.97x
+    20 |    0.0426    0.0423    0.0497 |    237.9    140.2     97.8 |    0.96x    0.78x
+    40 |    0.0375    0.0373    0.0451 |    192.8    143.9     48.9 |    0.84x    0.69x
+    80 |    0.0346    0.0344    0.0423 |    170.2    145.7     24.5 |    0.78x    0.64x
+   inf |    0.0310    0.0308    0.0377 |    147.6    147.6      0.0 |    0.70x    0.57x
+build/benchmarks/kinetic_repair
+tick-quantized KDS repair-cost study (C counterpart)
+
+experiment A: population x planned-fraction sweep
+  arena 256x256, cell 8, 400 ticks, speeds 0.10-0.50 t/t
+
+     N     f |   kin p50   kin p95   kin p99 |   smp p50   smp p99 |  ev/tick cross/t    eff
+-----------------------------------------------------------------------------------------------
+   500  0.00 |    0.0037    0.0039    0.0040 |    0.0036    0.0040 |      0.0     0.0   0.00
+   500  0.50 |    0.0030    0.0042    0.0049 |    0.0033    0.0037 |     18.6    18.5   1.01
+   500  0.90 |    0.0024    0.0033    0.0040 |    0.0031    0.0034 |     33.0    32.8   1.01
+   500  1.00 |    0.0023    0.0029    0.0040 |    0.0030    0.0034 |     36.4    36.1   1.01
+
+  1000  0.00 |    0.0075    0.0079    0.0080 |    0.0075    0.0080 |      0.0     0.0   0.00
+  1000  0.50 |    0.0060    0.0066    0.0070 |    0.0068    0.0073 |     37.1    36.8   1.01
+  1000  0.90 |    0.0047    0.0062    0.0076 |    0.0062    0.0067 |     66.2    65.6   1.01
+  1000  1.00 |    0.0043    0.0057    0.0065 |    0.0060    0.0066 |     72.3    71.7   1.01
+
+  2000  0.00 |    0.0146    0.0150    0.0151 |    0.0145    0.0152 |      0.0     0.0   0.00
+  2000  0.50 |    0.0113    0.0122    0.0127 |    0.0132    0.0139 |     73.0    72.5   1.01
+  2000  0.90 |    0.0089    0.0110    0.0120 |    0.0121    0.0146 |    130.8   129.7   1.01
+  2000  1.00 |    0.0083    0.0101    0.0116 |    0.0118    0.0167 |    145.0   143.9   1.01
+
+  4000  0.00 |    0.0276    0.0281    0.0287 |    0.0276    0.0285 |      0.0     0.0   0.00
+  4000  0.50 |    0.0220    0.0233    0.0245 |    0.0257    0.0297 |    146.7   145.5   1.01
+  4000  0.90 |    0.0177    0.0209    0.0229 |    0.0240    0.0310 |    264.2   261.9   1.01
+  4000  1.00 |    0.0164    0.0191    0.0205 |    0.0234    0.0248 |    291.3   289.1   1.01
+
+experiment B: mid-flight plan-churn sweep, N=2000, f=1.00
+
+  sampled baseline: mean 0.0117 ms, p99 0.0123 ms (2000 moves/tick)
+
+     K |  kin mean   kin p50   kin p99 |  ev/tick cross/t stale/t |    vs smp
+-----------------------------------------------------------------------------
+     2 |    0.0668    0.0636    0.0880 |   1120.5   145.3   974.0 |     5.69x
+     5 |    0.0318    0.0313    0.0363 |    536.5   145.4   389.8 |     2.71x
+    10 |    0.0195    0.0195    0.0215 |    341.0   145.0   194.7 |     1.66x
+    20 |    0.0141    0.0141    0.0156 |    243.7   145.1    97.3 |     1.20x
+    40 |    0.0113    0.0112    0.0134 |    194.7   144.8    48.7 |     0.96x
+    80 |    0.0097    0.0097    0.0116 |    170.4   144.9    24.4 |     0.83x
+   inf |    0.0081    0.0081    0.0095 |    145.0   143.9     0.0 |     0.69x
+make[1]: Leaving directory '/home/meganerd/Documents/github/2/dense/libdense_sim'
+make -C dense_core all LTO=0
+make[1]: Entering directory '/home/meganerd/Documents/github/2/dense/dense_core'
+make[1]: Nothing to be done for 'all'.
+make[1]: Leaving directory '/home/meganerd/Documents/github/2/dense/dense_core'
+make -C libdense_nav all LTO=0 \
+	DENSE_COLLISION_DIR=/home/meganerd/Documents/github/2/dense/libdense_collision
+make[1]: Entering directory '/home/meganerd/Documents/github/2/dense/libdense_nav'
+make[1]: Nothing to be done for 'all'.
+make[1]: Leaving directory '/home/meganerd/Documents/github/2/dense/libdense_nav'
+make -C libdense_ai all LTO=0
+make[1]: Entering directory '/home/meganerd/Documents/github/2/dense/libdense_ai'
+make[1]: Nothing to be done for 'all'.
+make[1]: Leaving directory '/home/meganerd/Documents/github/2/dense/libdense_ai'
+make -C libdense_net all LTO=0 \
+	DENSE_SIM_DIR=/home/meganerd/Documents/github/2/dense/libdense_sim
+make[1]: Entering directory '/home/meganerd/Documents/github/2/dense/libdense_net'
+make[1]: Nothing to be done for 'all'.
+make[1]: Leaving directory '/home/meganerd/Documents/github/2/dense/libdense_net'
+make -C libdense_collision benchmark-phase5-batch-simd \
+	DENSE_CORE_DIR=/home/meganerd/Documents/github/2/dense/dense_core
+make[1]: Entering directory '/home/meganerd/Documents/github/2/dense/libdense_collision'
+build/benchmarks/phase5_batch_simd
+libdense_collision Phase 5 exact circle/AABB batch kernel
+tests=1048576 rounds=7 candidate=avx2-gather
+scalar:        2403.46 us
+candidate:     3137.42 us
+speedup:         0.766x
+checksum:   505767984854
+make[1]: Leaving directory '/home/meganerd/Documents/github/2/dense/libdense_collision'
+make -C libdense_nav benchmark-phase5-batches \
+	DENSE_COLLISION_DIR=/home/meganerd/Documents/github/2/dense/libdense_collision
+make[1]: Entering directory '/home/meganerd/Documents/github/2/dense/libdense_nav'
+build/benchmarks/phase5_batches
+libdense_nav Phase 5 batch APIs (best of 9, alternating order)
+grid cost scalar=  920.76 us batch=  837.91 us ratio=1.099x
+line of sight scalar= 4829.24 us batch= 4492.06 us ratio=1.075x
+flow sample scalar=  766.37 us batch=  674.25 us ratio=1.137x
+checksum=481360203
+make[1]: Leaving directory '/home/meganerd/Documents/github/2/dense/libdense_nav'
+make -C libdense_ai benchmark-phase5-batches
+make[1]: Entering directory '/home/meganerd/Documents/github/2/dense/libdense_ai'
+build/benchmarks/phase5_batches
+libdense_ai Phase 5 batch APIs (best of 9, alternating order)
+percepts scalar=  133.96 us batch=  134.01 us ratio=1.000x
+threat add scalar=  125.70 us batch=  120.72 us ratio=1.041x
+conditions scalar=   38.96 us batch=   26.35 us ratio=1.479x
+checksum=50000
+make[1]: Leaving directory '/home/meganerd/Documents/github/2/dense/libdense_ai'
+make -C libdense_net benchmark-phase5-batches \
+	DENSE_SIM_DIR=/home/meganerd/Documents/github/2/dense/libdense_sim DENSE_CORE_DIR=/home/meganerd/Documents/github/2/dense/dense_core
+make[1]: Entering directory '/home/meganerd/Documents/github/2/dense/libdense_net'
+build/benchmarks/phase5_batches
+libdense_net Phase 5 frame batch (best of 9, alternating order)
+scalar= 1334.87 us batch= 1054.71 us ratio=1.266x frames=200000
+checksum=6400000
+make[1]: Leaving directory '/home/meganerd/Documents/github/2/dense/libdense_net'
+make -C libdense_sched all LTO=0
+make[1]: Entering directory '/home/meganerd/Documents/github/2/dense/libdense_sched'
+make[1]: Nothing to be done for 'all'.
+make[1]: Leaving directory '/home/meganerd/Documents/github/2/dense/libdense_sched'
+make -C densedb all LTO=0
+make[1]: Entering directory '/home/meganerd/Documents/github/2/dense/densedb'
+make[1]: Nothing to be done for 'all'.
+make[1]: Leaving directory '/home/meganerd/Documents/github/2/dense/densedb'
+make -C integration all
+make[1]: Entering directory '/home/meganerd/Documents/github/2/dense/integration'
+make -C ../libdense_sim all
+make[2]: Entering directory '/home/meganerd/Documents/github/2/dense/libdense_sim'
+make[2]: Nothing to be done for 'all'.
+make[2]: Leaving directory '/home/meganerd/Documents/github/2/dense/libdense_sim'
+make -C ../libdense_collision all
+make[2]: Entering directory '/home/meganerd/Documents/github/2/dense/libdense_collision'
+make[2]: Nothing to be done for 'all'.
+make[2]: Leaving directory '/home/meganerd/Documents/github/2/dense/libdense_collision'
+make -C ../libdense_nav all DENSE_COLLISION_DIR=../libdense_collision
+make[2]: Entering directory '/home/meganerd/Documents/github/2/dense/libdense_nav'
+make[2]: Nothing to be done for 'all'.
+make[2]: Leaving directory '/home/meganerd/Documents/github/2/dense/libdense_nav'
+make -C ../libdense_sched all
+make[2]: Entering directory '/home/meganerd/Documents/github/2/dense/libdense_sched'
+make[2]: Nothing to be done for 'all'.
+make[2]: Leaving directory '/home/meganerd/Documents/github/2/dense/libdense_sched'
+make -C ../libdense_ai all
+make[2]: Entering directory '/home/meganerd/Documents/github/2/dense/libdense_ai'
+make[2]: Nothing to be done for 'all'.
+make[2]: Leaving directory '/home/meganerd/Documents/github/2/dense/libdense_ai'
+make -C ../libdense_net all DENSE_SIM_DIR=../libdense_sim
+make[2]: Entering directory '/home/meganerd/Documents/github/2/dense/libdense_net'
+make[2]: Nothing to be done for 'all'.
+make[2]: Leaving directory '/home/meganerd/Documents/github/2/dense/libdense_net'
+make -C ../densedb all
+make[2]: Entering directory '/home/meganerd/Documents/github/2/dense/densedb'
+make[2]: Nothing to be done for 'all'.
+make[2]: Leaving directory '/home/meganerd/Documents/github/2/dense/densedb'
+cc -Iinclude -I../libdense_ai/include -I../libdense_collision/include -I../libdense_nav/include -I../libdense_net/include -I../libdense_sched/include -I../libdense_sim/include -I../densedb/include -O3 -std=c11 -Wall -Wextra -Wpedantic -Wconversion -Wshadow -Wstrict-prototypes -Wmissing-prototypes tests/test_allocation_metrics.c ../densedb/build/lib/libdensedb.a ../libdense_net/build/lib/libdense_net.a ../libdense_nav/build/lib/libdense_nav.a ../libdense_collision/build/lib/libdense_collision.a ../libdense_ai/build/lib/libdense_ai.a ../libdense_sched/build/lib/libdense_sched.a ../libdense_sim/build/lib/libdense_sim.a  -lm -o build/test_allocation_metrics
+cc -Iinclude -I../libdense_ai/include -I../libdense_collision/include -I../libdense_nav/include -I../libdense_net/include -I../libdense_sched/include -I../libdense_sim/include -I../densedb/include -O3 -std=c11 -Wall -Wextra -Wpedantic -Wconversion -Wshadow -Wstrict-prototypes -Wmissing-prototypes src/dense_overload_policy.c \
+	tests/test_zero_alloc.c ../densedb/build/lib/libdensedb.a ../libdense_net/build/lib/libdense_net.a ../libdense_nav/build/lib/libdense_nav.a ../libdense_collision/build/lib/libdense_collision.a ../libdense_ai/build/lib/libdense_ai.a ../libdense_sched/build/lib/libdense_sched.a ../libdense_sim/build/lib/libdense_sim.a  -lm -o build/test_zero_alloc
+cc -Iinclude -I../libdense_ai/include -I../libdense_collision/include -I../libdense_nav/include -I../libdense_net/include -I../libdense_sched/include -I../libdense_sim/include -I../densedb/include -O3 -std=c11 -Wall -Wextra -Wpedantic -Wconversion -Wshadow -Wstrict-prototypes -Wmissing-prototypes src/dense_tick_metrics.c \
+	tests/test_scheduler_policy.c ../libdense_sched/build/lib/libdense_sched.a  -o build/test_scheduler_policy
+cc -Iinclude -I../libdense_ai/include -I../libdense_collision/include -I../libdense_nav/include -I../libdense_net/include -I../libdense_sched/include -I../libdense_sim/include -I../densedb/include -O3 -std=c11 -Wall -Wextra -Wpedantic -Wconversion -Wshadow -Wstrict-prototypes -Wmissing-prototypes src/dense_overload_policy.c \
+	src/dense_tick_metrics.c tests/test_overload_policy.c \
+	../libdense_sched/build/lib/libdense_sched.a  -o build/test_overload_policy
+cc -Iinclude -I../libdense_ai/include -I../libdense_collision/include -I../libdense_nav/include -I../libdense_net/include -I../libdense_sched/include -I../libdense_sim/include -I../densedb/include -O3 -std=c11 -Wall -Wextra -Wpedantic -Wconversion -Wshadow -Wstrict-prototypes -Wmissing-prototypes src/dense_replay.c tests/test_replay.c \
+	../densedb/build/lib/libdensedb.a ../libdense_net/build/lib/libdense_net.a ../libdense_nav/build/lib/libdense_nav.a ../libdense_collision/build/lib/libdense_collision.a ../libdense_ai/build/lib/libdense_ai.a ../libdense_sched/build/lib/libdense_sched.a ../libdense_sim/build/lib/libdense_sim.a  -lm -o build/test_replay
+cc -Iinclude -I../libdense_ai/include -I../libdense_collision/include -I../libdense_nav/include -I../libdense_net/include -I../libdense_sched/include -I../libdense_sim/include -I../densedb/include -O3 -std=c11 -Wall -Wextra -Wpedantic -Wconversion -Wshadow -Wstrict-prototypes -Wmissing-prototypes src/dense_replay.c tools/replay_tool.c \
+	../densedb/build/lib/libdensedb.a ../libdense_net/build/lib/libdense_net.a ../libdense_nav/build/lib/libdense_nav.a ../libdense_collision/build/lib/libdense_collision.a ../libdense_ai/build/lib/libdense_ai.a ../libdense_sched/build/lib/libdense_sched.a ../libdense_sim/build/lib/libdense_sim.a  -lm -o build/dense_replay_tool
+make[1]: Leaving directory '/home/meganerd/Documents/github/2/dense/integration'
+make -C integration benchmark-replay
+make[1]: Entering directory '/home/meganerd/Documents/github/2/dense/integration'
+make -C ../libdense_sim all
+make[2]: Entering directory '/home/meganerd/Documents/github/2/dense/libdense_sim'
+make[2]: Nothing to be done for 'all'.
+make[2]: Leaving directory '/home/meganerd/Documents/github/2/dense/libdense_sim'
+make -C ../libdense_collision all
+make[2]: Entering directory '/home/meganerd/Documents/github/2/dense/libdense_collision'
+make[2]: Nothing to be done for 'all'.
+make[2]: Leaving directory '/home/meganerd/Documents/github/2/dense/libdense_collision'
+make -C ../libdense_nav all DENSE_COLLISION_DIR=../libdense_collision
+make[2]: Entering directory '/home/meganerd/Documents/github/2/dense/libdense_nav'
+make[2]: Nothing to be done for 'all'.
+make[2]: Leaving directory '/home/meganerd/Documents/github/2/dense/libdense_nav'
+make -C ../libdense_sched all
+make[2]: Entering directory '/home/meganerd/Documents/github/2/dense/libdense_sched'
+make[2]: Nothing to be done for 'all'.
+make[2]: Leaving directory '/home/meganerd/Documents/github/2/dense/libdense_sched'
+make -C ../libdense_ai all
+make[2]: Entering directory '/home/meganerd/Documents/github/2/dense/libdense_ai'
+make[2]: Nothing to be done for 'all'.
+make[2]: Leaving directory '/home/meganerd/Documents/github/2/dense/libdense_ai'
+make -C ../libdense_net all DENSE_SIM_DIR=../libdense_sim
+make[2]: Entering directory '/home/meganerd/Documents/github/2/dense/libdense_net'
+make[2]: Nothing to be done for 'all'.
+make[2]: Leaving directory '/home/meganerd/Documents/github/2/dense/libdense_net'
+make -C ../densedb all
+make[2]: Entering directory '/home/meganerd/Documents/github/2/dense/densedb'
+make[2]: Nothing to be done for 'all'.
+make[2]: Leaving directory '/home/meganerd/Documents/github/2/dense/densedb'
+cc -Iinclude -I../libdense_ai/include -I../libdense_collision/include -I../libdense_nav/include -I../libdense_net/include -I../libdense_sched/include -I../libdense_sim/include -I../densedb/include -O3 -std=c11 -Wall -Wextra -Wpedantic -Wconversion -Wshadow -Wstrict-prototypes -Wmissing-prototypes src/dense_replay.c benchmarks/replay_log.c \
+	../densedb/build/lib/libdensedb.a ../libdense_net/build/lib/libdense_net.a ../libdense_nav/build/lib/libdense_nav.a ../libdense_collision/build/lib/libdense_collision.a ../libdense_ai/build/lib/libdense_ai.a ../libdense_sched/build/lib/libdense_sched.a ../libdense_sim/build/lib/libdense_sim.a  -lm -o build/replay_benchmark
+build/replay_benchmark
+Dense Phase 6 replay log benchmark
+ticks=20000 sessions=4 records=100004
+size: 7.17 MiB
+write: 212.23 ns/record, 337.92 MiB/s
+read:  112.49 ns/record, 637.55 MiB/s
+audit: lifecycle=4 frames=80000 ticks=20000
+make[1]: Leaving directory '/home/meganerd/Documents/github/2/dense/integration'
+make -C integration benchmark-phase8-overload
+make[1]: Entering directory '/home/meganerd/Documents/github/2/dense/integration'
+make -C ../libdense_sim all
+make[2]: Entering directory '/home/meganerd/Documents/github/2/dense/libdense_sim'
+make[2]: Nothing to be done for 'all'.
+make[2]: Leaving directory '/home/meganerd/Documents/github/2/dense/libdense_sim'
+make -C ../libdense_collision all
+make[2]: Entering directory '/home/meganerd/Documents/github/2/dense/libdense_collision'
+make[2]: Nothing to be done for 'all'.
+make[2]: Leaving directory '/home/meganerd/Documents/github/2/dense/libdense_collision'
+make -C ../libdense_nav all DENSE_COLLISION_DIR=../libdense_collision
+make[2]: Entering directory '/home/meganerd/Documents/github/2/dense/libdense_nav'
+make[2]: Nothing to be done for 'all'.
+make[2]: Leaving directory '/home/meganerd/Documents/github/2/dense/libdense_nav'
+make -C ../libdense_sched all
+make[2]: Entering directory '/home/meganerd/Documents/github/2/dense/libdense_sched'
+make[2]: Nothing to be done for 'all'.
+make[2]: Leaving directory '/home/meganerd/Documents/github/2/dense/libdense_sched'
+make -C ../libdense_ai all
+make[2]: Entering directory '/home/meganerd/Documents/github/2/dense/libdense_ai'
+make[2]: Nothing to be done for 'all'.
+make[2]: Leaving directory '/home/meganerd/Documents/github/2/dense/libdense_ai'
+make -C ../libdense_net all DENSE_SIM_DIR=../libdense_sim
+make[2]: Entering directory '/home/meganerd/Documents/github/2/dense/libdense_net'
+make[2]: Nothing to be done for 'all'.
+make[2]: Leaving directory '/home/meganerd/Documents/github/2/dense/libdense_net'
+make -C ../densedb all
+make[2]: Entering directory '/home/meganerd/Documents/github/2/dense/densedb'
+make[2]: Nothing to be done for 'all'.
+make[2]: Leaving directory '/home/meganerd/Documents/github/2/dense/densedb'
+cc -Iinclude -I../libdense_ai/include -I../libdense_collision/include -I../libdense_nav/include -I../libdense_net/include -I../libdense_sched/include -I../libdense_sim/include -I../densedb/include -O3 -std=c11 -Wall -Wextra -Wpedantic -Wconversion -Wshadow -Wstrict-prototypes -Wmissing-prototypes src/dense_overload_policy.c \
+	benchmarks/overload_tuning.c ../libdense_sched/build/lib/libdense_sched.a \
+	 -o build/phase8_overload_tuning
+build/phase8_overload_tuning | tee ../release/benchmarks/phase8/overload-tuning.txt
+Dense Phase 8 overload integration and tuning
+tick CPU budget=20.0 ms, nominal tick period=50.0 ms
+
+state       enter/recover ms  input  repl KiB  AI agents  nav exp  near/far  cap  tick ms
+normal        0.0/0.0      2000    3906.2      10000   200000   10/60   open   50.00
+elevated     16.0/12.0     2000    3320.3       7500   150000   20/120  open   50.00
+high         18.0/14.0     1500    2343.8       5000   100000   40/240  open   50.00
+critical     20.0/16.0     1000    1367.2       2500    50000   80/480   500   50.00
+emergency    25.0/18.0      500     781.2       1000    20000  160/960   750   62.50
+
+stress escalation ticks: elevated=63 high=66 critical=68 emergency=69
+stress recovery ticks:  emergency=129 critical=169 high=199 elevated=219 final=normal
+input:       accepted=333000 shed=267000
+replication: sent=596400000 shed=1323600000
+AI:          run=1335000 deferred=1545000
+navigation:  run=26700000 deferred=45300000
+admission:   optional=199 essential=240 of 240
+stress checksum: 614a7253429bfac5
+
+controller: 52.91 ns/observation (1000000 observations), checksum=7010541522355344930
+make[1]: Leaving directory '/home/meganerd/Documents/github/2/dense/integration'

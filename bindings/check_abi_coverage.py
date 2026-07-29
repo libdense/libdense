@@ -6,13 +6,32 @@ import re
 import sys
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
-HEADER = ROOT / "include" / "dense" / "dense_sim.h"
+_HEADER_CANDIDATES = (
+    ROOT / "include" / "dense" / "dense_sim.h",
+    ROOT / "libdense_sim" / "include" / "dense_sim.h",
+)
+HEADER = next(
+    (candidate for candidate in _HEADER_CANDIDATES if candidate.is_file()),
+    _HEADER_CANDIDATES[0],
+)
 WRAPPERS = {
-    "cpp": ROOT / "bindings" / "cpp" / "include" / "dense" / "dense_sim.hpp",
+    "cpp": ROOT / "bindings" / "cpp" / "include" / "dense_sim.hpp",
     "rust": ROOT / "bindings" / "rust" / "src" / "lib.rs",
 }
 
-EXPECTED_PUBLIC_FUNCTIONS = 28
+EXPECTED_PUBLIC_FUNCTIONS = 33
+
+# Public 0.2.0 runtime/telemetry entry points that the wrappers intentionally
+# do not bind yet. They are excluded from signature-equivalence coverage but
+# still counted against EXPECTED_PUBLIC_FUNCTIONS, so any other new public
+# function fails this check until it is either bound or listed here.
+KNOWN_UNBOUND_FUNCTIONS = {
+    "ds_get_allocation_metrics",
+    "ds_reset_allocation_counters",
+    "ds_runtime_has_avx2",
+    "ds_runtime_init",
+    "ds_world_get_memory_stats",
+}
 
 C_TO_RUST_TYPES = {
     "bool": "bool",
@@ -113,6 +132,9 @@ def public_function_signatures(
             )
 
         return_type, name, parameters = match.groups()
+        if name in KNOWN_UNBOUND_FUNCTIONS:
+            signatures[name] = None
+            continue
         parameter_types = []
         if parameters.strip() and parameters.strip() != "void":
             parameter_types = [
@@ -226,6 +248,9 @@ def main() -> int:
         return 1
 
     failed = False
+    functions = [
+        name for name in functions if c_signatures[name] is not None
+    ]
     rust_declaration_set = set(rust_declarations)
 
     if len(rust_declarations) != len(rust_declaration_set):

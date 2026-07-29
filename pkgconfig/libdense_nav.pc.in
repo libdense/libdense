@@ -1,0 +1,11 @@
+prefix=@PREFIX@
+exec_prefix=${prefix}
+libdir=${prefix}/@LIBDIR@
+includedir=${prefix}/include/dense
+
+Name: libdense_nav
+Description: Dense pathfinding, flow fields, path sharing, and navigation data
+Version: @VERSION@
+Libs: -L${libdir} -ldense_nav
+Libs.private: -lm
+Cflags: -I${includedir}

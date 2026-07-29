@@ -1,285 +1,302 @@
-# Dense (libdense_sim, DenseDB)
-
 <p align="center">
   <img src="logo.png" alt="Dense logo" width="800">
 </p>
 
-**A high-density multiplayer state engine**
+# Dense 0.2.0
 
-This is the public binary release repository for Dense 0.1.0-rc1. It contains
-compiled `libdense_sim` and DenseDB libraries, public C ABI headers, language
-bindings, compatibility records, installation scripts, and user documentation.
+**A high-density multiplayer server library family in C.**
 
-The private C implementation source for `libdense_sim` and DenseDB is not
-included. Binding source is included so applications can inspect, build, and
-integrate the supported language wrappers.
+Dense is a family of deterministic multiplayer server libraries that remain
+efficient when large numbers of players, NPCs, projectiles, timers, paths,
+collision bodies, and replication recipients gather in the same area.
 
-## Included
+Dense is not a complete game server. It provides explicit modules for
+simulation, transport, scheduling, collision, navigation, AI, and durable
+state. This package contains the prebuilt Linux x86-64 libraries, public
+headers, documentation, and binding source. Core implementation source is not
+included; the Python, C++, and Rust bindings ship with their full source.
 
-- `libdense_sim` shared and static Linux x86-64 libraries;
-- `libdensedb` shared and static Linux x86-64 libraries;
-- public `dense_sim.h` and `densedb.h` C ABI headers;
-- CPython 3.13 and 3.14 Linux x86-64 wheels;
-- source for the CPython, C++20, and Rust bindings;
-- ABI layout and public API snapshots;
-- retained benchmark result data;
-- install, uninstall, verification, and checksum scripts; and
-- public documentation and licensing notices.
+## What is new in 0.2
 
-## Not Included
+Dense 0.1 shipped two libraries: `libdense_sim` and DenseDB. Dense 0.2
+completes the MMO stack. Five new libraries join the family, and every
+library now runs behind one shared overload ladder inside a deterministic,
+record/replayable authority loop:
 
-- `libdense_sim` implementation source;
-- DenseDB implementation source;
-- private core tests or benchmark source;
-- object files, private headers, or internal build directories;
-- Git history from the development repository; or
-- logos and other images.
+- `libdense_net` - sessions, reliability, and replication transport
+- `libdense_sched` - tick phases, timers, budgets, and overload control
+- `libdense_collision` - authoritative integer collision and movement validation
+- `libdense_nav` - deterministic pathfinding, flow fields, and hierarchy
+- `libdense_ai` - deterministic agent perception, behavior, and intents
 
-## Platform
+The private `dense_core` primitive layer (maps, dirty sets, arenas, slot
+pools, span hashing, CPU dispatch, integer sorting) is statically merged into
+each shipped library with hidden visibility; it is not a separate artifact.
 
-```text
-Operating system: Linux
-Architecture:     x86-64
-Release:          0.1.0-rc1
-C ABI version:    1
-Required glibc:   2.33 or newer
-```
+## Modules
 
-The native libraries use SONAMEs `libdense_sim.so.0` and `libdensedb.so.0`.
-DenseDB dynamically depends on `libdense_sim.so.0`.
+| Module | Responsibility |
+|---|---|
+| `libdense_sim` | Entity lifecycle, validated positions, spatial membership, dirty state, and canonical fanout views |
+| `libdense_net` | Sessions, transport, reliability, queueing, and replication transport that consumes simulation fanout |
+| `libdense_sched` | Tick phases, timing wheel, budgets, fairness, token buckets, and the shared overload ladder |
+| `libdense_collision` | Authoritative integer collision, broadphase, movement validation, queries, and triggers |
+| `libdense_nav` | Sparse navigation grids, deterministic paths, flow fields, caches, and collision rasterization |
+| `libdense_ai` | Deterministic agent memory, behavior trees, scheduler-sliced execution, and intent production |
+| `densedb` | Single-writer state tables, WATCH views, WAL durability, snapshots, and recovery |
 
-See `docs/PLATFORM-COMPATIBILITY.md` before deploying to an older Linux
-distribution.
-
-## Repository Layout
+## Authority and dependency direction
 
 ```text
-include/dense/                 public C headers
-lib/linux-x86_64/              shared and static native libraries
-pkgconfig/                     install-time pkg-config templates
-bindings/python/               CPython binding source and wheels
-bindings/cpp/                  header-only C++20 wrapper
-bindings/rust/                 safe Rust wrapper crate
-release/api/                   normalized public API snapshots
-release/abi/                   retained ABI layout snapshot
-release/benchmarks/            retained benchmark summary and gate
-densebench/                    retained local benchmark text output
-docs/                          public documentation
-install.sh                     native SDK installer
-uninstall.sh                   manifest-based uninstaller
-verify-release.sh              release integrity checks
+dense_core (private, statically merged into each library)
+    ^
+    |-- libdense_sim
+    |-- libdense_net
+    |-- libdense_sched
+    |-- libdense_collision
+    |-- libdense_nav
+    |-- libdense_ai
+    `-- DenseDB
 ```
 
-## Install Native Libraries
+The intended server pipeline is:
 
-Install under `/usr/local`:
-
-```bash
-sudo ./install.sh
+```text
+input
+  -> validate
+  -> nav proposal
+  -> collision validation
+  -> simulation commit
+  -> combat / AI intent processing
+  -> simulation fanout
+  -> network flush
+  -> DenseDB flush seam
 ```
 
-Install under another prefix:
+`libdense_sim` is the sole authority for replication grouping. `libdense_net`
+consumes borrowed fanout views and does not independently scan entities or
+decide visibility groups. AI produces intents rather than mutating
+authoritative game state directly.
 
-```bash
-sudo ./install.sh --prefix /opt/dense
+## Benchmarks
+
+All numbers below are from the 0.2.0 full benchmark run recorded on
+2026-07-28 on an AMD Ryzen 5 5600X (Linux x86-64, release `-O3` build).
+The raw log ships in this package at
+`release/benchmarks/benchmark_full_Ryzen_5600x_7.28.26.txt`, and
+`docs/BENCHMARK-SCOPE.md` defines which claims are retained. Benchmarks are
+single-threaded unless stated; Dense targets a deterministic single-writer
+tick.
+
+<p align="center">
+  <img src="densebench/densescalingticktime.png" alt="Dense scaling tick time" width="620">
+</p>
+<p align="center">
+  <img src="densebench/densescalingperplayer.png" alt="Dense per-player scaling" width="620">
+</p>
+
+### Integrated authority loop
+
+The deterministic 240-tick authority harness runs every module in one
+pipeline (input, validate, spatial, combat, AI, fanout, flush) with
+record/replay checksums pinned across release and ASan/UBSan builds.
+
+| Tick latency | Time |
+|---|---:|
+| p50 | 14.3 us |
+| p95 | 20.9 us |
+| p99 | 56.7 us |
+| max | 248.1 us |
+
+Representative simulation gate scenarios (`release/benchmarks/rc-gate.txt`):
+
+| Scenario | Tick time |
+|---|---:|
+| 1,000 entities, dense shared cell | 0.207 ms |
+| Town: 100,000 entities, 1,000 observers | 0.112 ms |
+| 1,000 observers crossing chunk boundary | 4.183 ms |
+| 64-way type-mask fragmentation | 0.813 ms |
+
+### libdense_sim
+
+| Benchmark | Result |
+|---|---:|
+| Spawn with spatial insertion (1M entities) | 4.72 M entities/s |
+| Entity lookup (1M entities) | 48.5 M lookups/s |
+| Same-cell movement (100k entities) | 39.4 M moves/s |
+| Chunk-boundary thrash (20M crossings) | 11.8 M moves/s |
+| Dirty mark, public first-mark (1M entities) | 29.9 M marks/s |
+| Dirty mark, direct slot | 278.5 M marks/s |
+| Next-tick dirty reset | 772.9 M entities/s |
+| Fanout plan, shared recipient set (1M implied deliveries/tick) | 0.055 ms/tick |
+| Observer boundary shift (10k observers, 12 chunk edges each) | 5.14 ms/tick |
+| Kinetic motion, stable plans vs sampled baseline | 0.57x cost |
+
+### libdense_net
+
+| Benchmark | Result |
+|---|---:|
+| Replication publish (encode + refs, 65,536 recipient-frames/tick) | 10.7 ns/frame |
+| Session flush | 12.7 ns/frame |
+| Shared fanout vs per-recipient naive sends | 1.66x faster |
+| Implied deliveries | 85.3 M/s |
+| Session lookup (5,000 sessions) | 5.9 ns/op |
+| Flush-all visit cost (5,000 sessions) | 118.7 ns/session |
+| Batch frame encode vs scalar | 1.27x faster |
+| Adverse soak: 20% drop, 8% dup, 12% reorder | 20,000/20,000 reliable commands in order |
+
+### libdense_sched
+
+| Benchmark | Result |
+|---|---:|
+| Timer schedule (1M timers) | 8.1 ns/op |
+| Timer cancel | 12.3 ns/op |
+| Advance + fire | 66.0 ns/fired timer |
+| Named 7-phase pipeline telemetry | 99.4 ns/tick |
+| Overload scenario (18 ms offered vs 10 ms budget) | worst tick 14.25 ms, 13/13 escalations recovered |
+
+### libdense_collision
+
+| Benchmark | Result |
+|---|---:|
+| Validated move (slide + bodies + commit + triggers, 2,000-body crowd) | 241 ns/move (4.14 M moves/s) |
+| Swept circle vs 400 statics + 1,500 bodies, 46.7% hit rate | 772 ns/sweep (1.30 M sweeps/s) |
+
+### libdense_nav
+
+| Benchmark | Result |
+|---|---:|
+| Raw A* (256x256, ~22% walls) | 1,368 us/path |
+| Cached dense path reuse (96.2% hit rate) | 53.7 us/path |
+| Line of sight vs full A* on close requests | 29.3 ns vs 880.6 ns (30.0x) |
+| Bounded 300-request repath lane vs unbounded drain | 2,570x smaller peak burst |
+| Hierarchical long route (512x512) vs full tile A* | 0.017 ms vs 63.9 ms (3,759x fewer tile expansions) |
+| Flow-field crowd steering (10k agents) | 9.1 ns/agent-step |
+| Batch APIs (cost, LOS, flow sample) | 1.07-1.14x vs scalar |
+
+### libdense_ai
+
+| Benchmark | Result |
+|---|---:|
+| Horde: perceive + threat + tree + intent (10k agents, one tree) | 83 ns/agent-tick |
+| Whole-horde tick (10k agents) | 0.83 ms |
+| Scheduler slicing (250 to 10,000-agent slices) | equal total cost across slice sizes |
+| Batch condition checks vs scalar | 1.48x faster |
+
+### DenseDB
+
+| Benchmark | Result |
+|---|---:|
+| Direct hp SoA column scan (100k rows) | 0.032 ms |
+| Vitals u16 column update (100k rows) | 13.97 ms mean |
+| WATCH churn finalization (120,000 deltas/tick) | 6.21 ms/tick |
+| WAL commit, no sync (1,000 updates/tick) | 0.149 ms mean |
+| Write-behind seal vs synchronous end-tick | 38.7 us vs 617.3 us (15.96x) |
+| Snapshot + WAL recovery (10k rows, 100 update ticks) | 124.5 ms |
+
+### Overload ladder
+
+One tuned controller drives input admission, replication volume, AI agent
+budgets, navigation expansion, region admission, database flush, and the
+emergency tick period through the deterministic authority loop
+(`release/benchmarks/overload-tuning.txt`):
+
+| State | Enter/recover (ms) | Input/tick | Repl KiB/tick | AI agents | Nav expansions | Tick period |
+|---|---:|---:|---:|---:|---:|---:|
+| normal | - | 2,000 | 3,906 | 10,000 | 200,000 | 50.0 ms |
+| elevated | 16/12 | 2,000 | 3,320 | 7,500 | 150,000 | 50.0 ms |
+| high | 18/14 | 1,500 | 2,344 | 5,000 | 100,000 | 50.0 ms |
+| critical | 20/16 | 1,000 | 1,367 | 2,500 | 50,000 | 50.0 ms |
+| emergency | 25/18 | 500 | 781 | 1,000 | 20,000 | 62.5 ms |
+
+The controller itself costs 52.9 ns/observation. Under a scripted 3x
+overload the ladder escalates in 6 ticks, recovers in order, and returns to
+normal without state flapping.
+
+<p align="center">
+  <img src="densebench/dense-bench-scenario.png" alt="Dense benchmark scenario" width="620">
+</p>
+
+## Package layout
+
+```text
+dense-0.2.0/
+|-- README.md, CHANGELOG.md, VERSION, MANIFEST.md
+|-- LICENSE.md, COMMERCIAL-LICENSE.md, SECURITY.md, SUPPORT.md
+|-- install.sh, uninstall.sh, verify-release.sh, SHA256SUMS
+|-- include/dense/          public C headers (9)
+|-- lib/linux-x86_64/       shared + static libraries (7)
+|-- pkgconfig/              pkg-config templates
+|-- bindings/               Python, C++, and Rust wrappers (full source)
+|-- docs/                   documentation and per-module references
+|-- release/                ABI/API snapshots and benchmark records
+`-- densebench/             benchmark charts
 ```
 
-Create a package staging tree without changing the host:
+## Install
 
-```bash
-rm -rf stage
-./install.sh --prefix /usr --destdir "$PWD/stage"
-```
-
-The installer deploys the C headers, shared/static libraries, C++ header,
-`pkg-config` files, documentation, and an exact installation manifest.
-
-Uninstall using the same prefix:
-
-```bash
-sudo ./uninstall.sh --prefix /opt/dense
-```
-
-See `docs/INSTALLATION.md` for all options.
-
-## Compile Against the C ABI
-
-After installation:
-
-```bash
-cc application.c $(pkg-config --cflags --libs libdense_sim) -o application
-cc database.c $(pkg-config --cflags --libs libdensedb) -o database
-```
-
-Public includes may be written as:
-
-```c
-#include "dense_sim.h"
-#include "densedb.h"
-```
-
-The `pkg-config` files add the namespaced Dense header directory.
-
-## Python
-
-Install the wheel matching the interpreter:
-
-```bash
-python3.13 -m pip install bindings/python/dist/*cp313*.whl
-python3.14 -m pip install bindings/python/dist/*cp314*.whl
-```
-
-The wheels statically contain `libdense_sim`; a separate system install is not
-required for the Python package. The binding source can also be rebuilt against
-the packaged static library:
-
-```bash
-make -C bindings/python PYTHON=python3.14 test
-```
-
-The official Dense Python binding is available from PyPI as [`dense-sim`](https://pypi.org/project/dense-sim/).
-
-```bash
-python3 -m pip install "dense-sim==0.1.0rc1"
-```
-
-The package currently supports CPython 3.11, 3.12, 3.13, and 3.14 on Linux x86-64.
-
-See the [Python binding README](bindings/python/README.md) for installation instructions, API usage, examples, and development information.
-
-## C++
-
-The C++20 wrapper is header-only and links to `libdense_sim`:
-
-```bash
-make -C bindings/cpp test
-```
-
-After system installation:
-
-```cpp
-#include <dense/dense_sim.hpp>
-```
-
-## Rust
-
-The Rust crate links to the packaged static library by default:
-
-```bash
-make -C bindings/rust test
-```
-
-Override the native artifact directory with `DENSE_SIM_LIB_DIR`. Set
-`DENSE_SIM_LINK_MODE=dynamic` to request dynamic linking instead of static
-linking.
-
-## Verify the Release
+Verify and install the precompiled native SDK:
 
 ```bash
 ./verify-release.sh
-./tools/generate-checksums.sh
-sha256sum --check SHA256SUMS
+sudo ./install.sh
 ```
 
-The verifier rejects core implementation source outside `bindings/`, broken
-SONAME links, missing public artifacts, inconsistent exported symbols, image
-references, and unexpected build products.
+Selected options (see `docs/INSTALLATION.md` for staging and packaging):
 
-## What `libdense_sim` Provides
-
-`libdense_sim` owns spatial execution state and provides arbitrary 64-bit entity
-IDs, dense entity storage, dynamic cells and chunks, incremental movement,
-fixed and entity-following observers, persistent subscriptions, dirty-channel
-coalescing, finalized `ENTER`/`UPDATE`/`LEAVE` operations, grouped recipient
-plans, sampled movement, and optional kinetic motion plans.
-
-It does not own health, inventory, equipment, authentication, gameplay rules,
-network transport, serialization, or application payloads.
-
-## What DenseDB Provides
-
-DenseDB adds channel-oriented application state and durability while delegating
-spatial execution to `libdense_sim`. It provides immutable schemas,
-structure-of-arrays columns, spatial tables, fixed and entity-following WATCH
-subscriptions, borrowed snapshot/delta views, tick-level WAL commits, atomic
-snapshots, and snapshot-plus-WAL recovery.
-
-DenseDB uses a single-writer tick model. A durable tick is acknowledged only
-after `ddb_database_end_tick()` succeeds.
-
-## Benchmark Snapshot
-
-<p align="center">
-  <img src="densebench/dense-bench-scenario.png" alt="Dense logo" width="800">
-</p>
-
-
-> **10,000 moving players, all visible to one another, processed in an average of 4.864 milliseconds per tick.**
-
-All benchmark results were all measured locally on an AMD Ryzen 5 5600X.
-
-Test configuration:
-
-```text
-players:             10,000
-area:                24 × 24 spatial units
-observer radius:     40
-observers:           one entity-following observer per player
-ticks per run:       100
-public C API mean:   4.864 ms
-public C API p95:    5.016 ms
-public C API p99:    5.850 ms
+```bash
+sudo ./install.sh --prefix /opt/dense
+./install.sh --prefix /usr --destdir "$PWD/stage"
+sudo ./uninstall.sh --prefix /opt/dense
 ```
 
-At 20 updates per second, the tick interval is 50 milliseconds. A 4.864 ms mean consumes approximately 9.7% of one CPU core:
+Link with pkg-config:
 
-```text
-4.864 ms per tick × 20 ticks per second
-    =
-97.28 ms of CPU time per second
+```bash
+pkg-config --cflags --libs libdense_sim
+pkg-config --cflags --libs libdense_net
+pkg-config --cflags --libs libdensedb
 ```
 
-Increasing the population from 1,000 to 10,000 increased implied entity-to-recipient relationships by approximately 100×, while public-API processing time increased by approximately 16.9×.
+## Bindings
 
-See `docs/BENCHMARK-SCOPE.md` and `release/benchmarks/`.
+Binding source ships in full under `bindings/`; see `docs/BINDINGS.md`.
 
-<p align="center">
-  <img src="densebench/density-wall.png" alt="Density wall" width="1029" height="779">
-</p>
-
-<p align="center">
-  <img src="densebench/densescalingticktime.png" alt="Density" width="800">
-</p>
+- **Python**: prebuilt CPython 3.13 and 3.14 Linux x86-64 wheels in
+  `bindings/python/dist/`, statically containing `libdense_sim`.
+  `python3.14 -m pip install bindings/python/dist/*cp314*.whl`
+- **C++**: header-only C++20 wrapper; `make -C bindings/cpp test`
+- **Rust**: dependency-free wrapper crate; `make -C bindings/rust test`
 
 <p align="center">
-  <img src="densebench/densescalingperplayer.png" alt="Density" width="800">
+  <img src="densebench/dense-bench-python-binding.png" alt="Dense Python binding benchmark" width="620">
 </p>
 
-<p align="center">
-  <img src="densebench/dense_bench_swarm.png" alt="Density" width="800">
-</p>
+## Determinism and memory policy
 
-<p align="center">
-  <img src="densebench/dense_bench_all_to_all.png" alt="Density" width="800">
-</p>
+Dense targets a deterministic server as a function of initial state, ordered
+inputs, configuration, and library versions. The 0.2 release was gated on a
+240-tick record/replay harness with per-tick checksums pinned across `-O3`
+and ASan/UBSan builds, plus lifecycle and raw-frame audit logging
+(`docs/determinism.md`, `docs/replay-and-audit.md`).
 
+Live tick paths are prewarmed and retain high-water memory. A post-prewarm
+growth operation is treated as a steady-state allocation and must be
+observable in metrics and standing tests (`docs/performance-policy.md`).
+
+## Documentation
+
+Start at `docs/README.md`. Highlights:
+
+- `docs/INSTALLATION.md` - native install, staging, and linker setup
+- `docs/mmo-integration.md` - assembling the modules into one server loop
+- `docs/architecture.md` - module boundaries and the authority pipeline
+- `docs/modules/` - per-library reference notes
+- `docs/BENCHMARK-SCOPE.md` - retained performance claims and exclusions
+- `docs/PLATFORM-COMPATIBILITY.md` - Linux, glibc, and ABI details
 
 ## License
 
-Dense is source-available under the **Dense Community Source License 1.0**.
-
-The license permits:
-
-- noncommercial use;
-- personal, educational, academic, and research use;
-- source inspection and modification;
-- qualifying small-commercial use while the licensee group remains below the revenue threshold defined by the license.
-
-Commercial use at or above the threshold requires a separate written commercial agreement.
-
-Dense is **not** distributed under an OSI-approved open-source license.
-
-See:
-
-- [`LICENSE.md`](LICENSE.md)
-- [`COMMERCIAL-LICENSE.md`](COMMERCIAL-LICENSE.md)
+See `LICENSE.md`, `COMMERCIAL-LICENSE.md`, and `SECURITY.md`. Binary
+redistribution remains subject to the distribution conditions in
+`LICENSE.md`.

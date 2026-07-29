@@ -11,19 +11,14 @@ fn main() {
         .map(PathBuf::from)
         .unwrap_or_else(|| manifest_dir.join("../../lib/linux-x86_64"));
 
-    let link_mode = env::var("DENSE_SIM_LINK_MODE")
-        .unwrap_or_else(|_| "static".to_owned());
-    let link_kind = match link_mode.as_str() {
-        "static" => "static",
-        "dynamic" | "dylib" => "dylib",
-        value => panic!(
-            "unsupported DENSE_SIM_LINK_MODE={value:?}; use static or dynamic"
-        ),
-    };
-
     println!("cargo:rustc-link-search=native={}", lib_dir.display());
-    println!("cargo:rustc-link-lib={link_kind}=dense_sim");
+    println!("cargo:rustc-link-lib=static=dense_sim");
     println!("cargo:rustc-link-lib=m");
     println!("cargo:rerun-if-env-changed=DENSE_SIM_LIB_DIR");
-    println!("cargo:rerun-if-env-changed=DENSE_SIM_LINK_MODE");
+    println!(
+        "cargo:rerun-if-changed={}",
+        manifest_dir
+            .join("../../include/dense/dense_sim.h")
+            .display()
+    );
 }

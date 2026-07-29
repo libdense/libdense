@@ -1,0 +1,11 @@
+prefix=@PREFIX@
+exec_prefix=${prefix}
+libdir=${prefix}/@LIBDIR@
+includedir=${prefix}/include/dense
+
+Name: libdense_sched
+Description: Dense tick budgets, timers, priority lanes, overload and backpressure
+Version: @VERSION@
+Libs: -L${libdir} -ldense_sched
+Libs.private: -lm
+Cflags: -I${includedir}

@@ -4,9 +4,9 @@ libdir=${prefix}/@LIBDIR@
 includedir=${prefix}/include/dense
 
 Name: libdensedb
-Description: DenseDB spatial state database
+Description: DenseDB single-writer state tables, WATCH views, WAL durability, snapshots, and recovery
 Version: @VERSION@
-Requires: libdense_sim >= 0.1.0
+Requires: libdense_sim >= 0.2.0
 Libs: -L${libdir} -ldensedb
 Libs.private: -lm
 Cflags: -I${includedir}

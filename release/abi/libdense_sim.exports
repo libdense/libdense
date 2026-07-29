@@ -7,6 +7,7 @@ ds_entity_move
 ds_entity_remove
 ds_entity_set_motion_plan
 ds_entity_spawn
+ds_get_allocation_metrics
 ds_observer_anchor_entity
 ds_observer_create
 ds_observer_destroy
@@ -14,7 +15,10 @@ ds_observer_exists
 ds_observer_get
 ds_observer_set_position
 ds_observer_set_radius
+ds_reset_allocation_counters
 ds_result_string
+ds_runtime_has_avx2
+ds_runtime_init
 ds_world_begin_tick
 ds_world_create
 ds_world_current_tick
@@ -23,6 +27,7 @@ ds_world_end_tick
 ds_world_entity_capacity
 ds_world_entity_count
 ds_world_get_fanout_view
+ds_world_get_memory_stats
 ds_world_get_motion_metrics
 ds_world_observer_count
 ds_world_tick_is_open

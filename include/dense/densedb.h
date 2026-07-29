@@ -8,11 +8,11 @@
 #include "dense_sim.h"
 
 #define DDB_VERSION_MAJOR 0
-#define DDB_VERSION_MINOR 1
+#define DDB_VERSION_MINOR 2
 #define DDB_VERSION_PATCH 0
-#define DDB_VERSION_PRERELEASE "rc1"
-#define DDB_VERSION_STRING "0.1.0-rc1"
-#define DDB_ABI_VERSION 1
+#define DDB_VERSION_PRERELEASE ""
+#define DDB_VERSION_STRING "0.2.0"
+#define DDB_ABI_VERSION 2
 
 #if defined(_WIN32) && defined(DDB_SHARED)
     #if defined(DDB_BUILD)
@@ -62,6 +62,7 @@ typedef enum ddb_result {
     DDB_ERR_VERSION,
     DDB_ERR_DURABILITY,
     DDB_ERR_KERNEL,
+    DDB_ERR_BUSY,
 } ddb_result;
 
 typedef enum ddb_column_type {
@@ -173,10 +174,16 @@ typedef struct ddb_watch_view {
  * ddb_database_open() takes a nonblocking exclusive advisory lock on the WAL.
  * When sync_on_commit is false, an acknowledged tick is committed to the
  * process-visible WAL but is not guaranteed to survive power loss. */
+typedef enum ddb_durability_mode {
+    DDB_DURABILITY_SYNCHRONOUS = 0,
+    DDB_DURABILITY_WRITE_BEHIND,
+} ddb_durability_mode;
+
 typedef struct ddb_durability_config {
     const char *directory;
     bool create_if_missing;
     bool sync_on_commit;
+    ddb_durability_mode mode;
 } ddb_durability_config;
 
 /* committed_ticks counts commits performed by this open database instance.
@@ -185,11 +192,26 @@ typedef struct ddb_durability_config {
 typedef struct ddb_durability_info {
     bool enabled;
     bool sync_on_commit;
+    ddb_durability_mode mode;
+    bool pending_write;
+    ds_tick pending_tick;
+    size_t pending_bytes;
+    size_t pending_bytes_written;
     ds_tick snapshot_tick;
     ds_tick recovered_tick;
     uint64_t committed_ticks;
+    uint64_t sealed_ticks;
+    uint64_t busy_seals;
     uint64_t wal_bytes;
 } ddb_durability_info;
+
+typedef struct ddb_flush_report {
+    size_t requested_bytes;
+    size_t written_bytes;
+    size_t remaining_bytes;
+    bool completed_tick;
+    bool synced;
+} ddb_flush_report;
 
 typedef struct ddb_database_config {
     ds_world_config spatial;
@@ -302,8 +324,24 @@ DDB_API ddb_result ddb_database_open(
     const ddb_durability_config *durability,
     ddb_database **out_database
 );
-/* Syncs the committed WAL. Rejects an open or commit-pending tick. */
+/* Flushes any sealed write-behind tick, then syncs the committed WAL.
+ * Rejects an open or unsealed finalized tick. */
 DDB_API ddb_result ddb_database_flush(ddb_database *database);
+/* Writes at most max_bytes from the sealed WAL buffer. The function may be
+ * called by one external I/O consumer while the simulation thread records the
+ * next tick into the other retained buffer. A zero-byte budget is invalid. */
+DDB_API ddb_result ddb_database_flush_pending_bounded(
+    ddb_database *database,
+    size_t max_bytes,
+    ddb_flush_report *out_report
+);
+DDB_API bool ddb_database_has_pending_write(const ddb_database *database);
+/* Reserves both retained WAL transaction buffers and serializer scratch. */
+DDB_API ddb_result ddb_database_prewarm_durability(
+    ddb_database *database,
+    size_t bytes_per_tick,
+    size_t record_scratch_bytes
+);
 /* Atomically replaces the full snapshot, fsyncs it and the directory, then
  * resets the WAL to its validated header. Requires a finalized tick. */
 DDB_API ddb_result ddb_database_checkpoint(ddb_database *database);
@@ -316,9 +354,12 @@ DDB_API ddb_result ddb_database_begin_tick(
     ddb_database *database,
     ds_tick tick
 );
-/* Finalizes spatial/WATCH work, writes the tick records plus TICK_COMMIT,
- * and applies the configured sync policy before returning DDB_OK. A failed
- * durable commit remains retryable through another end_tick() call. */
+/* Finalizes spatial/WATCH work and seals the active WAL buffer. In synchronous
+ * mode it also writes and optionally syncs the sealed tick before returning. In
+ * write-behind mode the constant-time buffer swap returns once the immutable
+ * pending tick is published; the host drains it through the flush phase or one
+ * external I/O consumer. If the previous pending tick is still occupied, the
+ * finalized tick remains retryable and DDB_ERR_BUSY is returned. */
 DDB_API ddb_result ddb_database_end_tick(ddb_database *database);
 DDB_API bool ddb_database_tick_is_open(const ddb_database *database);
 DDB_API ds_tick ddb_database_current_tick(const ddb_database *database);
@@ -328,6 +369,31 @@ DDB_API size_t ddb_database_watch_count(const ddb_database *database);
 DDB_API ddb_result ddb_database_get_metrics(
     const ddb_database *database,
     ddb_metrics *out_metrics
+);
+
+typedef struct ddb_database_memory_stats {
+    size_t table_count;
+    size_t table_capacity;
+    size_t total_row_count;
+    size_t total_row_capacity;
+    size_t entity_map_capacity;
+    size_t removed_entity_map_capacity;
+    size_t watch_count;
+    size_t watch_capacity;
+    size_t watch_id_map_capacity;
+    size_t observer_watch_map_capacity;
+    size_t watch_entry_scratch_capacity;
+    size_t watch_delta_capacity;
+    size_t watch_field_capacity;
+    size_t wal_active_capacity;
+    size_t wal_pending_capacity;
+    size_t wal_record_scratch_capacity;
+    size_t wal_pending_bytes;
+} ddb_database_memory_stats;
+
+DDB_API ddb_result ddb_database_get_memory_stats(
+    const ddb_database *database,
+    ddb_database_memory_stats *out_stats
 );
 DDB_API ddb_result ddb_database_find_entity_table(
     const ddb_database *database,
@@ -460,6 +526,28 @@ DDB_API ddb_result ddb_watch_get_view(
     ddb_watch_id watch_id,
     ddb_watch_view *out_view
 );
+
+/* ------------------------------------------------------------------ */
+/* Family-wide allocation metrics                                     */
+/* ------------------------------------------------------------------ */
+
+typedef struct ddb_allocation_metrics {
+    size_t current_retained_bytes;
+    size_t peak_retained_bytes;
+    uint64_t growth_operations;
+    size_t live_object_count;
+    uint64_t allocation_failures;
+    uint64_t steady_state_allocations;
+} ddb_allocation_metrics;
+
+/*
+ * Process-wide metrics for memory owned by this library. live_object_count
+ * is the number of retained heap objects currently owned by the module. Growth
+ * and peak counters are lifetime values. Reset starts a post-prewarm window by
+ * clearing failure and steady-state allocation counters only.
+ */
+DDB_API void ddb_get_allocation_metrics(ddb_allocation_metrics *out_metrics);
+DDB_API void ddb_reset_allocation_counters(void);
 
 #ifdef __cplusplus
 }

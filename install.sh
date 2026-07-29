@@ -102,9 +102,32 @@ VERSION_FILE="$ROOT_DIR/VERSION"
 VERSION="$(tr -d "[:space:]" < "$VERSION_FILE")"
 [[ -n "$VERSION" ]] || fail "VERSION is empty"
 
+LIBRARIES=(
+    dense_sim
+    dense_net
+    dense_sched
+    dense_collision
+    dense_nav
+    dense_ai
+    densedb
+)
+
+HEADERS=(
+    dense_sim.h
+    dense_net.h
+    dense_net_sim_bridge.h
+    dense_sched.h
+    dense_collision.h
+    dense_nav.h
+    dense_nav_collision_bridge.h
+    dense_ai.h
+    densedb.h
+)
+
 HEADER_DIR="$ROOT_DIR/include/dense"
-[[ -f "$HEADER_DIR/dense_sim.h" ]] || fail "missing include/dense/dense_sim.h"
-[[ -f "$HEADER_DIR/densedb.h" ]] || fail "missing include/dense/densedb.h"
+for header in "${HEADERS[@]}"; do
+    [[ -f "$HEADER_DIR/$header" ]] || fail "missing include/dense/$header"
+done
 
 LIB_SOURCE=""
 for candidate in \
@@ -114,8 +137,7 @@ for candidate in \
     if [[ -d "$candidate" ]]; then
         LIB_SOURCE="$candidate"
         if find "$candidate" -maxdepth 1 \( -type f -o -type l \) \
-            \( -name "libdense_sim.so*" -o -name "libdense_sim.a" \
-               -o -name "libdensedb.so*" -o -name "libdensedb.a" \) \
+            \( -name "libdense*.so*" -o -name "libdense*.a" \) \
             -print -quit | grep -q .; then
             break
         fi
@@ -124,30 +146,16 @@ done
 
 [[ -n "$LIB_SOURCE" ]] || fail "missing native library directory"
 
-dense_count=0
-densedb_count=0
-while IFS= read -r -d "" artifact; do
-    base="$(basename -- "$artifact")"
-    case "$base" in
-        libdense_sim.so*|libdense_sim.a)
-            ((dense_count += 1))
-            ;;
-        libdensedb.so*|libdensedb.a)
-            ((densedb_count += 1))
-            ;;
-    esac
-done < <(
+for library in "${LIBRARIES[@]}"; do
     find "$LIB_SOURCE" -maxdepth 1 \( -type f -o -type l \) \
-        \( -name "libdense_sim.so*" -o -name "libdense_sim.a" \
-           -o -name "libdensedb.so*" -o -name "libdensedb.a" \) \
-        -print0
-)
+        \( -name "lib$library.so*" -o -name "lib$library.a" \) \
+        -print -quit | grep -q . \
+        || fail "no lib$library artifact found in $LIB_SOURCE"
+done
 
-((dense_count > 0)) || fail "no libdense_sim artifact found in $LIB_SOURCE"
-((densedb_count > 0)) || fail "no libdensedb artifact found in $LIB_SOURCE"
-
-[[ -f "$ROOT_DIR/pkgconfig/libdense_sim.pc.in" ]] || fail "missing libdense_sim.pc.in"
-[[ -f "$ROOT_DIR/pkgconfig/libdensedb.pc.in" ]] || fail "missing libdensedb.pc.in"
+for library in "${LIBRARIES[@]}"; do
+    [[ -f "$ROOT_DIR/pkgconfig/lib$library.pc.in" ]] || fail "missing lib$library.pc.in"
+done
 
 TMP_DIR="$(mktemp -d)"
 MANIFEST_TMP="$TMP_DIR/install-manifest.txt"
@@ -248,8 +256,9 @@ printf "  prefix:  %s\n" "$PREFIX"
 printf "  destdir: %s\n" "${DESTDIR:-<none>}"
 printf "  libdir:  %s\n" "$LIBDIR"
 
-install_regular "$HEADER_DIR/dense_sim.h" "include/dense/dense_sim.h" 0644
-install_regular "$HEADER_DIR/densedb.h" "include/dense/densedb.h" 0644
+for header in "${HEADERS[@]}"; do
+    install_regular "$HEADER_DIR/$header" "include/dense/$header" 0644
+done
 
 CPP_HEADER="$ROOT_DIR/bindings/cpp/include/dense/dense_sim.hpp"
 if ((INSTALL_CPP)) && [[ -f "$CPP_HEADER" ]]; then
@@ -260,15 +269,14 @@ while IFS= read -r -d "" artifact; do
     install_library_artifact "$artifact" "$LIBDIR/$(basename -- "$artifact")"
 done < <(
     find "$LIB_SOURCE" -maxdepth 1 \( -type f -o -type l \) \
-        \( -name "libdense_sim.so*" -o -name "libdense_sim.a" \
-           -o -name "libdensedb.so*" -o -name "libdensedb.a" \) \
+        \( -name "libdense*.so*" -o -name "libdense*.a" \) \
         -print0 | sort -z
 )
 
-render_pkgconfig "$ROOT_DIR/pkgconfig/libdense_sim.pc.in" "$TMP_DIR/libdense_sim.pc"
-render_pkgconfig "$ROOT_DIR/pkgconfig/libdensedb.pc.in" "$TMP_DIR/libdensedb.pc"
-install_regular "$TMP_DIR/libdense_sim.pc" "$LIBDIR/pkgconfig/libdense_sim.pc" 0644
-install_regular "$TMP_DIR/libdensedb.pc" "$LIBDIR/pkgconfig/libdensedb.pc" 0644
+for library in "${LIBRARIES[@]}"; do
+    render_pkgconfig "$ROOT_DIR/pkgconfig/lib$library.pc.in" "$TMP_DIR/lib$library.pc"
+    install_regular "$TMP_DIR/lib$library.pc" "$LIBDIR/pkgconfig/lib$library.pc" 0644
+done
 
 if ((INSTALL_DOCS)); then
     for document in \

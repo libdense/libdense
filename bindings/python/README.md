@@ -1,68 +1,15 @@
 # dense-sim Python binding
 
-This CPython extension wraps the canonical `libdense_sim` C ABI. Spatial
-indexing, subscriptions, kinetic scheduling, and fanout grouping remain inside
-the native library.
+The Python binding is a thin CPython extension over the canonical `libdense_sim`
+C ABI.
 
-## Pypi Installation
-
-Install Dense from PyPI:
-
-```bash
-python3 -m pip install "dense-sim==0.1.0rc1"
-```
-
-Because `0.1.0rc1` is a release candidate, installing the package without specifying a version may require the `--pre` option:
-
-```bash
-python3 -m pip install --pre "dense-sim"
-```
-
-Verify the installation:
-
-```bash
-python3 -c "import dense_sim; print(dense_sim.__version__)"
-```
-
-Expected output:
-
-```text
-0.1.0rc1
-```
-
-## Or install by the prebuilt wheel
-
-```bash
-python3.13 -m pip install dist/*cp313*.whl
-python3.14 -m pip install dist/*cp314*.whl
-```
-
-The wheels target Linux x86-64 and statically contain `libdense_sim`.
-
-## Build from the included binding source
-
-From the repository root:
-
-```bash
-make -C bindings/python PYTHON=python3.14 test
-make -C bindings/python PYTHON=python3.14 wheel
-```
-
-The build uses `include/dense/dense_sim.h` and
-`lib/linux-x86_64/libdense_sim.a` by default. Override them with:
-
-```text
-DENSE_SIM_INCLUDE_DIR
-DENSE_SIM_LIB_DIR
-DENSE_SIM_STATIC_LIBRARY
-```
-
-## Scalar use
+The scalar surface is ergonomic:
 
 ```python
 from dense_sim import CHANNEL_POSITION, World
 
 world = World(cell_size=8, chunk_size=16)
+
 world.begin_tick(1)
 world.spawn(193, 100, 100, 1)
 world.move(193, 101, 100)
@@ -74,7 +21,36 @@ for group in world.fanout_view():
         print(delta.entity_id, delta.operation_name)
 ```
 
-## Batch use
+Stable linear motion can use the selective kinetic backend:
+
+```python
+from dense_sim import MotionMode
+
+world.begin_tick(2)
+world.set_motion_plan(
+    193,
+    2,
+    500,
+    101.0,
+    100.0,
+    0.25,
+    0.10,
+)
+world.end_tick()
+
+assert world.motion_mode(193) == MotionMode.KINETIC
+print(world.motion_metrics)
+```
+
+`clear_motion_plan()` materializes the current sampled integer position and
+demotes the entity. A successful scalar or batched sampled move also demotes an
+active plan. Kinetic scheduling and certificate logic live entirely in the C
+kernel; the Python binding only wraps the public C ABI.
+
+Entities with anchored observers cannot currently enter kinetic mode because
+observer coverage boundaries require their own subscription certificates.
+
+The high-volume path uses contiguous native buffers:
 
 ```python
 from array import array
@@ -87,19 +63,49 @@ world.move_many(entity_ids, xs, ys)
 world.mark_dirty_many(entity_ids, CHANNEL_POSITION)
 ```
 
-Batch calls are sequential rather than transactional. Borrowed fanout objects
-are invalidated by the next successful `World.begin_tick()` or `World.close()`.
+`move_many()` requires native unsigned 64-bit IDs and signed 32-bit coordinate
+buffers. `mark_dirty_many()` accepts a native unsigned 64-bit ID buffer plus
+either one integer channel mask or a second native unsigned 64-bit mask buffer.
+`array`, contiguous `memoryview` objects, and compatible NumPy arrays can use the
+buffer fast path without Python-element conversion.
 
-## Python Benchmarks
+Batch calls are sequential, not transactional. If one entity operation fails,
+earlier operations remain applied and the raised `DenseSimError` reports the
+failing index.
+
+`FanoutView`, `ChunkDeltaView`, `DeltaEntryView`, and `SubscriberView` are
+read-only borrowed views. They retain the Python `World` object but are
+invalidated by the next successful `World.begin_tick()` or by `World.close()`.
+No nested fanout arrays are copied into Python lists when the view is created.
+
+## Build and test
+
+```bash
+make test
+make benchmark
+make wheel
+```
+
+Select a specific CPython interpreter with `PYTHON`:
+
+```bash
+make PYTHON=python3.14 test
+make PYTHON=python3.14 wheel
+```
+
+## Benchmarks
 
 <p align="center">
-  <img src="../../densebench/dense-bench-scenario.png" alt="Density" width="800">
+  <img src="densebench/dense-bench-python-binding.png" alt="Dense logo" width="620">
 </p>
 
 <p align="center">
-  <img src="../../densebench/dense-bench-python-binding.png" alt="Density" width="800">
+  <img src="densebench/dense-bench-budget.png" alt="Dense logo" width="620">
 </p>
 
 <p align="center">
-  <img src="../../densebench/dense-bench-budget.png" alt="Density" width="800">
+  <img src="densebench/python-benchmark.png" alt="Dense logo" width="365" height="478">
 </p>
+
+
+

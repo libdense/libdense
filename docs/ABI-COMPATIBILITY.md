@@ -15,7 +15,7 @@ snapshots and checks the shared-library SONAMEs.
 
 Within one ABI major version, consumers should still rebuild when public struct
 layout or function declarations change during a prerelease series. The current
-release is `0.1.0-rc1`, not a final 1.0 ABI commitment.
+release is `0.2.0`, not a final 1.0 ABI commitment.
 
 ## Borrowed views
 

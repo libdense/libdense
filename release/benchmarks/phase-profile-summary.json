@@ -1,0 +1,117 @@
+{
+  "busiest_phase_counts": {
+    "ai": 2,
+    "flush": 238
+  },
+  "most_frequent_busiest_phase": "flush",
+  "phases": {
+    "AI": {
+      "budget_ns": 4000000,
+      "budget_violations": 0,
+      "max_ns": 227898,
+      "mean_ns": 1970.088,
+      "p50_ns": 150,
+      "p95_ns": 300,
+      "p99_ns": 592,
+      "work_completed": 570,
+      "work_deferred": 2310
+    },
+    "combat": {
+      "budget_ns": 3000000,
+      "budget_violations": 0,
+      "max_ns": 1012,
+      "mean_ns": 94.417,
+      "p50_ns": 20,
+      "p95_ns": 711,
+      "p99_ns": 781,
+      "work_completed": 24,
+      "work_deferred": 0
+    },
+    "fanout": {
+      "budget_ns": 3000000,
+      "budget_violations": 0,
+      "max_ns": 14076,
+      "mean_ns": 1147.783,
+      "p50_ns": 842,
+      "p95_ns": 2604,
+      "p99_ns": 3226,
+      "work_completed": 798,
+      "work_deferred": 0
+    },
+    "flush": {
+      "budget_ns": 2000000,
+      "budget_violations": 0,
+      "max_ns": 29486,
+      "mean_ns": 10341.433,
+      "p50_ns": 9317,
+      "p95_ns": 13605,
+      "p99_ns": 19176,
+      "work_completed": 60875,
+      "work_deferred": 151
+    },
+    "input": {
+      "budget_ns": 1000000,
+      "budget_violations": 0,
+      "max_ns": 2615,
+      "mean_ns": 44.75,
+      "p50_ns": 30,
+      "p95_ns": 31,
+      "p99_ns": 531,
+      "work_completed": 9,
+      "work_deferred": 0
+    },
+    "spatial": {
+      "budget_ns": 1000000,
+      "budget_violations": 0,
+      "max_ns": 140,
+      "mean_ns": 70.471,
+      "p50_ns": 70,
+      "p95_ns": 101,
+      "p99_ns": 130,
+      "work_completed": 0,
+      "work_deferred": 0
+    },
+    "validate": {
+      "budget_ns": 3000000,
+      "budget_violations": 0,
+      "max_ns": 17102,
+      "mean_ns": 2163.037,
+      "p50_ns": 1684,
+      "p95_ns": 3797,
+      "p99_ns": 8095,
+      "work_completed": 570,
+      "work_deferred": 0
+    }
+  },
+  "schema_version": 1,
+  "tick": {
+    "budget_violations": 0,
+    "max_ns": 248096,
+    "mean_ns": 16836.192,
+    "p50_ns": 14337,
+    "p95_ns": 20870,
+    "p99_ns": 56707
+  },
+  "tick_budget_ns": 20000000,
+  "ticks": 240,
+  "totals": {
+    "allocation_failures": 0,
+    "db_flush_bytes": 39491,
+    "fanout_deltas": 798,
+    "final_ai_agents_ticked": 570,
+    "final_collision_moves": 566,
+    "final_db_wal_bytes": 39523,
+    "final_live_allocation_objects": 315,
+    "final_retained_bytes": 3837201,
+    "growth_operations": 335,
+    "net_bytes_sent": 21384,
+    "peak_retained_bytes": 3853897,
+    "steady_state_allocations": 67
+  },
+  "worst_tick": {
+    "busiest_phase": "ai",
+    "checksum": "03381446d6df1fd8",
+    "duration_ns": 248096,
+    "tick": 199
+  }
+}

@@ -1,0 +1,11 @@
+prefix=@PREFIX@
+exec_prefix=${prefix}
+libdir=${prefix}/@LIBDIR@
+includedir=${prefix}/include/dense
+
+Name: libdense_ai
+Description: Dense perception, threat, behavior execution, and NPC intent generation
+Version: @VERSION@
+Libs: -L${libdir} -ldense_ai
+Libs.private: -lm
+Cflags: -I${includedir}

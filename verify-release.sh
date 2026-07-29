@@ -5,6 +5,30 @@ ROOT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 ERRORS=0
 WARNINGS=0
 
+RELEASE_VERSION="0.2.0"
+
+LIBRARIES=(
+    dense_sim
+    dense_net
+    dense_sched
+    dense_collision
+    dense_nav
+    dense_ai
+    densedb
+)
+
+HEADERS=(
+    dense_sim.h
+    dense_net.h
+    dense_net_sim_bridge.h
+    dense_sched.h
+    dense_collision.h
+    dense_nav.h
+    dense_nav_collision_bridge.h
+    dense_ai.h
+    densedb.h
+)
+
 error() {
     printf "ERROR: %s\n" "$*" >&2
     ((ERRORS += 1))
@@ -27,18 +51,21 @@ for relative in \
     CHANGELOG.md \
     VERSION \
     MANIFEST.md \
-    Makefile \
     install.sh \
     uninstall.sh \
     verify-release.sh \
     tools/generate-checksums.sh \
     SHA256SUMS \
-    include/dense/dense_sim.h \
-    include/dense/densedb.h \
-    bindings/cpp/include/dense/dense_sim.hpp \
-    release/abi/libdense_sim.exports \
-    release/abi/libdensedb.exports; do
+    bindings/cpp/include/dense/dense_sim.hpp; do
     require_file "$relative"
+done
+
+for header in "${HEADERS[@]}"; do
+    require_file "include/dense/$header"
+done
+
+for library in "${LIBRARIES[@]}"; do
+    require_file "release/abi/lib$library.exports"
 done
 
 for script in install.sh uninstall.sh verify-release.sh tools/generate-checksums.sh; do
@@ -53,12 +80,21 @@ if [[ -f "$ROOT_DIR/VERSION" ]]; then
     VERSION="$(tr -d '[:space:]' < "$ROOT_DIR/VERSION")"
     [[ -n "$VERSION" ]] || error "VERSION is empty"
     [[ "$VERSION" != *" "* ]] || error "VERSION contains whitespace"
+    [[ "$VERSION" == "$RELEASE_VERSION" ]] \
+        || error "VERSION is $VERSION; expected $RELEASE_VERSION"
 fi
 
 for forbidden in \
     .git \
+    dense_core \
     libdense_sim \
+    libdense_net \
+    libdense_sched \
+    libdense_collision \
+    libdense_nav \
+    libdense_ai \
     densedb \
+    integration \
     src \
     tests \
     benchmarks \
@@ -89,8 +125,17 @@ done < <(
         -print0
 )
 
+# Images are permitted only in the documented locations: the two logos and
+# the densebench/ chart directory referenced by README benchmark sections.
 while IFS= read -r -d "" image; do
-    error "image artifact is present: ${image#"$ROOT_DIR/"}"
+    relative="${image#"$ROOT_DIR/"}"
+    case "$relative" in
+        logo.png|logo-square.png|densebench/*)
+            ;;
+        *)
+            error "image artifact outside documented locations: $relative"
+            ;;
+    esac
 done < <(
     find "$ROOT_DIR" -type f \
         \( -iname "*.png" -o -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.gif" -o -iname "*.webp" -o -iname "*.svg" \) \
@@ -113,11 +158,6 @@ check_symlink() {
     [[ -e "$(dirname -- "$path")/$actual" ]] || error "broken symlink: ${path#"$ROOT_DIR/"}"
 }
 
-check_symlink "$LIB_DIR/libdense_sim.so" "libdense_sim.so.0"
-check_symlink "$LIB_DIR/libdense_sim.so.0" "libdense_sim.so.0.1.0"
-check_symlink "$LIB_DIR/libdensedb.so" "libdensedb.so.0"
-check_symlink "$LIB_DIR/libdensedb.so.0" "libdensedb.so.0.1.0"
-
 check_elf() {
     local path="$1"
     local soname="$2"
@@ -136,21 +176,6 @@ check_elf() {
             || error "missing or incorrect SONAME in ${path#"$ROOT_DIR/"}"
     fi
 }
-
-check_elf "$LIB_DIR/libdense_sim.so.0.1.0" "libdense_sim.so.0"
-check_elf "$LIB_DIR/libdensedb.so.0.1.0" "libdensedb.so.0"
-
-for archive in "$LIB_DIR/libdense_sim.a" "$LIB_DIR/libdensedb.a"; do
-    [[ -f "$archive" ]] || error "missing static archive: ${archive#"$ROOT_DIR/"}"
-    if [[ -f "$archive" ]] && command -v ar >/dev/null 2>&1; then
-        ar t "$archive" >/dev/null || error "invalid static archive: ${archive#"$ROOT_DIR/"}"
-    fi
-done
-
-if command -v readelf >/dev/null 2>&1 && [[ -f "$LIB_DIR/libdensedb.so.0.1.0" ]]; then
-    readelf -d "$LIB_DIR/libdensedb.so.0.1.0" | grep -Fq "Shared library: [libdense_sim.so.0]" \
-        || error "libdensedb does not declare libdense_sim.so.0 dependency"
-fi
 
 check_exports() {
     local library="$1"
@@ -173,14 +198,41 @@ check_exports() {
     rm -f -- "$actual"
 }
 
-if [[ -f "$LIB_DIR/libdense_sim.so.0.1.0" && -f "$ROOT_DIR/release/abi/libdense_sim.exports" ]]; then
-    check_exports "$LIB_DIR/libdense_sim.so.0.1.0" "$ROOT_DIR/release/abi/libdense_sim.exports" "libdense_sim"
-fi
-if [[ -f "$LIB_DIR/libdensedb.so.0.1.0" && -f "$ROOT_DIR/release/abi/libdensedb.exports" ]]; then
-    check_exports "$LIB_DIR/libdensedb.so.0.1.0" "$ROOT_DIR/release/abi/libdensedb.exports" "libdensedb"
+for library in "${LIBRARIES[@]}"; do
+    real="$LIB_DIR/lib$library.so.$RELEASE_VERSION"
+    check_symlink "$LIB_DIR/lib$library.so" "lib$library.so.0"
+    check_symlink "$LIB_DIR/lib$library.so.0" "lib$library.so.$RELEASE_VERSION"
+    check_elf "$real" "lib$library.so.0"
+
+    archive="$LIB_DIR/lib$library.a"
+    [[ -f "$archive" ]] || error "missing static archive: ${archive#"$ROOT_DIR/"}"
+    if [[ -f "$archive" ]] && command -v ar >/dev/null 2>&1; then
+        ar t "$archive" >/dev/null || error "invalid static archive: ${archive#"$ROOT_DIR/"}"
+    fi
+
+    if [[ -f "$real" && -f "$ROOT_DIR/release/abi/lib$library.exports" ]]; then
+        check_exports "$real" "$ROOT_DIR/release/abi/lib$library.exports" "lib$library"
+    fi
+done
+
+if command -v readelf >/dev/null 2>&1 && [[ -f "$LIB_DIR/libdensedb.so.$RELEASE_VERSION" ]]; then
+    readelf -d "$LIB_DIR/libdensedb.so.$RELEASE_VERSION" | grep -Fq "Shared library: [libdense_sim.so.0]" \
+        || error "libdensedb does not declare libdense_sim.so.0 dependency"
 fi
 
-for template in pkgconfig/libdense_sim.pc.in pkgconfig/libdensedb.pc.in; do
+# No shipped library may export private dense_core symbols.
+if command -v nm >/dev/null 2>&1; then
+    for library in "${LIBRARIES[@]}"; do
+        real="$LIB_DIR/lib$library.so.$RELEASE_VERSION"
+        [[ -f "$real" ]] || continue
+        if nm -D --defined-only "$real" | awk '{print $3}' | grep -Eq '^dc_(arena|dirty_set|slot_pool|group_map|span_hash|cpu_features)_'; then
+            error "private dense_core symbol exported by lib$library"
+        fi
+    done
+fi
+
+for library in "${LIBRARIES[@]}"; do
+    template="pkgconfig/lib$library.pc.in"
     require_file "$template"
     if [[ -f "$ROOT_DIR/$template" ]]; then
         grep -Fq '@PREFIX@' "$ROOT_DIR/$template" || error "missing @PREFIX@ in $template"
@@ -193,7 +245,7 @@ wheel_count=0
 while IFS= read -r -d "" wheel; do
     ((wheel_count += 1))
     python3 -m zipfile -t "$wheel" >/dev/null || error "invalid Python wheel: ${wheel#"$ROOT_DIR/"}"
-    if unzip -p "$wheel" 'dense_sim/__init__.py' 2>/dev/null | grep -Fq '0.1.0.dev'; then
+    if unzip -p "$wheel" 'dense_sim/__init__.py' 2>/dev/null | grep -Fq "$RELEASE_VERSION.dev"; then
         error "development version remains in wheel: ${wheel#"$ROOT_DIR/"}"
     fi
 done < <(find "$ROOT_DIR/bindings/python/dist" -maxdepth 1 -type f -name '*.whl' -print0)
@@ -218,10 +270,6 @@ if [[ -f "$ROOT_DIR/SHA256SUMS" ]] && command -v sha256sum >/dev/null 2>&1; then
     if ! (cd "$ROOT_DIR" && sha256sum --check --quiet SHA256SUMS); then
         error "SHA256SUMS validation failed"
     fi
-fi
-
-if grep -Eq '^\*\.so$|^\*\.a$' "$ROOT_DIR/.gitignore" 2>/dev/null; then
-    error ".gitignore excludes release libraries"
 fi
 
 if ((ERRORS > 0)); then

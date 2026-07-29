@@ -4,56 +4,59 @@ import os
 from pathlib import Path
 
 from setuptools import Extension, setup
+from setuptools.command.build_ext import build_ext
 
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[1]
-INCLUDE_DIR = Path(
-    os.environ.get(
-        "DENSE_SIM_INCLUDE_DIR",
-        ROOT / "include" / "dense",
-    )
-)
-LIB_DIR = Path(
-    os.environ.get(
-        "DENSE_SIM_LIB_DIR",
-        ROOT / "lib" / "linux-x86_64",
-    )
-)
+
+# This release package ships a prebuilt static library and public headers.
+# DENSE_SIM_LIB_DIR / DENSE_SIM_INCLUDE_DIR override the defaults, and the
+# development monorepo layout is used as a fallback when present.
+_DEV_LIBDENSE = ROOT / "libdense_sim"
+
+
+def _default_lib_dir() -> Path:
+    override = os.environ.get("DENSE_SIM_LIB_DIR")
+    if override:
+        return Path(override)
+    release = ROOT / "lib" / "linux-x86_64"
+    if (release / "libdense_sim.a").is_file():
+        return release
+    return _DEV_LIBDENSE / "build" / "lib"
+
+
+def _default_include_dir() -> Path:
+    override = os.environ.get("DENSE_SIM_INCLUDE_DIR")
+    if override:
+        return Path(override)
+    release = ROOT / "include" / "dense"
+    if (release / "dense_sim.h").is_file():
+        return release
+    return _DEV_LIBDENSE / "include"
+
+
+LIB_DIR = _default_lib_dir()
+INCLUDE_DIR = _default_include_dir()
 STATIC_LIBRARY = Path(
-    os.environ.get(
-        "DENSE_SIM_STATIC_LIBRARY",
-        LIB_DIR / "libdense_sim.a",
-    )
+    os.environ.get("DENSE_SIM_STATIC_LIBRARY", LIB_DIR / "libdense_sim.a")
 )
 
-if not (INCLUDE_DIR / "dense_sim.h").is_file():
-    raise RuntimeError(
-        f"dense_sim.h was not found in {INCLUDE_DIR}. "
-        "Set DENSE_SIM_INCLUDE_DIR to the public header directory."
-    )
 
-if not STATIC_LIBRARY.is_file():
-    raise RuntimeError(
-        f"libdense_sim.a was not found at {STATIC_LIBRARY}. "
-        "Set DENSE_SIM_STATIC_LIBRARY or DENSE_SIM_LIB_DIR."
-    )
+class DenseBuildExt(build_ext):
+    def run(self) -> None:
+        if not STATIC_LIBRARY.is_file():
+            raise RuntimeError(
+                f"libdense_sim.a not found at {STATIC_LIBRARY}; "
+                "set DENSE_SIM_LIB_DIR"
+            )
+        super().run()
+
 
 setup(
     name="dense-sim",
-    version="0.1.0rc1",
-    description="High-density spatial simulation bindings for libdense_sim",
-    long_description=(HERE / "README.md").read_text(encoding="utf-8"),
-    long_description_content_type="text/markdown",
-    python_requires=">=3.11",
-    license_files=[
-        "LICENSE.md",
-        "COMMERCIAL-LICENSE.md",
-    ],
-    project_urls={
-        "Documentation": "https://yggengine.com/",
-        "Commercial Licensing": "https://yggengine.com/commercial",
-    },
+    version="0.2.0",
+    description="Python binding for libdense_sim",
     package_dir={"": "src"},
     packages=["dense_sim"],
     package_data={"dense_sim": ["py.typed", "__init__.pyi"]},
@@ -75,4 +78,6 @@ setup(
             ],
         )
     ],
+    cmdclass={"build_ext": DenseBuildExt},
+    python_requires=">=3.11",
 )

@@ -12,10 +12,10 @@ benchmark: build
 	PYTHONPATH=src $(PYTHON) benchmarks/benchmark_binding.py
 
 wheel:
-	rm -rf wheelhouse
-	$(PYTHON) -m pip wheel . --no-deps -w wheelhouse
+	rm -rf dist
+	$(PYTHON) -m pip wheel . --no-deps -w dist
 
 clean:
-	rm -rf build wheelhouse *.egg-info src/*.egg-info
+	rm -rf build dist *.egg-info src/*.egg-info
 	find src -name '_dense_sim*.so' -delete
 	find . -type d -name '__pycache__' -prune -exec rm -rf {} +
