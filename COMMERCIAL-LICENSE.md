@@ -8,11 +8,12 @@ A separate written, paid commercial license is required when the licensee and it
 
 The standard annual commercial license fee is determined by the aggregate Group Revenue of the licensee and its Affiliates during the preceding twelve months:
 
-| Aggregate Group Revenue              |                         Annual commercial license fee |
-| ------------------------------------ | ----------------------------------------------------: |
-| Less than USD $100,000               | No commercial license fee under the revenue threshold |
-| USD $100,000 through USD $499,999.99 |                                   USD $1,000 per year |
-| USD $500,000 or more                 |                                   USD $5,000 per year |
+| Aggregate Group Revenue              |                         Annual commercial license fee  |
+| ------------------------------------ | -----------------------------------------------------: |
+| Less than USD $100,000               | No commercial license fee under the revenue threshold  |
+| USD $100,000 through USD $499,999.99 |                                   USD $1,000 per year  |
+| USD $500,000 or more                 |                                   USD $5,000 per year  |
+| Support Contracts                    | Get features you want             Negotiated           |
 
 These are flat annual license fees.
 
