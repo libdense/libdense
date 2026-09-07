@@ -6,6 +6,10 @@ The crate contains a small handwritten FFI module and a safe ownership layer.
 Spatial execution, subscriptions, fanout grouping, and kinetic scheduling remain
 inside `libdense_sim`.
 
+Version 0.3.6 also provides `RecipientWorkset`, copied certified recipient
+views, and process/runtime allocation telemetry wrappers. Existing `World`
+methods retain their prior signatures.
+
 ## Build and test
 
 The build script links the prebuilt static `libdense_sim.a` from

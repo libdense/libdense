@@ -2,7 +2,7 @@
   <img src="logo.png" alt="Dense logo" width="800">
 </p>
 
-# Dense 0.2.0
+# Dense 0.3.6
 
 **A high-density multiplayer server library family in C.**
 
@@ -12,22 +12,45 @@ collision bodies, and replication recipients gather in the same area.
 
 Dense is not a complete game server. It provides explicit modules for
 simulation, transport, scheduling, collision, navigation, AI, and durable
-state. This package contains the prebuilt Linux x86-64 libraries, public
-headers, documentation, and binding source. Core implementation source is not
-included; the Python, C++, and Rust bindings ship with their full source.
+state. This release repository contains public headers, documentation, and the
+full Python, C++, and Rust wrapper source. Target-specific binary SDKs and
+Python wheels are produced and validated by CI. Core C implementation source
+is not included.
 
-## What is new in 0.2
+## What is new in 0.3
 
-Dense 0.1 shipped two libraries: `libdense_sim` and DenseDB. Dense 0.2
-completes the MMO stack. Five new libraries join the family, and every
-library now runs behind one shared overload ladder inside a deterministic,
-record/replayable authority loop:
+Dense 0.3 adds supported portable static SDKs for Linux x86-64, Linux ARM64,
+and Windows x86-64, architecture-locked CMake config packages, and CPython
+3.11-3.14 wheels for all three platforms. Windows is a client target and does
+not include DenseDB; both Linux targets include the complete server family.
 
-- `libdense_net` - sessions, reliability, and replication transport
-- `libdense_sched` - tick phases, timers, budgets, and overload control
-- `libdense_collision` - authoritative integer collision and movement validation
-- `libdense_nav` - deterministic pathfinding, flow fields, and hierarchy
-- `libdense_ai` - deterministic agent perception, behavior, and intents
+The 0.3.1-0.3.5 updates are additive `libdense_net` improvements:
+
+- opt-in bounded-variable payload contracts without changing frame layout;
+- explicit keyed sends for application-owned sequenced coalescing keys;
+- default-off precommit controls and exact residency telemetry for prewarmed
+  queues, scratch storage, owned frames, and reliable-packet storage;
+- read-only memory-region visitors for sessions, UDP transports, and UDP
+  authority servers; and
+- default-off empty inbound-ring cursor reset with queue-depth and cursor-slot
+  high-water telemetry.
+
+Dense 0.3.6 adds an optional `libdense_sim` recipient workset for applications
+that need per-recipient cadence, admission, or payload decisions alongside the
+canonical encode-once fanout view. It synchronizes from finalized world
+membership, applies consecutive ENTER/LEAVE changes incrementally, and routes
+a dirty source only across its persistent inverse membership edges.
+
+Recipient views are sorted by entity ID and carry a generation plus
+fingerprint. Acknowledgement and clear operations require that certificate, so
+a stale visible slot cannot clear dirtiness for a different membership epoch.
+The workset is opt-in and opaque; existing world, fanout, entity, observer,
+network, and wire behavior is unchanged.
+
+The aggregate SDK, `libdense_sim`, and language-wrapper packages are version
+0.3.6. `libdense_net` remains version 0.3.5; the other native modules and
+DenseDB remain version 0.3.0. Shared-library SONAME major `0`,
+`DS_ABI_VERSION=1`, and `DDB_ABI_VERSION=2` are unchanged.
 
 The private `dense_core` primitive layer (maps, dirty sets, arenas, slot
 pools, span hashing, CPU dispatch, integer sorting) is statically merged into
@@ -37,7 +60,7 @@ each shipped library with hidden visibility; it is not a separate artifact.
 
 | Module | Responsibility |
 |---|---|
-| `libdense_sim` | Entity lifecycle, validated positions, spatial membership, dirty state, and canonical fanout views |
+| `libdense_sim` | Entity lifecycle, validated positions, spatial membership, dirty state, canonical fanout views, and optional recipient worksets |
 | `libdense_net` | Sessions, transport, reliability, queueing, and replication transport that consumes simulation fanout |
 | `libdense_sched` | Tick phases, timing wheel, budgets, fairness, token buckets, and the shared overload ladder |
 | `libdense_collision` | Authoritative integer collision, broadphase, movement validation, queries, and triggers |
@@ -75,13 +98,15 @@ input
 
 `libdense_sim` is the sole authority for replication grouping. `libdense_net`
 consumes borrowed fanout views and does not independently scan entities or
-decide visibility groups. AI produces intents rather than mutating
+decide visibility groups. Optional recipient worksets derive from the same
+finalized membership graph. AI produces intents rather than mutating
 authoritative game state directly.
 
 ## Benchmarks
 
-All numbers below are from the 0.2.0 full benchmark run recorded on
+The retained performance baseline below is the full benchmark run recorded on
 2026-07-28 on an AMD Ryzen 5 5600X (Linux x86-64, release `-O3` build).
+The additive 0.3 changes do not replace that run.
 The raw log ships in this package at
 `release/benchmarks/benchmark_full_Ryzen_5600x_7.28.26.txt`, and
 `docs/BENCHMARK-SCOPE.md` defines which claims are retained. Benchmarks are
@@ -220,12 +245,12 @@ normal without state flapping.
 ## Package layout
 
 ```text
-dense-0.2.0/
+dense-0.3.6/
 |-- README.md, CHANGELOG.md, VERSION, MANIFEST.md
 |-- LICENSE.md, COMMERCIAL-LICENSE.md, SECURITY.md, SUPPORT.md
 |-- install.sh, uninstall.sh, verify-release.sh, SHA256SUMS
 |-- include/dense/          public C headers (9)
-|-- lib/linux-x86_64/       shared + static libraries (7)
+|-- lib/linux-x86_64/       CI-produced shared + static libraries (7)
 |-- pkgconfig/              pkg-config templates
 |-- bindings/               Python, C++, and Rust wrappers (full source)
 |-- docs/                   documentation and per-module references
@@ -262,8 +287,8 @@ pkg-config --cflags --libs libdensedb
 
 Binding source ships in full under `bindings/`; see `docs/BINDINGS.md`.
 
-- **Python**: prebuilt CPython 3.13 and 3.14 Linux x86-64 wheels in
-  `bindings/python/dist/`, statically containing `libdense_sim`.
+- **Python**: CI-built CPython 3.11-3.14 wheels for Linux x86-64,
+  Linux ARM64, and Windows x86-64, statically containing `libdense_sim`.
   `python3.14 -m pip install bindings/python/dist/*cp314*.whl`
 - **C++**: header-only C++20 wrapper; `make -C bindings/cpp test`
 - **Rust**: dependency-free wrapper crate; `make -C bindings/rust test`
@@ -275,7 +300,7 @@ Binding source ships in full under `bindings/`; see `docs/BINDINGS.md`.
 ## Determinism and memory policy
 
 Dense targets a deterministic server as a function of initial state, ordered
-inputs, configuration, and library versions. The 0.2 release was gated on a
+inputs, configuration, and library versions. The family is gated on a
 240-tick record/replay harness with per-tick checksums pinned across `-O3`
 and ASan/UBSan builds, plus lifecycle and raw-frame audit logging
 (`docs/determinism.md`, `docs/replay-and-audit.md`).
@@ -293,7 +318,7 @@ Start at `docs/README.md`. Highlights:
 - `docs/architecture.md` - module boundaries and the authority pipeline
 - `docs/modules/` - per-library reference notes
 - `docs/BENCHMARK-SCOPE.md` - retained performance claims and exclusions
-- `docs/PLATFORM-COMPATIBILITY.md` - Linux, glibc, and ABI details
+- `docs/PLATFORM-COMPATIBILITY.md` - supported platform, role, and ABI details
 
 ## License
 

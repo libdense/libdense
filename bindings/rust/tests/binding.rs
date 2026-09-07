@@ -1,6 +1,8 @@
 use dense_sim::{
-    DeltaOp, MotionMode, MotionPlan, ObserverConfig, ResultCode, World,
-    WorldConfig, CHANNEL_POSITION,
+    allocation_metrics, reset_allocation_counters, runtime_has_avx2,
+    runtime_init, DeltaOp, MotionMode, MotionPlan, ObserverConfig,
+    RecipientWorkset, RecipientWorksetConfig, ResultCode, World, WorldConfig,
+    CHANNEL_POSITION,
 };
 
 const PLAYER_TYPE: u64 = 1_u64 << 0;
@@ -107,4 +109,46 @@ fn world_is_send_between_threads() {
         .join()
         .unwrap();
     assert_eq!(entity_count, 0);
+}
+
+#[test]
+fn recipient_workset_and_metrics() {
+    runtime_init().unwrap();
+    let _ = runtime_has_avx2();
+    let mut world = World::new(WorldConfig::default()).unwrap();
+    let mut workset = RecipientWorkset::new(RecipientWorksetConfig::default())
+        .unwrap();
+
+    world.begin_tick(1).unwrap();
+    world.spawn(90, 0, 0, MONSTER_TYPE).unwrap();
+    let observer_id = world
+        .create_observer(ObserverConfig {
+            radius: 0,
+            type_mask: MONSTER_TYPE,
+        })
+        .unwrap();
+    world
+        .set_observer_position(observer_id, 0, 0)
+        .unwrap();
+    world.end_tick().unwrap();
+
+    workset.sync(&world).unwrap();
+    workset
+        .enqueue_source(&world, 90, CHANNEL_POSITION)
+        .unwrap();
+    let view = workset.view(observer_id).unwrap();
+    assert_eq!(view.entries.len(), 1);
+    assert_eq!(view.entries[0].entity_id, 90);
+    assert_eq!(view.entries[0].channel_mask, CHANNEL_POSITION);
+    assert_eq!(view.dirty_count, 1);
+
+    workset
+        .acknowledge(&view, 90, CHANNEL_POSITION)
+        .unwrap();
+    assert_eq!(workset.view(observer_id).unwrap().dirty_count, 0);
+    assert_eq!(workset.stats().unwrap().inverse_edge_visits, 1);
+    assert!(world.memory_stats().unwrap().observer_capacity >= 1);
+
+    reset_allocation_counters();
+    assert_eq!(allocation_metrics().allocation_failures, 0);
 }

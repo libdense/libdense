@@ -33,8 +33,9 @@ failed the performance gate, so production remains scalar. Run
 libdense_collision is the authoritative-geometry module of the Dense
 ecosystem, alongside `libdense_sim`, `libdense_net`, and
 `libdense_sched`. libdense_nav (pathfinding) builds directly on it;
-libdense_ai builds on nav. Standalone, source-available C11, zero
-dependencies.
+libdense_ai builds on nav. It is a standalone C11 library with no external
+dependencies; implementation source is maintained in the Dense source
+repository.
 
 The defining property: **there is not a single float in this
 library**. All geometry is integer / fixed point - rational slab
@@ -140,6 +141,4 @@ Input limits (validated, `DC_ERR_RANGE` beyond): coordinates within
 
 ## License
 
-Same licensing model as the Dense repository (see the dense repo's
-LICENSE.md / COMMERCIAL-LICENSE.md pairing); final license text to be
-settled before the first tagged release.
+See `LICENSE.md` and `COMMERCIAL-LICENSE.md` at the release root.

@@ -41,7 +41,8 @@ logic and deterministic intent boundaries. Run `make benchmark-phase5-batches`.
 
 libdense_ai is the NPC-mind module of the Dense ecosystem - the top
 of the gameplay stack (sim, DB, net, sched, collision, nav, ai).
-Standalone, source-available C11, zero dependencies.
+It is a standalone C11 library with no external dependencies; implementation
+source is maintained in the Dense source repository.
 
 The one architectural rule: **intents out, never mutations**. A tick
 of AI turns percept memory and threat state into an ordered intent
@@ -146,6 +147,4 @@ hardware after selecting scheduler caps and intent limits.
 
 ## License
 
-Same licensing model as the Dense repository (see the dense repo's
-LICENSE.md / COMMERCIAL-LICENSE.md pairing); final license text to be
-settled before the first tagged release.
+See `LICENSE.md` and `COMMERCIAL-LICENSE.md` at the release root.

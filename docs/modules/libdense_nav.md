@@ -58,13 +58,14 @@ budget, and long-distance hierarchy workloads.
 libdense_nav is the navigation module of the Dense ecosystem. It sits
 directly on libdense_collision (an optional bridge rasterizes
 walkability from the authoritative static world) and directly under
-libdense_ai. Standalone, source-available C11, zero dependencies.
+libdense_ai. It is a standalone C11 library with no external dependencies;
+implementation source is maintained in the Dense source repository.
 
 The library deliberately does not choose between direct movement, A*, cached
 paths, or flow fields. The adopted host-game policy for those choices, repath
 cadence, overload shedding, deterministic lateral jitter, and lazy
-invalidation is maintained at `../docs/PATHFINDING_POLICY.md`. Congestion-aware
-costs remain explicitly unadopted pending an overlay design and measurements.
+invalidation is maintained in `docs/PATHFINDING_POLICY.md`. Congestion-aware
+costs are not part of the adopted public policy.
 
 Navigation cost in an MMO scales with how many agents want paths at
 the same time to the same places. The library exposes a hierarchy of
@@ -164,6 +165,4 @@ before selecting global repath and flow-build budgets.
 
 ## License
 
-Same licensing model as the Dense repository (see the dense repo's
-LICENSE.md / COMMERCIAL-LICENSE.md pairing); final license text to be
-settled before the first tagged release.
+See `LICENSE.md` and `COMMERCIAL-LICENSE.md` at the release root.

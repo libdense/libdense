@@ -6,7 +6,9 @@
 - [x] versioned shared libraries and relative SONAME links;
 - [x] static libraries;
 - [x] C++ wrapper header;
-- [x] CPython 3.13 and 3.14 wheels;
+- [x] CPython 3.11 through 3.14 wheel sources and release matrix;
+- [x] Linux x86-64, Linux ARM64, and Windows x86-64 target metadata;
+- [x] architecture-locked CMake package metadata in portable SDKs;
 - [x] Python, C++, and Rust binding source;
 - [x] API and ABI snapshots;
 - [x] platform compatibility metadata;
@@ -16,12 +18,15 @@
 
 ## Validation
 
+- [ ] run `./verify-release.sh --metadata-only` before CI artifact assembly;
 - [ ] run `./verify-release.sh`;
 - [ ] run a staged install and complete uninstall;
-- [ ] compile and run C consumers for both libraries;
+- [ ] compile and run C consumers for all libraries present in each target;
 - [ ] run the C++ wrapper tests;
 - [ ] run the Rust wrapper tests;
-- [ ] install each Python wheel in a clean matching interpreter;
+- [ ] install each Python wheel in a clean matching interpreter and platform;
+- [ ] confirm Windows artifacts omit DenseDB and server-only targets;
+- [ ] confirm Linux ARM64 artifacts omit the client aggregate;
 - [ ] confirm no core implementation source or Git history is present;
 - [ ] create release archives preserving symlinks; and
 - [ ] publish checksums independently of the archive.

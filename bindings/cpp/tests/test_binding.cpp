@@ -193,6 +193,38 @@ void test_kinetic_motion()
     assert(world.motion_metrics().sampled_demotions >= 1u);
 }
 
+void test_recipient_workset_and_metrics()
+{
+    dense::runtime_init();
+    static_cast<void>(dense::runtime_has_avx2());
+    dense::World world;
+    dense::RecipientWorkset workset;
+
+    world.begin_tick(1);
+    world.spawn(90, 0, 0, monster_type);
+    const dense::ObserverId observer_id = world.create_observer(
+        dense::ObserverConfig{0, monster_type}
+    );
+    world.set_observer_position(observer_id, 0, 0);
+    world.end_tick();
+
+    workset.sync(world);
+    workset.enqueue_source(world, 90, dense::channel_position);
+    const dense::RecipientWorksetView view = workset.view(observer_id);
+    assert(view.entries.size() == 1u);
+    assert(view.entries[0].entity_id == 90u);
+    assert(view.entries[0].channel_mask == dense::channel_position);
+    assert(view.dirty_count == 1u);
+
+    workset.acknowledge(view, 90, dense::channel_position);
+    assert(workset.view(observer_id).dirty_count == 0u);
+    assert(workset.stats().inverse_edge_visits == 1u);
+    assert(world.memory_stats().observer_capacity >= 1u);
+
+    dense::reset_allocation_counters();
+    assert(dense::allocation_metrics().allocation_failures == 0u);
+}
+
 } // namespace
 
 int main()
@@ -202,5 +234,6 @@ int main()
     test_view_keeps_world_alive();
     test_world_move_preserves_views_control_block();
     test_kinetic_motion();
+    test_recipient_workset_and_metrics();
     return 0;
 }

@@ -19,7 +19,13 @@
 extern "C" {
 #endif
 
-#if defined(DC_SHARED) && defined(DC_BUILD)
+#if defined(_WIN32) && defined(DC_SHARED)
+#if defined(DC_BUILD)
+#define DC_API __declspec(dllexport)
+#else
+#define DC_API __declspec(dllimport)
+#endif
+#elif defined(__GNUC__) && defined(DC_SHARED) && defined(DC_BUILD)
 #define DC_API __attribute__((visibility("default")))
 #else
 #define DC_API

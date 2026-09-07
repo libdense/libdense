@@ -19,7 +19,13 @@
 extern "C" {
 #endif
 
-#if defined(DAI_SHARED) && defined(DAI_BUILD)
+#if defined(_WIN32) && defined(DAI_SHARED)
+#if defined(DAI_BUILD)
+#define DAI_API __declspec(dllexport)
+#else
+#define DAI_API __declspec(dllimport)
+#endif
+#elif defined(__GNUC__) && defined(DAI_SHARED) && defined(DAI_BUILD)
 #define DAI_API __attribute__((visibility("default")))
 #else
 #define DAI_API

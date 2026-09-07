@@ -1,5 +1,88 @@
 # Changelog
 
+## 0.3.6 — 2026-09-06
+
+- Added an opt-in `libdense_sim` recipient workset for production density
+  paths. It maintains deterministic recipient-visible sets, consumes
+  consecutive ENTER/LEAVE changes incrementally, and routes dirty sources
+  through the existing persistent source-to-observer membership links.
+- Added certificate-bound partial acknowledgement and clear operations. A
+  visible-set generation and fingerprint prevent stale work from clearing a
+  reused slot after AOI churn, while dirty masks survive stable membership and
+  reconcile exactly across entries and exits.
+- Added retained-memory/work telemetry, focused lifecycle, churn, missed-sync,
+  and zero-allocation coverage, a sparse-recipient benchmark, and matching
+  C++/Rust wrappers. The Python `World` API is unchanged.
+- Preserved every pre-0.3.6 function declaration, parameter, public structure
+  field, enum value, default, fanout result, network contract, and wire format.
+  `DS_ABI_VERSION=1` and shared-library SONAME major `0` remain unchanged.
+
+## 0.3.5 — 2026-08-29
+
+- Added a default-off UDP authority option that resets an inbound packet
+  ring's head and tail only after its final queued packet is consumed. This
+  bounds first-write residency for repeatedly drained queues without changing
+  capacity, packet order, delivery semantics, or wire format.
+- Added empty-reset, queue-depth, and cursor-slot high-water telemetry plus a
+  target-only inbound-payload memory-region visitor. Ordinary defaults,
+  precommit policy, and SONAME major `0` remain unchanged.
+
+## 0.3.4 — 2026-08-29
+
+- Added read-only, callback-driven memory-region visitors for sessions, UDP
+  transports, and UDP servers. The additive API enumerates queue entries,
+  owned frames, maps, histories, scratch buffers, packet pools, session sets,
+  peer tables, and inbound storage without reading allocation contents.
+- Added export and unit coverage for the visitor surface. Wire behavior,
+  delivery semantics, allocation policy, ordinary defaults, and SONAME major
+  `0` remain unchanged.
+
+## 0.3.3 — 2026-08-29
+
+- Extended the default-off prewarmed-storage precommit API to touch exact
+  fixed-capacity queue metadata, packet scratch, and reliable-packet metadata
+  as well as owned-frame and packet-pool payload pages.
+- Added exact byte and precommit-state telemetry for every newly covered
+  storage class. Wire behavior, delivery semantics, SONAME major `0`, and
+  ordinary defaults remain unchanged.
+
+## 0.3.2 — 2026-08-28
+
+- Extended `libdense_net` with an additive, default-off precommit API for
+  prewarmed owned-frame and packet-pool payload pages and exact residency
+  telemetry. Wire behavior, delivery semantics, and ordinary defaults remain
+  unchanged.
+
+## 0.3.1 — 2026-08-21
+
+- Added opt-in bounded-variable payload contracts through `dn_payload_bounds`
+  and `dn_registry_init_with_payload_bounds()`. Existing `dn_registry_init()`
+  exact-size behavior and the `dn_message_desc` layout remain unchanged.
+- Added `dn_session_send_sequenced_keyed()` for applications that already own
+  the stable sequenced coalescing key. Existing `dn_session_send()`
+  descriptor-derived-key behavior remains unchanged.
+- Preserved frame layout, delivery semantics, SONAME major `0`, and all prior
+  public APIs while adding export, unit, and adverse-channel coverage.
+
+## 0.3.0 — 2026-08-08
+
+- Added supported portable static SDK builds for Linux x86-64, Linux ARM64,
+  and Windows x86-64. Windows remains a client-only target and does not ship
+  DenseDB.
+- Added the Winsock backend and Windows-safe public export handling required by
+  `libdense_net`.
+- Added native Linux ARM64 ABI validation and disabled floating-point
+  contraction across family builds for stronger cross-architecture
+  reproducibility.
+- Added CI-built CPython 3.11–3.14 wheels for Linux x86-64, Linux ARM64, and
+  Windows x86-64.
+- Added relocatable, architecture-locked `find_package(Dense CONFIG ...)`
+  packages with role-correct client and server aggregate targets.
+- Promoted the aggregate SDK, C API version strings, Python and Rust bindings,
+  pkg-config/CMake metadata, shared-library filenames, replay fingerprint, and
+  release artifacts to the 0.3 family while retaining SONAME major `0`,
+  `DS_ABI_VERSION=1`, and `DDB_ABI_VERSION=2`.
+
 ## 0.2.0 — 2026-07-29
 
 Dense 0.2.0 completes the MMO stack: `libdense_net`, `libdense_sched`,

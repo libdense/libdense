@@ -35,11 +35,33 @@ LIBDIR=lib
 
 ## Direct install
 
+The included `install.sh` installs the Linux x86-64 release bundle:
+
 ```bash
 sudo ./install.sh
 sudo ./install.sh --prefix /opt/dense
 sudo ./install.sh --prefix /usr --libdir lib64
 ```
+
+## Portable static SDKs
+
+Linux x86-64, Linux ARM64, and Windows x86-64 CI artifacts are self-contained
+static SDK directories. Point CMake at the unpacked SDK root:
+
+```bash
+cmake -S . -B build -DCMAKE_PREFIX_PATH=/path/to/dense-sdk
+```
+
+Then consume the appropriate role target:
+
+```cmake
+find_package(Dense CONFIG REQUIRED COMPONENTS sim collision nav sched ai net)
+target_link_libraries(my_client PRIVATE Dense::client)
+```
+
+Linux server builds can require DenseDB and link `Dense::server`. Windows does
+not include DenseDB or a server aggregate, and Linux ARM64 does not expose the
+client aggregate.
 
 ## Staged install
 
@@ -108,3 +130,6 @@ Python wheels are managed by `pip`, not by `install.sh`:
 python3.14 -m pip install bindings/python/dist/*cp314*.whl
 python3.14 -m pip uninstall dense-sim
 ```
+
+Release wheels cover CPython 3.11 through 3.14 on Linux x86-64, Linux ARM64,
+and Windows x86-64. Select the wheel matching both the interpreter and target.

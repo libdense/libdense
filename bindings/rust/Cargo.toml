@@ -1,6 +1,6 @@
 [package]
 name = "dense-sim"
-version = "0.2.0"
+version = "0.3.6"
 edition = "2021"
 links = "dense_sim"
 description = "Safe Rust wrapper over the libdense_sim C ABI"

@@ -19,10 +19,10 @@ high-density multiplayer servers.**
 
 libdense_sched is the execution-control module of the Dense ecosystem,
 alongside `libdense_sim`, `DenseDB`, and `libdense_net`. It is a
-standalone, source-available C11 library with no dependencies.
+standalone C11 library with no external dependencies; implementation source is
+maintained in the Dense source repository.
 
-Design and rationale live in [DESIGN.md](DESIGN.md). In short: a dense
-region overloads every system in the same tick, and someone has to
+In a dense region, every system can overload in the same tick, and someone has to
 decide what runs now, what runs later, and what does not run at all.
 libdense_sched owns that decision as data: budgets, deadlines, drain
 orders, overload levels, and token rates. The game maps the numbers
@@ -101,6 +101,4 @@ apply_overload_state(world, state); /* game-owned policy */
 
 ## License
 
-Same licensing model as the Dense repository (see the dense repo's
-LICENSE.md / COMMERCIAL-LICENSE.md pairing); final license text to be
-settled before the first tagged release.
+See `LICENSE.md` and `COMMERCIAL-LICENSE.md` at the release root.

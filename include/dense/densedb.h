@@ -8,10 +8,10 @@
 #include "dense_sim.h"
 
 #define DDB_VERSION_MAJOR 0
-#define DDB_VERSION_MINOR 2
+#define DDB_VERSION_MINOR 3
 #define DDB_VERSION_PATCH 0
 #define DDB_VERSION_PRERELEASE ""
-#define DDB_VERSION_STRING "0.2.0"
+#define DDB_VERSION_STRING "0.3.0"
 #define DDB_ABI_VERSION 2
 
 #if defined(_WIN32) && defined(DDB_SHARED)

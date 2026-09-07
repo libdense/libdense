@@ -143,7 +143,7 @@ Adopting this requires one of:
 
 Decision deferred until a real scenario shows sustained jamming
 that 3.1 + 3.2 do not resolve. If that happens, prefer the overlay
-design and treat it as a nav work item, not a game-side hack.
+design and treat it as a nav work item, not a game-side shortcut.
 
 ### 3.4 Deferred: local avoidance forces
 

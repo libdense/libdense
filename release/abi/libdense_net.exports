@@ -15,6 +15,7 @@ dn_raw_transport_send
 dn_registry_destroy
 dn_registry_find
 dn_registry_init
+dn_registry_init_with_payload_bounds
 dn_replication_begin_tick
 dn_replication_create
 dn_replication_destroy
@@ -35,9 +36,11 @@ dn_session_get_memory_stats
 dn_session_get_state
 dn_session_get_stats
 dn_session_next_due_ns
+dn_session_precommit_prewarmed_storage
 dn_session_prewarm
 dn_session_receive
 dn_session_send
+dn_session_send_sequenced_keyed
 dn_session_set_add
 dn_session_set_at
 dn_session_set_count
@@ -50,6 +53,7 @@ dn_session_set_get_activity_stats
 dn_session_set_get_memory_stats
 dn_session_set_next_due_ns
 dn_session_set_remove
+dn_session_visit_memory_regions
 dn_sim_bridge_get_metrics
 dn_sim_bridge_prewarm
 dn_sim_bridge_publish
@@ -67,7 +71,10 @@ dn_udp_server_local_port
 dn_udp_server_receive_all
 dn_udp_server_remove_session
 dn_udp_server_session_count
+dn_udp_server_visit_inbound_payload_regions
+dn_udp_server_visit_memory_regions
 dn_udp_transport_create
 dn_udp_transport_destroy
 dn_udp_transport_local_port
 dn_udp_transport_raw
+dn_udp_transport_visit_memory_regions

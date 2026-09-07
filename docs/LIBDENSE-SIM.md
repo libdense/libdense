@@ -3,6 +3,34 @@
 `libdense_sim` is the high-density dynamic spatial subscription and recipient
 planning kernel.
 
+## Optional recipient worksets
+
+The canonical `ds_fanout_view` remains the preferred encode-once output. Use a
+separate `ds_recipient_workset` when payload selection, admission, or cadence
+must differ per observer:
+
+```c
+ds_recipient_workset *workset = NULL;
+ds_recipient_workset_view view;
+
+ds_recipient_workset_create(NULL, &workset);
+ds_recipient_workset_sync(workset, world);
+ds_recipient_workset_enqueue_source(
+    workset,
+    world,
+    entity_id,
+    DS_CHANNEL_POSITION
+);
+ds_recipient_workset_get_view(workset, observer_id, &view);
+```
+
+Synchronize after `ds_world_end_tick()`. Consecutive finalized ticks consume
+only ENTER/LEAVE membership changes; missed synchronization or a world change
+causes an authoritative rebuild. Dirty masks for still-visible entities are
+retained. Recipient entries are sorted by entity ID, and acknowledge/clear
+operations require the view's generation and fingerprint so stale membership
+cannot clear current work.
+
 ## Public invariants
 
 - one `ds_world` has one writer;
@@ -20,7 +48,9 @@ planning kernel.
 - sampled motion is the default path;
 - kinetic motion requires an explicit stable linear plan; and
 - borrowed fanout views remain valid only until the next successful
-  `ds_world_begin_tick()` or world destruction.
+  `ds_world_begin_tick()` or world destruction; and
+- borrowed recipient-workset spans remain valid until the next successful
+  sync, enqueue, acknowledge, clear, or workset destruction.
 
 ## Tick lifecycle
 

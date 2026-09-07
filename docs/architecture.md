@@ -1,6 +1,6 @@
 # Dense Architecture
 
-Dense 0.2 is a single repository containing separately versioned C modules. The root orchestrates builds and policy; it does not erase module boundaries.
+Dense 0.3 is a single repository containing separately versioned C modules. The root orchestrates builds and policy; it does not erase module boundaries.
 
 ## Core invariants
 

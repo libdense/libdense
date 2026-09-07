@@ -18,7 +18,13 @@
 extern "C" {
 #endif
 
-#if defined(DSC_SHARED) && defined(DSC_BUILD)
+#if defined(_WIN32) && defined(DSC_SHARED)
+#if defined(DSC_BUILD)
+#define DSC_API __declspec(dllexport)
+#else
+#define DSC_API __declspec(dllimport)
+#endif
+#elif defined(__GNUC__) && defined(DSC_SHARED) && defined(DSC_BUILD)
 #define DSC_API __attribute__((visibility("default")))
 #else
 #define DSC_API

@@ -19,19 +19,7 @@ WRAPPERS = {
     "rust": ROOT / "bindings" / "rust" / "src" / "lib.rs",
 }
 
-EXPECTED_PUBLIC_FUNCTIONS = 33
-
-# Public 0.2.0 runtime/telemetry entry points that the wrappers intentionally
-# do not bind yet. They are excluded from signature-equivalence coverage but
-# still counted against EXPECTED_PUBLIC_FUNCTIONS, so any other new public
-# function fails this check until it is either bound or listed here.
-KNOWN_UNBOUND_FUNCTIONS = {
-    "ds_get_allocation_metrics",
-    "ds_reset_allocation_counters",
-    "ds_runtime_has_avx2",
-    "ds_runtime_init",
-    "ds_world_get_memory_stats",
-}
+EXPECTED_PUBLIC_FUNCTIONS = 42
 
 C_TO_RUST_TYPES = {
     "bool": "bool",
@@ -41,6 +29,8 @@ C_TO_RUST_TYPES = {
     "const ds_motion_plan *": "*const DsMotionPlan",
     "const ds_observer_config *": "*const DsObserverConfig",
     "const ds_observer_id *": "*const u64",
+    "const ds_recipient_workset_entry *": "*const DsRecipientWorksetEntry",
+    "const ds_recipient_workset *": "*const DsRecipientWorkset",
     "const ds_world *": "*const DsWorld",
     "const ds_world_config *": "*const DsWorldConfig",
     "double": "f64",
@@ -54,6 +44,14 @@ C_TO_RUST_TYPES = {
     "ds_observer_desc *": "*mut DsObserverDesc",
     "ds_observer_id": "u64",
     "ds_observer_id *": "*mut u64",
+    "ds_recipient_workset *": "*mut DsRecipientWorkset",
+    "ds_recipient_workset **": "*mut *mut DsRecipientWorkset",
+    "ds_recipient_workset_config *": "*mut DsRecipientWorksetConfig",
+    "const ds_recipient_workset_config *": "*const DsRecipientWorksetConfig",
+    "ds_recipient_workset_stats *": "*mut DsRecipientWorksetStats",
+    "ds_recipient_workset_view *": "*mut DsRecipientWorksetView",
+    "ds_world_memory_stats *": "*mut DsWorldMemoryStats",
+    "ds_allocation_metrics *": "*mut DsAllocationMetrics",
     "ds_result": "c_int",
     "ds_tick": "u64",
     "ds_type_mask": "u64",
@@ -75,6 +73,12 @@ STRUCT_NAMES = {
     "ds_delta_entry": "DsDeltaEntry",
     "ds_chunk_delta": "DsChunkDelta",
     "ds_fanout_view": "DsFanoutView",
+    "ds_recipient_workset_config": "DsRecipientWorksetConfig",
+    "ds_recipient_workset_entry": "DsRecipientWorksetEntry",
+    "ds_recipient_workset_view": "DsRecipientWorksetView",
+    "ds_recipient_workset_stats": "DsRecipientWorksetStats",
+    "ds_world_memory_stats": "DsWorldMemoryStats",
+    "ds_allocation_metrics": "DsAllocationMetrics",
 }
 
 
@@ -132,9 +136,6 @@ def public_function_signatures(
             )
 
         return_type, name, parameters = match.groups()
-        if name in KNOWN_UNBOUND_FUNCTIONS:
-            signatures[name] = None
-            continue
         parameter_types = []
         if parameters.strip() and parameters.strip() != "void":
             parameter_types = [
@@ -248,9 +249,6 @@ def main() -> int:
         return 1
 
     failed = False
-    functions = [
-        name for name in functions if c_signatures[name] is not None
-    ]
     rust_declaration_set = set(rust_declarations)
 
     if len(rust_declarations) != len(rust_declaration_set):

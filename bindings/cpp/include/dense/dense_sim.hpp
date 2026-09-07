@@ -10,6 +10,7 @@
 #include <stdexcept>
 #include <string>
 #include <utility>
+#include <vector>
 
 namespace dense {
 
@@ -106,6 +107,64 @@ struct MotionMetrics {
     std::uint64_t correction_steps = 0;
 };
 
+struct WorldMemoryStats {
+    std::size_t entity_capacity = 0;
+    std::size_t entity_map_capacity = 0;
+    std::size_t cell_bucket_capacity = 0;
+    std::size_t chunk_bucket_capacity = 0;
+    std::size_t observer_capacity = 0;
+    std::size_t observer_map_capacity = 0;
+    std::size_t subscription_capacity = 0;
+    std::size_t membership_capacity = 0;
+    std::size_t crossing_capacity = 0;
+    std::size_t dirty_capacity = 0;
+    std::size_t observer_dirty_capacity = 0;
+    std::size_t fanout_chunk_capacity = 0;
+    std::size_t fanout_entry_capacity = 0;
+    std::size_t fanout_subscriber_capacity = 0;
+    std::size_t kinetic_event_capacity = 0;
+    std::size_t kinetic_bucket_capacity = 0;
+};
+
+struct AllocationMetrics {
+    std::size_t current_retained_bytes = 0;
+    std::size_t peak_retained_bytes = 0;
+    std::uint64_t growth_operations = 0;
+    std::size_t live_object_count = 0;
+    std::uint64_t allocation_failures = 0;
+    std::uint64_t steady_state_allocations = 0;
+};
+
+inline void runtime_init()
+{
+    check(ds_runtime_init(), "ds_runtime_init");
+}
+
+[[nodiscard]] inline bool runtime_has_avx2() noexcept
+{
+    return ds_runtime_has_avx2();
+}
+
+[[nodiscard]] inline AllocationMetrics allocation_metrics() noexcept
+{
+    ds_allocation_metrics metrics{};
+
+    ds_get_allocation_metrics(&metrics);
+    return AllocationMetrics{
+        metrics.current_retained_bytes,
+        metrics.peak_retained_bytes,
+        metrics.growth_operations,
+        metrics.live_object_count,
+        metrics.allocation_failures,
+        metrics.steady_state_allocations,
+    };
+}
+
+inline void reset_allocation_counters() noexcept
+{
+    ds_reset_allocation_counters();
+}
+
 enum class DeltaOp : int {
     update = DS_DELTA_UPDATE,
     enter = DS_DELTA_ENTER,
@@ -118,6 +177,46 @@ struct DeltaEntry {
     EntityId entity_id = 0;
     ChannelMask channel_mask = 0;
     DeltaOp operation = DeltaOp::update;
+};
+
+struct RecipientWorksetConfig {
+    std::size_t initial_recipient_capacity = 64;
+    std::size_t initial_visible_capacity_per_recipient = 64;
+};
+
+struct RecipientWorksetEntry {
+    EntityId entity_id = 0;
+    ChannelMask channel_mask = 0;
+};
+
+struct RecipientWorksetView {
+    Tick tick = 0;
+    ObserverId observer_id = 0;
+    std::uint64_t visible_set_generation = 0;
+    std::uint64_t visible_set_fingerprint = 0;
+    std::vector<RecipientWorksetEntry> entries;
+    std::size_t dirty_count = 0;
+};
+
+struct RecipientWorksetStats {
+    std::size_t recipient_count = 0;
+    std::size_t recipient_capacity = 0;
+    std::size_t visible_count = 0;
+    std::size_t visible_capacity = 0;
+    std::size_t dirty_count = 0;
+    std::size_t retained_bytes = 0;
+    std::uint64_t syncs = 0;
+    std::uint64_t incremental_syncs = 0;
+    std::uint64_t full_rebuilds = 0;
+    std::uint64_t stable_recipient_reuses = 0;
+    std::uint64_t membership_changes = 0;
+    std::uint64_t source_enqueues = 0;
+    std::uint64_t inverse_edge_visits = 0;
+    std::uint64_t dirty_enqueues = 0;
+    std::uint64_t dirty_deduplications = 0;
+    std::uint64_t dirty_acknowledgements = 0;
+    std::uint64_t stale_view_rejections = 0;
+    std::uint64_t growth_operations = 0;
 };
 
 namespace detail {
@@ -692,6 +791,8 @@ private:
     ds_fanout_view view_{};
 };
 
+class RecipientWorkset;
+
 class World final {
 public:
     explicit World(const WorldConfig &config = WorldConfig{})
@@ -789,6 +890,35 @@ public:
             "ds_world_get_motion_metrics"
         );
         return detail::from_c(metrics);
+    }
+
+    [[nodiscard]] WorldMemoryStats memory_stats() const
+    {
+        require_open();
+        ds_world_memory_stats stats{};
+
+        check(
+            ds_world_get_memory_stats(world_, &stats),
+            "ds_world_get_memory_stats"
+        );
+        return WorldMemoryStats{
+            stats.entity_capacity,
+            stats.entity_map_capacity,
+            stats.cell_bucket_capacity,
+            stats.chunk_bucket_capacity,
+            stats.observer_capacity,
+            stats.observer_map_capacity,
+            stats.subscription_capacity,
+            stats.membership_capacity,
+            stats.crossing_capacity,
+            stats.dirty_capacity,
+            stats.observer_dirty_capacity,
+            stats.fanout_chunk_capacity,
+            stats.fanout_entry_capacity,
+            stats.fanout_subscriber_capacity,
+            stats.kinetic_event_capacity,
+            stats.kinetic_bucket_capacity,
+        };
     }
 
     [[nodiscard]] FanoutView fanout() const
@@ -980,6 +1110,8 @@ public:
     }
 
 private:
+    friend class RecipientWorkset;
+
     void require_open() const
     {
         if (world_ == nullptr) {
@@ -989,6 +1121,163 @@ private:
 
     std::shared_ptr<detail::WorldState> state_;
     ds_world *world_ = nullptr;
+};
+
+class RecipientWorkset final {
+public:
+    explicit RecipientWorkset(
+        const RecipientWorksetConfig &config = RecipientWorksetConfig{}
+    )
+    {
+        ds_recipient_workset_config c_config{};
+
+        ds_recipient_workset_config_defaults(&c_config);
+        c_config.initial_recipient_capacity = config.initial_recipient_capacity;
+        c_config.initial_visible_capacity_per_recipient =
+            config.initial_visible_capacity_per_recipient;
+        check(
+            ds_recipient_workset_create(&c_config, &workset_),
+            "ds_recipient_workset_create"
+        );
+    }
+
+    RecipientWorkset(const RecipientWorkset &) = delete;
+    RecipientWorkset &operator=(const RecipientWorkset &) = delete;
+
+    RecipientWorkset(RecipientWorkset &&other) noexcept
+        : workset_(std::exchange(other.workset_, nullptr))
+    {
+    }
+
+    RecipientWorkset &operator=(RecipientWorkset &&other) noexcept
+    {
+        if (this != &other) {
+            ds_recipient_workset_destroy(workset_);
+            workset_ = std::exchange(other.workset_, nullptr);
+        }
+        return *this;
+    }
+
+    ~RecipientWorkset()
+    {
+        ds_recipient_workset_destroy(workset_);
+    }
+
+    void sync(const World &world)
+    {
+        world.require_open();
+        check(
+            ds_recipient_workset_sync(workset_, world.world_),
+            "ds_recipient_workset_sync"
+        );
+    }
+
+    void enqueue_source(
+        const World &world,
+        EntityId entity_id,
+        ChannelMask channel_mask
+    )
+    {
+        world.require_open();
+        check(
+            ds_recipient_workset_enqueue_source(
+                workset_,
+                world.world_,
+                entity_id,
+                channel_mask
+            ),
+            "ds_recipient_workset_enqueue_source"
+        );
+    }
+
+    [[nodiscard]] RecipientWorksetView view(ObserverId observer_id) const
+    {
+        ds_recipient_workset_view c_view{};
+        RecipientWorksetView result;
+
+        check(
+            ds_recipient_workset_get_view(workset_, observer_id, &c_view),
+            "ds_recipient_workset_get_view"
+        );
+        result.tick = c_view.tick;
+        result.observer_id = c_view.observer_id;
+        result.visible_set_generation = c_view.visible_set_generation;
+        result.visible_set_fingerprint = c_view.visible_set_fingerprint;
+        result.dirty_count = c_view.dirty_count;
+        result.entries.reserve(c_view.visible_count);
+        for (std::size_t index = 0; index < c_view.visible_count; ++index) {
+            result.entries.push_back(RecipientWorksetEntry{
+                c_view.entries[index].entity_id,
+                c_view.entries[index].channel_mask,
+            });
+        }
+        return result;
+    }
+
+    void acknowledge(
+        const RecipientWorksetView &view,
+        EntityId entity_id,
+        ChannelMask channel_mask
+    )
+    {
+        check(
+            ds_recipient_workset_acknowledge(
+                workset_,
+                view.observer_id,
+                view.visible_set_generation,
+                view.visible_set_fingerprint,
+                entity_id,
+                channel_mask
+            ),
+            "ds_recipient_workset_acknowledge"
+        );
+    }
+
+    void clear(const RecipientWorksetView &view)
+    {
+        check(
+            ds_recipient_workset_clear(
+                workset_,
+                view.observer_id,
+                view.visible_set_generation,
+                view.visible_set_fingerprint
+            ),
+            "ds_recipient_workset_clear"
+        );
+    }
+
+    [[nodiscard]] RecipientWorksetStats stats() const
+    {
+        ds_recipient_workset_stats c_stats{};
+
+        check(
+            ds_recipient_workset_get_stats(workset_, &c_stats),
+            "ds_recipient_workset_get_stats"
+        );
+        return RecipientWorksetStats{
+            c_stats.recipient_count,
+            c_stats.recipient_capacity,
+            c_stats.visible_count,
+            c_stats.visible_capacity,
+            c_stats.dirty_count,
+            c_stats.retained_bytes,
+            c_stats.syncs,
+            c_stats.incremental_syncs,
+            c_stats.full_rebuilds,
+            c_stats.stable_recipient_reuses,
+            c_stats.membership_changes,
+            c_stats.source_enqueues,
+            c_stats.inverse_edge_visits,
+            c_stats.dirty_enqueues,
+            c_stats.dirty_deduplications,
+            c_stats.dirty_acknowledgements,
+            c_stats.stale_view_rejections,
+            c_stats.growth_operations,
+        };
+    }
+
+private:
+    ds_recipient_workset *workset_ = nullptr;
 };
 
 } // namespace dense

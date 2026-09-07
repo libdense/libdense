@@ -6,10 +6,10 @@
 #include <stdint.h>
 
 #define DS_VERSION_MAJOR 0
-#define DS_VERSION_MINOR 2
-#define DS_VERSION_PATCH 0
+#define DS_VERSION_MINOR 3
+#define DS_VERSION_PATCH 6
 #define DS_VERSION_PRERELEASE ""
-#define DS_VERSION_STRING "0.2.0"
+#define DS_VERSION_STRING "0.3.6"
 #define DS_ABI_VERSION 1
 
 #if defined(_WIN32) && defined(DS_SHARED)
@@ -55,6 +55,7 @@ typedef enum ds_result {
     DS_ERR_TICK_ORDER,
     DS_ERR_TICK_NOT_FINALIZED,
     DS_ERR_MOTION_CONFLICT,
+    DS_ERR_STALE_VIEW,
 } ds_result;
 
 typedef struct ds_world_config {
@@ -153,6 +154,61 @@ typedef struct ds_fanout_view {
     size_t subscriber_count;
 } ds_fanout_view;
 
+/*
+ * Optional recipient-owned workset built over the world's persistent
+ * observer/entity membership graph. It complements the canonical grouped
+ * fanout view when an application needs source-driven per-recipient cadence,
+ * admission, or payload selection.
+ */
+typedef struct ds_recipient_workset ds_recipient_workset;
+
+typedef struct ds_recipient_workset_config {
+    size_t initial_recipient_capacity;
+    size_t initial_visible_capacity_per_recipient;
+} ds_recipient_workset_config;
+
+/*
+ * Borrowed exact recipient state. Entries are strictly ascending by entity_id.
+ * A zero channel_mask is clean; nonzero bits are pending.
+ * The spans remain valid until the next successful sync, enqueue, acknowledge,
+ * clear, or destroy operation on the workset.
+ */
+typedef struct ds_recipient_workset_entry {
+    ds_entity_id entity_id;
+    ds_channel_mask channel_mask;
+} ds_recipient_workset_entry;
+
+typedef struct ds_recipient_workset_view {
+    ds_tick tick;
+    ds_observer_id observer_id;
+    uint64_t visible_set_generation;
+    uint64_t visible_set_fingerprint;
+    const ds_recipient_workset_entry *entries;
+    size_t visible_count;
+    size_t dirty_count;
+} ds_recipient_workset_view;
+
+typedef struct ds_recipient_workset_stats {
+    size_t recipient_count;
+    size_t recipient_capacity;
+    size_t visible_count;
+    size_t visible_capacity;
+    size_t dirty_count;
+    size_t retained_bytes;
+    uint64_t syncs;
+    uint64_t incremental_syncs;
+    uint64_t full_rebuilds;
+    uint64_t stable_recipient_reuses;
+    uint64_t membership_changes;
+    uint64_t source_enqueues;
+    uint64_t inverse_edge_visits;
+    uint64_t dirty_enqueues;
+    uint64_t dirty_deduplications;
+    uint64_t dirty_acknowledgements;
+    uint64_t stale_view_rejections;
+    uint64_t growth_operations;
+} ds_recipient_workset_stats;
+
 DS_API const char *ds_result_string(ds_result result);
 
 /*
@@ -209,6 +265,65 @@ DS_API ds_result ds_world_get_memory_stats(
 DS_API ds_result ds_world_get_fanout_view(
     const ds_world *world,
     ds_fanout_view *out_view
+);
+
+DS_API void ds_recipient_workset_config_defaults(
+    ds_recipient_workset_config *config
+);
+DS_API ds_result ds_recipient_workset_create(
+    const ds_recipient_workset_config *config,
+    ds_recipient_workset **out_workset
+);
+DS_API void ds_recipient_workset_destroy(ds_recipient_workset *workset);
+
+/*
+ * Synchronize after ds_world_end_tick(). Consecutive finalized worlds consume
+ * only exact ENTER/LEAVE membership changes; a missed sync or world change
+ * rebuilds from persistent membership while retaining still-visible dirtiness.
+ */
+DS_API ds_result ds_recipient_workset_sync(
+    ds_recipient_workset *workset,
+    const ds_world *world
+);
+
+/*
+ * Route one source-side dirty mask through the world's inverse membership
+ * links. Repeated marks OR channel bits and do not duplicate recipient work.
+ */
+DS_API ds_result ds_recipient_workset_enqueue_source(
+    ds_recipient_workset *workset,
+    const ds_world *world,
+    ds_entity_id entity_id,
+    ds_channel_mask channel_mask
+);
+
+DS_API ds_result ds_recipient_workset_get_view(
+    const ds_recipient_workset *workset,
+    ds_observer_id observer_id,
+    ds_recipient_workset_view *out_view
+);
+
+/*
+ * Clear delivered channel bits only when the caller's membership certificate
+ * still matches. Stale acknowledgements cannot clear a reused visible slot.
+ */
+DS_API ds_result ds_recipient_workset_acknowledge(
+    ds_recipient_workset *workset,
+    ds_observer_id observer_id,
+    uint64_t visible_set_generation,
+    uint64_t visible_set_fingerprint,
+    ds_entity_id entity_id,
+    ds_channel_mask channel_mask
+);
+DS_API ds_result ds_recipient_workset_clear(
+    ds_recipient_workset *workset,
+    ds_observer_id observer_id,
+    uint64_t visible_set_generation,
+    uint64_t visible_set_fingerprint
+);
+DS_API ds_result ds_recipient_workset_get_stats(
+    const ds_recipient_workset *workset,
+    ds_recipient_workset_stats *out_stats
 );
 
 DS_API ds_result ds_entity_spawn(

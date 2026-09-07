@@ -112,6 +112,16 @@ LIBRARIES=(
     densedb
 )
 
+declare -A COMPONENT_VERSIONS=(
+    [dense_sim]="0.3.6"
+    [dense_net]="0.3.5"
+    [dense_sched]="0.3.0"
+    [dense_collision]="0.3.0"
+    [dense_nav]="0.3.0"
+    [dense_ai]="0.3.0"
+    [densedb]="0.3.0"
+)
+
 HEADERS=(
     dense_sim.h
     dense_net.h
@@ -243,11 +253,12 @@ install_library_artifact() {
 render_pkgconfig() {
     local source="$1"
     local output="$2"
+    local component_version="$3"
 
     sed \
         -e "s|@PREFIX@|$PREFIX|g" \
         -e "s|@LIBDIR@|$LIBDIR|g" \
-        -e "s|@VERSION@|$VERSION|g" \
+        -e "s|@VERSION@|$component_version|g" \
         "$source" > "$output"
 }
 
@@ -274,7 +285,10 @@ done < <(
 )
 
 for library in "${LIBRARIES[@]}"; do
-    render_pkgconfig "$ROOT_DIR/pkgconfig/lib$library.pc.in" "$TMP_DIR/lib$library.pc"
+    render_pkgconfig \
+        "$ROOT_DIR/pkgconfig/lib$library.pc.in" \
+        "$TMP_DIR/lib$library.pc" \
+        "${COMPONENT_VERSIONS[$library]}"
     install_regular "$TMP_DIR/lib$library.pc" "$LIBDIR/pkgconfig/lib$library.pc" 0644
 done
 

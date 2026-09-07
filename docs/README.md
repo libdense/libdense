@@ -4,7 +4,7 @@
 
 - `INSTALLATION.md` — native install, staging, uninstall, and linker setup.
 - `BINDINGS.md` — Python, C++, and Rust integration.
-- `PLATFORM-COMPATIBILITY.md` — Linux, architecture, glibc, and ABI details.
+- `PLATFORM-COMPATIBILITY.md` — supported target roles, architectures, and ABI details.
 - `ABI-COMPATIBILITY.md` — ABI versioning and borrowed-view rules.
 - `BINARY-LAYOUT.md` — repository and installed filesystem layout.
 - `BENCHMARK-SCOPE.md` — retained performance claims and exclusions.

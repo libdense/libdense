@@ -17,7 +17,13 @@
 extern "C" {
 #endif
 
-#if defined(DNAV_SHARED) && defined(DNAV_BUILD)
+#if defined(_WIN32) && defined(DNAV_SHARED)
+#if defined(DNAV_BUILD)
+#define DNAV_API __declspec(dllexport)
+#else
+#define DNAV_API __declspec(dllimport)
+#endif
+#elif defined(__GNUC__) && defined(DNAV_SHARED) && defined(DNAV_BUILD)
 #define DNAV_API __attribute__((visibility("default")))
 #else
 #define DNAV_API

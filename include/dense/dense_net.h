@@ -21,7 +21,13 @@
 extern "C" {
 #endif
 
-#if defined(DN_SHARED) && defined(DN_BUILD)
+#if defined(_WIN32) && defined(DN_SHARED)
+#if defined(DN_BUILD)
+#define DN_API __declspec(dllexport)
+#else
+#define DN_API __declspec(dllimport)
+#endif
+#elif defined(__GNUC__) && defined(DN_SHARED) && defined(DN_BUILD)
 #define DN_API __attribute__((visibility("default")))
 #else
 #define DN_API
@@ -54,6 +60,27 @@ typedef enum dn_result {
 
 DN_API const char *dn_result_string(dn_result result);
 
+/*
+ * Read-only allocation enumeration for residency attribution and diagnostics.
+ * The visitor is observational: it never reads or writes the reported range.
+ * allocation_id identifies one allocator object for the duration of the call;
+ * more than one non-overlapping logical region may describe that object.
+ */
+typedef struct dn_memory_region {
+    const char *storage_class;
+    uint64_t allocation_id;
+    const void *base_address;
+    size_t logical_bytes;
+    size_t allocation_bytes;
+    bool writable;
+    bool precommitted;
+} dn_memory_region;
+
+typedef dn_result (*dn_memory_region_visitor_fn)(
+    void *context,
+    const dn_memory_region *region
+);
+
 /* ------------------------------------------------------------------ */
 /* Message registry                                                   */
 /* ------------------------------------------------------------------ */
@@ -74,12 +101,13 @@ typedef enum dn_delivery {
 } dn_delivery;
 
 /*
- * One registered message. payload_size is fixed (the protocol contract
- * requires fixed-size records on hot paths). For sequenced messages,
- * key_offset/key_size select the bytes inside the payload that
- * identify the coalescing key (for example an entity id); key_size 0
- * coalesces on the opcode alone. key_size must be 0, 1, 2, 4, or 8 and
- * the key range must lie inside the payload.
+ * One registered message. payload_size remains the exact size for registries
+ * created by dn_registry_init(), and the inclusive maximum for messages that
+ * opt into bounds through dn_registry_init_with_payload_bounds().
+ * For sequenced messages, key_offset/key_size select the bytes inside the
+ * payload that identify the coalescing key (for example an entity id);
+ * key_size 0 coalesces on the opcode alone. key_size must be 0, 1, 2, 4, or 8
+ * and the key range must lie inside every legal payload.
  */
 typedef struct dn_message_desc {
     uint16_t opcode;
@@ -90,6 +118,20 @@ typedef struct dn_message_desc {
     uint16_t key_offset;
     uint16_t key_size;
 } dn_message_desc;
+
+/*
+ * Optional bounded-variable override for one registered opcode. Existing
+ * dn_message_desc layout is unchanged; descriptors without an override retain
+ * the exact-size contract. max_payload_size must equal the descriptor's
+ * payload_size so allocation/wire maxima remain visible through dn_registry_find().
+ */
+typedef struct dn_payload_bounds {
+    uint16_t opcode;
+    uint32_t min_payload_size;
+    uint32_t max_payload_size;
+} dn_payload_bounds;
+
+#define DN_HAS_BOUNDED_VARIABLE_PAYLOAD_BOUNDS 1
 
 /*
  * Game-owned wire identity. frame_magic and protocol_major are written
@@ -115,6 +157,14 @@ DN_API dn_result dn_registry_init(
     const dn_protocol_config *config,
     const dn_message_desc *messages,
     size_t message_count
+);
+DN_API dn_result dn_registry_init_with_payload_bounds(
+    dn_registry *registry,
+    const dn_protocol_config *config,
+    const dn_message_desc *messages,
+    size_t message_count,
+    const dn_payload_bounds *payload_bounds,
+    size_t payload_bounds_count
 );
 DN_API void dn_registry_destroy(dn_registry *registry);
 DN_API const dn_message_desc *dn_registry_find(
@@ -245,6 +295,11 @@ DN_API dn_result dn_udp_transport_local_port(
     const dn_udp_transport *transport,
     uint16_t *out_port
 );
+DN_API dn_result dn_udp_transport_visit_memory_regions(
+    const dn_udp_transport *transport,
+    dn_memory_region_visitor_fn visitor,
+    void *context
+);
 
 /*
  * Flaky: deterministic adverse-network wrapper around another raw
@@ -345,18 +400,31 @@ typedef struct dn_session_memory_stats {
     size_t unreliable_queue_capacity;
     size_t reliable_window_capacity;
     size_t owned_frame_bytes;
+    size_t queue_metadata_bytes;
     size_t packet_scratch_bytes;
     size_t packet_pool_buffer_capacity;
     size_t packet_pool_buffers_in_use;
     size_t packet_pool_buffer_high_water;
     size_t packet_pool_retained_bytes;
+    size_t packet_pool_payload_bytes;
+    size_t reliable_packet_metadata_bytes;
     uint64_t packet_pool_growth_operations;
     uint64_t packet_pool_growth_after_prewarm;
+    bool owned_frame_storage_precommitted;
+    bool queue_metadata_storage_precommitted;
+    bool packet_scratch_storage_precommitted;
+    bool packet_pool_storage_precommitted;
+    bool reliable_packet_metadata_storage_precommitted;
 } dn_session_memory_stats;
 
 DN_API dn_result dn_session_get_memory_stats(
     const dn_session *session,
     dn_session_memory_stats *out_stats
+);
+DN_API dn_result dn_session_visit_memory_regions(
+    const dn_session *session,
+    dn_memory_region_visitor_fn visitor,
+    void *context
 );
 
 typedef struct dn_session_prewarm_config {
@@ -380,6 +448,15 @@ DN_API dn_result dn_session_prewarm(
     const dn_session_prewarm_config *config
 );
 
+/*
+ * Commit the payload and fixed metadata pages already reserved by session
+ * creation and dn_session_prewarm(). This is intentionally separate from
+ * reservation so ordinary Dense users retain the operating system's
+ * lazy-commit behavior. The session must be idle: no outbound frames or
+ * retained reliable packets may be live.
+ */
+DN_API dn_result dn_session_precommit_prewarmed_storage(dn_session *session);
+
 /* Queue one message; routed by the descriptor's delivery class. */
 DN_API dn_result dn_session_send(
     dn_session *session,
@@ -387,6 +464,20 @@ DN_API dn_result dn_session_send(
     uint32_t request_id,
     const uint8_t *payload,
     size_t payload_size
+);
+
+/*
+ * Queue a sequenced message with an explicit application coalescing key.
+ * This is additive: dn_session_send() keeps descriptor-derived key behavior.
+ * The call is rejected for non-sequenced descriptors.
+ */
+DN_API dn_result dn_session_send_sequenced_keyed(
+    dn_session *session,
+    uint16_t opcode,
+    uint32_t request_id,
+    const uint8_t *payload,
+    size_t payload_size,
+    uint64_t sequenced_key
 );
 
 /*
@@ -536,6 +627,8 @@ typedef struct dn_udp_server_config {
     size_t max_packet_size;
     const dn_registry *registry;
     const dn_session_config *session_config; /* copied; NULL = defaults */
+    /* Reset ring cursors after the last queued packet is consumed. */
+    bool reset_empty_inbound_queue_cursor;
 } dn_udp_server_config;
 
 typedef struct dn_udp_server_stats {
@@ -546,6 +639,9 @@ typedef struct dn_udp_server_stats {
     uint64_t capacity_drops;
     uint64_t inbound_queue_drops;
     uint64_t protocol_errors;
+    uint64_t inbound_queue_empty_resets;
+    size_t inbound_queue_depth_peak;
+    size_t inbound_cursor_slot_high_water;
     size_t sessions;
 } dn_udp_server_stats;
 
@@ -613,11 +709,23 @@ typedef struct dn_udp_server_memory_stats {
     size_t endpoint_map_capacity;
     size_t inbound_packets_per_session;
     size_t max_packet_size;
+    size_t inbound_payload_bytes;
+    bool reset_empty_inbound_queue_cursor;
 } dn_udp_server_memory_stats;
 
 DN_API dn_result dn_udp_server_get_memory_stats(
     const dn_udp_server *server,
     dn_udp_server_memory_stats *out_stats
+);
+DN_API dn_result dn_udp_server_visit_memory_regions(
+    const dn_udp_server *server,
+    dn_memory_region_visitor_fn visitor,
+    void *context
+);
+DN_API dn_result dn_udp_server_visit_inbound_payload_regions(
+    const dn_udp_server *server,
+    dn_memory_region_visitor_fn visitor,
+    void *context
 );
 DN_API dn_result dn_udp_endpoint_parse(
     const char *address,

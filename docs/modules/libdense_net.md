@@ -3,6 +3,25 @@
 **Replication encoding, queues, frames, sessions, and transport for
 high-density multiplayer systems.**
 
+## 0.3.1–0.3.5 additive interfaces
+
+- `dn_registry_init_with_payload_bounds()` opts selected opcodes into inclusive
+  minimum/maximum payload sizes while preserving the descriptor ABI and frame
+  format.
+- `dn_session_send_sequenced_keyed()` accepts an application-owned stable
+  coalescing key without changing the existing descriptor-derived send path.
+- `dn_session_precommit_prewarmed_storage()` touches already-reserved payload
+  and fixed-metadata pages for deployments that explicitly choose resident
+  prewarmed storage.
+- Session, UDP transport, and UDP server memory-region visitors expose
+  read-only allocation attribution without reading allocation contents.
+- UDP authority servers can opt into resetting empty inbound-ring cursors and
+  can report reset count, depth peak, cursor-slot high water, and live inbound
+  payload bytes.
+
+All additions are default-off or observational. Existing wire format, delivery
+ordering, ordinary policies, and SONAME major `0` are unchanged.
+
 ## Phase 5 batch encoding
 
 `dn_frame_encode_many()` and `dn_replication_group_write_many()` provide bounded
@@ -31,6 +50,11 @@ existing validated session and compact-active-set paths. Run
 - `dn_session_prewarm()` can also reserve owned frame bytes for reliable,
   sequenced, and unreliable queue slots. Packet-pool capacity/high-water/growth
   telemetry identifies profiles that were undersized after prewarming.
+- `dn_session_precommit_prewarmed_storage()` separately touches reserved
+  owned-frame and reliable-packet payload pages plus fixed queue metadata,
+  packet scratch, and reliable-packet metadata while a session is idle. Exact
+  retained-byte and precommit-state telemetry covers every storage class.
+  Ordinary prewarm and operating-system lazy commitment remain unchanged.
 - `make benchmark-packet-storage` measures first-burst allocation removal and
   steady packet-buffer recycling.
 
@@ -56,12 +80,12 @@ existing validated session and compact-active-set paths. Run
 
 libdense_net is the network module of the Dense ecosystem, alongside
 `libdense_sim` (spatial execution and subscription kernel) and
-`DenseDB` (channel-aware state database). It is a standalone-buildable,
-source-available C11 module inside the Dense monorepo. It privately uses the
-non-installed `dense_core` dirty-set implementation and otherwise depends only
-on POSIX.
+`DenseDB` (channel-aware state database). The implementation is maintained as a
+standalone-buildable C11 module in the Dense source repository. It privately
+uses the non-installed `dense_core` dirty-set implementation. UDP uses POSIX
+sockets on Linux and Winsock on Windows.
 
-Design and rationale live in [DESIGN.md](DESIGN.md). In short:
+In short:
 
 - **Schema-agnostic.** Games own their protocol (opcodes, payloads,
   schema hash). libdense_net consumes a runtime table of message
@@ -122,6 +146,20 @@ static const dn_message_desc MESSAGES[] = {
       .key_offset = 4, .key_size = 8 /* coalesce per entity_id */ },
 };
 
+/* Optional bounded-variable payloads keep the descriptor ABI and frame layout. */
+static const dn_message_desc VARIABLE_MESSAGE = {
+    .opcode = 775,
+    .name = "transform_batch_v3",
+    .direction = DN_DIRECTION_AUTHORITY_TO_CLIENT,
+    .delivery = DN_DELIVERY_SEQUENCED,
+    .payload_size = 1064,
+};
+static const dn_payload_bounds VARIABLE_BOUNDS = {
+    .opcode = 775,
+    .min_payload_size = 44,
+    .max_payload_size = 1064,
+};
+
 dn_protocol_config protocol = {
     .frame_magic = 0x4f4d4d44,          /* game-owned: "DMMO" */
     .protocol_major = 0,
@@ -130,7 +168,14 @@ dn_protocol_config protocol = {
 };
 
 dn_registry registry;
+/* Fixed-size registry: */
 dn_registry_init(&registry, &protocol, MESSAGES, 2);
+
+/* For a bounded-variable registry, use the opt-in initializer instead. */
+/* dn_registry_init_with_payload_bounds(
+ *     &registry, &protocol, &VARIABLE_MESSAGE, 1, &VARIABLE_BOUNDS, 1
+ * );
+ */
 
 dn_session *session;
 dn_session_create(&session, &registry, transport, NULL);
@@ -147,6 +192,4 @@ dn_session_receive(session, now_ns, on_frame, ctx);
 
 ## License
 
-Same licensing model as the Dense repository (see the dense repo's
-LICENSE.md / COMMERCIAL-LICENSE.md pairing); final license text to be
-settled before the first tagged release.
+See `LICENSE.md` and `COMMERCIAL-LICENSE.md` at the release root.

@@ -2,6 +2,40 @@
 
 High-density dynamic spatial subscription and fanout planning kernel.
 
+## Optional recipient worksets
+
+The canonical `ds_fanout_view` remains the preferred encode-once output. When
+payload selection or cadence must differ per observer, create a separate
+`ds_recipient_workset`, synchronize it after `ds_world_end_tick()`, and enqueue
+only the sources that are due:
+
+```c
+ds_recipient_workset *workset = NULL;
+ds_recipient_workset_view view;
+
+ds_recipient_workset_create(NULL, &workset);
+ds_recipient_workset_sync(workset, world);
+ds_recipient_workset_enqueue_source(
+    workset,
+    world,
+    entity_id,
+    DS_CHANNEL_POSITION
+);
+ds_recipient_workset_get_view(workset, observer_id, &view);
+
+for (size_t index = 0; index < view.visible_count; ++index) {
+    if (view.entries[index].channel_mask != 0) {
+        /* Encode or defer this recipient-owned source. */
+    }
+}
+```
+
+Entries are sorted by entity ID. Pending channel masks are coalesced and remain
+pending until acknowledged or cleared with the view's exact membership
+generation and fingerprint. Stable consecutive ticks reuse recipient state;
+missed synchronization rebuilds from authoritative membership while retaining
+dirty state for entities that remain visible.
+
 ## Current invariants
 
 - One `ds_world` has one writer.
@@ -122,9 +156,8 @@ getter derives the current integer position from an active trajectory even
 between certificate failures; spatial membership itself is repaired only when a
 cell certificate fails.
 
-The exact sampled-vs-kinetic equivalence, churn, mixed-motion, and regression
-results are documented in
-[`benchmarks/MILESTONE_8_REPORT.md`](benchmarks/MILESTONE_8_REPORT.md).
+The retained release benchmark records cover sampled-versus-kinetic
+equivalence, churn, mixed motion, and regression cases.
 
 ## Current dirty path
 
@@ -302,9 +335,6 @@ At 1,000 observers in boundary thrash, fanout moved from 10.953 ms to 0.705 ms
 while the workload still produced 60,000 ENTER and 60,000 LEAVE pairs per tick
 and the same 12-group/120-delta public plan.
 
-The original falsification record is retained in
-[`benchmarks/MILESTONE_6_REPORT.md`](benchmarks/MILESTONE_6_REPORT.md). The
-repair analysis and before/after control data are documented in
-[`benchmarks/MILESTONE_6_REPAIR_REPORT.md`](benchmarks/MILESTONE_6_REPAIR_REPORT.md).
-
-Milestone 8 intentionally expands the public C ABI to 28 exported functions by adding motion-plan assignment, explicit motion-plan clear/demotion, motion-mode lookup, and cumulative motion metrics. The next intended implementation milestone is the C++ and Rust wrapper layer.
+The public C ABI contains 42 exported functions. The additive 0.3.6 surface
+adds nine recipient-workset functions while preserving the prior declarations
+and layout. The C++ and Rust wrappers cover all 42 functions.

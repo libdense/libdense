@@ -4,8 +4,10 @@ set -euo pipefail
 ROOT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 ERRORS=0
 WARNINGS=0
+METADATA_ONLY=0
 
-RELEASE_VERSION="0.2.0"
+RELEASE_VERSION="0.3.6"
+PYTHON_BINDING_VERSION="0.3.6"
 
 LIBRARIES=(
     dense_sim
@@ -15,6 +17,16 @@ LIBRARIES=(
     dense_nav
     dense_ai
     densedb
+)
+
+declare -A COMPONENT_VERSIONS=(
+    [dense_sim]="0.3.6"
+    [dense_net]="0.3.5"
+    [dense_sched]="0.3.0"
+    [dense_collision]="0.3.0"
+    [dense_nav]="0.3.0"
+    [dense_ai]="0.3.0"
+    [densedb]="0.3.0"
 )
 
 HEADERS=(
@@ -28,6 +40,34 @@ HEADERS=(
     dense_ai.h
     densedb.h
 )
+
+usage() {
+    cat <<"USAGE"
+Usage: ./verify-release.sh [--metadata-only]
+
+Without options, validate the complete CI-populated release including native
+libraries, Python wheels, and SHA256SUMS. Use --metadata-only before CI artifacts
+are assembled to validate the public repository content.
+USAGE
+}
+
+while (($# > 0)); do
+    case "$1" in
+        --metadata-only)
+            METADATA_ONLY=1
+            shift
+            ;;
+        -h|--help)
+            usage
+            exit 0
+            ;;
+        *)
+            printf "ERROR: unknown option: %s\n" "$1" >&2
+            usage >&2
+            exit 2
+            ;;
+    esac
+done
 
 error() {
     printf "ERROR: %s\n" "$*" >&2
@@ -55,10 +95,13 @@ for relative in \
     uninstall.sh \
     verify-release.sh \
     tools/generate-checksums.sh \
-    SHA256SUMS \
     bindings/cpp/include/dense/dense_sim.hpp; do
     require_file "$relative"
 done
+
+if ((METADATA_ONLY == 0)); then
+    require_file SHA256SUMS
+fi
 
 for header in "${HEADERS[@]}"; do
     require_file "include/dense/$header"
@@ -117,6 +160,12 @@ done < <(
         -print0
 )
 
+while IFS= read -r -d "" stale; do
+    error "stale 0.2.0 artifact remains: ${stale#"$ROOT_DIR/"}"
+done < <(
+    find "$ROOT_DIR" \( -type f -o -type l \) -name "*0.2.0*" -print0
+)
+
 while IFS= read -r -d "" generated; do
     error "unexpected generated/private build file: ${generated#"$ROOT_DIR/"}"
 done < <(
@@ -143,7 +192,6 @@ done < <(
 )
 
 LIB_DIR="$ROOT_DIR/lib/linux-x86_64"
-[[ -d "$LIB_DIR" ]] || error "missing native artifact directory: lib/linux-x86_64"
 
 check_symlink() {
     local path="$1"
@@ -198,37 +246,42 @@ check_exports() {
     rm -f -- "$actual"
 }
 
-for library in "${LIBRARIES[@]}"; do
-    real="$LIB_DIR/lib$library.so.$RELEASE_VERSION"
-    check_symlink "$LIB_DIR/lib$library.so" "lib$library.so.0"
-    check_symlink "$LIB_DIR/lib$library.so.0" "lib$library.so.$RELEASE_VERSION"
-    check_elf "$real" "lib$library.so.0"
-
-    archive="$LIB_DIR/lib$library.a"
-    [[ -f "$archive" ]] || error "missing static archive: ${archive#"$ROOT_DIR/"}"
-    if [[ -f "$archive" ]] && command -v ar >/dev/null 2>&1; then
-        ar t "$archive" >/dev/null || error "invalid static archive: ${archive#"$ROOT_DIR/"}"
-    fi
-
-    if [[ -f "$real" && -f "$ROOT_DIR/release/abi/lib$library.exports" ]]; then
-        check_exports "$real" "$ROOT_DIR/release/abi/lib$library.exports" "lib$library"
-    fi
-done
-
-if command -v readelf >/dev/null 2>&1 && [[ -f "$LIB_DIR/libdensedb.so.$RELEASE_VERSION" ]]; then
-    readelf -d "$LIB_DIR/libdensedb.so.$RELEASE_VERSION" | grep -Fq "Shared library: [libdense_sim.so.0]" \
-        || error "libdensedb does not declare libdense_sim.so.0 dependency"
-fi
-
-# No shipped library may export private dense_core symbols.
-if command -v nm >/dev/null 2>&1; then
+if ((METADATA_ONLY == 0)); then
+    [[ -d "$LIB_DIR" ]] || error "missing native artifact directory: lib/linux-x86_64"
     for library in "${LIBRARIES[@]}"; do
-        real="$LIB_DIR/lib$library.so.$RELEASE_VERSION"
-        [[ -f "$real" ]] || continue
-        if nm -D --defined-only "$real" | awk '{print $3}' | grep -Eq '^dc_(arena|dirty_set|slot_pool|group_map|span_hash|cpu_features)_'; then
-            error "private dense_core symbol exported by lib$library"
+        component_version="${COMPONENT_VERSIONS[$library]}"
+        real="$LIB_DIR/lib$library.so.$component_version"
+        check_symlink "$LIB_DIR/lib$library.so" "lib$library.so.0"
+        check_symlink "$LIB_DIR/lib$library.so.0" "lib$library.so.$component_version"
+        check_elf "$real" "lib$library.so.0"
+
+        archive="$LIB_DIR/lib$library.a"
+        [[ -f "$archive" ]] || error "missing static archive: ${archive#"$ROOT_DIR/"}"
+        if [[ -f "$archive" ]] && command -v ar >/dev/null 2>&1; then
+            ar t "$archive" >/dev/null || error "invalid static archive: ${archive#"$ROOT_DIR/"}"
+        fi
+
+        if [[ -f "$real" && -f "$ROOT_DIR/release/abi/lib$library.exports" ]]; then
+            check_exports "$real" "$ROOT_DIR/release/abi/lib$library.exports" "lib$library"
         fi
     done
+
+    if command -v readelf >/dev/null 2>&1 && [[ -f "$LIB_DIR/libdensedb.so.0.3.0" ]]; then
+        readelf -d "$LIB_DIR/libdensedb.so.0.3.0" | grep -Fq "Shared library: [libdense_sim.so.0]" \
+            || error "libdensedb does not declare libdense_sim.so.0 dependency"
+    fi
+
+    # No shipped library may export private dense_core symbols.
+    if command -v nm >/dev/null 2>&1; then
+        for library in "${LIBRARIES[@]}"; do
+            component_version="${COMPONENT_VERSIONS[$library]}"
+            real="$LIB_DIR/lib$library.so.$component_version"
+            [[ -f "$real" ]] || continue
+            if nm -D --defined-only "$real" | awk '{print $3}' | grep -Eq '^dc_(arena|dirty_set|slot_pool|group_map|span_hash|cpu_features)_'; then
+                error "private dense_core symbol exported by lib$library"
+            fi
+        done
+    fi
 fi
 
 for library in "${LIBRARIES[@]}"; do
@@ -241,15 +294,20 @@ for library in "${LIBRARIES[@]}"; do
     fi
 done
 
-wheel_count=0
-while IFS= read -r -d "" wheel; do
-    ((wheel_count += 1))
-    python3 -m zipfile -t "$wheel" >/dev/null || error "invalid Python wheel: ${wheel#"$ROOT_DIR/"}"
-    if unzip -p "$wheel" 'dense_sim/__init__.py' 2>/dev/null | grep -Fq "$RELEASE_VERSION.dev"; then
-        error "development version remains in wheel: ${wheel#"$ROOT_DIR/"}"
-    fi
-done < <(find "$ROOT_DIR/bindings/python/dist" -maxdepth 1 -type f -name '*.whl' -print0)
-((wheel_count == 2)) || error "expected two Python wheels, found $wheel_count"
+if ((METADATA_ONLY == 0)); then
+    wheel_count=0
+    while IFS= read -r -d "" wheel; do
+        ((wheel_count += 1))
+        python3 -m zipfile -t "$wheel" >/dev/null || error "invalid Python wheel: ${wheel#"$ROOT_DIR/"}"
+        wheel_name="$(basename -- "$wheel")"
+        [[ "$wheel_name" == dense_sim-${PYTHON_BINDING_VERSION}-* ]] \
+            || error "unexpected Python wheel version: $wheel_name"
+        if unzip -p "$wheel" 'dense_sim/__init__.py' 2>/dev/null | grep -Fq '.dev'; then
+            error "development version remains in wheel: ${wheel#"$ROOT_DIR/"}"
+        fi
+    done < <(find "$ROOT_DIR/bindings/python/dist" -maxdepth 1 -type f -name '*.whl' -print0)
+    ((wheel_count == 12)) || error "expected 12 Python wheels, found $wheel_count"
+fi
 
 if command -v python3 >/dev/null 2>&1; then
     python3 - "$ROOT_DIR/bindings/python/setup.py" "$ROOT_DIR/bindings/check_abi_coverage.py" <<'PY_CHECK' \
@@ -266,7 +324,7 @@ PY_CHECK
 fi
 
 
-if [[ -f "$ROOT_DIR/SHA256SUMS" ]] && command -v sha256sum >/dev/null 2>&1; then
+if ((METADATA_ONLY == 0)) && [[ -f "$ROOT_DIR/SHA256SUMS" ]] && command -v sha256sum >/dev/null 2>&1; then
     if ! (cd "$ROOT_DIR" && sha256sum --check --quiet SHA256SUMS); then
         error "SHA256SUMS validation failed"
     fi
@@ -277,4 +335,8 @@ if ((ERRORS > 0)); then
     exit 1
 fi
 
-printf "Release verification passed with %d warning(s).\n" "$WARNINGS"
+if ((METADATA_ONLY)); then
+    printf "Release metadata verification passed with %d warning(s).\n" "$WARNINGS"
+else
+    printf "Release verification passed with %d warning(s).\n" "$WARNINGS"
+fi
