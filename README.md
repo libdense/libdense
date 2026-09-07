@@ -17,45 +17,6 @@ full Python, C++, and Rust wrapper source. Target-specific binary SDKs and
 Python wheels are produced and validated by CI. Core C implementation source
 is not included.
 
-## What is new in 0.3
-
-Dense 0.3 adds supported portable static SDKs for Linux x86-64, Linux ARM64,
-and Windows x86-64, architecture-locked CMake config packages, and CPython
-3.11-3.14 wheels for all three platforms. Windows is a client target and does
-not include DenseDB; both Linux targets include the complete server family.
-
-The 0.3.1-0.3.5 updates are additive `libdense_net` improvements:
-
-- opt-in bounded-variable payload contracts without changing frame layout;
-- explicit keyed sends for application-owned sequenced coalescing keys;
-- default-off precommit controls and exact residency telemetry for prewarmed
-  queues, scratch storage, owned frames, and reliable-packet storage;
-- read-only memory-region visitors for sessions, UDP transports, and UDP
-  authority servers; and
-- default-off empty inbound-ring cursor reset with queue-depth and cursor-slot
-  high-water telemetry.
-
-Dense 0.3.6 adds an optional `libdense_sim` recipient workset for applications
-that need per-recipient cadence, admission, or payload decisions alongside the
-canonical encode-once fanout view. It synchronizes from finalized world
-membership, applies consecutive ENTER/LEAVE changes incrementally, and routes
-a dirty source only across its persistent inverse membership edges.
-
-Recipient views are sorted by entity ID and carry a generation plus
-fingerprint. Acknowledgement and clear operations require that certificate, so
-a stale visible slot cannot clear dirtiness for a different membership epoch.
-The workset is opt-in and opaque; existing world, fanout, entity, observer,
-network, and wire behavior is unchanged.
-
-The aggregate SDK, `libdense_sim`, and language-wrapper packages are version
-0.3.6. `libdense_net` remains version 0.3.5; the other native modules and
-DenseDB remain version 0.3.0. Shared-library SONAME major `0`,
-`DS_ABI_VERSION=1`, and `DDB_ABI_VERSION=2` are unchanged.
-
-The private `dense_core` primitive layer (maps, dirty sets, arenas, slot
-pools, span hashing, CPU dispatch, integer sorting) is statically merged into
-each shipped library with hidden visibility; it is not a separate artifact.
-
 ## Modules
 
 | Module | Responsibility |
