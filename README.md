@@ -89,6 +89,16 @@ and a [machine-readable summary](release/benchmarks/BENCHMARK_SUMMARY.json)
 are included. See [benchmark scope](docs/BENCHMARK-SCOPE.md) for workload and
 timing definitions.
 
+<p align="center">
+  <img width="800" alt="dense-bench-scenario" src="https://github.com/user-attachments/assets/1983710f-0696-4750-abbf-9b914e029e2c" />
+  <img width="800" alt="densescalingperplayer" src="https://github.com/user-attachments/assets/20bb2bf4-3cd2-4dcc-b825-c3358a85552a" />
+  <img width="800" alt="densescalingticktime" src="https://github.com/user-attachments/assets/4d7ebb53-ae4c-4368-8d7d-0b7754b3abb2" />
+  <img width="800" alt="dense_bench_all_to_all" src="https://github.com/user-attachments/assets/c892a27e-3dd9-424d-a085-db1fffe13c7b" />
+  <img width="800" alt="dense-bench-python-binding" src="https://github.com/user-attachments/assets/24944b9a-947b-4a77-8b1c-32d3de34205b" />
+  <img width="800" alt="dense-bench-budget" src="https://github.com/user-attachments/assets/59fbf900-b1d4-4d86-9b06-fa31492e9e2f" />
+</p>
+
+
 ### libdense_sim
 
 | Benchmark | Result |
