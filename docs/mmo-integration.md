@@ -92,7 +92,7 @@ valid rung after input, replication, AI, and region shedding.
 Use `dsc_server_pipeline`, not free-form numeric phase IDs, for the authority
 loop. Every recurring system runs under exactly one named phase, and every tick
 executes input through flush exactly once and in order. Work outside those
-phases is a review failure because it cannot answer “which phase ate the tick?”
+phases is a review failure because it cannot answer "which phase ate the tick?"
 
 Each phase records assigned budget, current/EWMA/high-water duration, completed
 and deferred work, and budget exhaustion. The integration metrics record also
@@ -138,17 +138,17 @@ DenseDB follows this integration contract:
 
 ## Collision and coordinate scale
 
-`libdense_collision` accepts coordinates within ±2^28, movement deltas
-within ±2^26 per axis, and radii up to 2^20. Choose and record one
+`libdense_collision` accepts coordinates within +/-2^28, movement deltas
+within +/-2^26 per axis, and radii up to 2^20. Choose and record one
 world-unit scale before map content is authored. Example:
 
 ```text
 1 world unit = 1 millimeter
-coordinate reach = about ±268 km
+coordinate reach = about +/-268 km
 maximum library radius = about 1.05 km
 ```
 
-A centimeter scale gives about ±2,684 km reach. Pick based on required
+A centimeter scale gives about +/-2,684 km reach. Pick based on required
 precision and world extent; do not retrofit the scale after content is
 built.
 

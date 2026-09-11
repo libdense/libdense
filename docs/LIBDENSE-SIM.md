@@ -46,7 +46,7 @@ cannot clear current work.
 - each `ds_chunk_delta` is an exact recipient group;
 - `UPDATE` carries coalesced channel masks;
 - sampled motion is the default path;
-- kinetic motion requires an explicit stable linear plan; and
+- kinetic motion requires an explicit stable linear plan;
 - borrowed fanout views remain valid only until the next successful
   `ds_world_begin_tick()` or world destruction; and
 - borrowed recipient-workset spans remain valid until the next successful
@@ -74,10 +74,40 @@ Sampled movement uses `ds_entity_move()`. Stable linear trajectories may use
 than issuing per-tick position mutations. Explicit sampled movement demotes an
 active kinetic plan.
 
-Entities with anchored observers cannot use kinetic motion in v0.1 because
+Entities with anchored observers cannot use kinetic motion because
 observer coverage boundaries require separate subscription certificates.
 
 ## Concurrency
 
 A world is single-writer. Separate worlds may be assigned to separate worker
 threads. The public ABI does not make one world concurrently mutable.
+
+## Factorized membership
+
+Since 0.3.7, the core stores entity chunk/type factors and observer chunk
+subscriptions instead of an individual membership node per visible pair.
+Entities with the same old/new visibility transition share recipient
+comparisons and lifecycle spans. 0.3.8 retains sorted spans across ticks,
+invalidates them on subscriber changes, and uses a subscriber-event delta
+when affordable. Coverage nodes use a torus-indexed rectangle.
+
+Finalized semantics remain exact: ENTER supplies final state to new
+recipients, LEAVE identifies the old finalized chunk, and UPDATE reaches
+continuing recipients with the coalesced dirty mask. Leaving and returning
+within a tick does not create transient visibility events. Recreating an
+entity ID produces the old lifetime's LEAVE and the new lifetime's ENTER.
+
+A fanout group applies every entry to every subscriber. Subscriber IDs are
+sorted, and one chunk can have multiple groups. Consumers must not use a
+particular group index as an identity. Allocation failure during finalization
+leaves the tick open for retry.
+
+For N entities and N observers sharing one chunk/type, the core stores O(N)
+factors while representing N*N visible pairs. Fragmented masks and coverage
+increase the number and size of factors. Explicit recipient worksets and
+per-recipient delivery still have costs proportional to their requested
+output.
+
+`ds_world_memory_stats.membership_capacity` reports zero. The
+`fanout_subscriber_capacity` field reports retained UPDATE exclusion scratch.
+`ds_get_allocation_metrics()` includes the module's retained allocations.

@@ -4,7 +4,7 @@
 
 The former implementation allocated by logical map area:
 
-| Structure | Bytes per tile | 4,096² | 65,535² |
+| Structure | Bytes per tile | 4,096^2 | 65,535^2 |
 |---|---:|---:|---:|
 | Grid costs | 1 | 16 MiB | 4.00 GB |
 | Pathfinder g/parent/stamp/closed | 13 | 208 MiB | 55.83 GB |

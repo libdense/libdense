@@ -6,7 +6,7 @@ The versioned ELF files are canonical. Unversioned and SONAME names are relative
 symlinks:
 
 ```text
-libdense_sim.so -> libdense_sim.so.0 -> libdense_sim.so.0.3.6
+libdense_sim.so -> libdense_sim.so.0 -> libdense_sim.so.0.3.8
 libdense_net.so -> libdense_net.so.0 -> libdense_net.so.0.3.5
 libdense_sched.so -> libdense_sched.so.0 -> libdense_sched.so.0.3.0
 libdense_collision.so -> libdense_collision.so.0 -> libdense_collision.so.0.3.0

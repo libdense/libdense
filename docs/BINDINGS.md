@@ -4,9 +4,9 @@ The C ABI is the canonical implementation boundary. Bindings do not reimplement
 spatial indexing, subscription maintenance, kinetic scheduling, recipient
 planning, or DenseDB durability.
 
-The 0.3.6 C++ and Rust wrappers expose the optional recipient workset plus the
+The 0.3.8 C++ and Rust wrappers expose the optional recipient workset plus the
 runtime and allocation telemetry surface. The Python package version tracks
-0.3.6, but its existing high-level `World` methods are unchanged.
+0.3.8, but its existing high-level `World` methods are unchanged.
 
 ## Python
 
@@ -66,5 +66,4 @@ Environment overrides:
 
 ```text
 DENSE_SIM_LIB_DIR=/path/to/native/libs
-DENSE_SIM_LINK_MODE=static|dynamic
 ```

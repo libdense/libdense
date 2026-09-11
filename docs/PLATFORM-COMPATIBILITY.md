@@ -1,6 +1,6 @@
 # Platform Compatibility
 
-Release: `0.3.6`
+Release: `0.3.8`
 
 ## Supported native SDKs
 
@@ -20,7 +20,7 @@ DS_ABI_VERSION=1
 DDB_ABI_VERSION=2
 ```
 
-The aggregate SDK and `libdense_sim` are version 0.3.6. `libdense_net` remains
+The aggregate SDK and `libdense_sim` are version 0.3.8. `libdense_net` remains
 version 0.3.5; the other native modules and DenseDB remain version 0.3.0.
 
 ## Platform roles

@@ -3,12 +3,12 @@
 ## Artifacts
 
 - [x] public C headers;
-- [x] versioned shared libraries and relative SONAME links;
-- [x] static libraries;
+- [ ] versioned shared libraries and relative SONAME links;
+- [ ] static libraries;
 - [x] C++ wrapper header;
 - [x] CPython 3.11 through 3.14 wheel sources and release matrix;
 - [x] Linux x86-64, Linux ARM64, and Windows x86-64 target metadata;
-- [x] architecture-locked CMake package metadata in portable SDKs;
+- [ ] architecture-locked CMake package metadata in portable SDKs;
 - [x] Python, C++, and Rust binding source;
 - [x] API and ABI snapshots;
 - [x] platform compatibility metadata;

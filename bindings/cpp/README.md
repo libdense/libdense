@@ -6,7 +6,7 @@ The wrapper does not implement spatial, subscription, fanout, or kinetic logic.
 It owns a `ds_world` through `dense::World` and translates `ds_result` failures
 into `dense::Error`.
 
-Version 0.3.6 also provides `dense::RecipientWorkset`, copied certified
+The wrapper provides `dense::RecipientWorkset`, copied certified
 recipient views, and process/runtime allocation telemetry wrappers. Existing
 `dense::World` methods retain their prior signatures.
 

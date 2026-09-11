@@ -1,23 +1,26 @@
 # Release Manifest
 
-Release: `0.3.6`
+Release: `0.3.8`
 
 Component versions:
 
 ```text
-libdense_sim:                                      0.3.6
+libdense_sim:                                      0.3.8
 libdense_net:                                      0.3.5
 libdense_collision, nav, sched, ai, DenseDB:       0.3.0
-Python, C++, and Rust wrapper packages:            0.3.6
+Python, C++, and Rust wrapper packages:            0.3.8
 ```
 
 ## Native artifacts
+
+The repository contains release metadata and wrapper source. Native SDKs and
+wheels populate the paths below during separate binary assembly.
 
 Seven libraries, each shipped as a versioned shared object with relative
 SONAME links plus a self-contained static archive:
 
 ```text
-lib/linux-x86_64/libdense_sim.so.0.3.6        libdense_sim.a
+lib/linux-x86_64/libdense_sim.so.0.3.8        libdense_sim.a
 lib/linux-x86_64/libdense_net.so.0.3.5        libdense_net.a
 lib/linux-x86_64/libdense_sched.so.0.3.0      libdense_sched.a
 lib/linux-x86_64/libdense_collision.so.0.3.0  libdense_collision.a
@@ -51,7 +54,7 @@ include/dense/densedb.h
 
 ## Bindings
 
-- CPython source and CPython 3.11–3.14 wheels for `dense_sim` on Linux x86-64,
+- CPython source and CPython 3.11-3.14 wheels for `dense_sim` on Linux x86-64,
   Linux ARM64, and Windows x86-64;
 - header-only C++20 wrapper source;
 - dependency-free Rust wrapper source.
@@ -61,7 +64,7 @@ include/dense/densedb.h
 ```text
 release/abi/        exported-symbol lists and Linux ABI layout baselines
 release/api/        current API snapshots plus the dense_sim 0.3.0 baseline
-release/benchmarks/ retained benchmark summaries and full-run record
+release/benchmarks/ 0.3.8 benchmark output and dated historical records
 ```
 
 ## Explicit exclusions

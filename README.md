@@ -2,20 +2,38 @@
   <img src="logo.png" alt="Dense logo" width="800">
 </p>
 
-# Dense 0.3.6
+# Dense 0.3.8
 
 **A high-density multiplayer server library family in C.**
 
-Dense is a family of deterministic multiplayer server libraries that remain
-efficient when large numbers of players, NPCs, projectiles, timers, paths,
-collision bodies, and replication recipients gather in the same area.
+Dense is a library family for deterministic multiplayer systems that must remain efficient when large numbers of players, NPCs, projectiles, timers, paths, collision bodies, and replication recipients gather in the same area.
 
-Dense is not a complete game server. It provides explicit modules for
-simulation, transport, scheduling, collision, navigation, AI, and durable
-state. This release repository contains public headers, documentation, and the
-full Python, C++, and Rust wrapper source. Target-specific binary SDKs and
-Python wheels are produced and validated by CI. Core C implementation source
-is not included.
+Dense is not a complete game server. It provides explicit modules for simulation, transport, scheduling, collision, navigation, AI, and durable state. Public module boundaries remain separate.
+
+This release repository contains public C headers, documentation, and full
+Python, C++, and Rust wrapper source. Native SDKs and Python wheels are
+assembled separately. Core C implementation source is not included.
+
+## What is new in 0.3.8
+
+Simulation visibility uses shared chunk/type factors. Entities with the same
+visibility transition share recipient differences, and sorted recipient spans
+persist across ticks until a chunk's subscribers change. Fanout views borrow
+those spans while preserving their documented lifetime.
+
+Observer coverage shifts update entering and leaving chunk strips. Lifecycle
+and dirty-update ordering use class-ranked sorts. Allocation-failure retries
+preserve tick-start visibility, and anchored moves reject unrepresentable
+coverage before changing positions.
+
+The optional recipient workset remains available for per-recipient cadence,
+admission, and payload selection. Its sorted views use generation and
+fingerprint certificates for acknowledgement and clearing.
+
+The SDK, `libdense_sim`, and wrapper packages are version 0.3.8. `libdense_net`
+remains 0.3.5; collision, navigation, scheduling, AI, and DenseDB remain 0.3.0.
+Public interfaces, shared-library SONAME major 0, `DS_ABI_VERSION=1`, and
+`DDB_ABI_VERSION=2` are unchanged.
 
 ## Modules
 
@@ -60,166 +78,108 @@ input
 `libdense_sim` is the sole authority for replication grouping. `libdense_net`
 consumes borrowed fanout views and does not independently scan entities or
 decide visibility groups. Optional recipient worksets derive from the same
-finalized membership graph. AI produces intents rather than mutating
+finalized chunk/type membership. AI produces intents rather than mutating
 authoritative game state directly.
 
 ## Benchmarks
 
-The module performance snapshot below comes from a full benchmark run recorded
-on 2026-09-08 on an AMD Ryzen 5 5600X (Linux x86-64, release `-O3` build).
-Integrated authority-loop percentiles and simulation gate scenarios remain the
-retained release records; the new run refreshes the module-specific results and
-adds the 0.3.6 recipient-workset measurement. `docs/BENCHMARK-SCOPE.md` defines
-which claims are retained. Benchmarks are single-threaded unless stated; Dense
-targets a deterministic single-writer tick.
-
-<p align="center">
-  <img src="densebench/densescalingticktime.png" alt="Dense scaling tick time" width="620">
-</p>
-<p align="center">
-  <img src="densebench/densescalingperplayer.png" alt="Dense per-player scaling" width="620">
-</p>
-
-### Integrated authority loop
-
-The deterministic 240-tick authority harness runs every module in one
-pipeline (input, validate, spatial, combat, AI, fanout, flush) with
-record/replay checksums pinned across release and ASan/UBSan builds.
-
-| Tick latency | Time |
-|---|---:|
-| p50 | 14.3 us |
-| p95 | 20.9 us |
-| p99 | 56.7 us |
-| max | 248.1 us |
-
-Representative simulation gate scenarios (`release/benchmarks/rc-gate.txt`):
-
-| Scenario | Tick time |
-|---|---:|
-| 1,000 entities, dense shared cell | 0.207 ms |
-| Town: 100,000 entities, 1,000 observers | 0.112 ms |
-| 1,000 observers crossing chunk boundary | 4.183 ms |
-| 64-way type-mask fragmentation | 0.813 ms |
-
-The separate replay-log run wrote 100,004 records across 20,000 ticks and four
-sessions at 180.41 ns/record (397.52 MiB/s), then read them at 87.53 ns/record
-(819.34 MiB/s). The audited log was 7.17 MiB.
+Results recorded on 2026-09-11 with `make benchmark` and the release `-O3`
+build. [Benchmark output](release/benchmarks/benchmark-0.3.8-2026-09-11.txt)
+and a [machine-readable summary](release/benchmarks/BENCHMARK_SUMMARY.json)
+are included. See [benchmark scope](docs/BENCHMARK-SCOPE.md) for workload and
+timing definitions.
 
 ### libdense_sim
 
 | Benchmark | Result |
 |---|---:|
-| Spawn with spatial insertion (1M entities) | 5.81 M entities/s |
-| Entity lookup (1M entities) | 59.5 M lookups/s |
-| Same-cell movement (100k entities) | 47.8 M moves/s |
-| Chunk-boundary thrash (20M crossings) | 14.7 M moves/s |
-| Dirty mark, public first-mark (1M entities) | 41.4 M marks/s |
-| Dirty mark, direct slot | 340.6 M marks/s |
-| Next-tick dirty reset | 935.5 M entities/s |
-| Fanout plan, shared recipient set (1M implied deliveries/tick) | 0.045 ms/tick |
-| Recipient workset, source enqueue vs 2,000-recipient scan (100 visible) | 2.56 us vs 12.29 us (4.80x faster) |
-| Observer boundary shift (10k observers, 12 chunk edges each) | 4.24 ms/tick |
-| Kinetic motion, stable plans vs sampled baseline | 0.56x cost |
+| Spawn with spatial insertion (1M entities) | 5,752,975 entities/s |
+| Entity lookup (1M entities) | 59,908,030 lookups/s |
+| Same-cell movement (100k entities) | 49,983,259 moves/s; 2.001 ms mean |
+| Chunk-boundary thrash (20M crossings) | 15,671,016 moves/s; 6.381 ms mean |
+| Dirty mark, public first-mark (1M entities) | 41,349,186 marks/s |
+| Dirty mark, direct slot | 320,640,360 marks/s |
+| Next-tick dirty reset | 913,799,485 entities/s |
+| Recipient workset, source enqueue (100 visible of 2,000 recipients) | 3,022.899 ns/source; zero steady-state growth |
+| Same source with a full recipient scan | 11,891.991 ns/source |
+| Stable kinetic plans (2,000 entities), relative to sampled core/public paths | 0.65x / 0.49x time |
 
-Across 2,000 repeated source enqueues, the recipient workset followed 200,000
-inverse membership edges instead of visiting 4,000,000 recipient slots, a 20x
-work reduction, while reporting zero steady-state growth.
+| Tick workload | Mean (ms) | p50 (ms) | p95 (ms) | p99 (ms) |
+|---|---:|---:|---:|---:|
+| Shared fanout: 1,000 entities and 1,000 observers | 0.027 | 0.029 | 0.029 | 0.046 |
+| 8-way type-mask fragmentation: 1,000 entities and 1,000 observers | 0.027 | 0.027 | 0.027 | 0.045 |
+| 10,000 observers, same coverage | 0.160 | 0.156 | 0.179 | 0.353 |
+| 10,000 observers, boundary shift | 2.932 | 2.859 | 3.194 | 5.027 |
+
+The shared fanout plan contains 1,000 entries and 1,000 subscriber references
+representing 1,000,000 entity deliveries. These figures measure plan
+construction; network transmission is measured separately.
 
 ### libdense_net
 
 | Benchmark | Result |
 |---|---:|
-| Replication publish (encode + refs, 65,536 recipient-frames/tick) | 10.1 ns/frame |
-| Session flush | 11.2 ns/frame |
-| Shared fanout vs per-recipient naive sends | 1.91x faster |
-| Implied deliveries | 93.7 M/s |
-| Session lookup (5,000 sessions) | 4.67 ns/op |
-| Flush-all visit cost (5,000 sessions) | 85.4 ns/session |
-| Batch frame encode vs scalar | 1.07x faster |
-| Adverse soak: 20% drop, 8% dup, 12% reorder | 20,000/20,000 reliable commands in order |
+| Replication publish, encode + references (65,536 recipient-frames/tick) | 0.332 ms/tick; 10.1 ns/recipient-frame |
+| Session flush | 0.377 ms/tick; 11.5 ns/recipient-frame |
+| Shared fanout vs per-recipient sends, including flush | 1.89x faster |
+| Implied deliveries | 92,358,906/s |
+| Session lookup (5,000 sessions) | 4.64 ns/op |
+| Flush-all visit cost (5,000 sessions) | 56.11 ns/session |
+| Adverse soak: 20% drop, 8% duplicate, 12% reorder | 20,000/20,000 reliable commands delivered in order |
 
 ### libdense_sched
 
 | Benchmark | Result |
 |---|---:|
-| Timer schedule (1M timers) | 7.8 ns/op |
-| Timer cancel | 11.6 ns/op |
-| Advance + fire | 57.9 ns/fired timer |
-| Named 7-phase pipeline telemetry | 98.0 ns/tick |
-| Overload scenario (18 ms offered vs 10 ms budget) | worst tick 14.25 ms, 13/13 escalations recovered |
+| Timer schedule (1M timers) | 6.2 ns/op |
+| Timer cancel | 12.8 ns/op |
+| Advance + fire | 65.1 ns/fired timer |
+| Named 7-phase pipeline telemetry | 94.90 ns/tick; 55.81 ns overhead |
+| Overload scenario (18 ms offered, 10 ms budget) | 14.25 ms worst tick; 13 escalations and 13 recoveries |
 
 ### libdense_collision
 
 | Benchmark | Result |
 |---|---:|
-| Validated move (slide + bodies + commit + triggers, 2,000-body crowd) | 198 ns/move (5.06 M moves/s) |
-| Swept circle vs 400 statics + 1,500 bodies, 46.7% hit rate | 651 ns/sweep (1.54 M sweeps/s) |
+| Validated move, slide + bodies + commit + triggers (2,000-body crowd) | 198 ns/move; 5.05 M moves/s |
+| Swept circle against 400 statics and 1,500 bodies, 46.7% hit rate | 671 ns/sweep; 1.49 M sweeps/s |
 
 ### libdense_nav
 
 | Benchmark | Result |
 |---|---:|
-| Raw A* (256x256, ~22% walls) | 1,133 us/path |
-| Cached dense path reuse (96.2% hit rate) | 44.1 us/path |
-| Line of sight vs full A* on close requests | 28.0 ns vs 747.8 ns (26.7x) |
-| Bounded 300-request repath lane vs unbounded drain | 2,571x smaller peak burst |
-| Hierarchical long route (512x512) vs full tile A* | 0.020 ms vs 53.7 ms (3,760x fewer tile expansions) |
-| Flow-field crowd steering (10k agents) | 7.4 ns/agent-step |
-| Batch APIs (cost, LOS, flow sample) | 0.99-1.01x vs scalar |
+| Raw A* (256x256, about 22% walls) | 1,127.5 us/path |
+| Cached path reuse, 96.2% hit rate | 44.1 us/path |
+| Close requests: line of sight / full A* | 28.036 / 766.483 ns/request |
+| Bounded repath lane, 300 requests | At most 2,048 expansions/tick across 2,571 ticks |
+| Long route, 512x512 world: hierarchy / full tile A* | 0.015 / 53.723 ms |
+| Hierarchical route work | 59 local + 14 graph expansions; 221,817 full tile expansions |
+| Flow-field build, 256x256 | 16.28 ms |
+| Flow steering, 10,000 agents over 100 ticks | 7.3 ns/agent-step |
 
 ### libdense_ai
 
 | Benchmark | Result |
 |---|---:|
-| Horde: perceive + threat + tree + intent (10k agents, one tree) | 66 ns/agent-tick |
-| Whole-horde tick (10k agents) | 0.66 ms |
-| Scheduler slicing (250 to 10,000-agent slices) | 6.56-7.06 ms per 1M agent-ticks |
-| Batch condition checks vs scalar | 1.33x faster |
+| Perceive + threat + tree + intent, 10,000 agents sharing one tree | 67 ns/agent-tick |
+| Whole-horde tick | 0.67 ms |
+| Scheduler slices of 250 to 10,000 agents, 1M total agent-ticks | 6.45-6.57 ms total |
 
-### DenseDB
+### Historical results
 
-| Benchmark | Result |
-|---|---:|
-| Direct hp SoA column scan (100k rows) | 0.026 ms |
-| Vitals u16 column update (100k rows) | 14.08 ms mean |
-| WATCH churn finalization (120,000 deltas/tick) | 5.13 ms/tick |
-| WAL commit, no sync (1,000 updates/tick) | 0.104 ms mean |
-| Write-behind seal vs synchronous end-tick | 31.56 us vs 495.45 us (15.70x) |
-| Snapshot + WAL recovery (10k rows, 100 update ticks) | 103.3 ms |
-
-### Overload ladder
-
-One tuned controller drives input admission, replication volume, AI agent
-budgets, navigation expansion, region admission, database flush, and the
-emergency tick period through the deterministic authority loop
-(`release/benchmarks/overload-tuning.txt`):
-
-| State | Enter/recover (ms) | Input/tick | Repl KiB/tick | AI agents | Nav expansions | Tick period |
-|---|---:|---:|---:|---:|---:|---:|
-| normal | - | 2,000 | 3,906 | 10,000 | 200,000 | 50.0 ms |
-| elevated | 16/12 | 2,000 | 3,320 | 7,500 | 150,000 | 50.0 ms |
-| high | 18/14 | 1,500 | 2,344 | 5,000 | 100,000 | 50.0 ms |
-| critical | 20/16 | 1,000 | 1,367 | 2,500 | 50,000 | 50.0 ms |
-| emergency | 25/18 | 500 | 781 | 1,000 | 20,000 | 62.5 ms |
-
-The controller itself costs 43.57 ns/observation. Under a scripted 3x
-overload the ladder escalates in 6 ticks, recovers in order, and returns to
-normal without state flapping.
-
-<p align="center">
-  <img src="densebench/dense-bench-scenario.png" alt="Dense benchmark scenario" width="620">
-</p>
+[Earlier benchmark tables and charts](docs/BENCHMARKS-2026-07-28.md) retain the
+integrated authority loop, DenseDB, overload-policy, and dense-region scaling
+measurements. Those workloads were not included in the 2026-09-11 run.
 
 ## Package layout
 
 ```text
-dense-0.3.6/
+libdense-0.3.8/
 |-- README.md, CHANGELOG.md, VERSION, MANIFEST.md
 |-- LICENSE.md, COMMERCIAL-LICENSE.md, SECURITY.md, SUPPORT.md
 |-- install.sh, uninstall.sh, verify-release.sh, SHA256SUMS
 |-- include/dense/          public C headers (9)
-|-- lib/linux-x86_64/       CI-produced shared + static libraries (7)
+|-- lib/linux-x86_64/       separately assembled shared + static libraries (7)
 |-- pkgconfig/              pkg-config templates
 |-- bindings/               Python, C++, and Rust wrappers (full source)
 |-- docs/                   documentation and per-module references
@@ -229,7 +189,13 @@ dense-0.3.6/
 
 ## Install
 
-Verify and install the precompiled native SDK:
+For this repository before binary assembly, verify its metadata:
+
+```bash
+./verify-release.sh --metadata-only
+```
+
+After adding the native SDK and wheel artifacts, verify and install:
 
 ```bash
 ./verify-release.sh
@@ -261,10 +227,6 @@ Binding source ships in full under `bindings/`; see `docs/BINDINGS.md`.
   `python3.14 -m pip install bindings/python/dist/*cp314*.whl`
 - **C++**: header-only C++20 wrapper; `make -C bindings/cpp test`
 - **Rust**: dependency-free wrapper crate; `make -C bindings/rust test`
-
-<p align="center">
-  <img src="densebench/dense-bench-python-binding.png" alt="Dense Python binding benchmark" width="620">
-</p>
 
 ## Determinism and memory policy
 

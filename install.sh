@@ -113,7 +113,7 @@ LIBRARIES=(
 )
 
 declare -A COMPONENT_VERSIONS=(
-    [dense_sim]="0.3.6"
+    [dense_sim]="0.3.8"
     [dense_net]="0.3.5"
     [dense_sched]="0.3.0"
     [dense_collision]="0.3.0"

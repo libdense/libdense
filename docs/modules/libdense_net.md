@@ -3,7 +3,7 @@
 **Replication encoding, queues, frames, sessions, and transport for
 high-density multiplayer systems.**
 
-## 0.3.1–0.3.5 additive interfaces
+## 0.3.1-0.3.5 additive interfaces
 
 - `dn_registry_init_with_payload_bounds()` opts selected opcodes into inclusive
   minimum/maximum payload sizes while preserving the descriptor ABI and frame

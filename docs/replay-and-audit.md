@@ -16,7 +16,7 @@ Dense family/library fingerprint
 ```
 
 The reader rejects an expected-header mismatch before returning records. The
-library fingerprint is a compile-time manifest of the Dense 0.3 family and its
+library fingerprint is a compile-time manifest of the Dense 0.3.8 family and its
 public ABI generations. An intentional version or ABI change must update that
 manifest and the replay baseline.
 
@@ -67,6 +67,9 @@ replays the recorded bytes. A third ASan/UBSan run replays the same file. All
 240 per-tick checksums and the final checksum must match the pinned baselines.
 
 ## Commands
+
+These commands run in the implementation repository; the integration harness
+is not included in this release repository.
 
 ```bash
 make test-determinism

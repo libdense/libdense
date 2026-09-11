@@ -6,8 +6,8 @@ ERRORS=0
 WARNINGS=0
 METADATA_ONLY=0
 
-RELEASE_VERSION="0.3.6"
-PYTHON_BINDING_VERSION="0.3.6"
+RELEASE_VERSION="0.3.8"
+PYTHON_BINDING_VERSION="0.3.8"
 
 LIBRARIES=(
     dense_sim
@@ -20,7 +20,7 @@ LIBRARIES=(
 )
 
 declare -A COMPONENT_VERSIONS=(
-    [dense_sim]="0.3.6"
+    [dense_sim]="0.3.8"
     [dense_net]="0.3.5"
     [dense_sched]="0.3.0"
     [dense_collision]="0.3.0"

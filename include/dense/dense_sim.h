@@ -7,9 +7,9 @@
 
 #define DS_VERSION_MAJOR 0
 #define DS_VERSION_MINOR 3
-#define DS_VERSION_PATCH 6
+#define DS_VERSION_PATCH 8
 #define DS_VERSION_PRERELEASE ""
-#define DS_VERSION_STRING "0.3.6"
+#define DS_VERSION_STRING "0.3.8"
 #define DS_ABI_VERSION 1
 
 #if defined(_WIN32) && defined(DS_SHARED)
@@ -155,8 +155,8 @@ typedef struct ds_fanout_view {
 } ds_fanout_view;
 
 /*
- * Optional recipient-owned workset built over the world's persistent
- * observer/entity membership graph. It complements the canonical grouped
+ * Optional recipient-owned workset built over the world's exact factorized
+ * observer/entity visibility relation. It complements the canonical grouped
  * fanout view when an application needs source-driven per-recipient cadence,
  * admission, or payload selection.
  */
@@ -244,6 +244,7 @@ typedef struct ds_world_memory_stats {
     size_t observer_capacity;
     size_t observer_map_capacity;
     size_t subscription_capacity;
+    /* Legacy pair-node capacity; zero since factorized membership in 0.3.7. */
     size_t membership_capacity;
     size_t crossing_capacity;
     size_t dirty_capacity;
@@ -279,7 +280,7 @@ DS_API void ds_recipient_workset_destroy(ds_recipient_workset *workset);
 /*
  * Synchronize after ds_world_end_tick(). Consecutive finalized worlds consume
  * only exact ENTER/LEAVE membership changes; a missed sync or world change
- * rebuilds from persistent membership while retaining still-visible dirtiness.
+ * enumerates the factorized relation while retaining still-visible dirtiness.
  */
 DS_API ds_result ds_recipient_workset_sync(
     ds_recipient_workset *workset,
@@ -287,8 +288,8 @@ DS_API ds_result ds_recipient_workset_sync(
 );
 
 /*
- * Route one source-side dirty mask through the world's inverse membership
- * links. Repeated marks OR channel bits and do not duplicate recipient work.
+ * Route one source-side dirty mask through its chunk subscribers, filtering
+ * observer type masks. Repeated marks OR channel bits and do not duplicate recipient work.
  */
 DS_API ds_result ds_recipient_workset_enqueue_source(
     ds_recipient_workset *workset,

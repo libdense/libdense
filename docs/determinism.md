@@ -20,6 +20,9 @@ and fails if the harness markers are removed or reordered.
 
 ## Build comparison
 
+The following commands run in the implementation repository. This release
+repository ships the public compatibility records.
+
 ```bash
 make test-determinism
 ```
@@ -35,7 +38,7 @@ match `integration/tests/expected_determinism_ticks.txt`, and the final checksum
 must match `integration/tests/expected_determinism_checksum.txt`:
 
 ```text
-f9ee2ebe47713aee
+45dac673272c989e
 ```
 
 The Phase 1 checksum `85363eafdc0ad3da` is retained in the Phase 6 changelog as
@@ -56,3 +59,9 @@ and the active phase changelog. A compiler-only or sanitizer-only checksum
 change is a failure, not a baseline update.
 
 Phase 8 intentionally advances the active baseline because replay now applies the shared overload policy to AI, navigation, network, database, region-admission, and tick-period decisions. The Phase 6 baseline `2ef94655f7a5e0df` remains historical.
+
+Simulation 0.3.7 changed fanout group/entry ordering and advanced the checksum
+from `f9ee2ebe47713aee` to `45dac673272c989e` after normalized delivery
+comparison. 0.3.8 preserves that order and checksum. The replay library
+fingerprint is `dense-family/0.3.8`; recordings with a different library
+fingerprint must be replayed with the matching release.

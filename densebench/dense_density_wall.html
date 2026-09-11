@@ -122,8 +122,8 @@
     [2000, 245.7, false], [3000, 540.5, false], [5000, 1408, false], [10000, 5630, false]
   ];
   var BREAKS = [
-    { p: 1300, ms: 100, name: "naive breaks ≈ 1,300", cssVar: "--s2", dx: 10, anchor: "start" },
-    { p: 300000, ms: 100, name: "libdense breaks ≈ 300,000 (projected)", cssVar: "--s1", dx: -12, anchor: "end" }
+    { p: 1300, ms: 100, name: "naive breaks ~ 1,300", cssVar: "--s2", dx: 10, anchor: "start" },
+    { p: 300000, ms: 100, name: "libdense breaks ~ 300,000 (projected)", cssVar: "--s1", dx: -12, anchor: "end" }
   ];
 
   var root = document.getElementById("root");
@@ -190,7 +190,7 @@
   });
   var spanLbl = svgEl("text", { x: (x(1300) + x(300000)) / 2, y: spanY + 13,
     "text-anchor": "middle", "font-size": 10.5, fill: "var(--ink-2)", "font-weight": 650 });
-  spanLbl.textContent = "≈ 230× more density before break";
+  spanLbl.textContent = "~ 230x more density before break";
   svg.appendChild(spanLbl);
 
   function drawSeries(data, cssVar, endLabel, endDy) {

@@ -6,7 +6,7 @@ The crate contains a small handwritten FFI module and a safe ownership layer.
 Spatial execution, subscriptions, fanout grouping, and kinetic scheduling remain
 inside `libdense_sim`.
 
-Version 0.3.6 also provides `RecipientWorkset`, copied certified recipient
+The wrapper provides `RecipientWorkset`, copied certified recipient
 views, and process/runtime allocation telemetry wrappers. Existing `World`
 methods retain their prior signatures.
 
@@ -38,7 +38,7 @@ is live.
 
 `World` is `Send` but not `Sync`. A whole world may be moved to another thread,
 but safe Rust cannot concurrently mutate or share one world across threads.
-This matches the v0.1 one-world/one-writer rule while allowing separate worlds
+This matches the one-world/one-writer rule while allowing separate worlds
 on separate worker threads.
 
 `ChunkDeltaView` borrows the finalized C group. Delta iteration returns copied

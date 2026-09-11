@@ -1,0 +1,235 @@
+Command: make benchmark
+Release: 0.3.8
+Recorded: 2026-09-11
+Compiler options: -O3 -std=c11 -Wall -Wextra -Wpedantic -Wconversion -Wshadow -Wstrict-prototypes -Wmissing-prototypes -ffp-contract=off
+
+build/benchmarks/dense_core_bench
+dense_core representative microbenchmarks
+group_map swar :      63.6 million lookups/s
+group_map auto :      40.2 million lookups/s
+span_hash avx2 :    2116.5 million u64/s
+dirty_set mark/clear:     226.8 million marks/s
+arena alloc/reset:        346.6 million allocs/s
+slot_pool alloc/free:     124.9 million pairs/s
+u64 radix sort:            52.7 million values/s
+checksum: 0x112a83b778a7ac40
+build/benchmarks/entity_store
+libdense_sim milestone 2 spawn + lookup baseline
+  spawn path includes cell/chunk membership insertion
+  entities:             1000000
+  final capacity:        1048576
+  spawn total:           173.823 ms
+  spawn throughput:      5752975 entities/s
+  lookup total:          16.692 ms
+  lookup throughput:     59908030 lookups/s
+  checksum:              4295467295500000
+build/benchmarks/chunk_crossing
+libdense_sim milestone 2 spatial transition benchmark: 100000 entities, 200 ticks
+  same-cell fast path      mean   2.001 ms  p50   2.000  p95   2.016  p99   2.082  worst   2.105
+                               49983259 moves/s  crossings=0
+  chunk boundary thrash    mean   6.381 ms  p50   6.358  p95   6.498  p99   7.228  worst   8.207
+                               15671016 moves/s  crossings=20000000
+  crossing cost ratio:      3.19x same-cell mean
+build/benchmarks/dirty_channels
+libdense_sim milestone 3 dirty-channel benchmark: 1000000 entities, 8 repeat passes
+  first dirty mark:           24.184 ms      41349186 marks/s    24.18 ns/mark
+  direct slot first mark:      3.119 ms     320640360 marks/s     3.12 ns/mark
+  public repeat coalesce:    163.209 ms      49016948 marks/s    20.40 ns/mark
+  direct repeat coalesce:     18.130 ms     441264181 marks/s     2.27 ns/mark
+  next-tick dirty reset:       1.094 ms     913799485 entities/s
+  direct-list reset:           1.105 ms     904672026 entities/s
+  finalized dirty count:   1000000
+  checksum:                7000000
+build/benchmarks/observer_subscriptions
+libdense_sim milestone 4 observer-subscription benchmark: 10000 observers, 100 ticks
+  radius/chunk:                 40 / 16
+  subscriptions per observer:  36
+  one-chunk x shift touches:    6 enter + 6 leave
+  same-coverage mean/p50/p95/p99/worst: 0.160 / 0.156 / 0.179 / 0.353 / 0.353 ms
+  boundary-shift mean/p50/p95/p99/worst: 2.932 / 2.859 / 3.194 / 5.027 / 5.027 ms
+  finalized observer transitions:       1000000
+  expected edge relation touches:       12000000
+  persistent subscription relations:    360000
+build/benchmarks/fanout_plan
+libdense_sim milestone 5 fanout plan: 1000 entities, 1000 observers, 100 ticks
+shared recipient set
+  fanout groups:                            1
+  delta entries:                         1000
+  subscriber span references:            1000
+  implied entity deliveries:          1000000
+  mean 0.027 ms  p50 0.029  p95 0.029  p99 0.046  worst 0.046
+8-way type-mask fragmentation
+  fanout groups:                            8
+  delta entries:                         1000
+  subscriber span references:            1000
+  implied entity deliveries:           125000
+  mean 0.027 ms  p50 0.027  p95 0.027  p99 0.045  worst 0.045
+build/benchmarks/recipient_workset
+recipient_workset recipients=2000 visible_recipients=100 repeats=2000 source_ns_per_enqueue=3022.899 scan_ns_per_source=11891.991 inverse_edge_visits=200000 scan_recipient_visits=4000000 steady_growth=0 checksum=10100000
+build/benchmarks/kinetic_motion
+libdense_sim selective kinetic motion benchmark
+  entities=2000 measured_ticks=400 cell=8 chunk=16
+
+sampled baselines: public 0.0467 ms, known-slot core 0.0352 ms
+
+experiment A: planned fraction over identical linear trajectories
+     f |   mean ms    p50 ms    p99 ms | events/t  cross/t  stale/t |  vs core   vs pub
+-----------------------------------------------------------------------------------------
+  0.00 |    0.0352    0.0350    0.0391 |      0.0      0.0      0.0 |    1.00x    0.75x
+  0.50 |    0.0292    0.0292    0.0332 |     74.3     74.3      0.0 |    0.83x    0.63x
+  0.90 |    0.0244    0.0243    0.0302 |    132.9    132.9      0.0 |    0.69x    0.52x
+  1.00 |    0.0229    0.0228    0.0284 |    147.6    147.6      0.0 |    0.65x    0.49x
+
+experiment B: staggered same-trajectory plan churn
+  sampled baselines: public 0.0467 ms, known-slot core 0.0352 ms
+
+     K |   mean ms    p50 ms    p99 ms | events/t  cross/t  stale/t |  vs core   vs pub
+-----------------------------------------------------------------------------------------
+     2 |    0.1022    0.1020    0.1098 |   1052.2     73.9    978.3 |    2.90x    2.19x
+     5 |    0.0548    0.0547    0.0614 |    509.1    117.7    391.3 |    1.56x    1.17x
+    10 |    0.0389    0.0388    0.0451 |    328.4    132.7    195.7 |    1.11x    0.83x
+    20 |    0.0315    0.0314    0.0376 |    237.9    140.2     97.8 |    0.90x    0.68x
+    40 |    0.0281    0.0279    0.0342 |    192.8    143.9     48.9 |    0.80x    0.60x
+    80 |    0.0258    0.0257    0.0313 |    170.2    145.7     24.5 |    0.73x    0.55x
+   inf |    0.0229    0.0228    0.0284 |    147.6    147.6      0.0 |    0.65x    0.49x
+build/benchmarks/replication_fanout
+libdense_net replication fanout benchmark
+  entities/group:        256
+  subscriber sessions:   128
+  ticks:                 400
+  frames delivered:      26214400
+  publish (encode+refs):    0.332 ms/tick    10.1 ns/recipient-frame
+  session flush:            0.377 ms/tick    11.5 ns/recipient-frame
+  per-recipient sends:      1.341 ms/tick (naive baseline incl. flush)
+  shared vs naive:       1.89x
+  implied deliveries/s:  92358906
+build/benchmarks/adverse_channel_soak
+libdense_net adverse channel soak
+  weather:               20% drop, 8% dup, 12% reorder (each way)
+  reliable commands:     20000 sent, 20000 delivered in order: yes
+  virtual rounds:        2502 (5.0 virtual seconds)
+  retransmitted packets: 1220
+  dup reliable dropped:  758
+  stale seq dropped:     482
+  snapshots delivered:   13664
+  est. rtt:              2.00 ms
+build/benchmarks/session_scaling
+sessions=1000 lookup_ops=5000000 lookup_ns_per_op=3.40 checksum=2502500000
+sessions=1000 flush_all_ns=51917 ns_per_session=51.92 bytes=42000 visited=1000
+sessions=5000 lookup_ops=5000000 lookup_ns_per_op=4.64 checksum=12502500000
+sessions=5000 flush_all_ns=280556 ns_per_session=56.11 bytes=210000 visited=5000
+build/benchmarks/timer_wheel
+libdense_sched timer wheel benchmark
+  timers:            1000000 over 72000 ticks
+  schedule:             6.2 ns/op  (161.6 M ops/s)
+  cancel:              12.8 ns/op  (78.0 M ops/s)
+  advance+fire:        65.1 ns/fired timer (incl. 72000 empty ticks)
+  fired:             666666
+build/benchmarks/overload_shed
+libdense_sched overload shedding scenario
+  budget:            10.0 ms/tick, 600 ticks
+  load pattern:      6 ms -> 12 ms -> 18 ms offered -> 6 ms
+  shed policy:       -25% cosmetic work per overload level
+  peak state:        critical (max critical)
+  worst tick:        14.25 ms
+  overrun ticks:     52 of 600
+  escalations:       13, recoveries: 13
+  final state:       normal (dispersed)
+build/benchmarks/server_pipeline
+libdense_sched Phase 4 named server pipeline
+ticks=200000, phases/tick=7
+raw budget accounting:       39.09 ns/tick
+named pipeline telemetry:    94.90 ns/tick
+telemetry overhead:          55.81 ns/tick
+AI work high-water:       104 completed, 5 deferred
+busiest phase:            flush
+overload ladder peak:     emergency
+build/benchmarks/dense_crowd
+libdense_collision dense crowd benchmark
+  crowd:               2000 bodies, 200 ticks
+  world:               53 statics, 8 trigger zones
+  validated moves:     400000 (59492 blocked)
+  per move:            198 ns (slide+bodies+commit+triggers)
+  throughput:          5.05 M moves/s
+  trigger events:      2974
+build/benchmarks/sweep_storm
+libdense_collision sweep storm benchmark
+  field:               400 statics, 1500 bodies
+  swept circles:       200000 (up to 4000 units long)
+  hit rate:            46.7%
+  per sweep:           671 ns
+  throughput:          1.49 M sweeps/s
+build/benchmarks/pathfinding
+libdense_nav pathfinding benchmark (256x256, ~22% walls)
+  raw A*:            1568 paths,   1127.5 us/path
+  expansions/search: 4047
+  cached (dense):    16072 paths,     44.1 us/path
+  cache hit rate:    96.2% (15466 hits, 606 misses)
+build/benchmarks/astar_node_map
+libdense_nav Phase 3 A* node-map comparison
+grid=128x128, timed rounds=3, smoothing=off
+scenario                 legacy us  group us   speedup    memory exp/search
+short reachable               0.93      1.72    0.541x    1.041x        7.1
+long reachable              723.86    912.89    0.793x    1.046x     2826.8
+unreachable                1788.57   2237.59    0.799x    1.046x     8192.0
+high obstacle              1601.56   1917.88    0.835x    1.046x     6474.4
+low obstacle                725.70    913.97    0.794x    1.046x     2830.4
+maximum budget               53.76     66.93    0.803x    1.043x      256.0
+long-prewarm then short      35.51     44.83    0.792x    1.038x      167.5
+build/benchmarks/flow_node_map
+libdense_nav Phase 3 flow-field node-map comparison
+grid=128x128, timed rounds=3
+scenario                  legacy us   group us   speedup    memory    reached
+small local partial           82.17     147.96    0.555x    1.465x        566
+full local region           3757.12    4498.07    0.835x    1.556x      16384
+partially blocked           3976.26    4626.67    0.859x    1.559x      15164
+budgeted multi-tick         3997.19    4642.65    0.861x    1.559x      15164
+same-region rebuild         2669.14    4121.99    0.648x    1.556x      16384
+shifted local rebuilds      1428.50    2233.93    0.639x   11.414x       1107
+sample hit/miss mix         3602.03   13063.78    0.276x    1.555x       8192
+build/benchmarks/grid_chunk_map
+libdense_nav Phase 3 sparse chunk-map comparison
+timed rounds=3, lookup count=2000000
+scenario                  legacy us   group us   speedup    memory     chunks
+large sparse world         10373.63   35013.65    0.296x    1.000x       2048
+dense town                 14736.79   45903.67    0.321x    1.000x       4096
+mixed populated/empty      10477.31   30210.72    0.347x    1.000x       2048
+chunk mutation              4206.53   10944.08    0.384x    1.000x       2048
+chunk create/destroy        1111.76    1724.15    0.645x    1.025x          0
+build/benchmarks/navigation_hierarchy
+libdense_nav Phase 4 hierarchy and global work benchmark
+direct visible movement (20000 close requests)
+  line of sight:    28.036 ns/request
+  full A*:         766.483 ns/request
+  direct/A*:        27.340x
+  checksum:      160455
+global repath lane (300 simultaneous requests)
+  bounded:       2571 ticks, max 2048/2048 expansions, 1487.648 ms
+  unbounded:     5265129 expansions in one drain, 1490.291 ms
+  work spread:   2570.86x smaller peak expansion burst
+hierarchical long-distance route (512x512 alternating-wall world)
+  full tile A*:  221817 expansions, 53.723 ms
+  hierarchy:     59 local + 14 graph expansions, 0.015 ms
+  tile work:     3759.61x fewer local tile expansions
+  route nodes:   15, route cost=64254
+build/benchmarks/flow_crowd
+libdense_nav flow crowd benchmark (256x256, 18% walls)
+  field build:          16.28 ms (one Dijkstra, 65536 tiles)
+  crowd steering:    10000 agents x 100 ticks =     7.25 ms total
+  per agent-step:    7.3 ns
+  goal arrivals:     164594 agent-ticks at goal
+  amortized:         0.02 us per agent served per tick
+build/benchmarks/horde
+libdense_ai horde benchmark
+  agents:            10000 sharing one tree, 200 ticks
+  agent-ticks:       2000000
+  per agent-tick:    67 ns (perceive+threat+tree+intent)
+  whole-horde tick:  0.67 ms
+  intents:           2000000
+  nodes evaluated:   8000000
+build/benchmarks/stagger
+libdense_ai stagger benchmark (10000 agents, 100 ticks)
+  slice     0:    6.45 ms total, 100 run calls, 1000000 agent-ticks
+  slice  5000:    6.47 ms total, 200 run calls, 1000000 agent-ticks
+  slice  1000:    6.52 ms total, 1000 run calls, 1000000 agent-ticks
+  slice   250:    6.57 ms total, 4000 run calls, 1000000 agent-ticks

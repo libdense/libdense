@@ -1,85 +1,442 @@
 {
-  "cpp_binding": {
-    "c_ns": 17.96,
-    "cpp_ns": 17.94,
-    "ratio": 0.993
+  "release": "0.3.8",
+  "recorded": "2026-09-11",
+  "command": "make benchmark",
+  "source": "benchmark-0.3.8-2026-09-11.txt",
+  "build": {
+    "optimization": "-O3",
+    "c_standard": "c11",
+    "floating_point": "-ffp-contract=off",
+    "cpu": null,
+    "compiler_version": null
   },
-  "dense_box": {
-    "core_ms": 0.258,
-    "deltas_per_tick": 868.3,
-    "dirty_per_tick": 868.3,
-    "fanout_ms": 0.073,
-    "groups_per_tick": 4.0,
-    "implied_deliveries_per_tick": 868300.0,
-    "mutation_ms": 0.033,
-    "naive_ms": 18.238,
-    "optimized_ms": 0.406,
-    "subscriber_refs_per_tick": 4000.0,
-    "subscriptions_ms": 0.151
+  "dense_core": {
+    "group_map_swar_million_lookups_per_second": 63.6,
+    "group_map_auto_million_lookups_per_second": 40.2,
+    "span_hash_avx2_million_u64_per_second": 2116.5,
+    "dirty_set_million_marks_per_second": 226.8,
+    "arena_million_allocations_per_second": 346.6,
+    "slot_pool_million_pairs_per_second": 124.9,
+    "u64_sort_million_values_per_second": 52.7,
+    "checksum": "0x112a83b778a7ac40"
   },
-  "densedb10": {
-    "appearance_ms": 15.888,
-    "bytes": 558600000,
-    "position_ms": 17.531,
-    "scan_ms": 0.054,
-    "vitals_ms": 12.85,
-    "writes": 8400000
+  "libdense_sim": {
+    "entity_store": {
+      "entities": 1000000,
+      "final_capacity": 1048576,
+      "spawn_ms": 173.823,
+      "spawn_entities_per_second": 5752975,
+      "lookup_ms": 16.692,
+      "lookups_per_second": 59908030
+    },
+    "movement": {
+      "entities": 100000,
+      "ticks": 200,
+      "same_cell": {
+        "mean_ms": 2.001,
+        "p50_ms": 2.0,
+        "p95_ms": 2.016,
+        "p99_ms": 2.082,
+        "worst_ms": 2.105,
+        "moves_per_second": 49983259,
+        "crossings": 0
+      },
+      "chunk_boundary": {
+        "mean_ms": 6.381,
+        "p50_ms": 6.358,
+        "p95_ms": 6.498,
+        "p99_ms": 7.228,
+        "worst_ms": 8.207,
+        "moves_per_second": 15671016,
+        "crossings": 20000000
+      }
+    },
+    "dirty_channels": {
+      "entities": 1000000,
+      "repeat_passes": 8,
+      "first_public": {
+        "ms": 24.184,
+        "marks_per_second": 41349186,
+        "ns_per_mark": 24.18
+      },
+      "first_slot": {
+        "ms": 3.119,
+        "marks_per_second": 320640360,
+        "ns_per_mark": 3.12
+      },
+      "repeat_public": {
+        "ms": 163.209,
+        "marks_per_second": 49016948,
+        "ns_per_mark": 20.4
+      },
+      "repeat_slot": {
+        "ms": 18.13,
+        "marks_per_second": 441264181,
+        "ns_per_mark": 2.27
+      },
+      "next_tick_reset": {
+        "ms": 1.094,
+        "entities_per_second": 913799485
+      },
+      "direct_list_reset": {
+        "ms": 1.105,
+        "entities_per_second": 904672026
+      }
+    },
+    "observer_subscriptions": {
+      "observers": 10000,
+      "ticks": 100,
+      "radius": 40,
+      "chunk_size": 16,
+      "subscriptions_per_observer": 36,
+      "same_coverage": {
+        "mean_ms": 0.16,
+        "p50_ms": 0.156,
+        "p95_ms": 0.179,
+        "p99_ms": 0.353,
+        "worst_ms": 0.353
+      },
+      "boundary_shift": {
+        "mean_ms": 2.932,
+        "p50_ms": 2.859,
+        "p95_ms": 3.194,
+        "p99_ms": 5.027,
+        "worst_ms": 5.027
+      }
+    },
+    "fanout_plan": {
+      "entities": 1000,
+      "observers": 1000,
+      "ticks": 100,
+      "shared": {
+        "groups": 1,
+        "entries": 1000,
+        "subscriber_references": 1000,
+        "implied_deliveries": 1000000,
+        "mean_ms": 0.027,
+        "p50_ms": 0.029,
+        "p95_ms": 0.029,
+        "p99_ms": 0.046,
+        "worst_ms": 0.046
+      },
+      "fragmented_8_way": {
+        "groups": 8,
+        "entries": 1000,
+        "subscriber_references": 1000,
+        "implied_deliveries": 125000,
+        "mean_ms": 0.027,
+        "p50_ms": 0.027,
+        "p95_ms": 0.027,
+        "p99_ms": 0.045,
+        "worst_ms": 0.045
+      }
+    },
+    "recipient_workset": {
+      "recipients": 2000,
+      "visible_recipients": 100,
+      "repeats": 2000,
+      "source_ns_per_enqueue": 3022.899,
+      "scan_ns_per_source": 11891.991,
+      "inverse_edge_visits": 200000,
+      "scan_recipient_visits": 4000000,
+      "steady_growth": 0,
+      "checksum": 10100000
+    },
+    "kinetic": {
+      "entities": 2000,
+      "measured_ticks": 400,
+      "sampled_public_ms": 0.0467,
+      "sampled_core_ms": 0.0352,
+      "planned_fraction": [
+        {
+          "fraction": 0,
+          "mean_ms": 0.0352,
+          "p50_ms": 0.035,
+          "p99_ms": 0.0391,
+          "vs_core_time_ratio": 1,
+          "vs_public_time_ratio": 0.75
+        },
+        {
+          "fraction": 0.5,
+          "mean_ms": 0.0292,
+          "p50_ms": 0.0292,
+          "p99_ms": 0.0332,
+          "vs_core_time_ratio": 0.83,
+          "vs_public_time_ratio": 0.63
+        },
+        {
+          "fraction": 0.9,
+          "mean_ms": 0.0244,
+          "p50_ms": 0.0243,
+          "p99_ms": 0.0302,
+          "vs_core_time_ratio": 0.69,
+          "vs_public_time_ratio": 0.52
+        },
+        {
+          "fraction": 1,
+          "mean_ms": 0.0229,
+          "p50_ms": 0.0228,
+          "p99_ms": 0.0284,
+          "vs_core_time_ratio": 0.65,
+          "vs_public_time_ratio": 0.49
+        }
+      ],
+      "plan_churn": [
+        {
+          "replacement_interval_ticks": 2,
+          "mean_ms": 0.1022,
+          "p50_ms": 0.102,
+          "p99_ms": 0.1098,
+          "vs_core_time_ratio": 2.9,
+          "vs_public_time_ratio": 2.19
+        },
+        {
+          "replacement_interval_ticks": 5,
+          "mean_ms": 0.0548,
+          "p50_ms": 0.0547,
+          "p99_ms": 0.0614,
+          "vs_core_time_ratio": 1.56,
+          "vs_public_time_ratio": 1.17
+        },
+        {
+          "replacement_interval_ticks": 10,
+          "mean_ms": 0.0389,
+          "p50_ms": 0.0388,
+          "p99_ms": 0.0451,
+          "vs_core_time_ratio": 1.11,
+          "vs_public_time_ratio": 0.83
+        },
+        {
+          "replacement_interval_ticks": 20,
+          "mean_ms": 0.0315,
+          "p50_ms": 0.0314,
+          "p99_ms": 0.0376,
+          "vs_core_time_ratio": 0.9,
+          "vs_public_time_ratio": 0.68
+        },
+        {
+          "replacement_interval_ticks": 40,
+          "mean_ms": 0.0281,
+          "p50_ms": 0.0279,
+          "p99_ms": 0.0342,
+          "vs_core_time_ratio": 0.8,
+          "vs_public_time_ratio": 0.6
+        },
+        {
+          "replacement_interval_ticks": 80,
+          "mean_ms": 0.0258,
+          "p50_ms": 0.0257,
+          "p99_ms": 0.0313,
+          "vs_core_time_ratio": 0.73,
+          "vs_public_time_ratio": 0.55
+        },
+        {
+          "replacement_interval_ticks": null,
+          "mean_ms": 0.0229,
+          "p50_ms": 0.0228,
+          "p99_ms": 0.0284,
+          "vs_core_time_ratio": 0.65,
+          "vs_public_time_ratio": 0.49
+        }
+      ]
+    }
   },
-  "densedb11": {
-    "deltas_per_tick": 120000,
-    "fields_per_tick": 180000,
-    "snapshot_ms": 1.61,
-    "unselected_finalize_ms": 0.05,
-    "vitals_finalize_ms": 0.064,
-    "watch_finalize_ms": 5.867,
-    "watch_move_ms": 0.039
+  "libdense_net": {
+    "replication": {
+      "entities_per_group": 256,
+      "sessions": 128,
+      "ticks": 400,
+      "frames_delivered": 26214400,
+      "publish_ms_per_tick": 0.332,
+      "publish_ns_per_recipient_frame": 10.1,
+      "flush_ms_per_tick": 0.377,
+      "flush_ns_per_recipient_frame": 11.5,
+      "naive_including_flush_ms_per_tick": 1.341,
+      "shared_speedup": 1.89,
+      "implied_deliveries_per_second": 92358906
+    },
+    "adverse_soak": {
+      "drop_percent": 20,
+      "duplicate_percent": 8,
+      "reorder_percent": 12,
+      "reliable_sent": 20000,
+      "reliable_delivered": 20000,
+      "in_order": true,
+      "virtual_rounds": 2502,
+      "retransmitted_packets": 1220,
+      "duplicate_reliable_dropped": 758,
+      "stale_sequenced_dropped": 482,
+      "snapshots_delivered": 13664,
+      "estimated_rtt_ms": 2
+    },
+    "session_scaling": [
+      {
+        "sessions": 1000,
+        "lookup_ops": 5000000,
+        "lookup_ns_per_op": 3.4,
+        "flush_all_ns": 51917,
+        "ns_per_session": 51.92
+      },
+      {
+        "sessions": 5000,
+        "lookup_ops": 5000000,
+        "lookup_ns_per_op": 4.64,
+        "flush_all_ns": 280556,
+        "ns_per_session": 56.11
+      }
+    ]
   },
-  "densedb12": {
-    "checkpoint_ms": 17.153,
-    "empty_sync_commit_ms": 0.021,
-    "initial_commit_ms": 14.742,
-    "snapshot_bytes": 1040299,
-    "snapshot_recovery_ms": 19.946,
-    "snapshot_wal_recovery_ms": 136.009,
-    "update_build_ms": 0.613,
-    "wal_bytes": 5803232,
-    "wal_commit_ms": 0.285
+  "libdense_sched": {
+    "timer_wheel": {
+      "timers": 1000000,
+      "ticks": 72000,
+      "schedule_ns": 6.2,
+      "cancel_ns": 12.8,
+      "advance_fire_ns": 65.1,
+      "fired": 666666
+    },
+    "overload": {
+      "ticks": 600,
+      "budget_ms": 10,
+      "worst_tick_ms": 14.25,
+      "overrun_ticks": 52,
+      "escalations": 13,
+      "recoveries": 13,
+      "peak_state": "critical",
+      "final_state": "normal"
+    },
+    "pipeline": {
+      "ticks": 200000,
+      "phases_per_tick": 7,
+      "raw_ns_per_tick": 39.09,
+      "telemetry_ns_per_tick": 94.9,
+      "overhead_ns_per_tick": 55.81
+    }
   },
-  "derived": {
-    "dirty_entities_per_second": 2994137.9310344825,
-    "implied_deliveries_per_second": 2994137931.034483,
-    "invalid_implied_to_spacetimedb_ratio": 9851.730491690192,
-    "materialization_avoidance_ratio": 178.35794835979704,
-    "naive_speedup": 70.68992248062015,
-    "optimized_time_ratio": 1.5736434108527133,
-    "rc_ticks_per_second": 3448.2758620689656,
-    "repair_speedup": 9.879844961240309
+  "libdense_collision": {
+    "crowd": {
+      "bodies": 2000,
+      "ticks": 200,
+      "statics": 53,
+      "trigger_zones": 8,
+      "validated_moves": 400000,
+      "blocked": 59492,
+      "ns_per_move": 198,
+      "million_moves_per_second": 5.05,
+      "trigger_events": 2974
+    },
+    "sweep": {
+      "statics": 400,
+      "bodies": 1500,
+      "sweeps": 200000,
+      "hit_percent": 46.7,
+      "ns_per_sweep": 671,
+      "million_sweeps_per_second": 1.49
+    }
   },
-  "generated": "2026-07-15",
-  "kinetic": {
-    "k10_vs_core": 1.1,
-    "k20_vs_core": 0.94,
-    "sampled_core_ms": 0.0426,
-    "sampled_public_ms": 0.0544,
-    "stable_ms": 0.0321,
-    "stable_vs_core": 0.75,
-    "stable_vs_public": 0.59
+  "libdense_nav": {
+    "pathfinding": {
+      "grid": [
+        256,
+        256
+      ],
+      "walls_approx_percent": 22,
+      "raw_paths": 1568,
+      "raw_us_per_path": 1127.5,
+      "expansions_per_search": 4047,
+      "cached_paths": 16072,
+      "cached_us_per_path": 44.1,
+      "cache_hit_percent": 96.2,
+      "hits": 15466,
+      "misses": 606
+    },
+    "line_of_sight": {
+      "requests": 20000,
+      "ns_per_request": 28.036,
+      "astar_ns_per_request": 766.483,
+      "speedup": 27.34
+    },
+    "repath_lane": {
+      "requests": 300,
+      "ticks": 2571,
+      "max_expansions_per_tick": 2048,
+      "budget_expansions_per_tick": 2048,
+      "bounded_ms": 1487.648,
+      "unbounded_expansions": 5265129,
+      "unbounded_ms": 1490.291,
+      "peak_work_reduction": 2570.86
+    },
+    "hierarchy": {
+      "grid": [
+        512,
+        512
+      ],
+      "full_expansions": 221817,
+      "full_ms": 53.723,
+      "local_expansions": 59,
+      "graph_expansions": 14,
+      "hierarchy_ms": 0.015,
+      "local_tile_expansion_reduction": 3759.61,
+      "route_nodes": 15,
+      "route_cost": 64254
+    },
+    "flow_crowd": {
+      "grid": [
+        256,
+        256
+      ],
+      "walls_percent": 18,
+      "field_build_ms": 16.28,
+      "agents": 10000,
+      "ticks": 100,
+      "steering_total_ms": 7.25,
+      "ns_per_agent_step": 7.3,
+      "goal_arrivals": 164594,
+      "amortized_us_per_agent_tick": 0.02
+    }
   },
-  "pre_repair_ms": 2.549,
-  "python_binding": {
-    "dirty_batch_ms": 2.349,
-    "dirty_scalar_ms": 7.983,
-    "dirty_speedup": 3.4,
-    "move_batch_ms": 1.608,
-    "move_scalar_ms": 15.211,
-    "move_speedup": 9.46,
-    "python": "3.13.5"
+  "libdense_ai": {
+    "horde": {
+      "agents": 10000,
+      "ticks": 200,
+      "agent_ticks": 2000000,
+      "ns_per_agent_tick": 67,
+      "horde_tick_ms": 0.67,
+      "intents": 2000000,
+      "nodes_evaluated": 8000000
+    },
+    "stagger": [
+      {
+        "slice_size": 0,
+        "total_ms": 6.45,
+        "calls": 100,
+        "agent_ticks": 1000000
+      },
+      {
+        "slice_size": 5000,
+        "total_ms": 6.47,
+        "calls": 200,
+        "agent_ticks": 1000000
+      },
+      {
+        "slice_size": 1000,
+        "total_ms": 6.52,
+        "calls": 1000,
+        "agent_ticks": 1000000
+      },
+      {
+        "slice_size": 250,
+        "total_ms": 6.57,
+        "calls": 4000,
+        "agent_ticks": 1000000
+      }
+    ]
   },
-  "rc": {
-    "boundary_fanout_ms": 0.818,
-    "boundary_ms": 4.357,
-    "dense_ms": 0.29,
-    "fragmentation64_ms": 1.285,
-    "town_ms": 0.18
-  }
+  "historical_records": [
+    "BENCHMARK_SUMMARY-2026-07-15.json",
+    "benchmark_full_Ryzen_5600x_7.28.26.txt",
+    "rc-gate.txt",
+    "phase-profile-summary.json",
+    "overload-tuning.txt"
+  ]
 }

@@ -1,6 +1,51 @@
 # Changelog
 
-## 0.3.6 — 2026-09-06
+## 0.3.8 - 2026-09-11
+
+- Persist sorted simulation recipient spans across ticks with per-chunk
+  invalidation and event-based updates.
+- Store observer coverage nodes in a torus-indexed array and order lifecycle
+  and dirty-update records by shared transition classes.
+- Borrow subscriber runs in finalized fanout views.
+- Preserve tick-start snapshots when allocation fails so finalization can be
+  retried.
+- Reject anchored coverage outside signed chunk-coordinate bounds before
+  committing a move.
+- Check event/index capacity limits and empty-buffer handling.
+- Include begin-tick work in full-tick benchmark timings and account for the
+  event journal and update-sorting buffers in memory totals.
+- Update public headers, API snapshots, wrapper versions, and benchmark
+  results.
+
+### Current benchmarks
+
+| Workload | 0.2.0 | 0.3.8 | Time reduction |
+|---|---:|---:|---:|
+| Spawn 1 million entities | 211.787 ms | 173.823 ms | 17.9% |
+| Lookup 1 million entities | 20.637 ms | 16.692 ms | 19.1% |
+| Move 100,000 entities within cells | 2.536 ms | 2.001 ms | 21.1% |
+| Move 100,000 entities across boundaries | 8.461 ms | 6.381 ms | 24.6% |
+| First dirty mark, 1 million entities | 33.452 ms | 24.184 ms | 27.7% |
+| Shift 10,000 observers across boundaries | 5.140 ms | 2.932 ms | 43.0% |
+| Shared fanout plan | 0.055 ms | 0.027 ms | 50.9% |
+| 8-way fragmented fanout plan | 0.094 ms | 0.027 ms | 71.3% |
+| Network publish + flush | 0.768 ms | 0.709 ms | 7.7% |
+| Session flush, 5,000 sessions | 118.68 ns/session | 56.11 ns/session | 52.7% |
+| Crowd collision movement | 241 ns/move | 198 ns/move | 17.8% |
+| Collision sweep | 772 ns/sweep | 671 ns/sweep | 13.1% |
+| Cached navigation | 53.7 us/path | 44.1 us/path | 17.9% |
+| AI, 10,000 agents | 0.83 ms | 0.67 ms | 19.3% |
+
+## 0.3.7 - 2026-09-11
+
+- Replace per-observer/entity membership storage with exact chunk/type
+  factors and shared transition differences.
+- Share ENTER/LEAVE recipient spans and UPDATE exclusions through fanout
+  planning. Recipient worksets retain their explicit per-recipient state.
+- Preserve finalized visibility, type filtering, identity reuse, dirty
+  masks, and borrowed-view contracts. No public API or ABI changes.
+
+## 0.3.6 - 2026-09-06
 
 - Added an opt-in `libdense_sim` recipient workset for production density
   paths. It maintains deterministic recipient-visible sets, consumes
@@ -13,11 +58,8 @@
 - Added retained-memory/work telemetry, focused lifecycle, churn, missed-sync,
   and zero-allocation coverage, a sparse-recipient benchmark, and matching
   C++/Rust wrappers. The Python `World` API is unchanged.
-- Preserved every pre-0.3.6 function declaration, parameter, public structure
-  field, enum value, default, fanout result, network contract, and wire format.
-  `DS_ABI_VERSION=1` and shared-library SONAME major `0` remain unchanged.
 
-## 0.3.5 — 2026-08-29
+## 0.3.5 - 2026-08-29
 
 - Added a default-off UDP authority option that resets an inbound packet
   ring's head and tail only after its final queued packet is consumed. This
@@ -25,9 +67,9 @@
   capacity, packet order, delivery semantics, or wire format.
 - Added empty-reset, queue-depth, and cursor-slot high-water telemetry plus a
   target-only inbound-payload memory-region visitor. Ordinary defaults,
-  precommit policy, and SONAME major `0` remain unchanged.
+  precommit policy, No public API or ABI changes.
 
-## 0.3.4 — 2026-08-29
+## 0.3.4 - 2026-08-29
 
 - Added read-only, callback-driven memory-region visitors for sessions, UDP
   transports, and UDP servers. The additive API enumerates queue entries,
@@ -37,7 +79,7 @@
   delivery semantics, allocation policy, ordinary defaults, and SONAME major
   `0` remain unchanged.
 
-## 0.3.3 — 2026-08-29
+## 0.3.3 - 2026-08-29
 
 - Extended the default-off prewarmed-storage precommit API to touch exact
   fixed-capacity queue metadata, packet scratch, and reliable-packet metadata
@@ -46,14 +88,14 @@
   storage class. Wire behavior, delivery semantics, SONAME major `0`, and
   ordinary defaults remain unchanged.
 
-## 0.3.2 — 2026-08-28
+## 0.3.2 - 2026-08-28
 
 - Extended `libdense_net` with an additive, default-off precommit API for
   prewarmed owned-frame and packet-pool payload pages and exact residency
   telemetry. Wire behavior, delivery semantics, and ordinary defaults remain
   unchanged.
 
-## 0.3.1 — 2026-08-21
+## 0.3.1 - 2026-08-21
 
 - Added opt-in bounded-variable payload contracts through `dn_payload_bounds`
   and `dn_registry_init_with_payload_bounds()`. Existing `dn_registry_init()`
@@ -64,7 +106,7 @@
 - Preserved frame layout, delivery semantics, SONAME major `0`, and all prior
   public APIs while adding export, unit, and adverse-channel coverage.
 
-## 0.3.0 — 2026-08-08
+## 0.3.0 - 2026-08-08
 
 - Added supported portable static SDK builds for Linux x86-64, Linux ARM64,
   and Windows x86-64. Windows remains a client-only target and does not ship
@@ -74,7 +116,7 @@
 - Added native Linux ARM64 ABI validation and disabled floating-point
   contraction across family builds for stronger cross-architecture
   reproducibility.
-- Added CI-built CPython 3.11–3.14 wheels for Linux x86-64, Linux ARM64, and
+- Added CI-built CPython 3.11-3.14 wheels for Linux x86-64, Linux ARM64, and
   Windows x86-64.
 - Added relocatable, architecture-locked `find_package(Dense CONFIG ...)`
   packages with role-correct client and server aggregate targets.
@@ -83,7 +125,7 @@
   release artifacts to the 0.3 family while retaining SONAME major `0`,
   `DS_ABI_VERSION=1`, and `DDB_ABI_VERSION=2`.
 
-## 0.2.0 — 2026-07-29
+## 0.2.0 - 2026-07-29
 
 Dense 0.2.0 completes the MMO stack: `libdense_net`, `libdense_sched`,
 `libdense_collision`, `libdense_nav`, and `libdense_ai` join `libdense_sim`
@@ -201,7 +243,7 @@ release follows.
 - Added exact tail-requeue round-robin fairness under global byte, per-session byte, and maximum-session budgets. Future retransmit and keepalive work is promoted only when due; receive timeouts remain visible through `dn_session_set_next_due_ns()` without entering the outbound queue.
 - Added active-session removal and dense-slot relocation handling so queued work remains correct during registry churn; destroying a still-bound session now defensively detaches it from its non-owning set.
 - Extended session-set memory snapshots with dirty-set/queue capacities and added `dn_session_set_get_activity_stats()` for ready/category counts, queue depth, selected sessions, skipped idle sessions, and flush-pass totals.
-- Added `make benchmark-phase4-network-sparse-flush`. Recorded verification improved 1%-active workloads by approximately 33–44x and a 10%-active workload by approximately 1.9x while preserving exact 4,096-session bounded-pass fairness. The 100%-active case is explicitly recorded as approximately 0.52x and remains observable for a future measured hybrid threshold.
+- Added `make benchmark-phase4-network-sparse-flush`. Recorded verification improved 1%-active workloads by approximately 33-44x and a 10%-active workload by approximately 1.9x while preserving exact 4,096-session bounded-pass fairness. The 100%-active case is explicitly recorded as approximately 0.52x and remains observable for a future measured hybrid threshold.
 - Privately embedded the required `dense_core` dirty-set implementation in `libdense_net` while retaining hidden symbols and no installed `dense_core` artifact.
 
 - Replaced per-slot reliable sent/reorder `realloc` buffers with one retained
@@ -279,16 +321,16 @@ release follows.
 
 - Began Phase 3 with the navigation A* node-map merge gate. Added an exact dual-backend equivalence test and representative short, long, unreachable, obstacle-density, expansion-budget, and retained-capacity benchmarks.
 - Added private `dc_group_map_get_or_insert()` support for single-probe get-or-initialize workloads.
-- Rejected the A* node-map conversion after the group-map backend regressed substantial-search throughput by approximately 6–24% across verification runs, short-search throughput by approximately 50–55%, and total retained pathfinder memory by approximately 4–5% in the verification suite.
+- Rejected the A* node-map conversion after the group-map backend regressed substantial-search throughput by approximately 6-24% across verification runs, short-search throughput by approximately 50-55%, and total retained pathfinder memory by approximately 4-5% in the verification suite.
 - Kept the specialized generation-stamped A* node table as the production backend and isolated the experimental group-map implementation in a comparison-only archive, leaving installed `libdense_nav` libraries free of this rejected dependency.
 - Renamed private `dense_core` status constants to the `DC_CORE_*` namespace after the comparison build exposed a C enumerator collision with the established public `libdense_collision` `DC_*` API.
 - Added an exact dual-backend flow-field node-map harness covering one-shot and sliced builds, partial-field sampling, multiple goals, unreachable regions, restarts, same-region reuse, shifted-region reuse, and mixed hit/miss sampling.
-- Rejected the flow-field node-map conversion: the group-map backend regressed every representative workload, increased ordinary field memory by approximately 46–56%, and retained the union of shifted local regions, producing an approximately 11x memory ratio in that workload.
+- Rejected the flow-field node-map conversion: the group-map backend regressed every representative workload, increased ordinary field memory by approximately 46-56%, and retained the union of shifted local regions, producing an approximately 11x memory ratio in that workload.
 - Kept the specialized generation-stamped flow node table in production and isolated both rejected navigation map backends in one comparison-only archive.
 - Completed the navigation sparse chunk-map gate with exact large-world, mutation, relocation, and churn equivalence tests plus representative sparse, dense-town, mixed-hit, mutation, and create/destroy benchmarks.
-- Made `dc_group_map` per-operation probe accounting opt-in, then reran the candidate without diagnostic hot-path overhead. The generic map remained approximately 2–4x slower and was rejected; production sparse-grid storage remains unchanged and comparison-only.
+- Made `dc_group_map` per-operation probe accounting opt-in, then reran the candidate without diagnostic hot-path overhead. The generic map remained approximately 2-4x slower and was rejected; production sparse-grid storage remains unchanged and comparison-only.
 - Completed the collision sparse-cell map gate with exact high-coordinate, rasterization, query, body-movement, trigger, removal, and memory-stat equivalence coverage.
-- Rejected the collision cell-map conversion after the group-map backend regressed direct lookup workloads by approximately 84–87%, rapid body relocation by approximately 33%, and static boot rasterization by approximately 48%, with no retained map-memory reduction at the measured capacities. Production collision broadphase storage remains unchanged and comparison-only.
+- Rejected the collision cell-map conversion after the group-map backend regressed direct lookup workloads by approximately 84-87%, rapid body relocation by approximately 33%, and static boot rasterization by approximately 48%, with no retained map-memory reduction at the measured capacities. Production collision broadphase storage remains unchanged and comparison-only.
 - Completed the collision body-registry gate with exact trusted-id lookup,
   failed lookup, duplicate rejection, erase, stale-id rejection, deterministic
   slot reuse, movement, and query equivalence coverage.
@@ -305,7 +347,7 @@ release follows.
 - Rejected the AI registry conversion after the group-map backend regressed
   successful lookup by approximately 84%, failed lookup by approximately 77%,
   direct registry churn by approximately 83%, mass spawn/despawn by
-  approximately 27%, tree rebinding by approximately 52–65%, and 10,000-agent
+  approximately 27%, tree rebinding by approximately 52-65%, and 10,000-agent
   full/sliced execution by approximately 50%, with equal retained map bytes.
   Production AI storage remains unchanged and comparison-only.
 
@@ -313,7 +355,7 @@ release follows.
   update, removal, repeated rebinding, and sustained-churn equivalence plus
   1,000/10,000/50,000-peer, hostile-miss, churn, and rebinding benchmarks.
 - Rejected the endpoint group-map conversion after normal lookup regressed by
-  approximately 70–74% and miss-heavy traffic by approximately 37%; churn and
+  approximately 70-74% and miss-heavy traffic by approximately 37%; churn and
   rebinding were only tied and retained bytes were equal.
 - Retained endpoint-map hardening exposed by the gate: robust deterministic
   per-configuration hash seeding and tombstone-free backshift deletion, which
@@ -323,7 +365,7 @@ release follows.
   equivalence plus 1,000/10,000/50,000-session, miss, churn, and
   1%/10%/100%-active flush workloads.
 - Rejected the session group-map conversion after lookup regressed by
-  approximately 54–76%, misses by approximately 32%, and churn by
+  approximately 54-76%, misses by approximately 32%, and churn by
   approximately 54%, with equal retained bytes. Active flush was effectively
   unchanged because the ID map is outside the dense-vector flush loop.
 - Marked Phase 3 complete. All eight generic map candidates failed their
@@ -379,7 +421,7 @@ fanout plan build -24%, observer boundary thrash -14%, DenseDB
 appearance updates -26%, WATCH stream finalization -17%, WAL commit
 -22%. Public C ABI and exported symbol surface unchanged.
 
-## 0.1.0-rc1 — 2026-07-16
+## 0.1.0-rc1 - 2026-07-16
 
 First release candidate for the Dense platform.
 

@@ -2,7 +2,7 @@
 
 **License identifier:** `LicenseRef-DCSL-1.0`
 
-This Dense Community Source License 1.0 (the **“License”**) governs the Software identified by a copyright notice or repository notice stating that the Software is licensed under this License.
+This Dense Community Source License 1.0 (the **"License"**) governs the Software identified by a copyright notice or repository notice stating that the Software is licensed under this License.
 
 The permissions granted by this License are expressly conditioned on compliance with every applicable term below.
 
@@ -12,11 +12,11 @@ By accessing, copying, installing, compiling, modifying, running, hosting, distr
 
 ## 2. Definitions
 
-### 2.1 “Affiliate”
+### 2.1 "Affiliate"
 
 **Affiliate** means any person or entity that directly or indirectly controls, is controlled by, or is under common control with another person or entity. **Control** means ownership of more than fifty percent (50%) of the voting interests or the practical power to direct management or policies, whether through ownership, contract, or otherwise.
 
-### 2.2 “Commercial Use”
+### 2.2 "Commercial Use"
 
 **Commercial Use** means any use of the Software that is undertaken for, on behalf of, or for the benefit of a for-profit person or entity, or that is connected with business operations, commercial advantage, monetary compensation, revenue generation, paid services, fundraising for a commercial venture, production workloads, internal business systems, consulting deliverables, hosted services, software-as-a-service, platform-as-a-service, OEM use, resale, or distribution for compensation.
 
@@ -24,11 +24,11 @@ Commercial Use includes making the functionality of the Software available to th
 
 Use by an employee, contractor, or agent for the benefit of a for-profit person or entity is Commercial Use by that person or entity.
 
-### 2.3 “Corresponding Source”
+### 2.3 "Corresponding Source"
 
 **Corresponding Source** means the complete preferred form for making modifications to the Software or a Modified Version, including all source code, build scripts, interface definition files, and other materials reasonably necessary to compile and install that version, excluding generally available system tools and third-party dependencies that are separately obtainable under their own terms.
 
-### 2.4 “Group Revenue”
+### 2.4 "Group Revenue"
 
 **Group Revenue** means the aggregate worldwide gross revenue of You and all of Your Affiliates from all sources during the immediately preceding twelve (12) consecutive calendar months, calculated before deduction of expenses and in accordance with the accounting method ordinarily used by the relevant entity.
 
@@ -36,35 +36,35 @@ Group Revenue excludes separately stated sales, use, value-added, and similar tr
 
 Revenue received in a currency other than United States dollars must be converted to United States dollars using a reasonable, consistently applied published exchange rate for the relevant accounting period.
 
-### 2.5 “Large Commercial User”
+### 2.5 "Large Commercial User"
 
 **Large Commercial User** means a person or entity engaged in Commercial Use whose Group Revenue is at least one hundred thousand United States dollars (USD $100,000).
 
-### 2.6 “Licensor”
+### 2.6 "Licensor"
 
 **Licensor** means the copyright holder or holders identified in the applicable copyright, repository, package, or distribution notices for the Software.
 
-### 2.7 “Modified Version”
+### 2.7 "Modified Version"
 
 **Modified Version** means any modification, adaptation, translation, derivative work, extension, port, or other work based on or incorporating any portion of the Software.
 
-### 2.8 “Noncommercial Use”
+### 2.8 "Noncommercial Use"
 
 **Noncommercial Use** means use solely for personal, hobby, educational, academic, scientific, charitable, or public-benefit purposes that is not Commercial Use.
 
 Use by or for the benefit of a for-profit person or entity is presumed to be Commercial Use, except for Evaluation Use under Section 5.
 
-### 2.9 “Small Commercial User”
+### 2.9 "Small Commercial User"
 
 **Small Commercial User** means a person or entity engaged in Commercial Use whose Group Revenue is less than one hundred thousand United States dollars (USD $100,000).
 
-### 2.10 “Software”
+### 2.10 "Software"
 
 **Software** means Dense, DenseDB, `libdense_sim`, their source code and object code, bindings, examples, tests, benchmark code, build files, documentation, and other materials distributed under this License, together with any Modified Version.
 
 Materials that are expressly identified as being under a different license are governed by that different license.
 
-### 2.11 “You” and “Your”
+### 2.11 "You" and "Your"
 
 **You** means the individual or legal entity exercising permissions under this License. If You use the Software on behalf of an organization, You includes that organization.
 
@@ -76,7 +76,7 @@ Licensor retains all right, title, and interest in and to the Software, includin
 
 This License does not transfer ownership of the Software or any Licensor intellectual property. All rights not expressly granted are reserved.
 
-You retain ownership of copyright in Your original contributions to a Modified Version, subject to Licensor’s rights in the underlying Software and the conditions of this License. No contribution or modification transfers ownership of Licensor’s Software to You.
+You retain ownership of copyright in Your original contributions to a Modified Version, subject to Licensor's rights in the underlying Software and the conditions of this License. No contribution or modification transfers ownership of Licensor's Software to You.
 
 ## 4. Noncommercial License Grant
 
@@ -135,7 +135,7 @@ You may host, fork, mirror, reproduce, and distribute the Software or a Modified
 7. **No expansion of rights.** You may not state or imply that deletion, omission, or replacement of this License grants broader rights than Licensor granted.
 8. **Permitted-purpose requirement.** Your distribution and the recipient-facing purpose of that distribution must remain within Your permissions under Sections 4, 5, 6, or a separate written commercial license.
 
-Each recipient receives its license directly from Licensor under this License. You receive no authority to sublicense Licensor’s rights.
+Each recipient receives its license directly from Licensor under this License. You receive no authority to sublicense Licensor's rights.
 
 Deleting or omitting the License, a copyright notice, or another required notice does not place the Software in the public domain and does not grant additional rights.
 
@@ -177,7 +177,7 @@ A version of the Software released under this License remains governed by this L
 
 Licensor may publish later Software versions under this License, a revised license, a commercial license, or other terms. Publication of later terms does not retroactively modify the license governing an earlier copy unless Licensor expressly grants that option.
 
-No license grant under this License transfers or concedes Licensor’s ownership.
+No license grant under this License transfers or concedes Licensor's ownership.
 
 ## 14. Compliance with Law
 
@@ -193,7 +193,7 @@ Your rights terminate automatically if You materially violate this License.
 
 Except for intentional infringement, intentional removal or falsification of notices, unauthorized relicensing, or patent litigation under Section 11, Your rights will be reinstated if You cure the violation within thirty (30) calendar days after receiving written notice from Licensor.
 
-Termination does not limit Licensor’s claims for conduct occurring before termination.
+Termination does not limit Licensor's claims for conduct occurring before termination.
 
 Upon termination, You must cease all use and distribution not independently authorized by a separate written agreement, and You must remove publicly distributed unauthorized copies under Your control where reasonably possible.
 
@@ -201,7 +201,7 @@ Sections concerning ownership, restrictions, payment obligations, disclaimers, l
 
 ## 16. Disclaimer of Warranty
 
-THE SOFTWARE IS PROVIDED “AS IS” AND “AS AVAILABLE,” WITHOUT WARRANTY OF ANY KIND, EXPRESS, IMPLIED, OR STATUTORY.
+THE SOFTWARE IS PROVIDED "AS IS" AND "AS AVAILABLE," WITHOUT WARRANTY OF ANY KIND, EXPRESS, IMPLIED, OR STATUTORY.
 
 TO THE MAXIMUM EXTENT PERMITTED BY LAW, LICENSOR DISCLAIMS ALL WARRANTIES, INCLUDING WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, TITLE, NON-INFRINGEMENT, ACCURACY, SECURITY, RELIABILITY, AVAILABILITY, AND RESULTS.
 
@@ -236,7 +236,7 @@ This License is the complete agreement concerning the community-source permissio
 
 ## 20. License Name and Text
 
-“Dense Community Source License” and “Dense Community Source License 1.0” identify this exact license text.
+"Dense Community Source License" and "Dense Community Source License 1.0" identify this exact license text.
 
 You may copy and redistribute this License text verbatim.
 
