@@ -2,7 +2,7 @@
   <img src="logo.png" alt="Dense logo" width="800">
 </p>
 
-# Dense 0.3.8
+# Dense | Current release: 0.3.8
 
 **A high-density multiplayer server library family in C.**
 
@@ -13,27 +13,6 @@ Dense is not a complete game server. It provides explicit modules for simulation
 This release repository contains public C headers, documentation, and full
 Python, C++, and Rust wrapper source. Native SDKs and Python wheels are
 assembled separately. Core C implementation source is not included.
-
-## What is new in 0.3.8
-
-Simulation visibility uses shared chunk/type factors. Entities with the same
-visibility transition share recipient differences, and sorted recipient spans
-persist across ticks until a chunk's subscribers change. Fanout views borrow
-those spans while preserving their documented lifetime.
-
-Observer coverage shifts update entering and leaving chunk strips. Lifecycle
-and dirty-update ordering use class-ranked sorts. Allocation-failure retries
-preserve tick-start visibility, and anchored moves reject unrepresentable
-coverage before changing positions.
-
-The optional recipient workset remains available for per-recipient cadence,
-admission, and payload selection. Its sorted views use generation and
-fingerprint certificates for acknowledgement and clearing.
-
-The SDK, `libdense_sim`, and wrapper packages are version 0.3.8. `libdense_net`
-remains 0.3.5; collision, navigation, scheduling, AI, and DenseDB remain 0.3.0.
-Public interfaces, shared-library SONAME major 0, `DS_ABI_VERSION=1`, and
-`DDB_ABI_VERSION=2` are unchanged.
 
 ## Modules
 
@@ -97,7 +76,6 @@ timing definitions.
   <img width="800" alt="dense-bench-python-binding" src="https://github.com/user-attachments/assets/24944b9a-947b-4a77-8b1c-32d3de34205b" />
   <img width="800" alt="dense-bench-budget" src="https://github.com/user-attachments/assets/59fbf900-b1d4-4d86-9b06-fa31492e9e2f" />
 </p>
-
 
 ### libdense_sim
 
