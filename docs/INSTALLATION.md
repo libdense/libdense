@@ -43,25 +43,12 @@ sudo ./install.sh --prefix /opt/dense
 sudo ./install.sh --prefix /usr --libdir lib64
 ```
 
-## Portable static SDKs
+## Platform requirements
 
-Linux x86-64, Linux ARM64, and Windows x86-64 CI artifacts are self-contained
-static SDK directories. Point CMake at the unpacked SDK root:
-
-```bash
-cmake -S . -B build -DCMAKE_PREFIX_PATH=/path/to/dense-sdk
-```
-
-Then consume the appropriate role target:
-
-```cmake
-find_package(Dense CONFIG REQUIRED COMPONENTS sim collision nav sched ai net)
-target_link_libraries(my_client PRIVATE Dense::client)
-```
-
-Linux server builds can require DenseDB and link `Dense::server`. Windows does
-not include DenseDB or a server aggregate, and Linux ARM64 does not expose the
-client aggregate.
+This bundle targets Linux x86-64. Its shared libraries require glibc 2.33 or
+newer. Static archives are included for applications that link Dense statically.
+See [platform compatibility](PLATFORM-COMPATIBILITY.md) for wheel requirements
+and other targets, which require separate SDK builds.
 
 ## Staged install
 
@@ -131,5 +118,5 @@ python3.14 -m pip install bindings/python/dist/*cp314*.whl
 python3.14 -m pip uninstall dense-sim
 ```
 
-Release wheels cover CPython 3.11 through 3.14 on Linux x86-64, Linux ARM64,
-and Windows x86-64. Select the wheel matching both the interpreter and target.
+The four included wheels cover standard GIL CPython 3.11 through 3.14 on Linux
+x86-64. Select the wheel matching the interpreter's minor version.

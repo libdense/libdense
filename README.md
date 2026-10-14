@@ -2,7 +2,7 @@
   <img src="logo.png" alt="Dense logo" width="800">
 </p>
 
-# Dense | Current release: 0.3.8
+# Dense | Current release: 0.4.2
 
 **A high-density multiplayer server library family in C.**
 
@@ -10,9 +10,9 @@ Dense is a library family for deterministic multiplayer systems that must remain
 
 Dense is not a complete game server. It provides explicit modules for simulation, transport, scheduling, collision, navigation, AI, and durable state. Public module boundaries remain separate.
 
-This release repository contains public C headers, documentation, and full
-Python, C++, and Rust wrapper source. Native SDKs and Python wheels are
-assembled separately. Core C implementation source is not included.
+This release repository contains Linux x86-64 shared and static libraries,
+CPython 3.11-3.14 wheels, public C headers, documentation, and full Python,
+C++, and Rust wrapper source. Core C implementation source is not included.
 
 ## Modules
 
@@ -61,6 +61,24 @@ finalized chunk/type membership. AI produces intents rather than mutating
 authoritative game state directly.
 
 ## Benchmarks
+
+The 0.4.2 comparison against 0.3.8 covers 47 simulation workloads, with seven
+paired runs per condition on the same Linux host. Selected mean tick-time
+reductions are 91.2% for the 50,000-observer disjoint case, 74.5% for the
+32-type 10,000-observer churn case, and 83.8% for the longer 50,000-observer
+entity-recreation control. These improvements depend on the workload: the
+10,000-entity all-to-all mean is unchanged, and several small controls regress.
+
+[Results, methodology, and all ten plates](docs/BENCHMARKS-0.4.2.md) include
+the complete comparison, memory costs, allocation growth, and tail timings.
+[Raw samples and summaries](release/benchmarks/0.4.2/) are included.
+
+<p align="center">
+  <img width="1000" alt="Dense 0.3.8 versus 0.4.2 benchmark overview" src="densebench/0.4.2/01-dense-0.3.8-vs-0.4.2-overview.png">
+  <img width="1000" alt="Dense observer scaling comparison" src="densebench/0.4.2/02-dense-observer-scaling.png">
+</p>
+
+### 0.3.8 module benchmarks
 
 Results recorded on 2026-09-11 with `make benchmark` and the release `-O3`
 build. [Benchmark output](release/benchmarks/benchmark-0.3.8-2026-09-11.txt)
@@ -162,12 +180,12 @@ measurements. Those workloads were not included in the 2026-09-11 run.
 ## Package layout
 
 ```text
-libdense-0.3.8/
+libdense-0.4.2/
 |-- README.md, CHANGELOG.md, VERSION, MANIFEST.md
 |-- LICENSE.md, COMMERCIAL-LICENSE.md, SECURITY.md, SUPPORT.md
 |-- install.sh, uninstall.sh, verify-release.sh, SHA256SUMS
 |-- include/dense/          public C headers (9)
-|-- lib/linux-x86_64/       separately assembled shared + static libraries (7)
+|-- lib/linux-x86_64/       Linux x86-64 shared + static libraries (7)
 |-- pkgconfig/              pkg-config templates
 |-- bindings/               Python, C++, and Rust wrappers (full source)
 |-- docs/                   documentation and per-module references
@@ -177,18 +195,16 @@ libdense-0.3.8/
 
 ## Install
 
-For this repository before binary assembly, verify its metadata:
-
-```bash
-./verify-release.sh --metadata-only
-```
-
-After adding the native SDK and wheel artifacts, verify and install:
+Verify the extracted release archive and install:
 
 ```bash
 ./verify-release.sh
 sudo ./install.sh
 ```
+
+The archive verifier excludes Git metadata. In a Git checkout, export the
+release with `git archive` before running it. The shared-library bundle
+requires Linux x86-64 with glibc 2.33 or newer.
 
 Selected options (see `docs/INSTALLATION.md` for staging and packaging):
 
@@ -210,8 +226,8 @@ pkg-config --cflags --libs libdensedb
 
 Binding source ships in full under `bindings/`; see `docs/BINDINGS.md`.
 
-- **Python**: CI-built CPython 3.11-3.14 wheels for Linux x86-64,
-  Linux ARM64, and Windows x86-64, statically containing `libdense_sim`.
+- **Python**: CPython 3.11-3.14 wheels for Linux x86-64, statically
+  containing `libdense_sim`.
   `python3.14 -m pip install bindings/python/dist/*cp314*.whl`
 - **C++**: header-only C++20 wrapper; `make -C bindings/cpp test`
 - **Rust**: dependency-free wrapper crate; `make -C bindings/rust test`

@@ -8,6 +8,7 @@
 - `ABI-COMPATIBILITY.md` - ABI versioning and borrowed-view rules.
 - `BINARY-LAYOUT.md` - repository and installed filesystem layout.
 - `BENCHMARK-SCOPE.md` - current benchmark workloads and timing scope.
+- `BENCHMARKS-0.4.2.md` - 0.3.8 versus 0.4.2 results and comparison plates.
 - `RELEASE-CHECKLIST.md` - publisher-side release verification.
 - `SECURITY-AND-SUPPLY-CHAIN.md` - checksums and artifact handling.
 

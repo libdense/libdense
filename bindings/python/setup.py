@@ -55,7 +55,7 @@ class DenseBuildExt(build_ext):
 
 setup(
     name="dense-sim",
-    version="0.3.8",
+    version="0.4.2",
     description="Python binding for libdense_sim",
     package_dir={"": "src"},
     packages=["dense_sim"],
@@ -70,6 +70,8 @@ setup(
             extra_compile_args=[
                 "-std=c11",
                 "-O3",
+                "-g0",
+                "-ffp-contract=off",
                 "-Wall",
                 "-Wextra",
                 "-Wpedantic",

@@ -1,5 +1,26 @@
 # Benchmark Scope
 
+## 0.3.8 versus 0.4.2
+
+The current comparison measures complete simulation ticks, including begin-tick
+maintenance, mutations, and finalization. Setup is excluded. Both releases run
+on the same host and logical CPU with matching compiler options. Seven paired
+runs per condition alternate release order after 32 warmup ticks.
+
+The matrix has 42 workloads at 2,000 ticks per run, with 12 selected controls
+extended to 10,000 ticks. Five all-to-all scales add 100 through 10,000 entities
+and observers. Results cover 826 processes and 3,038,000 measured ticks.
+
+Published timing values are medians of the seven per-run statistics. A reported
+p99 is the median of per-run p99 values, not a pooled percentile. Retained memory
+is allocator-accounted storage, not process RSS. Post-warmup allocation growth
+is reported separately; several churn cases still grow.
+
+Grouped implied deliveries do not include pair expansion, serialization,
+network transmission, client processing, or gameplay logic. This comparison
+does not rerun the other modules' historical benchmarks. See
+[the results and plates](BENCHMARKS-0.4.2.md) for measurements and caveats.
+
 ## 0.3.8 run
 
 | Field | Value |
@@ -52,7 +73,7 @@ separately. Flow-field construction and steering have separate timings.
 
 ## Historical records
 
-The new run contains no DenseDB benchmark, integrated authority-loop profile,
+The 2026-09-11 run contains no DenseDB benchmark, integrated authority-loop profile,
 dense-all-to-all scaling ladder, town-square, boundary-thrash, or 1..64-mask
 fragmentation run. The 8-way fanout-plan case is included. Earlier results
 remain in [the dated benchmark tables](BENCHMARKS-2026-07-28.md), dated JSON,

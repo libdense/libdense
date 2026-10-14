@@ -91,6 +91,11 @@ comparisons and lifecycle spans. 0.3.8 retains sorted spans across ticks,
 invalidates them on subscriber changes, and uses a subscriber-event delta
 when affordable. Coverage nodes use a torus-indexed rectangle.
 
+Version 0.4.2 reuses recurring cross-chunk recipient differences, shares
+identities across exactly equal recipient sets, and recycles difference
+buffers. Sparse changes use binary searches and bulk copies. Removal and
+recreation copy complete recipient spans and reuse cached hashes.
+
 Finalized semantics remain exact: ENTER supplies final state to new
 recipients, LEAVE identifies the old finalized chunk, and UPDATE reaches
 continuing recipients with the coalesced dirty mask. Leaving and returning

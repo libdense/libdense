@@ -246,7 +246,7 @@ The dirty vector, crossing vector, subscription graph, membership change buffers
 
 ## Membership and performance
 
-See [the simulation guide](../LIBDENSE-SIM.md) for the 0.3.8 membership model,
+See [the simulation guide](../LIBDENSE-SIM.md) for the current membership model,
 lifecycle rules, borrowed views, and memory diagnostics. Current results are
 listed in the [release README](../../README.md#benchmarks), with workload
 scope in [BENCHMARK-SCOPE.md](../BENCHMARK-SCOPE.md).

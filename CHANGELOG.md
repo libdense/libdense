@@ -1,5 +1,31 @@
 # Changelog
 
+## 0.4.2 - 2026-10-13
+
+- Copy whole recipient spans and reuse cached hashes for entity removal and
+  recreation, preserving separate LEAVE/ENTER lifetimes.
+- Recycle cached difference buffers with bounded second-chance eviction.
+- Share identities across exactly equal recipient sets.
+- Cache recurring cross-chunk recipient differences and reuse forward/reverse
+  transitions after a second observation.
+- Apply sparse recipient edits with binary searches and bulk copies.
+- Preserve the DenseDB WAL header during checkpoints and keep append offsets
+  consistent after a synchronization failure.
+- Update Linux x86-64 shared and static libraries, CPython 3.11-3.14 wheels,
+  and benchmark comparisons against 0.3.8.
+
+## 0.4.0 - 2026-10-07
+
+- [Experimental] Add Windows x86-64 compatibility-server support and a
+  DenseDB Win32 file backend. Windows checkpoints retain the WAL.
+- Reuse UPDATE recipient spans across chunk crossings when no recipients leave.
+- Reuse resolved fanout groups for non-consecutive UPDATE bundles and coalesce
+  consecutive entries sharing the same recipient run.
+- Borrow previous recipient spans when observers arrive without departures;
+  skip UPDATE exclusion scans when all current recipients receive ENTER.
+- Derive same-chunk ENTER/LEAVE recipients from journaled changes and reuse
+  cached spans when the event journal has no net change.
+
 ## 0.3.8 - 2026-09-11
 
 - Persist sorted simulation recipient spans across ticks with per-chunk

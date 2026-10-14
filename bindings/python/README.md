@@ -93,9 +93,11 @@ make PYTHON=python3.14 test
 make PYTHON=python3.14 wheel
 ```
 
-CI release wheels cover standard CPython 3.11, 3.12, 3.13, and 3.14 on
-Linux x86-64, Linux ARM64, and Windows x86-64. Each wheel statically contains
-`libdense_sim` and is tested after installation into a clean environment.
+The included release wheels cover standard GIL CPython 3.11, 3.12, 3.13, and
+3.14 on Linux x86-64. Each wheel statically contains `libdense_sim` and is tested
+after installation into a clean environment. See
+[platform compatibility](../../docs/PLATFORM-COMPATIBILITY.md) for runtime
+requirements.
 
 ## Benchmarks
 

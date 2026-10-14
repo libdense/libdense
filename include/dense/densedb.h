@@ -342,8 +342,9 @@ DDB_API ddb_result ddb_database_prewarm_durability(
     size_t bytes_per_tick,
     size_t record_scratch_bytes
 );
-/* Atomically replaces the full snapshot, fsyncs it and the directory, then
- * resets the WAL to its validated header. Requires a finalized tick. */
+/* Requires a finalized tick and no active I/O consumer. Linux syncs the full
+ * snapshot and directory, then resets the WAL. Windows flushes and replaces
+ * the snapshot but retains the WAL; see docs/windows-hosting.md. */
 DDB_API ddb_result ddb_database_checkpoint(ddb_database *database);
 DDB_API ddb_result ddb_database_get_durability_info(
     const ddb_database *database,

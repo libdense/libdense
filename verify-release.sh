@@ -6,8 +6,8 @@ ERRORS=0
 WARNINGS=0
 METADATA_ONLY=0
 
-RELEASE_VERSION="0.3.8"
-PYTHON_BINDING_VERSION="0.3.8"
+RELEASE_VERSION="0.4.2"
+PYTHON_BINDING_VERSION="0.4.2"
 
 LIBRARIES=(
     dense_sim
@@ -20,7 +20,7 @@ LIBRARIES=(
 )
 
 declare -A COMPONENT_VERSIONS=(
-    [dense_sim]="0.3.8"
+    [dense_sim]="0.4.2"
     [dense_net]="0.3.5"
     [dense_sched]="0.3.0"
     [dense_collision]="0.3.0"
@@ -45,7 +45,7 @@ usage() {
     cat <<"USAGE"
 Usage: ./verify-release.sh [--metadata-only]
 
-Without options, validate the complete CI-populated release including native
+Without options, validate the complete Linux x86-64 release including native
 libraries, Python wheels, and SHA256SUMS. Use --metadata-only before CI artifacts
 are assembled to validate the public repository content.
 USAGE
@@ -306,7 +306,10 @@ if ((METADATA_ONLY == 0)); then
             error "development version remains in wheel: ${wheel#"$ROOT_DIR/"}"
         fi
     done < <(find "$ROOT_DIR/bindings/python/dist" -maxdepth 1 -type f -name '*.whl' -print0)
-    ((wheel_count == 12)) || error "expected 12 Python wheels, found $wheel_count"
+    ((wheel_count == 4)) || error "expected 4 Linux x86-64 Python wheels, found $wheel_count"
+    for abi in cp311 cp312 cp313 cp314; do
+        require_file "bindings/python/dist/dense_sim-${PYTHON_BINDING_VERSION}-${abi}-${abi}-linux_x86_64.whl"
+    done
 fi
 
 if command -v python3 >/dev/null 2>&1; then

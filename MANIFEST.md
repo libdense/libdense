@@ -1,26 +1,26 @@
 # Release Manifest
 
-Release: `0.3.8`
+Release: `0.4.2`
 
 Component versions:
 
 ```text
-libdense_sim:                                      0.3.8
+libdense_sim:                                      0.4.2
 libdense_net:                                      0.3.5
 libdense_collision, nav, sched, ai, DenseDB:       0.3.0
-Python, C++, and Rust wrapper packages:            0.3.8
+Python, C++, and Rust wrapper packages:            0.4.2
 ```
 
 ## Native artifacts
 
-The repository contains release metadata and wrapper source. Native SDKs and
-wheels populate the paths below during separate binary assembly.
+The release includes Linux x86-64 native libraries and Python wheels alongside
+public headers, documentation, and wrapper source.
 
 Seven libraries, each shipped as a versioned shared object with relative
 SONAME links plus a self-contained static archive:
 
 ```text
-lib/linux-x86_64/libdense_sim.so.0.3.8        libdense_sim.a
+lib/linux-x86_64/libdense_sim.so.0.4.2        libdense_sim.a
 lib/linux-x86_64/libdense_net.so.0.3.5        libdense_net.a
 lib/linux-x86_64/libdense_sched.so.0.3.0      libdense_sched.a
 lib/linux-x86_64/libdense_collision.so.0.3.0  libdense_collision.a
@@ -34,9 +34,8 @@ relative links to the corresponding component-versioned file.
 The private `dense_core` shared-primitive archive is statically merged into
 each artifact with hidden visibility and is not shipped separately.
 
-CI also publishes static SDK artifacts for Linux ARM64 (headless server) and
-Windows x86-64 (client). The Windows SDK omits DenseDB. Each portable SDK
-contains its own architecture-locked CMake config package.
+Linux ARM64 and experimental Windows x86-64 SDKs require separate builds and
+are not included in this Linux x86-64 bundle.
 
 ## Public headers
 
@@ -54,8 +53,7 @@ include/dense/densedb.h
 
 ## Bindings
 
-- CPython source and CPython 3.11-3.14 wheels for `dense_sim` on Linux x86-64,
-  Linux ARM64, and Windows x86-64;
+- CPython source and four CPython 3.11-3.14 wheels for `dense_sim` on Linux x86-64;
 - header-only C++20 wrapper source;
 - dependency-free Rust wrapper source.
 
@@ -64,7 +62,8 @@ include/dense/densedb.h
 ```text
 release/abi/        exported-symbol lists and Linux ABI layout baselines
 release/api/        current API snapshots plus the dense_sim 0.3.0 baseline
-release/benchmarks/ 0.3.8 benchmark output and dated historical records
+release/benchmarks/ 0.3.8 versus 0.4.2 comparisons and historical results
+densebench/0.4.2/   comparison plates
 ```
 
 ## Explicit exclusions

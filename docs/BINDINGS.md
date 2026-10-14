@@ -4,15 +4,15 @@ The C ABI is the canonical implementation boundary. Bindings do not reimplement
 spatial indexing, subscription maintenance, kinetic scheduling, recipient
 planning, or DenseDB durability.
 
-The 0.3.8 C++ and Rust wrappers expose the optional recipient workset plus the
+The 0.4.2 C++ and Rust wrappers expose the optional recipient workset plus the
 runtime and allocation telemetry surface. The Python package version tracks
-0.3.8, but its existing high-level `World` methods are unchanged.
+0.4.2, but its existing high-level `World` methods are unchanged.
 
 ## Python
 
-CI-built wheels are provided for standard CPython 3.11 through 3.14 on Linux
-x86-64, Linux ARM64, and Windows x86-64. They statically include
-`libdense_sim`.
+Four wheels are provided for standard GIL CPython 3.11 through 3.14 on Linux
+x86-64. They statically include `libdense_sim` and are tested after installation
+in matching interpreters.
 
 ```bash
 python3.14 -m pip install bindings/python/dist/*cp314*.whl

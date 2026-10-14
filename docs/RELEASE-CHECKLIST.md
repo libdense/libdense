@@ -1,14 +1,15 @@
 # Public Release Checklist
 
+This checklist applies to the Linux x86-64 release bundle. Other targets need
+separate artifact validation.
+
 ## Artifacts
 
 - [x] public C headers;
-- [ ] versioned shared libraries and relative SONAME links;
-- [ ] static libraries;
+- [x] versioned shared libraries and relative SONAME links;
+- [x] static libraries;
 - [x] C++ wrapper header;
-- [x] CPython 3.11 through 3.14 wheel sources and release matrix;
-- [x] Linux x86-64, Linux ARM64, and Windows x86-64 target metadata;
-- [ ] architecture-locked CMake package metadata in portable SDKs;
+- [x] four Linux x86-64 CPython 3.11 through 3.14 wheels and binding source;
 - [x] Python, C++, and Rust binding source;
 - [x] API and ABI snapshots;
 - [x] platform compatibility metadata;
@@ -18,17 +19,14 @@
 
 ## Validation
 
-- [ ] run `./verify-release.sh --metadata-only` before CI artifact assembly;
-- [ ] run `./verify-release.sh`;
-- [ ] run a staged install and complete uninstall;
-- [ ] compile and run C consumers for all libraries present in each target;
-- [ ] run the C++ wrapper tests;
-- [ ] run the Rust wrapper tests;
-- [ ] install each Python wheel in a clean matching interpreter and platform;
-- [ ] confirm Windows artifacts omit DenseDB and server-only targets;
-- [ ] confirm Linux ARM64 artifacts omit the client aggregate;
-- [ ] confirm no core implementation source or Git history is present;
-- [ ] create release archives preserving symlinks; and
+- [x] run `./verify-release.sh`;
+- [x] run a staged install and complete uninstall;
+- [x] compile and run C consumers for all libraries present in each target;
+- [x] run the C++ wrapper tests;
+- [x] run the Rust wrapper tests;
+- [x] install each Python wheel in a clean matching interpreter and platform;
+- [x] confirm no core implementation source or Git history is present;
+- [x] create release archives preserving symlinks; and
 - [ ] publish checksums independently of the archive.
 
 ## Licensing

@@ -62,6 +62,6 @@ Phase 8 intentionally advances the active baseline because replay now applies th
 
 Simulation 0.3.7 changed fanout group/entry ordering and advanced the checksum
 from `f9ee2ebe47713aee` to `45dac673272c989e` after normalized delivery
-comparison. 0.3.8 preserves that order and checksum. The replay library
-fingerprint is `dense-family/0.3.8`; recordings with a different library
+comparison. Releases 0.3.8 through 0.4.2 preserve that order and checksum.
+The replay library fingerprint is `dense-family/0.4.2`; recordings with a different library
 fingerprint must be replayed with the matching release.
