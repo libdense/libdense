@@ -1,0 +1,638 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="1152pt" height="964.8pt" viewBox="0 0 1152 964.8" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-10-16T22:26:07.693918</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 964.8 
+L 1152 964.8 
+L 1152 0 
+L 0 0 
+z
+" style="fill: #eee9d9"/>
+  </g>
+  <g id="patch_2">
+   <path d="M 13.824 953.2224 
+L 1138.176 953.2224 
+L 1138.176 11.5776 
+L 13.824 11.5776 
+L 13.824 953.2224 
+z
+" style="fill: none; stroke: #292720; stroke-width: 10; stroke-linejoin: miter"/>
+  </g>
+  <g id="patch_3">
+   <path d="M 29.952 939.7152 
+L 1122.048 939.7152 
+L 1122.048 25.0848 
+L 29.952 25.0848 
+L 29.952 939.7152 
+z
+" style="fill: none; stroke: #292720; stroke-width: 1.7; stroke-linejoin: miter"/>
+  </g>
+  <g id="patch_4">
+   <path d="M 41.472 930.0672 
+L 1110.528 930.0672 
+L 1110.528 34.7328 
+L 41.472 34.7328 
+L 41.472 930.0672 
+z
+" style="fill: none; stroke: #292720; stroke-width: 0.55; stroke-linejoin: miter"/>
+  </g>
+  <g id="patch_5">
+   <path d="M 69.12 260.696678 
+L 1085.184 260.696678 
+L 1085.184 236.640355 
+L 69.12 236.640355 
+z
+" style="fill: #e4decc"/>
+  </g>
+  <g id="patch_6">
+   <path d="M 69.12 313.567718 
+L 1085.184 313.567718 
+L 1085.184 289.511395 
+L 69.12 289.511395 
+z
+" style="fill: #e4decc"/>
+  </g>
+  <g id="patch_7">
+   <path d="M 69.12 366.438758 
+L 1085.184 366.438758 
+L 1085.184 342.382435 
+L 69.12 342.382435 
+z
+" style="fill: #e4decc"/>
+  </g>
+  <g id="patch_8">
+   <path d="M 69.12 419.309798 
+L 1085.184 419.309798 
+L 1085.184 395.253475 
+L 69.12 395.253475 
+z
+" style="fill: #e4decc"/>
+  </g>
+  <g id="patch_9">
+   <path d="M 69.12 472.180838 
+L 1085.184 472.180838 
+L 1085.184 448.124515 
+L 69.12 448.124515 
+z
+" style="fill: #e4decc"/>
+  </g>
+  <g id="patch_10">
+   <path d="M 69.12 525.051878 
+L 1085.184 525.051878 
+L 1085.184 500.995555 
+L 69.12 500.995555 
+z
+" style="fill: #e4decc"/>
+  </g>
+  <g id="patch_11">
+   <path d="M 69.12 577.922918 
+L 1085.184 577.922918 
+L 1085.184 553.866595 
+L 69.12 553.866595 
+z
+" style="fill: #e4decc"/>
+  </g>
+  <g id="patch_12">
+   <path d="M 69.12 630.793958 
+L 1085.184 630.793958 
+L 1085.184 606.737635 
+L 69.12 606.737635 
+z
+" style="fill: #e4decc"/>
+  </g>
+  <g id="patch_13">
+   <path d="M 69.12 683.664998 
+L 1085.184 683.664998 
+L 1085.184 659.608675 
+L 69.12 659.608675 
+z
+" style="fill: #e4decc"/>
+  </g>
+  <g id="patch_14">
+   <path d="M 69.12 736.536038 
+L 1085.184 736.536038 
+L 1085.184 712.479715 
+L 69.12 712.479715 
+z
+" style="fill: #e4decc"/>
+  </g>
+  <g id="patch_15">
+   <path d="M 69.12 789.407078 
+L 1085.184 789.407078 
+L 1085.184 765.350755 
+L 69.12 765.350755 
+z
+" style="fill: #e4decc"/>
+  </g>
+  <g id="line2d_1">
+   <path d="M 172.8 141.8256 
+L 979.2 141.8256 
+" style="fill: none; stroke: #292720; stroke-width: 1.3; stroke-linecap: square"/>
+  </g>
+  <g id="line2d_2">
+   <path d="M 92.16 882.792 
+L 1059.84 882.792 
+" style="fill: none; stroke: #bfb7a2; stroke-width: 0.6; stroke-linecap: square"/>
+  </g>
+  <g id="line2d_3">
+   <path d="M 73.728 225.7632 
+L 1080.576 225.7632 
+" style="fill: none; stroke: #292720; stroke-linecap: square"/>
+  </g>
+  <g id="line2d_4">
+   <path d="M 73.728 262.018454 
+L 1080.576 262.018454 
+" style="fill: none; stroke: #c8c0ac; stroke-width: 0.35; stroke-linecap: square"/>
+  </g>
+  <g id="line2d_5">
+   <path d="M 73.728 288.453974 
+L 1080.576 288.453974 
+" style="fill: none; stroke: #c8c0ac; stroke-width: 0.35; stroke-linecap: square"/>
+  </g>
+  <g id="line2d_6">
+   <path d="M 73.728 314.889494 
+L 1080.576 314.889494 
+" style="fill: none; stroke: #c8c0ac; stroke-width: 0.35; stroke-linecap: square"/>
+  </g>
+  <g id="line2d_7">
+   <path d="M 73.728 341.325014 
+L 1080.576 341.325014 
+" style="fill: none; stroke: #c8c0ac; stroke-width: 0.35; stroke-linecap: square"/>
+  </g>
+  <g id="line2d_8">
+   <path d="M 73.728 367.760534 
+L 1080.576 367.760534 
+" style="fill: none; stroke: #c8c0ac; stroke-width: 0.35; stroke-linecap: square"/>
+  </g>
+  <g id="line2d_9">
+   <path d="M 73.728 394.196054 
+L 1080.576 394.196054 
+" style="fill: none; stroke: #c8c0ac; stroke-width: 0.35; stroke-linecap: square"/>
+  </g>
+  <g id="line2d_10">
+   <path d="M 73.728 420.631574 
+L 1080.576 420.631574 
+" style="fill: none; stroke: #c8c0ac; stroke-width: 0.35; stroke-linecap: square"/>
+  </g>
+  <g id="line2d_11">
+   <path d="M 73.728 447.067094 
+L 1080.576 447.067094 
+" style="fill: none; stroke: #c8c0ac; stroke-width: 0.35; stroke-linecap: square"/>
+  </g>
+  <g id="line2d_12">
+   <path d="M 73.728 473.502614 
+L 1080.576 473.502614 
+" style="fill: none; stroke: #c8c0ac; stroke-width: 0.35; stroke-linecap: square"/>
+  </g>
+  <g id="line2d_13">
+   <path d="M 73.728 499.938134 
+L 1080.576 499.938134 
+" style="fill: none; stroke: #c8c0ac; stroke-width: 0.35; stroke-linecap: square"/>
+  </g>
+  <g id="line2d_14">
+   <path d="M 73.728 526.373654 
+L 1080.576 526.373654 
+" style="fill: none; stroke: #c8c0ac; stroke-width: 0.35; stroke-linecap: square"/>
+  </g>
+  <g id="line2d_15">
+   <path d="M 73.728 552.809174 
+L 1080.576 552.809174 
+" style="fill: none; stroke: #c8c0ac; stroke-width: 0.35; stroke-linecap: square"/>
+  </g>
+  <g id="line2d_16">
+   <path d="M 73.728 579.244694 
+L 1080.576 579.244694 
+" style="fill: none; stroke: #c8c0ac; stroke-width: 0.35; stroke-linecap: square"/>
+  </g>
+  <g id="line2d_17">
+   <path d="M 73.728 605.680214 
+L 1080.576 605.680214 
+" style="fill: none; stroke: #c8c0ac; stroke-width: 0.35; stroke-linecap: square"/>
+  </g>
+  <g id="line2d_18">
+   <path d="M 73.728 632.115734 
+L 1080.576 632.115734 
+" style="fill: none; stroke: #c8c0ac; stroke-width: 0.35; stroke-linecap: square"/>
+  </g>
+  <g id="line2d_19">
+   <path d="M 73.728 658.551254 
+L 1080.576 658.551254 
+" style="fill: none; stroke: #c8c0ac; stroke-width: 0.35; stroke-linecap: square"/>
+  </g>
+  <g id="line2d_20">
+   <path d="M 73.728 684.986774 
+L 1080.576 684.986774 
+" style="fill: none; stroke: #c8c0ac; stroke-width: 0.35; stroke-linecap: square"/>
+  </g>
+  <g id="line2d_21">
+   <path d="M 73.728 711.422294 
+L 1080.576 711.422294 
+" style="fill: none; stroke: #c8c0ac; stroke-width: 0.35; stroke-linecap: square"/>
+  </g>
+  <g id="line2d_22">
+   <path d="M 73.728 737.857814 
+L 1080.576 737.857814 
+" style="fill: none; stroke: #c8c0ac; stroke-width: 0.35; stroke-linecap: square"/>
+  </g>
+  <g id="line2d_23">
+   <path d="M 73.728 764.293334 
+L 1080.576 764.293334 
+" style="fill: none; stroke: #c8c0ac; stroke-width: 0.35; stroke-linecap: square"/>
+  </g>
+  <g id="line2d_24">
+   <path d="M 73.728 790.728854 
+L 1080.576 790.728854 
+" style="fill: none; stroke: #c8c0ac; stroke-width: 0.35; stroke-linecap: square"/>
+  </g>
+  <g id="line2d_25">
+   <path d="M 73.728 817.164374 
+L 1080.576 817.164374 
+" style="fill: none; stroke: #c8c0ac; stroke-width: 0.35; stroke-linecap: square"/>
+  </g>
+  <g id="text_1">
+   <text style="font-size: 13px; font-family: 'DejaVu Serif'; text-anchor: middle; fill: #292720" x="576" y="60.7824" transform="rotate(-0 576 60.7824)">D E N S E   /   B E N C H M A R K S</text>
+  </g>
+  <g id="text_2">
+   <text style="font-size: 30px; font-family: 'DejaVu Serif'; text-anchor: middle; fill: #292720" x="576" y="114.8112" transform="rotate(-0 576 114.8112)">Complete delivery matrix</text>
+  </g>
+  <g id="text_3">
+   <text style="font-style: italic; font-size: 12.5px; font-family: 'DejaVu Serif'; text-anchor: middle; fill: #292720" x="576" y="168.84" transform="rotate(-0 576 168.84)">All 22 network and pipeline conditions; packet capture/flush included</text>
+  </g>
+  <g id="text_4">
+   <text style="font-size: 9px; font-family: 'DejaVu Serif'; text-anchor: middle; fill: #787466" x="576" y="905.9472" transform="rotate(-0 576 905.9472)">Linux x86-64 | AMD EPYC 9V74 80-Core Processor | GCC 13.3 | sender CPU 0; UDP receivers CPU 1</text>
+  </g>
+  <g id="text_5">
+   <text style="font-size: 9px; font-family: 'DejaVu Serif'; text-anchor: middle; fill: #787466" x="576" y="925.2432" transform="rotate(-0 576 925.2432)">0.4.2 / 0.4.4 | shipped defaults only | 5 alternating paired runs | release 2026-10-16 | PLATE 11</text>
+  </g>
+  <g id="text_6">
+   <text style="font-weight: 700; font-size: 10.6px; font-family: 'DejaVu Serif'; text-anchor: start; fill: #292720" x="80.64" y="214.1856" transform="rotate(-0 80.64 214.1856)">WORKLOAD</text>
+  </g>
+  <g id="text_7">
+   <text style="font-weight: 700; font-size: 10.6px; font-family: 'DejaVu Serif'; text-anchor: end; fill: #292720" x="679.68" y="214.1856" transform="rotate(-0 679.68 214.1856)">0.4.2 / ms</text>
+  </g>
+  <g id="text_8">
+   <text style="font-weight: 700; font-size: 10.6px; font-family: 'DejaVu Serif'; text-anchor: end; fill: #292720" x="829.44" y="214.1856" transform="rotate(-0 829.44 214.1856)">0.4.4 / ms</text>
+  </g>
+  <g id="text_9">
+   <text style="font-weight: 700; font-size: 10.6px; font-family: 'DejaVu Serif'; text-anchor: end; fill: #292720" x="967.68" y="214.1856" transform="rotate(-0 967.68 214.1856)">TIME CHANGE</text>
+  </g>
+  <g id="text_10">
+   <text style="font-weight: 700; font-size: 10.6px; font-family: 'DejaVu Serif'; text-anchor: end; fill: #292720" x="1071.36" y="214.1856" transform="rotate(-0 1071.36 214.1856)">RATIO</text>
+  </g>
+  <g id="text_11">
+   <text style="font-size: 10.6px; font-family: 'DejaVu Serif'; text-anchor: start; fill: #292720" x="80.64" y="252.518698" transform="rotate(-0 80.64 252.518698)">Shared packet batch / 1</text>
+  </g>
+  <g id="text_12">
+   <text style="font-size: 10.6px; font-family: 'DejaVu Serif'; text-anchor: end; fill: #292720" x="679.68" y="252.518698" transform="rotate(-0 679.68 252.518698)">0.000107</text>
+  </g>
+  <g id="text_13">
+   <text style="font-size: 10.6px; font-family: 'DejaVu Serif'; text-anchor: end; fill: #292720" x="829.44" y="252.518698" transform="rotate(-0 829.44 252.518698)">0.000119</text>
+  </g>
+  <g id="text_14">
+   <text style="font-size: 10.6px; font-family: 'DejaVu Serif'; text-anchor: end; fill: #a64f40" x="967.68" y="252.518698" transform="rotate(-0 967.68 252.518698)">+10.9%</text>
+  </g>
+  <g id="text_15">
+   <text style="font-size: 10.6px; font-family: 'DejaVu Serif'; text-anchor: end; fill: #292720" x="1071.36" y="252.518698" transform="rotate(-0 1071.36 252.518698)">0.90x</text>
+  </g>
+  <g id="text_16">
+   <text style="font-size: 10.6px; font-family: 'DejaVu Serif'; text-anchor: start; fill: #292720" x="80.64" y="278.954218" transform="rotate(-0 80.64 278.954218)">Shared packet batch / 4</text>
+  </g>
+  <g id="text_17">
+   <text style="font-size: 10.6px; font-family: 'DejaVu Serif'; text-anchor: end; fill: #292720" x="679.68" y="278.954218" transform="rotate(-0 679.68 278.954218)">0.000442</text>
+  </g>
+  <g id="text_18">
+   <text style="font-size: 10.6px; font-family: 'DejaVu Serif'; text-anchor: end; fill: #292720" x="829.44" y="278.954218" transform="rotate(-0 829.44 278.954218)">0.000512</text>
+  </g>
+  <g id="text_19">
+   <text style="font-size: 10.6px; font-family: 'DejaVu Serif'; text-anchor: end; fill: #a64f40" x="967.68" y="278.954218" transform="rotate(-0 967.68 278.954218)">+16.0%</text>
+  </g>
+  <g id="text_20">
+   <text style="font-size: 10.6px; font-family: 'DejaVu Serif'; text-anchor: end; fill: #292720" x="1071.36" y="278.954218" transform="rotate(-0 1071.36 278.954218)">0.86x</text>
+  </g>
+  <g id="text_21">
+   <text style="font-size: 10.6px; font-family: 'DejaVu Serif'; text-anchor: start; fill: #292720" x="80.64" y="305.389738" transform="rotate(-0 80.64 305.389738)">Shared packet batch / 16</text>
+  </g>
+  <g id="text_22">
+   <text style="font-size: 10.6px; font-family: 'DejaVu Serif'; text-anchor: end; fill: #292720" x="679.68" y="305.389738" transform="rotate(-0 679.68 305.389738)">0.004950</text>
+  </g>
+  <g id="text_23">
+   <text style="font-size: 10.6px; font-family: 'DejaVu Serif'; text-anchor: end; fill: #292720" x="829.44" y="305.389738" transform="rotate(-0 829.44 305.389738)">0.001091</text>
+  </g>
+  <g id="text_24">
+   <text style="font-size: 10.6px; font-family: 'DejaVu Serif'; text-anchor: end; fill: #365f52" x="967.68" y="305.389738" transform="rotate(-0 967.68 305.389738)">-78.0%</text>
+  </g>
+  <g id="text_25">
+   <text style="font-size: 10.6px; font-family: 'DejaVu Serif'; text-anchor: end; fill: #292720" x="1071.36" y="305.389738" transform="rotate(-0 1071.36 305.389738)">4.54x</text>
+  </g>
+  <g id="text_26">
+   <text style="font-size: 10.6px; font-family: 'DejaVu Serif'; text-anchor: start; fill: #292720" x="80.64" y="331.825258" transform="rotate(-0 80.64 331.825258)">Shared packet batch / 128</text>
+  </g>
+  <g id="text_27">
+   <text style="font-size: 10.6px; font-family: 'DejaVu Serif'; text-anchor: end; fill: #292720" x="679.68" y="331.825258" transform="rotate(-0 679.68 331.825258)">0.302671</text>
+  </g>
+  <g id="text_28">
+   <text style="font-size: 10.6px; font-family: 'DejaVu Serif'; text-anchor: end; fill: #292720" x="829.44" y="331.825258" transform="rotate(-0 829.44 331.825258)">0.025430</text>
+  </g>
+  <g id="text_29">
+   <text style="font-size: 10.6px; font-family: 'DejaVu Serif'; text-anchor: end; fill: #365f52" x="967.68" y="331.825258" transform="rotate(-0 967.68 331.825258)">-91.6%</text>
+  </g>
+  <g id="text_30">
+   <text style="font-size: 10.6px; font-family: 'DejaVu Serif'; text-anchor: end; fill: #292720" x="1071.36" y="331.825258" transform="rotate(-0 1071.36 331.825258)">11.90x</text>
+  </g>
+  <g id="text_31">
+   <text style="font-size: 10.6px; font-family: 'DejaVu Serif'; text-anchor: start; fill: #292720" x="80.64" y="358.260778" transform="rotate(-0 80.64 358.260778)">Shared packet batch / 512</text>
+  </g>
+  <g id="text_32">
+   <text style="font-size: 10.6px; font-family: 'DejaVu Serif'; text-anchor: end; fill: #292720" x="679.68" y="358.260778" transform="rotate(-0 679.68 358.260778)">7.808585</text>
+  </g>
+  <g id="text_33">
+   <text style="font-size: 10.6px; font-family: 'DejaVu Serif'; text-anchor: end; fill: #292720" x="829.44" y="358.260778" transform="rotate(-0 829.44 358.260778)">0.394122</text>
+  </g>
+  <g id="text_34">
+   <text style="font-size: 10.6px; font-family: 'DejaVu Serif'; text-anchor: end; fill: #365f52" x="967.68" y="358.260778" transform="rotate(-0 967.68 358.260778)">-95.0%</text>
+  </g>
+  <g id="text_35">
+   <text style="font-size: 10.6px; font-family: 'DejaVu Serif'; text-anchor: end; fill: #292720" x="1071.36" y="358.260778" transform="rotate(-0 1071.36 358.260778)">19.81x</text>
+  </g>
+  <g id="text_36">
+   <text style="font-size: 10.6px; font-family: 'DejaVu Serif'; text-anchor: start; fill: #292720" x="80.64" y="384.696298" transform="rotate(-0 80.64 384.696298)">Shared packet batch / 1,024</text>
+  </g>
+  <g id="text_37">
+   <text style="font-size: 10.6px; font-family: 'DejaVu Serif'; text-anchor: end; fill: #292720" x="679.68" y="384.696298" transform="rotate(-0 679.68 384.696298)">34.292668</text>
+  </g>
+  <g id="text_38">
+   <text style="font-size: 10.6px; font-family: 'DejaVu Serif'; text-anchor: end; fill: #292720" x="829.44" y="384.696298" transform="rotate(-0 829.44 384.696298)">2.872626</text>
+  </g>
+  <g id="text_39">
+   <text style="font-size: 10.6px; font-family: 'DejaVu Serif'; text-anchor: end; fill: #365f52" x="967.68" y="384.696298" transform="rotate(-0 967.68 384.696298)">-91.6%</text>
+  </g>
+  <g id="text_40">
+   <text style="font-size: 10.6px; font-family: 'DejaVu Serif'; text-anchor: end; fill: #292720" x="1071.36" y="384.696298" transform="rotate(-0 1071.36 384.696298)">11.94x</text>
+  </g>
+  <g id="text_41">
+   <text style="font-size: 10.6px; font-family: 'DejaVu Serif'; text-anchor: start; fill: #292720" x="80.64" y="410.981099" transform="rotate(-0 80.64 410.981099)">CPU / crossings / 4</text>
+  </g>
+  <g id="text_42">
+   <text style="font-size: 10.6px; font-family: 'DejaVu Serif'; text-anchor: end; fill: #292720" x="679.68" y="411.131818" transform="rotate(-0 679.68 411.131818)">0.002168</text>
+  </g>
+  <g id="text_43">
+   <text style="font-size: 10.6px; font-family: 'DejaVu Serif'; text-anchor: end; fill: #292720" x="829.44" y="411.131818" transform="rotate(-0 829.44 411.131818)">0.002177</text>
+  </g>
+  <g id="text_44">
+   <text style="font-size: 10.6px; font-family: 'DejaVu Serif'; text-anchor: end; fill: #a64f40" x="967.68" y="411.131818" transform="rotate(-0 967.68 411.131818)">+0.4%</text>
+  </g>
+  <g id="text_45">
+   <text style="font-size: 10.6px; font-family: 'DejaVu Serif'; text-anchor: end; fill: #292720" x="1071.36" y="411.131818" transform="rotate(-0 1071.36 411.131818)">1.00x</text>
+  </g>
+  <g id="text_46">
+   <text style="font-size: 10.6px; font-family: 'DejaVu Serif'; text-anchor: start; fill: #292720" x="80.64" y="437.416619" transform="rotate(-0 80.64 437.416619)">CPU / crossings / 16</text>
+  </g>
+  <g id="text_47">
+   <text style="font-size: 10.6px; font-family: 'DejaVu Serif'; text-anchor: end; fill: #292720" x="679.68" y="437.567338" transform="rotate(-0 679.68 437.567338)">0.008672</text>
+  </g>
+  <g id="text_48">
+   <text style="font-size: 10.6px; font-family: 'DejaVu Serif'; text-anchor: end; fill: #292720" x="829.44" y="437.567338" transform="rotate(-0 829.44 437.567338)">0.009651</text>
+  </g>
+  <g id="text_49">
+   <text style="font-size: 10.6px; font-family: 'DejaVu Serif'; text-anchor: end; fill: #a64f40" x="967.68" y="437.567338" transform="rotate(-0 967.68 437.567338)">+11.3%</text>
+  </g>
+  <g id="text_50">
+   <text style="font-size: 10.6px; font-family: 'DejaVu Serif'; text-anchor: end; fill: #292720" x="1071.36" y="437.567338" transform="rotate(-0 1071.36 437.567338)">0.90x</text>
+  </g>
+  <g id="text_51">
+   <text style="font-size: 10.6px; font-family: 'DejaVu Serif'; text-anchor: start; fill: #292720" x="80.64" y="463.852139" transform="rotate(-0 80.64 463.852139)">CPU / crossings / 128</text>
+  </g>
+  <g id="text_52">
+   <text style="font-size: 10.6px; font-family: 'DejaVu Serif'; text-anchor: end; fill: #292720" x="679.68" y="464.002858" transform="rotate(-0 679.68 464.002858)">0.365811</text>
+  </g>
+  <g id="text_53">
+   <text style="font-size: 10.6px; font-family: 'DejaVu Serif'; text-anchor: end; fill: #292720" x="829.44" y="464.002858" transform="rotate(-0 829.44 464.002858)">0.405365</text>
+  </g>
+  <g id="text_54">
+   <text style="font-size: 10.6px; font-family: 'DejaVu Serif'; text-anchor: end; fill: #a64f40" x="967.68" y="464.002858" transform="rotate(-0 967.68 464.002858)">+10.8%</text>
+  </g>
+  <g id="text_55">
+   <text style="font-size: 10.6px; font-family: 'DejaVu Serif'; text-anchor: end; fill: #292720" x="1071.36" y="464.002858" transform="rotate(-0 1071.36 464.002858)">0.90x</text>
+  </g>
+  <g id="text_56">
+   <text style="font-size: 10.6px; font-family: 'DejaVu Serif'; text-anchor: start; fill: #292720" x="80.64" y="490.287659" transform="rotate(-0 80.64 490.287659)">CPU / crossings / 512</text>
+  </g>
+  <g id="text_57">
+   <text style="font-size: 10.6px; font-family: 'DejaVu Serif'; text-anchor: end; fill: #292720" x="679.68" y="490.438378" transform="rotate(-0 679.68 490.438378)">16.403423</text>
+  </g>
+  <g id="text_58">
+   <text style="font-size: 10.6px; font-family: 'DejaVu Serif'; text-anchor: end; fill: #292720" x="829.44" y="490.438378" transform="rotate(-0 829.44 490.438378)">17.768638</text>
+  </g>
+  <g id="text_59">
+   <text style="font-size: 10.6px; font-family: 'DejaVu Serif'; text-anchor: end; fill: #a64f40" x="967.68" y="490.438378" transform="rotate(-0 967.68 490.438378)">+8.3%</text>
+  </g>
+  <g id="text_60">
+   <text style="font-size: 10.6px; font-family: 'DejaVu Serif'; text-anchor: end; fill: #292720" x="1071.36" y="490.438378" transform="rotate(-0 1071.36 490.438378)">0.92x</text>
+  </g>
+  <g id="text_61">
+   <text style="font-size: 10.6px; font-family: 'DejaVu Serif'; text-anchor: start; fill: #292720" x="80.64" y="516.873898" transform="rotate(-0 80.64 516.873898)">CPU / shared / 512</text>
+  </g>
+  <g id="text_62">
+   <text style="font-size: 10.6px; font-family: 'DejaVu Serif'; text-anchor: end; fill: #292720" x="679.68" y="516.873898" transform="rotate(-0 679.68 516.873898)">11.848852</text>
+  </g>
+  <g id="text_63">
+   <text style="font-size: 10.6px; font-family: 'DejaVu Serif'; text-anchor: end; fill: #292720" x="829.44" y="516.873898" transform="rotate(-0 829.44 516.873898)">0.997330</text>
+  </g>
+  <g id="text_64">
+   <text style="font-size: 10.6px; font-family: 'DejaVu Serif'; text-anchor: end; fill: #365f52" x="967.68" y="516.873898" transform="rotate(-0 967.68 516.873898)">-91.6%</text>
+  </g>
+  <g id="text_65">
+   <text style="font-size: 10.6px; font-family: 'DejaVu Serif'; text-anchor: end; fill: #292720" x="1071.36" y="516.873898" transform="rotate(-0 1071.36 516.873898)">11.88x</text>
+  </g>
+  <g id="text_66">
+   <text style="font-size: 10.6px; font-family: 'DejaVu Serif'; text-anchor: start; fill: #292720" x="80.64" y="543.309418" transform="rotate(-0 80.64 543.309418)">CPU / occupied queues / 128</text>
+  </g>
+  <g id="text_67">
+   <text style="font-size: 10.6px; font-family: 'DejaVu Serif'; text-anchor: end; fill: #292720" x="679.68" y="543.309418" transform="rotate(-0 679.68 543.309418)">0.385236</text>
+  </g>
+  <g id="text_68">
+   <text style="font-size: 10.6px; font-family: 'DejaVu Serif'; text-anchor: end; fill: #292720" x="829.44" y="543.309418" transform="rotate(-0 829.44 543.309418)">0.431167</text>
+  </g>
+  <g id="text_69">
+   <text style="font-size: 10.6px; font-family: 'DejaVu Serif'; text-anchor: end; fill: #a64f40" x="967.68" y="543.309418" transform="rotate(-0 967.68 543.309418)">+11.9%</text>
+  </g>
+  <g id="text_70">
+   <text style="font-size: 10.6px; font-family: 'DejaVu Serif'; text-anchor: end; fill: #292720" x="1071.36" y="543.309418" transform="rotate(-0 1071.36 543.309418)">0.89x</text>
+  </g>
+  <g id="text_71">
+   <text style="font-size: 10.6px; font-family: 'DejaVu Serif'; text-anchor: start; fill: #292720" x="80.64" y="569.669578" transform="rotate(-0 80.64 569.669578)">CPU / variable payload / 128</text>
+  </g>
+  <g id="text_72">
+   <text style="font-size: 10.6px; font-family: 'DejaVu Serif'; text-anchor: end; fill: #292720" x="679.68" y="569.744938" transform="rotate(-0 679.68 569.744938)">0.370342</text>
+  </g>
+  <g id="text_73">
+   <text style="font-size: 10.6px; font-family: 'DejaVu Serif'; text-anchor: end; fill: #292720" x="829.44" y="569.744938" transform="rotate(-0 829.44 569.744938)">0.411016</text>
+  </g>
+  <g id="text_74">
+   <text style="font-size: 10.6px; font-family: 'DejaVu Serif'; text-anchor: end; fill: #a64f40" x="967.68" y="569.744938" transform="rotate(-0 967.68 569.744938)">+11.0%</text>
+  </g>
+  <g id="text_75">
+   <text style="font-size: 10.6px; font-family: 'DejaVu Serif'; text-anchor: end; fill: #292720" x="1071.36" y="569.744938" transform="rotate(-0 1071.36 569.744938)">0.90x</text>
+  </g>
+  <g id="text_76">
+   <text style="font-size: 10.6px; font-family: 'DejaVu Serif'; text-anchor: start; fill: #292720" x="80.64" y="596.105098" transform="rotate(-0 80.64 596.105098)">CPU / fragmented masks / 128</text>
+  </g>
+  <g id="text_77">
+   <text style="font-size: 10.6px; font-family: 'DejaVu Serif'; text-anchor: end; fill: #292720" x="679.68" y="596.180458" transform="rotate(-0 679.68 596.180458)">0.186771</text>
+  </g>
+  <g id="text_78">
+   <text style="font-size: 10.6px; font-family: 'DejaVu Serif'; text-anchor: end; fill: #292720" x="829.44" y="596.180458" transform="rotate(-0 829.44 596.180458)">0.210928</text>
+  </g>
+  <g id="text_79">
+   <text style="font-size: 10.6px; font-family: 'DejaVu Serif'; text-anchor: end; fill: #a64f40" x="967.68" y="596.180458" transform="rotate(-0 967.68 596.180458)">+12.9%</text>
+  </g>
+  <g id="text_80">
+   <text style="font-size: 10.6px; font-family: 'DejaVu Serif'; text-anchor: end; fill: #292720" x="1071.36" y="596.180458" transform="rotate(-0 1071.36 596.180458)">0.89x</text>
+  </g>
+  <g id="text_81">
+   <text style="font-size: 10.6px; font-family: 'DejaVu Serif'; text-anchor: start; fill: #292720" x="80.64" y="622.465259" transform="rotate(-0 80.64 622.465259)">UDP / crossings / 4</text>
+  </g>
+  <g id="text_82">
+   <text style="font-size: 10.6px; font-family: 'DejaVu Serif'; text-anchor: end; fill: #292720" x="679.68" y="622.615978" transform="rotate(-0 679.68 622.615978)">0.011180</text>
+  </g>
+  <g id="text_83">
+   <text style="font-size: 10.6px; font-family: 'DejaVu Serif'; text-anchor: end; fill: #292720" x="829.44" y="622.615978" transform="rotate(-0 829.44 622.615978)">0.011216</text>
+  </g>
+  <g id="text_84">
+   <text style="font-size: 10.6px; font-family: 'DejaVu Serif'; text-anchor: end; fill: #a64f40" x="967.68" y="622.615978" transform="rotate(-0 967.68 622.615978)">+0.3%</text>
+  </g>
+  <g id="text_85">
+   <text style="font-size: 10.6px; font-family: 'DejaVu Serif'; text-anchor: end; fill: #292720" x="1071.36" y="622.615978" transform="rotate(-0 1071.36 622.615978)">1.00x</text>
+  </g>
+  <g id="text_86">
+   <text style="font-size: 10.6px; font-family: 'DejaVu Serif'; text-anchor: start; fill: #292720" x="80.64" y="648.900779" transform="rotate(-0 80.64 648.900779)">UDP / crossings / 16</text>
+  </g>
+  <g id="text_87">
+   <text style="font-size: 10.6px; font-family: 'DejaVu Serif'; text-anchor: end; fill: #292720" x="679.68" y="649.051498" transform="rotate(-0 679.68 649.051498)">0.032511</text>
+  </g>
+  <g id="text_88">
+   <text style="font-size: 10.6px; font-family: 'DejaVu Serif'; text-anchor: end; fill: #292720" x="829.44" y="649.051498" transform="rotate(-0 829.44 649.051498)">0.033630</text>
+  </g>
+  <g id="text_89">
+   <text style="font-size: 10.6px; font-family: 'DejaVu Serif'; text-anchor: end; fill: #a64f40" x="967.68" y="649.051498" transform="rotate(-0 967.68 649.051498)">+3.4%</text>
+  </g>
+  <g id="text_90">
+   <text style="font-size: 10.6px; font-family: 'DejaVu Serif'; text-anchor: end; fill: #292720" x="1071.36" y="649.051498" transform="rotate(-0 1071.36 649.051498)">0.97x</text>
+  </g>
+  <g id="text_91">
+   <text style="font-size: 10.6px; font-family: 'DejaVu Serif'; text-anchor: start; fill: #292720" x="80.64" y="675.336299" transform="rotate(-0 80.64 675.336299)">UDP / crossings / 128</text>
+  </g>
+  <g id="text_92">
+   <text style="font-size: 10.6px; font-family: 'DejaVu Serif'; text-anchor: end; fill: #292720" x="679.68" y="675.487018" transform="rotate(-0 679.68 675.487018)">1.631536</text>
+  </g>
+  <g id="text_93">
+   <text style="font-size: 10.6px; font-family: 'DejaVu Serif'; text-anchor: end; fill: #292720" x="829.44" y="675.487018" transform="rotate(-0 829.44 675.487018)">1.770192</text>
+  </g>
+  <g id="text_94">
+   <text style="font-size: 10.6px; font-family: 'DejaVu Serif'; text-anchor: end; fill: #a64f40" x="967.68" y="675.487018" transform="rotate(-0 967.68 675.487018)">+8.5%</text>
+  </g>
+  <g id="text_95">
+   <text style="font-size: 10.6px; font-family: 'DejaVu Serif'; text-anchor: end; fill: #292720" x="1071.36" y="675.487018" transform="rotate(-0 1071.36 675.487018)">0.92x</text>
+  </g>
+  <g id="text_96">
+   <text style="font-size: 10.6px; font-family: 'DejaVu Serif'; text-anchor: start; fill: #292720" x="80.64" y="701.771819" transform="rotate(-0 80.64 701.771819)">UDP / crossings / 512</text>
+  </g>
+  <g id="text_97">
+   <text style="font-size: 10.6px; font-family: 'DejaVu Serif'; text-anchor: end; fill: #292720" x="679.68" y="701.922538" transform="rotate(-0 679.68 701.922538)">36.816582</text>
+  </g>
+  <g id="text_98">
+   <text style="font-size: 10.6px; font-family: 'DejaVu Serif'; text-anchor: end; fill: #292720" x="829.44" y="701.922538" transform="rotate(-0 829.44 701.922538)">38.720044</text>
+  </g>
+  <g id="text_99">
+   <text style="font-size: 10.6px; font-family: 'DejaVu Serif'; text-anchor: end; fill: #a64f40" x="967.68" y="701.922538" transform="rotate(-0 967.68 701.922538)">+5.2%</text>
+  </g>
+  <g id="text_100">
+   <text style="font-size: 10.6px; font-family: 'DejaVu Serif'; text-anchor: end; fill: #292720" x="1071.36" y="701.922538" transform="rotate(-0 1071.36 701.922538)">0.95x</text>
+  </g>
+  <g id="text_101">
+   <text style="font-size: 10.6px; font-family: 'DejaVu Serif'; text-anchor: start; fill: #292720" x="80.64" y="728.358058" transform="rotate(-0 80.64 728.358058)">UDP / shared / 512</text>
+  </g>
+  <g id="text_102">
+   <text style="font-size: 10.6px; font-family: 'DejaVu Serif'; text-anchor: end; fill: #292720" x="679.68" y="728.358058" transform="rotate(-0 679.68 728.358058)">31.956672</text>
+  </g>
+  <g id="text_103">
+   <text style="font-size: 10.6px; font-family: 'DejaVu Serif'; text-anchor: end; fill: #292720" x="829.44" y="728.358058" transform="rotate(-0 829.44 728.358058)">19.984475</text>
+  </g>
+  <g id="text_104">
+   <text style="font-size: 10.6px; font-family: 'DejaVu Serif'; text-anchor: end; fill: #365f52" x="967.68" y="728.358058" transform="rotate(-0 967.68 728.358058)">-37.5%</text>
+  </g>
+  <g id="text_105">
+   <text style="font-size: 10.6px; font-family: 'DejaVu Serif'; text-anchor: end; fill: #292720" x="1071.36" y="728.358058" transform="rotate(-0 1071.36 728.358058)">1.60x</text>
+  </g>
+  <g id="text_106">
+   <text style="font-size: 10.6px; font-family: 'DejaVu Serif'; text-anchor: start; fill: #292720" x="80.64" y="754.793578" transform="rotate(-0 80.64 754.793578)">UDP / occupied queues / 128</text>
+  </g>
+  <g id="text_107">
+   <text style="font-size: 10.6px; font-family: 'DejaVu Serif'; text-anchor: end; fill: #292720" x="679.68" y="754.793578" transform="rotate(-0 679.68 754.793578)">1.656620</text>
+  </g>
+  <g id="text_108">
+   <text style="font-size: 10.6px; font-family: 'DejaVu Serif'; text-anchor: end; fill: #292720" x="829.44" y="754.793578" transform="rotate(-0 829.44 754.793578)">1.512200</text>
+  </g>
+  <g id="text_109">
+   <text style="font-size: 10.6px; font-family: 'DejaVu Serif'; text-anchor: end; fill: #365f52" x="967.68" y="754.793578" transform="rotate(-0 967.68 754.793578)">-8.7%</text>
+  </g>
+  <g id="text_110">
+   <text style="font-size: 10.6px; font-family: 'DejaVu Serif'; text-anchor: end; fill: #292720" x="1071.36" y="754.793578" transform="rotate(-0 1071.36 754.793578)">1.10x</text>
+  </g>
+  <g id="text_111">
+   <text style="font-size: 10.6px; font-family: 'DejaVu Serif'; text-anchor: start; fill: #292720" x="80.64" y="781.153738" transform="rotate(-0 80.64 781.153738)">UDP / variable payload / 128</text>
+  </g>
+  <g id="text_112">
+   <text style="font-size: 10.6px; font-family: 'DejaVu Serif'; text-anchor: end; fill: #292720" x="679.68" y="781.229098" transform="rotate(-0 679.68 781.229098)">1.721056</text>
+  </g>
+  <g id="text_113">
+   <text style="font-size: 10.6px; font-family: 'DejaVu Serif'; text-anchor: end; fill: #292720" x="829.44" y="781.229098" transform="rotate(-0 829.44 781.229098)">1.410821</text>
+  </g>
+  <g id="text_114">
+   <text style="font-size: 10.6px; font-family: 'DejaVu Serif'; text-anchor: end; fill: #365f52" x="967.68" y="781.229098" transform="rotate(-0 967.68 781.229098)">-18.0%</text>
+  </g>
+  <g id="text_115">
+   <text style="font-size: 10.6px; font-family: 'DejaVu Serif'; text-anchor: end; fill: #292720" x="1071.36" y="781.229098" transform="rotate(-0 1071.36 781.229098)">1.22x</text>
+  </g>
+  <g id="text_116">
+   <text style="font-size: 10.6px; font-family: 'DejaVu Serif'; text-anchor: start; fill: #292720" x="80.64" y="807.589258" transform="rotate(-0 80.64 807.589258)">UDP / fragmented masks / 128</text>
+  </g>
+  <g id="text_117">
+   <text style="font-size: 10.6px; font-family: 'DejaVu Serif'; text-anchor: end; fill: #292720" x="679.68" y="807.664618" transform="rotate(-0 679.68 807.664618)">0.608424</text>
+  </g>
+  <g id="text_118">
+   <text style="font-size: 10.6px; font-family: 'DejaVu Serif'; text-anchor: end; fill: #292720" x="829.44" y="807.664618" transform="rotate(-0 829.44 807.664618)">0.776535</text>
+  </g>
+  <g id="text_119">
+   <text style="font-size: 10.6px; font-family: 'DejaVu Serif'; text-anchor: end; fill: #a64f40" x="967.68" y="807.664618" transform="rotate(-0 967.68 807.664618)">+27.6%</text>
+  </g>
+  <g id="text_120">
+   <text style="font-size: 10.6px; font-family: 'DejaVu Serif'; text-anchor: end; fill: #292720" x="1071.36" y="807.664618" transform="rotate(-0 1071.36 807.664618)">0.78x</text>
+  </g>
+  <g id="text_121">
+   <text style="font-size: 10.5px; font-family: 'DejaVu Serif'; text-anchor: middle; fill: #787466" x="576" y="839.376" transform="rotate(-0 576 839.376)">Every condition checks exact packets and counts between versions. Wire bytes are unchanged for matched workloads.</text>
+  </g>
+  <g id="text_122">
+   <text style="font-size: 10.5px; font-family: 'DejaVu Serif'; text-anchor: middle; fill: #787466" x="576" y="860.6016" transform="rotate(-0 576 860.6016)">All six workset conditions are on plate 04. Raw runs, all measured fields and ranges are included with the release.</text>
+  </g>
+ </g>
+</svg>

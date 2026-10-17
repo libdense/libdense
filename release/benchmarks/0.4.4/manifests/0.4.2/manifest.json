@@ -1,0 +1,37 @@
+{
+  "version": "0.4.2",
+  "flags": "-O3 -std=c11 -Wall -Wextra -Wpedantic -Wconversion -Wshadow -Wstrict-prototypes -Wmissing-prototypes -Werror -ffp-contract=off",
+  "experimental_flags": [],
+  "compiler": "cc (Ubuntu 13.3.0-6ubuntu2~24.04) 13.3.0",
+  "libraries": {
+    "libdense_ai.a": "86fd3d0f002281253b074dde6ea505c421fc9bc207599d5b52b78ff38cae1636",
+    "libdense_collision.a": "4e1b8ae115d031453fd1e73864703260cf20bf6b673eb58da94fbbb0db60d8f6",
+    "libdense_nav.a": "1a510196318387cfd90f640ba0f3ba27e6f8400b803fc47e1908711e4a044d13",
+    "libdense_net.a": "51d37f24cd5ad1568c7b226a45690087fa405dad1b8546639f5ea982e8197dbb",
+    "libdense_sched.a": "5245418dbad46bc6ecba8580cf58e07d95651986aa89ce59c124ea8c06656cee",
+    "libdense_sim.a": "bcd533079cb581792da7cb508fc404c5c2b7bac3eee534ff649d31a511d56cf3",
+    "libdensedb.a": "4a0a149e9d8f51b1465a8c6339c6677a833c8997319eba0be88def75cfd0cedc"
+  },
+  "headers": {
+    "dense_ai.h": "67a353a815eb97e70f8d2071239d8753000973f3989abc93ea3cb8ef6b3550ac",
+    "dense_collision.h": "35588e31c42586c72fa70b66672af518cdc40a8ab4119f786a9ba014bcf01e83",
+    "dense_nav.h": "e5f40be66a4f71f2740c12374f0f48836f2374e8c99c28874cdb757573de258a",
+    "dense_nav_collision_bridge.h": "78fb51345d6d4d2f9fcd2133ecc4b2b7cd9fe8367e01078b0c732feb32164d73",
+    "dense_net.h": "e9be9eabffcdf316e9dfa31c6d2f3110b3a46e18551e1e16430f595df459a7a4",
+    "dense_net_sim_bridge.h": "3762d7d1a10e7a2c44d935e17758f2b10233e45f883454ea0d79f3377f7f96c9",
+    "dense_sched.h": "287e4ba58c7b4c6250a8d09fe0f4b1c77171be01a92e350b281fa137e8984ad7",
+    "dense_sim.h": "f3f742f644cfc0b556614d0cb91754f0778adecef8d5a13a30728bec5350e608",
+    "densedb.h": "22bd8cda2c4dacad924e912e450c268905927aaa441eeac024a3af0efdce90ff"
+  },
+  "fixtures": {
+    "common.h": "9069030f828c5d41e3794bff601ee64b31e64e792849460e78861ab69b2d65f7",
+    "concurrent_udp_fixture.h": "a63052c3d027f5a2c14a04ba2b4d159d165fcb721349ba3b7464ec09336ad8e9",
+    "network.c": "e8588e868681d2de71ea866a54e49fe073a8e1332b3e92fe9d7e743d5d46300a",
+    "pipeline.c": "44a3f03a016dd5d1b5d7b9b7dc5e6c3f37d67a31f78a161db60c58f56f839e99",
+    "simulation.c": "08dae93a2e31340001119408d9e22f89b54447f6aff36a9f1a0d8f5bc797b32b",
+    "wire_helpers.h": "573cd91e585336136ca9fdd142a56d9ac7ac87e046d50c67c6cdd05adc719436",
+    "workset.c": "f02fa4a8e489f0c4e78f4b30c4d899e2ed5894929ae0aaa060ca4eba01518430",
+    "world_fixture.h": "152ce4a8f65ac82f55dafafa91b4bb8dc949426f0dc0f6f7fe04ab8579676551"
+  },
+  "runner_sha256": "40f0a82c852b9c7fbe095b836c7e21d9100b3c71b5f247da6f8e70c649f90875"
+}

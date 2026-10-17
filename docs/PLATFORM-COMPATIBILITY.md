@@ -1,6 +1,6 @@
 # Platform Compatibility
 
-Release: `0.4.2`
+Release: `0.4.4`
 
 ## Included artifacts
 
@@ -16,7 +16,7 @@ DS_ABI_VERSION=1
 DDB_ABI_VERSION=2
 ```
 
-The aggregate SDK and `libdense_sim` are version 0.4.2. `libdense_net` remains
+The aggregate SDK and `libdense_sim` are version 0.4.4. `libdense_net` remains
 version 0.3.5; the other native modules and DenseDB remain version 0.3.0.
 Linux layout records for x86-64 and AArch64 are retained under `release/abi/`.
 

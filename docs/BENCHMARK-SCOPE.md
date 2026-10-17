@@ -1,8 +1,31 @@
 # Benchmark Scope
 
+## 0.4.2 versus 0.4.4
+
+The current public comparison uses the supplied 0.4.2 release binaries and the
+frozen 0.4.4 default build. It includes 21 simulation conditions, six explicit
+workset departures, six shared network batches, eight complete in-process
+pipelines and eight concurrent loopback UDP pipelines. Five alternating pairs
+per condition produce 490 measured processes. 0.4.3 was internal and unpublished.
+
+Simulation timing includes begin-tick, mutations and finalization through grouped
+fanout. Shared network timing includes encode, publish and packet flushing.
+Complete pipeline timing includes simulation and network work. UDP measures real
+loopback sends with four receive workers and separate sender/receiver CPU costs;
+application decoding, gameplay and Internet behavior are outside its scope.
+Workset departure is one process-CPU operation per trial, with setup outside the
+timer. It does not provide a p99 estimate.
+
+All steady-state conditions have 32 warmups. Reported means and percentiles are
+medians of the per-process statistics, with observed ranges retained in JSON/CSV.
+Exact outputs and allocation balances are checked. Tracked library storage,
+process RSS and benchmark capture buffers are separate quantities. Disabled
+experiments and earlier internal timings do not contribute to release gains.
+See [the complete current results](BENCHMARKS-0.4.4.md).
+
 ## 0.3.8 versus 0.4.2
 
-The current comparison measures complete simulation ticks, including begin-tick
+The historical comparison measures complete simulation ticks, including begin-tick
 maintenance, mutations, and finalization. Setup is excluded. Both releases run
 on the same host and logical CPU with matching compiler options. Seven paired
 runs per condition alternate release order after 32 warmup ticks.

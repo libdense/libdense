@@ -1,0 +1,17 @@
+{
+  "plates": [
+    "01-dense-0.4.2-vs-0.4.4-overview",
+    "02-dense-type-mask-scaling",
+    "03-dense-shared-simulation-controls",
+    "04-dense-workset-departure",
+    "05-dense-shared-network-preparation",
+    "06-dense-complete-cpu-pipeline",
+    "07-dense-concurrent-udp",
+    "08-dense-peak-and-retained-memory",
+    "09-dense-controls-and-tails",
+    "10-dense-complete-simulation-matrix",
+    "11-dense-complete-delivery-matrix"
+  ],
+  "raw_samples_sha256": "8ea90c2824bc4d74dcaa65dc3bc72eb9d3780bf82abb140634dfc3e22cb47f69",
+  "style": "retained release plate palette and serif tables"
+}

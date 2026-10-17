@@ -1,0 +1,78 @@
+{
+  "release": "0.4.4",
+  "previous_public_release": "0.4.2",
+  "0.4.3": "internal, unpublished",
+  "target": "linux-x86_64",
+  "production_source_files_unchanged": 134,
+  "core_implementation_source_included": false,
+  "experimental_features_enabled": false,
+  "native_libraries": {
+    "libdense_ai.a": "86fd3d0f002281253b074dde6ea505c421fc9bc207599d5b52b78ff38cae1636",
+    "libdense_ai.so.0.3.0": "885cab12a61499265da3105c3551b6bbf04305f6db082a01cc84e289614cddff",
+    "libdense_collision.a": "4e1b8ae115d031453fd1e73864703260cf20bf6b673eb58da94fbbb0db60d8f6",
+    "libdense_collision.so.0.3.0": "0a4e6c1dc4dcab263179ebc2eab59d6a464882c279b4bf63d4902d09b499dd32",
+    "libdense_nav.a": "1a510196318387cfd90f640ba0f3ba27e6f8400b803fc47e1908711e4a044d13",
+    "libdense_nav.so.0.3.0": "276114c11fe7928d13a4d7223f107df4f6f2ef55eec63ebc0d204acb840a1586",
+    "libdense_net.a": "c5b3e2c85a63212c9be1d52cf28282b1f750334858babccf4e4d22afba6d3872",
+    "libdense_net.so.0.3.5": "8916800ba55d19814dd8dbc61efcc4383e26b3cbeded10917825f1c7d383ef5b",
+    "libdense_sched.a": "5245418dbad46bc6ecba8580cf58e07d95651986aa89ce59c124ea8c06656cee",
+    "libdense_sched.so.0.3.0": "b9897024372979860af7d19645e256df1401c2079084a6f9dd1ededfe13cbb6d",
+    "libdense_sim.a": "4180b49fa0ae325667c30be554d6e1855bb1e4375f1cee8eeed678ad94753e73",
+    "libdense_sim.so.0.4.4": "107c859b311b024bf8964be95bdfbb87af1ef04d7153d23f334615a67fe4b7ba",
+    "libdensedb.a": "4a0a149e9d8f51b1465a8c6339c6677a833c8997319eba0be88def75cfd0cedc",
+    "libdensedb.so.0.3.0": "ac284ca96b33b0a46eebd8cecfca704f1dfb9ec4466a40ff070b3ea080417fd7"
+  },
+  "native_glibc_requirements": {
+    "libdense_ai.so.0.3.0": "2.14",
+    "libdense_collision.so.0.3.0": "2.14",
+    "libdense_nav.so.0.3.0": "2.14",
+    "libdense_net.so.0.3.5": "2.14",
+    "libdense_sched.so.0.3.0": "2.2.5",
+    "libdense_sim.so.0.4.4": "2.14",
+    "libdensedb.so.0.3.0": "2.33"
+  },
+  "wheels": [
+    {
+      "abi": "cp311",
+      "sha256": "f3bc495778f39e96dff610fca14adca7718019cee745d93b6fb203933a1b58c7",
+      "filename": "dense_sim-0.4.4-cp311-cp311-linux_x86_64.whl",
+      "glibc_requirement": "2.14",
+      "record": "passed",
+      "clean_install_and_tests": "passed"
+    },
+    {
+      "abi": "cp312",
+      "sha256": "b9892e1a1907b77462d2193356aa2f7b00fab0963e406360e5f6ec93e0b24fec",
+      "filename": "dense_sim-0.4.4-cp312-cp312-linux_x86_64.whl",
+      "glibc_requirement": "2.14",
+      "record": "passed",
+      "clean_install_and_tests": "passed"
+    },
+    {
+      "abi": "cp313",
+      "sha256": "d015481acf03d8877cc9ceab86ce60a70ac3bc64972e24d7a9311629fe035e25",
+      "filename": "dense_sim-0.4.4-cp313-cp313-linux_x86_64.whl",
+      "glibc_requirement": "2.14",
+      "record": "passed",
+      "clean_install_and_tests": "passed"
+    },
+    {
+      "abi": "cp314",
+      "sha256": "2fd2034e79eb3971d730afd2093129e006e3ebfbbeb27969e0948da3dcf70e7b",
+      "filename": "dense_sim-0.4.4-cp314-cp314-linux_x86_64.whl",
+      "glibc_requirement": "2.14",
+      "record": "passed",
+      "clean_install_and_tests": "passed"
+    }
+  ],
+  "family_and_abi": "passed",
+  "cpp_binding": "passed",
+  "rust_binding": "passed",
+  "public_abi_layout": "passed",
+  "staged_static_and_shared_consumers": "passed",
+  "install_uninstall_and_unrelated_file_preservation": "passed",
+  "local_documentation_links": "passed",
+  "historical_benchmark_bytes": "preserved",
+  "benchmark_processes": 490,
+  "sanitizers": "family targets use ASan/UBSan; leak detection disabled because this managed host cannot run LeakSanitizer"
+}

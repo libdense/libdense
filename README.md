@@ -2,9 +2,9 @@
   <img src="logo.png" alt="Dense logo" width="800">
 </p>
 
-# Dense | Current release: 0.4.2
+# Dense | Current release: 0.4.4
 
-**A high-density multiplayer server library family in C.**
+**A high-density multiplayer server library that support up to 600,000 players in a single zone, on a single i9 CPU core.**
 
 Dense is a library family for deterministic multiplayer systems that must remain efficient when large numbers of players, NPCs, projectiles, timers, paths, collision bodies, and replication recipients gather in the same area.
 
@@ -62,106 +62,127 @@ authoritative game state directly.
 
 ## Benchmarks
 
-The 0.4.2 comparison against 0.3.8 covers 47 simulation workloads, with seven
-paired runs per condition on the same Linux host. Selected mean tick-time
-reductions are 91.2% for the 50,000-observer disjoint case, 74.5% for the
-32-type 10,000-observer churn case, and 83.8% for the longer 50,000-observer
-entity-recreation control. These improvements depend on the workload: the
-10,000-entity all-to-all mean is unchanged, and several small controls regress.
-
-[Results, methodology, and all ten plates](docs/BENCHMARKS-0.4.2.md) include
-the complete comparison, memory costs, allocation growth, and tail timings.
-[Raw samples and summaries](release/benchmarks/0.4.2/) are included.
-
-<p align="center">
-  <img width="1000" alt="Dense 0.3.8 versus 0.4.2 benchmark overview" src="densebench/0.4.2/01-dense-0.3.8-vs-0.4.2-overview.png">
-  <img width="1000" alt="Dense observer scaling comparison" src="densebench/0.4.2/02-dense-observer-scaling.png">
-</p>
-
-### 0.3.8 module benchmarks
-
-Results recorded on 2026-09-11 with `make benchmark` and the release `-O3`
-build. [Benchmark output](release/benchmarks/benchmark-0.3.8-2026-09-11.txt)
-and a [machine-readable summary](release/benchmarks/BENCHMARK_SUMMARY.json)
-are included. See [benchmark scope](docs/BENCHMARK-SCOPE.md) for workload and
-timing definitions.
-
-<p align="center">
-  <img width="800" alt="dense-bench-scenario" src="https://github.com/user-attachments/assets/1983710f-0696-4750-abbf-9b914e029e2c" />
-  <img width="800" alt="densescalingperplayer" src="https://github.com/user-attachments/assets/20bb2bf4-3cd2-4dcc-b825-c3358a85552a" />
-  <img width="800" alt="densescalingticktime" src="https://github.com/user-attachments/assets/4d7ebb53-ae4c-4368-8d7d-0b7754b3abb2" />
-  <img width="800" alt="dense_bench_all_to_all" src="https://github.com/user-attachments/assets/c892a27e-3dd9-424d-a085-db1fffe13c7b" />
-  <img width="800" alt="dense-bench-python-binding" src="https://github.com/user-attachments/assets/24944b9a-947b-4a77-8b1c-32d3de34205b" />
-  <img width="800" alt="dense-bench-budget" src="https://github.com/user-attachments/assets/59fbf900-b1d4-4d86-9b06-fa31492e9e2f" />
-</p>
+Measured on an AMD Ryzen 5 5600X running Linux with libdense 0.4.4.
+Component results come from `make benchmark-full`. The moving all-to-all
+simulation was measured separately, pinned to one logical CPU, with 1,000
+ticks per population and execution path.
 
 ### libdense_sim
 
 | Benchmark | Result |
 |---|---:|
-| Spawn with spatial insertion (1M entities) | 5,752,975 entities/s |
-| Entity lookup (1M entities) | 59,908,030 lookups/s |
-| Same-cell movement (100k entities) | 49,983,259 moves/s; 2.001 ms mean |
-| Chunk-boundary thrash (20M crossings) | 15,671,016 moves/s; 6.381 ms mean |
-| Dirty mark, public first-mark (1M entities) | 41,349,186 marks/s |
-| Dirty mark, direct slot | 320,640,360 marks/s |
-| Next-tick dirty reset | 913,799,485 entities/s |
-| Recipient workset, source enqueue (100 visible of 2,000 recipients) | 3,022.899 ns/source; zero steady-state growth |
-| Same source with a full recipient scan | 11,891.991 ns/source |
-| Stable kinetic plans (2,000 entities), relative to sampled core/public paths | 0.65x / 0.49x time |
+| Spawn with spatial insertion (1M entities) | 5,546,030 entities/s |
+| Entity lookup (1M entities) | 45,441,495 lookups/s |
+| Same-cell movement (100k entities) | 50,550,274 moves/s; 1.978 ms mean |
+| Chunk-boundary thrash (20M crossings) | 15,078,170 moves/s; 6.632 ms mean |
+| Dirty mark, public first-mark (1M entities) | 35,448,508 marks/s |
+| Dirty mark, direct slot | 340,932,582 marks/s |
+| Next-tick dirty reset | 944,862,250 entities/s |
+| Recipient workset, source enqueue (100 visible of 2,000 recipients) | 2,493.696 ns/source; zero steady-state growth |
+| Same source with a full recipient scan | 12,445.540 ns/source |
+| Stable kinetic plans (2,000 entities), relative to sampled core/public paths | 0.67x / 0.51x time |
 
 | Tick workload | Mean (ms) | p50 (ms) | p95 (ms) | p99 (ms) |
 |---|---:|---:|---:|---:|
-| Shared fanout: 1,000 entities and 1,000 observers | 0.027 | 0.029 | 0.029 | 0.046 |
-| 8-way type-mask fragmentation: 1,000 entities and 1,000 observers | 0.027 | 0.027 | 0.027 | 0.045 |
-| 10,000 observers, same coverage | 0.160 | 0.156 | 0.179 | 0.353 |
-| 10,000 observers, boundary shift | 2.932 | 2.859 | 3.194 | 5.027 |
+| Shared fanout: 1,000 entities and 1,000 observers | 0.019 | 0.018 | 0.019 | 0.040 |
+| 8-way type-mask fragmentation: 1,000 entities and 1,000 observers | 0.027 | 0.027 | 0.027 | 0.046 |
+| 10,000 observers, same coverage | 0.156 | 0.151 | 0.168 | 0.452 |
+| 10,000 observers, boundary shift | 3.139 | 3.154 | 3.238 | 3.322 |
 
 The shared fanout plan contains 1,000 entries and 1,000 subscriber references
-representing 1,000,000 entity deliveries. These figures measure plan
-construction; network transmission is measured separately.
+representing 1,000,000 logical entity deliveries. Its timer includes tick
+initialization, direct-slot dirty marking and plan finalization. Network
+transmission is measured separately.
+
+#### Moving all-to-all simulation
+
+Every player is a moving entity with an anchored radius-40 observer in a
+24x24 box. Players remain mutually visible while crossing cells and chunks;
+approximately 87% of entities are dirty each tick. Timing includes tick
+initialization, movement, dirty marking, subscription maintenance and fanout
+construction.
+
+Public-ID C API path:
+
+| Players | Mean (ms) | p50 (ms) | p95 (ms) | p99 (ms) | Worst (ms) |
+|---|---:|---:|---:|---:|---:|
+| 10,000 | 0.942 | 0.934 | 1.003 | 1.082 | 1.602 |
+| 30,000 | 3.540 | 3.495 | 4.017 | 4.305 | 5.363 |
+| 100,000 | 17.970 | 17.754 | 20.411 | 21.453 | 23.169 |
+| 200,000 | 41.852 | 42.066 | 45.012 | 48.024 | 50.370 |
+| 300,000 | 65.148 | 64.095 | 75.350 | 90.190 | 99.116 |
+| 500,000 | 111.824 | 111.454 | 121.537 | 132.341 | 156.939 |
+
+Internal known-slot path, bypassing public entity-ID lookups:
+
+| Players | Mean (ms) | p99 (ms) | Worst (ms) |
+|---|---:|---:|---:|
+| 10,000 | 0.778 | 1.106 | 1.180 |
+| 30,000 | 2.803 | 4.178 | 4.331 |
+| 100,000 | 14.141 | 15.473 | 16.025 |
+| 200,000 | 31.782 | 35.056 | 38.537 |
+| 300,000 | 50.287 | 64.661 | 71.462 |
+| 500,000 | 87.744 | 110.624 | 123.228 |
+
+For a **100 ms simulation tick budget (10 Hz)**:
+
+| Simulation path | Estimated population at 100 ms mean | Estimated population at 100 ms p99 |
+|---|---:|---:|
+| Public-ID C API | ~449,000 | ~347,000 |
+| Internal known-slot | ~565,000 | ~454,000 |
+
+**~450,000 is the largest tested public-API population whose worst recorded
+tick remained below 100 ms. An i9-14900KS would bench about ~630k based on single-core performance scores.**
 
 ### libdense_net
 
 | Benchmark | Result |
 |---|---:|
-| Replication publish, encode + references (65,536 recipient-frames/tick) | 0.332 ms/tick; 10.1 ns/recipient-frame |
-| Session flush | 0.377 ms/tick; 11.5 ns/recipient-frame |
-| Shared fanout vs per-recipient sends, including flush | 1.89x faster |
-| Implied deliveries | 92,358,906/s |
-| Session lookup (5,000 sessions) | 4.64 ns/op |
-| Flush-all visit cost (5,000 sessions) | 56.11 ns/session |
+| Replication publish, encode + references (32,768 recipient-frames/tick) | 0.007 ms/tick; 0.2 ns/recipient-frame |
+| Session flush | 0.215 ms/tick; 6.6 ns/recipient-frame |
+| Per-recipient baseline, send + flush + receive | 1.432 ms/tick |
+| Shared publish + flush vs per-recipient baseline | 6.45x fixture timing ratio |
+| Shared publish + flush throughput, corrected frame count | ~147.7 M recipient-frames/s |
+| Session lookup (5,000 sessions) | 4.74 ns/op |
+| Flush-all (5,000 sessions) | 150.68 ns/session |
 | Adverse soak: 20% drop, 8% duplicate, 12% reorder | 20,000/20,000 reliable commands delivered in order |
+
+The replication fixture uses in-process loopback transport with 256 entities
+and 128 sessions: 32,768 recipient-frames per tick per path. Its printed
+throughput counts frames from both paths against only shared-path time;
+the throughput above corrects that factor-of-two reporting error. The 6.45x
+ratio retains the fixture's timing boundaries: the per-recipient baseline
+includes receiver draining, while shared publish + flush excludes it.
 
 ### libdense_sched
 
 | Benchmark | Result |
 |---|---:|
-| Timer schedule (1M timers) | 6.2 ns/op |
-| Timer cancel | 12.8 ns/op |
-| Advance + fire | 65.1 ns/fired timer |
-| Named 7-phase pipeline telemetry | 94.90 ns/tick; 55.81 ns overhead |
+| Timer schedule (1M timers) | 6.5 ns/op |
+| Timer cancel | 18.2 ns/op |
+| Advance + fire | 108.1 ns/fired timer |
+| Named 7-phase pipeline telemetry | 94.05 ns/tick; 57.53 ns overhead |
 | Overload scenario (18 ms offered, 10 ms budget) | 14.25 ms worst tick; 13 escalations and 13 recoveries |
 
 ### libdense_collision
 
 | Benchmark | Result |
 |---|---:|
-| Validated move, slide + bodies + commit + triggers (2,000-body crowd) | 198 ns/move; 5.05 M moves/s |
-| Swept circle against 400 statics and 1,500 bodies, 46.7% hit rate | 671 ns/sweep; 1.49 M sweeps/s |
+| Validated move, slide + bodies + commit + triggers (2,000-body crowd) | 196 ns/move; 5.11 M moves/s |
+| Swept circle against 400 statics and 1,500 bodies, 46.7% hit rate | 656 ns/sweep; 1.52 M sweeps/s |
 
 ### libdense_nav
 
 | Benchmark | Result |
 |---|---:|
-| Raw A* (256x256, about 22% walls) | 1,127.5 us/path |
+| Raw A* (256x256, about 22% walls) | 1,121.5 us/path |
 | Cached path reuse, 96.2% hit rate | 44.1 us/path |
-| Close requests: line of sight / full A* | 28.036 / 766.483 ns/request |
+| Close requests: line of sight / full A* | 35.448 / 772.075 ns/request |
 | Bounded repath lane, 300 requests | At most 2,048 expansions/tick across 2,571 ticks |
-| Long route, 512x512 world: hierarchy / full tile A* | 0.015 / 53.723 ms |
+| Long route, 512x512 world: hierarchy / full tile A* | 0.015 / 54.134 ms |
 | Hierarchical route work | 59 local + 14 graph expansions; 221,817 full tile expansions |
-| Flow-field build, 256x256 | 16.28 ms |
-| Flow steering, 10,000 agents over 100 ticks | 7.3 ns/agent-step |
+| Flow-field build, 256x256 | 15.53 ms |
+| Flow steering, 10,000 agents over 100 ticks | 7.1 ns/agent-step |
 
 ### libdense_ai
 
@@ -169,7 +190,7 @@ construction; network transmission is measured separately.
 |---|---:|
 | Perceive + threat + tree + intent, 10,000 agents sharing one tree | 67 ns/agent-tick |
 | Whole-horde tick | 0.67 ms |
-| Scheduler slices of 250 to 10,000 agents, 1M total agent-ticks | 6.45-6.57 ms total |
+| Scheduler slices of 250 to 10,000 agents, 1M total agent-ticks | 6.50-6.53 ms total |
 
 ### Historical results
 
@@ -180,7 +201,7 @@ measurements. Those workloads were not included in the 2026-09-11 run.
 ## Package layout
 
 ```text
-libdense-0.4.2/
+libdense/
 |-- README.md, CHANGELOG.md, VERSION, MANIFEST.md
 |-- LICENSE.md, COMMERCIAL-LICENSE.md, SECURITY.md, SUPPORT.md
 |-- install.sh, uninstall.sh, verify-release.sh, SHA256SUMS

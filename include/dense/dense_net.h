@@ -790,8 +790,10 @@ DN_API size_t dn_replication_group_write_many(
 /*
  * Publish the open group to every recipient session. Sequenced and
  * unreliable entries borrow the shared arena bytes (valid until the
- * next begin_tick; flush before then). Reliable entries are copied
- * into each session's owned reliable lane.
+ * next begin_tick; flush before then). Eligible homogeneous groups use
+ * retained shared batches and one cursor per recipient. Reliable batches
+ * own their bytes until all recipients consume them; mixed or ineligible
+ * queues use the original per-frame owned/borrowed entries.
  */
 DN_API dn_result dn_replication_group_end(
     dn_replication *replication,
@@ -804,7 +806,7 @@ typedef struct dn_replication_tick_stats {
     size_t groups;
     size_t frames_encoded;
     size_t bytes_encoded;
-    size_t recipient_frame_refs;
+    size_t recipient_frame_refs; /* logical accepted frame-recipient pairs */
 } dn_replication_tick_stats;
 
 DN_API const dn_replication_tick_stats *dn_replication_get_tick_stats(
@@ -814,8 +816,8 @@ DN_API const dn_replication_tick_stats *dn_replication_get_tick_stats(
 typedef struct dn_replication_memory_stats {
     size_t arena_block_count;
     size_t arena_block_capacity;
-    size_t arena_bytes_capacity;
-    size_t group_frame_capacity;
+    size_t arena_bytes_capacity; /* tick arena plus retained shared batch bytes */
+    size_t group_frame_capacity; /* builder plus retained shared batch metadata */
     size_t recipient_scratch_capacity;
 } dn_replication_memory_stats;
 

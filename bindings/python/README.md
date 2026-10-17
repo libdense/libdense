@@ -102,15 +102,15 @@ requirements.
 ## Benchmarks
 
 <p align="center">
-  <img src="densebench/dense-bench-python-binding.png" alt="Dense logo" width="620">
+  <img src="../../densebench/dense-bench-python-binding.png" alt="Historical Python binding benchmark" width="620">
 </p>
 
 <p align="center">
-  <img src="densebench/dense-bench-budget.png" alt="Dense logo" width="620">
+  <img src="../../densebench/dense-bench-budget.png" alt="Historical frame budget benchmark" width="620">
 </p>
 
 <p align="center">
-  <img src="densebench/python-benchmark.png" alt="Dense logo" width="365" height="478">
+  <img src="../../densebench/python-benchmark.png" alt="Historical Python benchmark" width="365" height="478">
 </p>
 
 

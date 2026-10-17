@@ -12,6 +12,7 @@ separate artifact validation.
 - [x] four Linux x86-64 CPython 3.11 through 3.14 wheels and binding source;
 - [x] Python, C++, and Rust binding source;
 - [x] API and ABI snapshots;
+- [x] 0.4.2/0.4.4 default-release benchmark data and eleven PNG/SVG plates;
 - [x] platform compatibility metadata;
 - [x] version, changelog, security, and licensing notices;
 - [x] install and uninstall scripts; and

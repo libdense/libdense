@@ -1,0 +1,570 @@
+{
+  "platform": "Linux-6.18.44-x86_64-with-glibc2.39",
+  "cpuinfo": "processor\t: 0\nvendor_id\t: AuthenticAMD\ncpu family\t: 25\nmodel\t\t: 17\nmodel name\t: AMD EPYC 9V74 80-Core Processor\nstepping\t: 1\nmicrocode\t: 0x1000065\ncpu MHz\t\t: 2596.150\ncache size\t: 1024 KB\nphysical id\t: 0\nsiblings\t: 9\ncore id\t\t: 0\ncpu cores\t: 9\napicid\t\t: 0\ninitial apicid\t: 0\nfpu\t\t: yes\nfpu_exception\t: yes\ncpuid level\t: 28\nwp\t\t: yes\nflags\t\t: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx mmxext fxsr_opt pdpe1gb rdtscp lm constant_tsc rep_good nopl xtopology nonstop_tsc cpuid extd_apicid tsc_known_freq pni pclmulqdq ssse3 fma cx16 pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand hypervisor lahf_lm cmp_legacy cr8_legacy abm sse4a misalignsse 3dnowprefetch osvw topoext vmmcall fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid avx512f avx512dq rdseed adx smap avx512ifma clflushopt clwb avx512cd sha_ni avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves avx512_bf16 clzero xsaveerptr arat npt nrip_save tsc_scale vmcb_clean flushbyasid pausefilter pfthreshold v_vmsave_vmload avx512vbmi umip avx512_vbmi2 gfni vaes vpclmulqdq avx512_vnni avx512_bitalg avx512_vpopcntdq rdpid fsrm arch_capabilities\nbugs\t\t: sysret_ss_attrs null_seg spectre_v1 spectre_v2 spec_store_bypass srso spectre_v2_user tsa\nbogomips\t: 5192.30\nTLB size\t: 3584 4K pages\nclflush size\t: 64\ncache_alignment\t: 64\naddress sizes\t: 46 bits physical, 48 bits virtual\npower management:\n\nprocessor\t: 1\nvendor_id\t: AuthenticAMD\ncpu family\t: 25\nmodel\t\t: 17\nmodel name\t: AMD EPYC 9V74 80-Core Processor\nstepping\t: 1\nmicrocode\t: 0x1000065\ncpu MHz\t\t: 2596.150\ncache size\t: 1024 KB\nphysical id\t: 0\nsiblings\t: 9\ncore id\t\t: 1\ncpu cores\t: 9\napicid\t\t: 1\ninitial apicid\t: 1\nfpu\t\t: yes\nfpu_exception\t: yes\ncpuid level\t: 28\nwp\t\t: yes\nflags\t\t: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx mmxext fxsr_opt pdpe1gb rdtscp lm constant_tsc rep_good nopl xtopology nonstop_tsc cpuid extd_apicid tsc_known_freq pni pclmulqdq ssse3 fma cx16 pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand hypervisor lahf_lm cmp_legacy cr8_legacy abm sse4a misalignsse 3dnowprefetch osvw topoext vmmcall fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid avx512f avx512dq rdseed adx smap avx512ifma clflushopt clwb avx512cd sha_ni avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves avx512_bf16 clzero xsaveerptr arat npt nrip_save tsc_scale vmcb_clean flushbyasid pausefilter pfthreshold v_vmsave_vmload avx512vbmi umip avx512_vbmi2 gfni vaes vpclmulqdq avx512_vnni avx512_bitalg avx512_vpopcntdq rdpid fsrm arch_capabilities\nbugs\t\t: sysret_ss_attrs null_seg spectre_v1 spectre_v2 spec_store_bypass srso spectre_v2_user tsa\nbogomips\t: 5192.30\nTLB size\t: 3584 4K pages\nclflush size\t: 64\ncache_alignment\t: 64\naddress sizes\t: 46 bits physical, 48 bits virtual\npower management:\n\nprocessor\t: 2\nvendor_id\t: AuthenticAMD\ncpu family\t: 25\nmodel\t\t: 17\nmodel name\t: AMD EPYC 9V74 80-Core Processor\nstepping\t: 1\nmicrocode\t: 0x1000065\ncpu MHz\t\t: 2596.150\ncache size\t: 1024 KB\nphysical id\t: 0\nsiblings\t: 9\ncore id\t\t: 2\ncpu cores\t: 9\napicid\t\t: 2\ninitial apicid\t: 2\nfpu\t\t: yes\nfpu_exception\t: yes\ncpuid level\t: 28\nwp\t\t: yes\nflags\t\t: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx mmxext fxsr_opt pdpe1gb rdtscp lm constant_tsc rep_good nopl xtopology nonstop_tsc cpuid extd_apicid tsc_known_freq pni pclmulqdq ssse3 fma cx16 pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand hypervisor lahf_lm cmp_legacy cr8_legacy abm sse4a misalignsse 3dnowprefetch osvw topoext vmmcall fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid avx512f avx512dq rdseed adx smap avx512ifma clflushopt clwb avx512cd sha_ni avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves avx512_bf16 clzero xsaveerptr arat npt nrip_save tsc_scale vmcb_clean flushbyasid pausefilter pfthreshold v_vmsave_vmload avx512vbmi umip avx512_vbmi2 gfni vaes vpclmulqdq avx512_vnni avx512_bitalg avx512_vpopcntdq rdpid fsrm arch_capabilities\nbugs\t\t: sysret_ss_attrs null_seg spectre_v1 spectre_v2 spec_store_bypass srso spectre_v2_user tsa\nbogomips\t: 5192.30\nTLB size\t: 3584 4K pages\nclflush size\t: 64\ncache_alignment\t: 64\naddress sizes\t: 46 bits physical, 48 bits virtual\npower management:\n\nprocessor\t: 3\nvendor_id\t: AuthenticAMD\ncpu family\t: 25\nmodel\t\t: 17\nmodel name\t: AMD EPYC 9V74 80-Core Processor\nstepping\t: 1\nmicrocode\t: 0x1000065\ncpu MHz\t\t: 2596.150\ncache size\t: 1024 KB\nphysical id\t: 0\nsiblings\t: 9\ncore id\t\t: 3\ncpu cores\t: 9\napicid\t\t: 3\ninitial apicid\t: 3\nfpu\t\t: yes\nfpu_exception\t: yes\ncpuid level\t: 28\nwp\t\t: yes\nflags\t\t: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx mmxext fxsr_opt pdpe1gb rdtscp lm constant_tsc rep_good nopl xtopology nonstop_tsc cpuid extd_apicid tsc_known_freq pni pclmulqdq ssse3 fma cx16 pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand hypervisor lahf_lm cmp_legacy cr8_legacy abm sse4a misalignsse 3dnowprefetch osvw topoext vmmcall fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid avx512f avx512dq rdseed adx smap avx512ifma clflushopt clwb avx512cd sha_ni avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves avx512_bf16 clzero xsaveerptr arat npt nrip_save tsc_scale vmcb_clean flushbyasid pausefilter pfthreshold v_vmsave_vmload avx512vbmi umip avx512_vbmi2 gfni vaes vpclmulqdq avx512_vnni avx512_bitalg avx512_vpopcntdq rdpid fsrm arch_capabilities\nbugs\t\t: sysret_ss_attrs null_seg spectre_v1 spectre_v2 spec_store_bypass srso spectre_v2_user tsa\nbogomips\t: 5192.30\nTLB size\t: 3584 4K pages\nclflush size\t: 64\ncache_alignment\t: 64\naddress sizes\t: 46 bits physical, 48 bits virtual\npower management:\n\nprocessor\t: 4\nvendor_id\t: AuthenticAMD\ncpu family\t: 25\nmodel\t\t: 17\nmodel name\t: AMD EPYC 9V74 80-Core Processor\nstepping\t: 1\nmicrocode\t: 0x1000065\ncpu MHz\t\t: 2596.150\ncache size\t: 1024 KB\nphysical id\t: 0\nsiblings\t: 9\ncore id\t\t: 4\ncpu cores\t: 9\napicid\t\t: 4\ninitial apicid\t: 4\nfpu\t\t: yes\nfpu_exception\t: yes\ncpuid level\t: 28\nwp\t\t: yes\nflags\t\t: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx mmxext fxsr_opt pdpe1gb rdtscp lm constant_tsc rep_good nopl xtopology nonstop_tsc cpuid extd_apicid tsc_known_freq pni pclmulqdq ssse3 fma cx16 pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand hypervisor lahf_lm cmp_legacy cr8_legacy abm sse4a misalignsse 3dnowprefetch osvw topoext vmmcall fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid avx512f avx512dq rdseed adx smap avx512ifma clflushopt clwb avx512cd sha_ni avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves avx512_bf16 clzero xsaveerptr arat npt nrip_save tsc_scale vmcb_clean flushbyasid pausefilter pfthreshold v_vmsave_vmload avx512vbmi umip avx512_vbmi2 gfni vaes vpclmulqdq avx512_vnni avx512_bitalg avx512_vpopcntdq rdpid fsrm arch_capabilities\nbugs\t\t: sysret_ss_attrs null_seg spectre_v1 spectre_v2 spec_store_bypass srso spectre_v2_user tsa\nbogomips\t: 5192.30\nTLB size\t: 3584 4K pages\nclflush size\t: 64\ncache_alignment\t: 64\naddress sizes\t: 46 bits physical, 48 bits virtual\npower management:\n\nprocessor\t: 5\nvendor_id\t: AuthenticAMD\ncpu family\t: 25\nmodel\t\t: 17\nmodel name\t: AMD EPYC 9V74 80-Core Processor\nstepping\t: 1\nmicrocode\t: 0x1000065\ncpu MHz\t\t: 2596.150\ncache size\t: 1024 KB\nphysical id\t: 0\nsiblings\t: 9\ncore id\t\t: 5\ncpu cores\t: 9\napicid\t\t: 5\ninitial apicid\t: 5\nfpu\t\t: yes\nfpu_exception\t: yes\ncpuid level\t: 28\nwp\t\t: yes\nflags\t\t: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx mmxext fxsr_opt pdpe1gb rdtscp lm constant_tsc rep_good nopl xtopology nonstop_tsc cpuid extd_apicid tsc_known_freq pni pclmulqdq ssse3 fma cx16 pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand hypervisor lahf_lm cmp_legacy cr8_legacy abm sse4a misalignsse 3dnowprefetch osvw topoext vmmcall fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid avx512f avx512dq rdseed adx smap avx512ifma clflushopt clwb avx512cd sha_ni avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves avx512_bf16 clzero xsaveerptr arat npt nrip_save tsc_scale vmcb_clean flushbyasid pausefilter pfthreshold v_vmsave_vmload avx512vbmi umip avx512_vbmi2 gfni vaes vpclmulqdq avx512_vnni avx512_bitalg avx512_vpopcntdq rdpid fsrm arch_capabilities\nbugs\t\t: sysret_ss_attrs null_seg spectre_v1 spectre_v2 spec_store_bypass srso spectre_v2_user tsa\nbogomips\t: 5192.30\nTLB size\t: 3584 4K pages\nclflush size\t: 64\ncache_alignment\t: 64\naddress sizes\t: 46 bits physical, 48 bits virtual\npower management:\n\nprocessor\t: 6\nvendor_id\t: AuthenticAMD\ncpu family\t: 25\nmodel\t\t: 17\nmodel name\t: AMD EPYC 9V74 80-Core Processor\nstepping\t: 1\nmicrocode\t: 0x1000065\ncpu MHz\t\t: 2596.150\ncache size\t: 1024 KB\nphysical id\t: 0\nsiblings\t: 9\ncore id\t\t: 6\ncpu cores\t: 9\napicid\t\t: 6\ninitial apicid\t: 6\nfpu\t\t: yes\nfpu_exception\t: yes\ncpuid level\t: 28\nwp\t\t: yes\nflags\t\t: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx mmxext fxsr_opt pdpe1gb rdtscp lm constant_tsc rep_good nopl xtopology nonstop_tsc cpuid extd_apicid tsc_known_freq pni pclmulqdq ssse3 fma cx16 pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand hypervisor lahf_lm cmp_legacy cr8_legacy abm sse4a misalignsse 3dnowprefetch osvw topoext vmmcall fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid avx512f avx512dq rdseed adx smap avx512ifma clflushopt clwb avx512cd sha_ni avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves avx512_bf16 clzero xsaveerptr arat npt nrip_save tsc_scale vmcb_clean flushbyasid pausefilter pfthreshold v_vmsave_vmload avx512vbmi umip avx512_vbmi2 gfni vaes vpclmulqdq avx512_vnni avx512_bitalg avx512_vpopcntdq rdpid fsrm arch_capabilities\nbugs\t\t: sysret_ss_attrs null_seg spectre_v1 spectre_v2 spec_store_bypass srso spectre_v2_user tsa\nbogomips\t: 5192.30\nTLB size\t: 3584 4K pages\nclflush size\t: 64\ncache_alignment\t: 64\naddress sizes\t: 46 bits physical, 48 bits virtual\npower management:\n\nprocessor\t: 7\nvendor_id\t: AuthenticAMD\ncpu family\t: 25\nmodel\t\t: 17\nmodel name\t: AMD EPYC 9V74 80-Core Processor\nstepping\t: 1\nmicrocode\t: 0x1000065\ncpu MHz\t\t: 2596.150\ncache size\t: 1024 KB\nphysical id\t: 0\nsiblings\t: 9\ncore id\t\t: 7\ncpu cores\t: 9\napicid\t\t: 7\ninitial apicid\t: 7\nfpu\t\t: yes\nfpu_exception\t: yes\ncpuid level\t: 28\nwp\t\t: yes\nflags\t\t: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx mmxext fxsr_opt pdpe1gb rdtscp lm constant_tsc rep_good nopl xtopology nonstop_tsc cpuid extd_apicid tsc_known_freq pni pclmulqdq ssse3 fma cx16 pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand hypervisor lahf_lm cmp_legacy cr8_legacy abm sse4a misalignsse 3dnowprefetch osvw topoext vmmcall fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid avx512f avx512dq rdseed adx smap avx512ifma clflushopt clwb avx512cd sha_ni avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves avx512_bf16 clzero xsaveerptr arat npt nrip_save tsc_scale vmcb_clean flushbyasid pausefilter pfthreshold v_vmsave_vmload avx512vbmi umip avx512_vbmi2 gfni vaes vpclmulqdq avx512_vnni avx512_bitalg avx512_vpopcntdq rdpid fsrm arch_capabilities\nbugs\t\t: sysret_ss_attrs null_seg spectre_v1 spectre_v2 spec_store_bypass srso spectre_v2_user tsa\nbogomips\t: 5192.30\nTLB size\t: 3584 4K pages\nclflush size\t: 64\ncache_alignment\t: 64\naddress sizes\t: 46 bits physical, 48 bits virtual\npower management:\n\nprocessor\t: 8\nvendor_id\t: AuthenticAMD\ncpu family\t: 25\nmodel\t\t: 17\nmodel name\t: AMD EPYC 9V74 80-Core Processor\nstepping\t: 1\nmicrocode\t: 0x1000065\ncpu MHz\t\t: 2596.150\ncache size\t: 1024 KB\nphysical id\t: 0\nsiblings\t: 9\ncore id\t\t: 8\ncpu cores\t: 9\napicid\t\t: 8\ninitial apicid\t: 8\nfpu\t\t: yes\nfpu_exception\t: yes\ncpuid level\t: 28\nwp\t\t: yes\nflags\t\t: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx mmxext fxsr_opt pdpe1gb rdtscp lm constant_tsc rep_good nopl xtopology nonstop_tsc cpuid extd_apicid tsc_known_freq pni pclmulqdq ssse3 fma cx16 pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand hypervisor lahf_lm cmp_legacy cr8_legacy abm sse4a misalignsse 3dnowprefetch osvw topoext vmmcall fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid avx512f avx512dq rdseed adx smap avx512ifma clflushopt clwb avx512cd sha_ni avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves avx512_bf16 clzero xsaveerptr arat npt nrip_save tsc_scale vmcb_clean flushbyasid pausefilter pfthreshold v_vmsave_vmload avx512vbmi umip avx512_vbmi2 gfni vaes vpclmulqdq avx512_vnni avx512_bitalg avx512_vpopcntdq rdpid fsrm arch_capabilities\nbugs\t\t: sysret_ss_attrs null_seg spectre_v1 spectre_v2 spec_store_bypass srso spectre_v2_user tsa\nbogomips\t: 5192.30\nTLB size\t: 3584 4K pages\nclflush size\t: 64\ncache_alignment\t: 64\naddress sizes\t: 46 bits physical, 48 bits virtual\npower management:\n\n",
+  "affinity": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8
+  ],
+  "sender_cpu": 0,
+  "receiver_cpu": 1,
+  "repeats": 5,
+  "cases": [
+    [
+      "simulation",
+      "masks_1",
+      [
+        1,
+        2000,
+        0
+      ]
+    ],
+    [
+      "simulation",
+      "masks_4",
+      [
+        4,
+        2000,
+        0
+      ]
+    ],
+    [
+      "simulation",
+      "masks_16",
+      [
+        16,
+        2000,
+        0
+      ]
+    ],
+    [
+      "simulation",
+      "masks_32",
+      [
+        32,
+        2000,
+        0
+      ]
+    ],
+    [
+      "simulation",
+      "masks_64",
+      [
+        64,
+        2000,
+        0
+      ]
+    ],
+    [
+      "simulation",
+      "masks_128",
+      [
+        128,
+        2000,
+        0
+      ]
+    ],
+    [
+      "simulation",
+      "masks_256",
+      [
+        256,
+        2000,
+        0
+      ]
+    ],
+    [
+      "simulation",
+      "masks_1024",
+      [
+        1024,
+        2000,
+        0
+      ]
+    ],
+    [
+      "simulation",
+      "masks_4096",
+      [
+        4096,
+        2000,
+        0
+      ]
+    ],
+    [
+      "simulation",
+      "moving_masks_1024",
+      [
+        1024,
+        2000,
+        1
+      ]
+    ],
+    [
+      "simulation",
+      "moving_masks_4096",
+      [
+        4096,
+        2000,
+        1
+      ]
+    ],
+    [
+      "simulation",
+      "chunks_4096",
+      [
+        4096,
+        2000,
+        2
+      ]
+    ],
+    [
+      "simulation",
+      "moving_chunks_4096",
+      [
+        4096,
+        2000,
+        4
+      ]
+    ],
+    [
+      "simulation",
+      "coherent_4096",
+      [
+        4096,
+        2000,
+        3
+      ]
+    ],
+    [
+      "simulation",
+      "all_to_all_100",
+      [
+        100,
+        2000,
+        5
+      ]
+    ],
+    [
+      "simulation",
+      "all_to_all_1000",
+      [
+        1000,
+        2000,
+        5
+      ]
+    ],
+    [
+      "simulation",
+      "all_to_all_10000",
+      [
+        10000,
+        2000,
+        5
+      ]
+    ],
+    [
+      "simulation",
+      "recreation_1000",
+      [
+        1000,
+        4000,
+        6
+      ]
+    ],
+    [
+      "simulation",
+      "recreation_10000",
+      [
+        10000,
+        4000,
+        6
+      ]
+    ],
+    [
+      "simulation",
+      "idle_100",
+      [
+        100,
+        10000,
+        7
+      ]
+    ],
+    [
+      "simulation",
+      "idle_10000",
+      [
+        10000,
+        10000,
+        7
+      ]
+    ],
+    [
+      "workset",
+      "departure_32",
+      [
+        32
+      ]
+    ],
+    [
+      "workset",
+      "departure_128",
+      [
+        128
+      ]
+    ],
+    [
+      "workset",
+      "departure_256",
+      [
+        256
+      ]
+    ],
+    [
+      "workset",
+      "departure_512",
+      [
+        512
+      ]
+    ],
+    [
+      "workset",
+      "departure_1024",
+      [
+        1024
+      ]
+    ],
+    [
+      "workset",
+      "departure_2048",
+      [
+        2048
+      ]
+    ],
+    [
+      "network",
+      "shared_1",
+      [
+        1,
+        2000
+      ]
+    ],
+    [
+      "network",
+      "shared_4",
+      [
+        4,
+        2000
+      ]
+    ],
+    [
+      "network",
+      "shared_16",
+      [
+        16,
+        2000
+      ]
+    ],
+    [
+      "network",
+      "shared_128",
+      [
+        128,
+        2000
+      ]
+    ],
+    [
+      "network",
+      "shared_512",
+      [
+        512,
+        2000
+      ]
+    ],
+    [
+      "network",
+      "shared_1024",
+      [
+        1024,
+        1000
+      ]
+    ],
+    [
+      "pipeline",
+      "cpu_crossing_4",
+      [
+        4,
+        2000,
+        0,
+        32,
+        0,
+        1
+      ]
+    ],
+    [
+      "pipeline",
+      "cpu_crossing_16",
+      [
+        16,
+        2000,
+        0,
+        32,
+        0,
+        1
+      ]
+    ],
+    [
+      "pipeline",
+      "cpu_crossing_128",
+      [
+        128,
+        2000,
+        0,
+        32,
+        0,
+        1
+      ]
+    ],
+    [
+      "pipeline",
+      "cpu_crossing_512",
+      [
+        512,
+        2000,
+        0,
+        32,
+        0,
+        1
+      ]
+    ],
+    [
+      "pipeline",
+      "cpu_shared_512",
+      [
+        512,
+        2000,
+        1,
+        32,
+        0,
+        1
+      ]
+    ],
+    [
+      "pipeline",
+      "cpu_occupied_128",
+      [
+        128,
+        2000,
+        5,
+        32,
+        0,
+        1
+      ]
+    ],
+    [
+      "pipeline",
+      "cpu_variable_128",
+      [
+        128,
+        2000,
+        4,
+        32,
+        0,
+        1
+      ]
+    ],
+    [
+      "pipeline",
+      "cpu_masks_128",
+      [
+        128,
+        2000,
+        2,
+        32,
+        0,
+        1
+      ]
+    ],
+    [
+      "pipeline",
+      "udp_crossing_4",
+      [
+        4,
+        1000,
+        0,
+        32,
+        2,
+        1
+      ]
+    ],
+    [
+      "pipeline",
+      "udp_crossing_16",
+      [
+        16,
+        1000,
+        0,
+        32,
+        2,
+        1
+      ]
+    ],
+    [
+      "pipeline",
+      "udp_crossing_128",
+      [
+        128,
+        1000,
+        0,
+        32,
+        2,
+        1
+      ]
+    ],
+    [
+      "pipeline",
+      "udp_crossing_512",
+      [
+        512,
+        1000,
+        0,
+        32,
+        2,
+        1
+      ]
+    ],
+    [
+      "pipeline",
+      "udp_shared_512",
+      [
+        512,
+        1000,
+        1,
+        32,
+        2,
+        1
+      ]
+    ],
+    [
+      "pipeline",
+      "udp_occupied_128",
+      [
+        128,
+        1000,
+        5,
+        32,
+        2,
+        1
+      ]
+    ],
+    [
+      "pipeline",
+      "udp_variable_128",
+      [
+        128,
+        1000,
+        4,
+        32,
+        2,
+        1
+      ]
+    ],
+    [
+      "pipeline",
+      "udp_masks_128",
+      [
+        128,
+        1000,
+        2,
+        32,
+        2,
+        1
+      ]
+    ]
+  ],
+  "manifests": {
+    "0.4.2": {
+      "version": "0.4.2",
+      "flags": "-O3 -std=c11 -Wall -Wextra -Wpedantic -Wconversion -Wshadow -Wstrict-prototypes -Wmissing-prototypes -Werror -ffp-contract=off",
+      "experimental_flags": [],
+      "compiler": "cc (Ubuntu 13.3.0-6ubuntu2~24.04) 13.3.0",
+      "libraries": {
+        "libdense_ai.a": "86fd3d0f002281253b074dde6ea505c421fc9bc207599d5b52b78ff38cae1636",
+        "libdense_collision.a": "4e1b8ae115d031453fd1e73864703260cf20bf6b673eb58da94fbbb0db60d8f6",
+        "libdense_nav.a": "1a510196318387cfd90f640ba0f3ba27e6f8400b803fc47e1908711e4a044d13",
+        "libdense_net.a": "51d37f24cd5ad1568c7b226a45690087fa405dad1b8546639f5ea982e8197dbb",
+        "libdense_sched.a": "5245418dbad46bc6ecba8580cf58e07d95651986aa89ce59c124ea8c06656cee",
+        "libdense_sim.a": "bcd533079cb581792da7cb508fc404c5c2b7bac3eee534ff649d31a511d56cf3",
+        "libdensedb.a": "4a0a149e9d8f51b1465a8c6339c6677a833c8997319eba0be88def75cfd0cedc"
+      },
+      "headers": {
+        "dense_ai.h": "67a353a815eb97e70f8d2071239d8753000973f3989abc93ea3cb8ef6b3550ac",
+        "dense_collision.h": "35588e31c42586c72fa70b66672af518cdc40a8ab4119f786a9ba014bcf01e83",
+        "dense_nav.h": "e5f40be66a4f71f2740c12374f0f48836f2374e8c99c28874cdb757573de258a",
+        "dense_nav_collision_bridge.h": "78fb51345d6d4d2f9fcd2133ecc4b2b7cd9fe8367e01078b0c732feb32164d73",
+        "dense_net.h": "e9be9eabffcdf316e9dfa31c6d2f3110b3a46e18551e1e16430f595df459a7a4",
+        "dense_net_sim_bridge.h": "3762d7d1a10e7a2c44d935e17758f2b10233e45f883454ea0d79f3377f7f96c9",
+        "dense_sched.h": "287e4ba58c7b4c6250a8d09fe0f4b1c77171be01a92e350b281fa137e8984ad7",
+        "dense_sim.h": "f3f742f644cfc0b556614d0cb91754f0778adecef8d5a13a30728bec5350e608",
+        "densedb.h": "22bd8cda2c4dacad924e912e450c268905927aaa441eeac024a3af0efdce90ff"
+      },
+      "fixtures": {
+        "common.h": "9069030f828c5d41e3794bff601ee64b31e64e792849460e78861ab69b2d65f7",
+        "concurrent_udp_fixture.h": "a63052c3d027f5a2c14a04ba2b4d159d165fcb721349ba3b7464ec09336ad8e9",
+        "network.c": "e8588e868681d2de71ea866a54e49fe073a8e1332b3e92fe9d7e743d5d46300a",
+        "pipeline.c": "44a3f03a016dd5d1b5d7b9b7dc5e6c3f37d67a31f78a161db60c58f56f839e99",
+        "simulation.c": "08dae93a2e31340001119408d9e22f89b54447f6aff36a9f1a0d8f5bc797b32b",
+        "wire_helpers.h": "573cd91e585336136ca9fdd142a56d9ac7ac87e046d50c67c6cdd05adc719436",
+        "workset.c": "f02fa4a8e489f0c4e78f4b30c4d899e2ed5894929ae0aaa060ca4eba01518430",
+        "world_fixture.h": "152ce4a8f65ac82f55dafafa91b4bb8dc949426f0dc0f6f7fe04ab8579676551"
+      },
+      "runner_sha256": "40f0a82c852b9c7fbe095b836c7e21d9100b3c71b5f247da6f8e70c649f90875"
+    },
+    "0.4.4": {
+      "version": "0.4.4",
+      "flags": "-O3 -std=c11 -Wall -Wextra -Wpedantic -Wconversion -Wshadow -Wstrict-prototypes -Wmissing-prototypes -Werror -ffp-contract=off",
+      "experimental_flags": [],
+      "compiler": "cc (Ubuntu 13.3.0-6ubuntu2~24.04) 13.3.0",
+      "libraries": {
+        "libdense_ai.a": "86fd3d0f002281253b074dde6ea505c421fc9bc207599d5b52b78ff38cae1636",
+        "libdense_collision.a": "4e1b8ae115d031453fd1e73864703260cf20bf6b673eb58da94fbbb0db60d8f6",
+        "libdense_nav.a": "1a510196318387cfd90f640ba0f3ba27e6f8400b803fc47e1908711e4a044d13",
+        "libdense_net.a": "c5b3e2c85a63212c9be1d52cf28282b1f750334858babccf4e4d22afba6d3872",
+        "libdense_sched.a": "5245418dbad46bc6ecba8580cf58e07d95651986aa89ce59c124ea8c06656cee",
+        "libdense_sim.a": "4180b49fa0ae325667c30be554d6e1855bb1e4375f1cee8eeed678ad94753e73",
+        "libdensedb.a": "4a0a149e9d8f51b1465a8c6339c6677a833c8997319eba0be88def75cfd0cedc"
+      },
+      "headers": {
+        "dense_ai.h": "67a353a815eb97e70f8d2071239d8753000973f3989abc93ea3cb8ef6b3550ac",
+        "dense_collision.h": "35588e31c42586c72fa70b66672af518cdc40a8ab4119f786a9ba014bcf01e83",
+        "dense_nav.h": "e5f40be66a4f71f2740c12374f0f48836f2374e8c99c28874cdb757573de258a",
+        "dense_nav_collision_bridge.h": "78fb51345d6d4d2f9fcd2133ecc4b2b7cd9fe8367e01078b0c732feb32164d73",
+        "dense_net.h": "0e8b67114290032fe9794a0c2fe40f5d4824c47d66f01f10018eed2156bdd063",
+        "dense_net_sim_bridge.h": "3762d7d1a10e7a2c44d935e17758f2b10233e45f883454ea0d79f3377f7f96c9",
+        "dense_sched.h": "287e4ba58c7b4c6250a8d09fe0f4b1c77171be01a92e350b281fa137e8984ad7",
+        "dense_sim.h": "c4c99774f8c9ae3f46f558b56761666fd8b7ce4d8229ab27f1716675d86bc9aa",
+        "densedb.h": "22bd8cda2c4dacad924e912e450c268905927aaa441eeac024a3af0efdce90ff"
+      },
+      "fixtures": {
+        "common.h": "9069030f828c5d41e3794bff601ee64b31e64e792849460e78861ab69b2d65f7",
+        "concurrent_udp_fixture.h": "a63052c3d027f5a2c14a04ba2b4d159d165fcb721349ba3b7464ec09336ad8e9",
+        "network.c": "e8588e868681d2de71ea866a54e49fe073a8e1332b3e92fe9d7e743d5d46300a",
+        "pipeline.c": "44a3f03a016dd5d1b5d7b9b7dc5e6c3f37d67a31f78a161db60c58f56f839e99",
+        "simulation.c": "08dae93a2e31340001119408d9e22f89b54447f6aff36a9f1a0d8f5bc797b32b",
+        "wire_helpers.h": "573cd91e585336136ca9fdd142a56d9ac7ac87e046d50c67c6cdd05adc719436",
+        "workset.c": "f02fa4a8e489f0c4e78f4b30c4d899e2ed5894929ae0aaa060ca4eba01518430",
+        "world_fixture.h": "152ce4a8f65ac82f55dafafa91b4bb8dc949426f0dc0f6f7fe04ab8579676551"
+      },
+      "runner_sha256": "40f0a82c852b9c7fbe095b836c7e21d9100b3c71b5f247da6f8e70c649f90875"
+    }
+  },
+  "method": "serial processes; reverse version order each repeat; delivered 0.4.2 archives; default 0.4.4 archives",
+  "started_from_existing_validated_build": true,
+  "environment_recorded_ns": 1792199808053191955
+}

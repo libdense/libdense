@@ -4,9 +4,9 @@ The C ABI is the canonical implementation boundary. Bindings do not reimplement
 spatial indexing, subscription maintenance, kinetic scheduling, recipient
 planning, or DenseDB durability.
 
-The 0.4.2 C++ and Rust wrappers expose the optional recipient workset plus the
+The 0.4.4 C++ and Rust wrappers expose the optional recipient workset plus the
 runtime and allocation telemetry surface. The Python package version tracks
-0.4.2, but its existing high-level `World` methods are unchanged.
+0.4.4, but its existing high-level `World` methods are unchanged.
 
 ## Python
 

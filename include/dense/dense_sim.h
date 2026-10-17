@@ -7,9 +7,9 @@
 
 #define DS_VERSION_MAJOR 0
 #define DS_VERSION_MINOR 4
-#define DS_VERSION_PATCH 2
+#define DS_VERSION_PATCH 4
 #define DS_VERSION_PRERELEASE ""
-#define DS_VERSION_STRING "0.4.2"
+#define DS_VERSION_STRING "0.4.4"
 #define DS_ABI_VERSION 1
 
 #if defined(_WIN32) && defined(DS_SHARED)

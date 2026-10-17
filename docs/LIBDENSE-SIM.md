@@ -96,6 +96,13 @@ identities across exactly equal recipient sets, and recycles difference
 buffers. Sparse changes use binary searches and bulk copies. Removal and
 recreation copy complete recipient spans and reuse cached hashes.
 
+Version 0.4.4 includes the unpublished 0.4.3 production changes: lazy indexes
+for longer type-mask span lists, stable radix ordering of large visibility-class
+sets, exactly shared recipient backing, bulk workset lifecycle merging and
+validated source-position reuse. Public API/ABI and finalized outputs remain
+unchanged. Private compact/factored representations are not enabled in these
+release binaries. See [0.4.2/0.4.4 measurements](BENCHMARKS-0.4.4.md).
+
 Finalized semantics remain exact: ENTER supplies final state to new
 recipients, LEAVE identifies the old finalized chunk, and UPDATE reaches
 continuing recipients with the coalesced dirty mask. Leaving and returning
