@@ -4,15 +4,27 @@
 
 # Dense | Current release: 0.4.4
 
-**A high-density multiplayer server library that support up to 600,000 players in a single zone, on a single i9 CPU core.**
+**A high-density multiplayer state engine for all-to-all observer simulations.**
 
 Dense is a library family for deterministic multiplayer systems that must remain efficient when large numbers of players, NPCs, projectiles, timers, paths, collision bodies, and replication recipients gather in the same area.
 
-Dense is not a complete game server. It provides explicit modules for simulation, transport, scheduling, collision, navigation, AI, and durable state. Public module boundaries remain separate.
+Dense is intentionally not a complete game server, you bring your own main loop. Dense provides explicit modules for simulation, transport, scheduling, collision, navigation, AI, and durable state.
 
 This release repository contains Linux x86-64 shared and static libraries,
 CPython 3.11-3.14 wheels, public C headers, documentation, and full Python,
 C++, and Rust wrapper source. Core C implementation source is not included.
+
+
+> ## The Problem
+> The difference in work of 125 players and 500 players is 16x greater. At 10,000 players work is work 6400x greater!
+> 
+> Worse! This quadratic complexity exists in several places on your normal multiplayer back-end.
+
+> ## The Pitch
+> Don't do the work, trying to do the work is wrong, reduce the work.
+> 
+> Dense reduces time complexity, a number like 10,000 players is laughable doable.
+
 
 ## Additional Project Links
 - Videos at https://www.youtube.com/@YggEngine
