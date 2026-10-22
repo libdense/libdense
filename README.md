@@ -14,6 +14,11 @@ This release repository contains Linux x86-64 shared and static libraries,
 CPython 3.11-3.14 wheels, public C headers, documentation, and full Python,
 C++, and Rust wrapper source. Core C implementation source is not included.
 
+## Additional Project Links
+- Videos at https://www.youtube.com/@YggEngine
+- Book at https://yggengine.com/book
+- Support at https://discord.gg/rhEp4vKFVr
+
 ## Modules
 
 | Module | Responsibility |
