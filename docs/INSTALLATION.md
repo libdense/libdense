@@ -45,7 +45,7 @@ sudo ./install.sh --prefix /usr --libdir lib64
 
 ## Platform requirements
 
-This bundle targets Linux x86-64. Its shared libraries require glibc 2.33 or
+This bundle targets Linux x86-64. Its shared libraries require glibc 2.34 or
 newer. Static archives are included for applications that link Dense statically.
 See [platform compatibility](PLATFORM-COMPATIBILITY.md) for wheel requirements
 and other targets, which require separate SDK builds.

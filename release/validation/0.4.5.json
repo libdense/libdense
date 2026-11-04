@@ -1,0 +1,42 @@
+{
+  "release": "0.4.5",
+  "date": "2026-11-02",
+  "status": "ready for publication",
+  "published_by_this_workflow": false,
+  "platform": "Linux x86-64",
+  "compiler": "GCC 13.3.0",
+  "checks": {
+    "full_family_tests": "passed",
+    "public_api_abi_exports": "passed",
+    "deterministic_replay_ticks": 240,
+    "asan_ubsan_determinism": "passed",
+    "asan_ubsan_compact_wire": "passed",
+    "installed_static_and_shared_consumers": "passed: all seven modules and wire API",
+    "staged_install_uninstall": "passed",
+    "cpp_wrapper": "passed",
+    "rust_wrapper_tests": 5,
+    "python_wheel_tests": {
+      "cp311": 14,
+      "cp312": 14,
+      "cp313": 14,
+      "cp314": 14
+    },
+    "demo_units": "Arena and Driving, normal and checked builds",
+    "live_exact_state_cases": 13,
+    "profile_mismatches_rejected": 3,
+    "normal_binary_live_cases": 6,
+    "connection_checks": "lost bootstrap, stale incarnation, reconnect, legacy default"
+  },
+  "defaults": {
+    "wire": "legacy",
+    "workers": "no automatic workers",
+    "research_candidates": "excluded"
+  },
+  "limitations": [
+    "No new performance gain claimed",
+    "No native ARM64 or Windows execution",
+    "No graphical client execution",
+    "LeakSanitizer disabled; ASan/UBSan and explicit allocation accounting used"
+  ],
+  "public_contents": "Binaries, public API headers, existing wrapper source, documentation and public benchmark records; no core or demo implementation source or private research"
+}

@@ -103,6 +103,7 @@ VERSION="$(tr -d "[:space:]" < "$VERSION_FILE")"
 [[ -n "$VERSION" ]] || fail "VERSION is empty"
 
 LIBRARIES=(
+    dense_delivery
     dense_sim
     dense_net
     dense_sched
@@ -113,7 +114,8 @@ LIBRARIES=(
 )
 
 declare -A COMPONENT_VERSIONS=(
-    [dense_sim]="0.4.4"
+    [dense_delivery]="0.4.5"
+    [dense_sim]="0.4.5"
     [dense_net]="0.3.5"
     [dense_sched]="0.3.0"
     [dense_collision]="0.3.0"
@@ -123,10 +125,15 @@ declare -A COMPONENT_VERSIONS=(
 )
 
 HEADERS=(
+    dense_delivery.h
+    dense_delivery_sim.h
     dense_sim.h
     dense_net.h
     dense_net_sim_bridge.h
+    dense_net_wire.h
+    dense_net_grouped.h
     dense_sched.h
+    dense_sched_time.h
     dense_collision.h
     dense_nav.h
     dense_nav_collision_bridge.h
@@ -261,6 +268,18 @@ render_pkgconfig() {
         -e "s|@VERSION@|$component_version|g" \
         "$source" > "$output"
 }
+
+# Adjust the relocatable package for the selected relative library directory.
+cmake_up="../.."
+IFS="/" read -r -a libdir_parts <<< "$LIBDIR"
+for part in "${libdir_parts[@]}"; do
+    [[ -n "$part" && "$part" != "." ]] && cmake_up="$cmake_up/.."
+done
+for config in "$ROOT_DIR"/cmake/Dense/*.cmake; do
+    sed -e "s|/../../..\" ABSOLUTE)|/$cmake_up\" ABSOLUTE)|g" \
+        -e "s|/lib/|/$LIBDIR/|g" "$config" > "$TMP_DIR/$(basename -- "$config")"
+    install_regular "$TMP_DIR/$(basename -- "$config")" "$LIBDIR/cmake/Dense/$(basename -- "$config")" 0644
+done
 
 printf "Installing Dense %s\n" "$VERSION"
 printf "  prefix:  %s\n" "$PREFIX"

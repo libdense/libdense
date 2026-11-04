@@ -1,0 +1,72 @@
+#ifndef DENSE_SCHED_TIME_H
+#define DENSE_SCHED_TIME_H
+#include "dense_sched.h"
+#ifdef __cplusplus
+extern "C" {
+#endif
+#define DSC_TIME_SCALE_ONE 1000000u
+typedef struct dsc_time_config {
+uint64_t step_ns;
+uint64_t max_backlog_ns;
+uint32_t initial_scale_ppm;
+uint32_t min_scale_ppm;
+uint32_t max_scale_change_ppm;
+} dsc_time_config;
+typedef struct dsc_time_origin {
+uint64_t epoch;
+uint64_t tick;
+uint64_t real_ns;
+uint64_t simulation_ns;
+} dsc_time_origin;
+typedef struct dsc_time_control {
+uint64_t epoch;
+uint64_t effective_tick;
+uint32_t target_scale_ppm;
+} dsc_time_control;
+typedef struct dsc_time_clock {
+dsc_time_config config;
+dsc_time_origin anchor;
+uint64_t observed_real_ns;
+uint64_t phase_units;
+uint32_t scale_ppm;
+uint32_t target_scale_ppm;
+dsc_time_control pending;
+bool change_pending;
+bool initialized;
+} dsc_time_clock;
+typedef struct dsc_time_step {
+dsc_time_origin end;
+uint64_t dt_ns;
+uint32_t scale_ppm;
+uint32_t next_scale_ppm;
+bool control_applied;
+bool scale_changed;
+} dsc_time_step;
+typedef struct dsc_time_status {
+dsc_time_origin anchor;
+uint64_t observed_real_ns;
+uint64_t phase_units;
+uint64_t next_deadline_ns;
+uint32_t scale_ppm;
+uint32_t target_scale_ppm;
+dsc_time_control pending;
+bool change_pending;
+bool can_step;
+} dsc_time_status;
+DSC_API void dsc_time_config_defaults(dsc_time_config *config);
+DSC_API dsc_result dsc_time_init(dsc_time_clock *clock,
+const dsc_time_config *config, const dsc_time_origin *origin);
+DSC_API dsc_result dsc_time_schedule(dsc_time_clock *clock,
+const dsc_time_control *control);
+DSC_API dsc_result dsc_time_poll(dsc_time_clock *clock, uint64_t real_now_ns,
+dsc_time_step *out_step);
+DSC_API dsc_result dsc_time_get_status(const dsc_time_clock *clock,
+dsc_time_status *out_status);
+DSC_API dsc_result dsc_time_restore(dsc_time_clock *clock,
+const dsc_time_config *config, const dsc_time_status *status);
+DSC_API dsc_result dsc_time_rebase(dsc_time_clock *clock, uint64_t new_epoch,
+uint64_t real_now_ns);
+#ifdef __cplusplus
+}
+#endif
+#endif

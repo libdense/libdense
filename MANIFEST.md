@@ -1,14 +1,14 @@
 # Release Manifest
 
-Release: `0.4.4`
+Release: `0.4.5`
 
 Component versions:
 
 ```text
-libdense_sim:                                      0.4.4
+libdense_sim:                                      0.4.5
 libdense_net:                                      0.3.5
 libdense_collision, nav, sched, ai, DenseDB:       0.3.0
-Python, C++, and Rust wrapper packages:            0.4.4
+Python, C++, and Rust wrapper packages:            0.4.5
 ```
 
 ## Native artifacts
@@ -20,7 +20,7 @@ Seven libraries, each shipped as a versioned shared object with relative
 SONAME links plus a self-contained static archive:
 
 ```text
-lib/linux-x86_64/libdense_sim.so.0.4.4        libdense_sim.a
+lib/linux-x86_64/libdense_sim.so.0.4.5        libdense_sim.a
 lib/linux-x86_64/libdense_net.so.0.3.5        libdense_net.a
 lib/linux-x86_64/libdense_sched.so.0.3.0      libdense_sched.a
 lib/linux-x86_64/libdense_collision.so.0.3.0  libdense_collision.a
@@ -40,10 +40,15 @@ are not included in this Linux x86-64 bundle.
 ## Public headers
 
 ```text
+include/dense/dense_delivery.h
+include/dense/dense_delivery_sim.h
 include/dense/dense_sim.h
 include/dense/dense_net.h
 include/dense/dense_net_sim_bridge.h
+include/dense/dense_net_wire.h
+include/dense/dense_net_grouped.h
 include/dense/dense_sched.h
+include/dense/dense_sched_time.h
 include/dense/dense_collision.h
 include/dense/dense_nav.h
 include/dense/dense_nav_collision_bridge.h
@@ -62,7 +67,7 @@ include/dense/densedb.h
 ```text
 release/abi/        exported-symbol lists and Linux ABI layout baselines
 release/api/        current API snapshots plus the dense_sim 0.3.0 baseline
-release/benchmarks/ 0.4.2 versus 0.4.4 comparisons and historical results
+release/benchmarks/ historical 0.4.2 versus 0.4.4 comparisons and historical results
 densebench/0.4.4/   comparison plates
 ```
 
@@ -73,3 +78,14 @@ headers, core object files, the private `dense_core` archive, core test or
 benchmark source, internal phase notes, development reports, game assets, or
 development Git metadata. Binding source under `bindings/` is intentionally
 included.
+
+## Headless demonstrations
+
+`bin/linux-x86_64/` contains Arena and Driving servers and bots. They are
+prebuilt single-process applications using the selected SDK. Demo implementation
+source, research candidates and game assets are excluded.
+
+Optional worker SDK: libdense_delivery static/shared libraries, two public headers,
+pkg-config metadata and installable CMake targets. Relay implementation is excluded.
+
+Time Bending / Time Dilation: dense_sched_time.h, seven public functions in libdense_sched, and the public integration guide.

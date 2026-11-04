@@ -1,0 +1,67 @@
+#ifndef DENSE_DELIVERY_H
+#define DENSE_DELIVERY_H
+#include "dense_net.h"
+#ifdef __cplusplus
+extern "C" {
+#endif
+#if defined(__GNUC__) && defined(DD_SHARED) && defined(DD_BUILD)
+#define DD_API __attribute__((visibility("default")))
+#else
+#define DD_API
+#endif
+#define DN_DELIVERY_PUBLICATION_VERSION 1u
+typedef struct dn_publication dn_publication;
+typedef struct dn_delivery_pool dn_delivery_pool;
+typedef struct dn_publication_id {
+uint64_t world, epoch, sequence, tick;
+} dn_publication_id;
+typedef struct dn_delivery_recipient {
+uint64_t id, generation;
+size_t owner;
+} dn_delivery_recipient;
+typedef struct dn_publication_limits {
+size_t workers, audiences, groups, frames, recipients, encoded_bytes;
+} dn_publication_limits;
+DD_API dn_result dn_publication_create(dn_publication **out, const dn_registry *registry,
+const dn_publication_limits *limits);
+DD_API dn_result dn_publication_destroy(dn_publication *publication);
+DD_API dn_result dn_publication_begin(dn_publication *publication, dn_publication_id id);
+DD_API dn_result dn_publication_audience(dn_publication *publication,
+const dn_delivery_recipient *recipients, size_t count, size_t *out_audience);
+DD_API dn_result dn_publication_group(dn_publication *publication, size_t audience);
+DD_API dn_result dn_publication_write(dn_publication *publication, uint16_t opcode,
+uint32_t request_id, const uint8_t *payload, size_t size);
+DD_API dn_result dn_publication_seal(dn_publication *publication);
+DD_API size_t dn_publication_retained_bytes(const dn_publication *publication);
+typedef dn_session *(*dn_delivery_resolve_fn)(void *context,
+uint64_t id, uint64_t generation);
+typedef dn_result (*dn_delivery_service_fn)(void *context, uint64_t now_ns);
+typedef struct dn_delivery_config {
+size_t workers;
+size_t recipient_capacity;
+uint64_t world, epoch, first_sequence;
+dn_delivery_resolve_fn resolve;
+void *const *contexts;
+bool flush_each_group;
+dn_delivery_service_fn service;
+} dn_delivery_config;
+typedef struct dn_delivery_status {
+size_t workers, completed_workers, blocked_workers, failed_worker;
+dn_result result;
+bool poisoned;
+uint64_t accepted_publications, rejected_submissions, resume_count;
+size_t adapter_retained_bytes;
+} dn_delivery_status;
+DD_API void dn_delivery_config_defaults(dn_delivery_config *config);
+DD_API dn_result dn_delivery_pool_create(dn_delivery_pool **out,
+const dn_registry *registry, const dn_delivery_config *config);
+DD_API dn_result dn_delivery_submit(dn_delivery_pool *pool, dn_publication *publication,
+uint64_t now_ns);
+DD_API dn_result dn_delivery_wait(dn_delivery_pool *pool, dn_delivery_status *status);
+DD_API dn_result dn_delivery_resume(dn_delivery_pool *pool, uint64_t now_ns);
+DD_API void dn_delivery_pool_destroy(dn_delivery_pool *pool);
+DD_API size_t dn_delivery_pool_retained_bytes(const dn_delivery_pool *pool);
+#ifdef __cplusplus
+}
+#endif
+#endif

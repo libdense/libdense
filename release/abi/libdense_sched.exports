@@ -44,6 +44,13 @@ dsc_server_pipeline_phase_remaining_ns
 dsc_server_pipeline_record_work
 dsc_tick_clock_advance
 dsc_tick_clock_init
+dsc_time_config_defaults
+dsc_time_get_status
+dsc_time_init
+dsc_time_poll
+dsc_time_rebase
+dsc_time_restore
+dsc_time_schedule
 dsc_timer_advance
 dsc_timer_cancel
 dsc_timer_current_tick

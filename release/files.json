@@ -1,0 +1,728 @@
+{
+  "release": "0.4.5",
+  "files": {
+    ".gitignore": {
+      "sha256": "9a1bed02e642b8d1fd53156c76093ee185f072c94f3df682a5459084377789fb"
+    },
+    "CHANGELOG.md": {
+      "sha256": "fd687bb03085137d4a23940911388a7cde65fdc1d5f603caa23c6cce1a6fd527"
+    },
+    "COMMERCIAL-LICENSE.md": {
+      "sha256": "1341f9a68c5020ffdfda36e9ccc16a46008f0d351ed790680c565d330de65708"
+    },
+    "CONTRIBUTING.md": {
+      "sha256": "08812a52894c840c395f5081878b054151c56d80b4f696baf40a3c77f35a5309"
+    },
+    "LICENSE.md": {
+      "sha256": "304747dac430e031f87a1744159bea7c583f5025125bfabbac9af8ed65e068ac"
+    },
+    "MANIFEST.md": {
+      "sha256": "7ebbbeab64211145a02bb905184c255f162bcbdb212a70754d42fa9f64095b03"
+    },
+    "README.md": {
+      "sha256": "b494dc0db56f0e98c17d366f696d1fba46637c914bec9d816fb3363e89c916ff"
+    },
+    "SECURITY.md": {
+      "sha256": "66edc46a91e0065a0f0a37b1028838821170a2dece7a02c68f1d0280fa92a0b3"
+    },
+    "SUPPORT.md": {
+      "sha256": "dbb69b2d601410d32c4c796112edf3f2066b7861d27708f12449b1953f66224a"
+    },
+    "VERSION": {
+      "sha256": "345a551b61a5dc33388b9bf40df339c9a0d9446ced7eeaeb576e3dbf4321918e"
+    },
+    "bin/linux-x86_64/arena-bot": {
+      "sha256": "ca316dab67567fd5f7e38ea2ab5315be609c9b93f332d15e5412c39519904af4"
+    },
+    "bin/linux-x86_64/arena-server": {
+      "sha256": "c2c44937e85772872e44b48440a228b2595413986ac9759d02408a9591d4a78f"
+    },
+    "bin/linux-x86_64/driving-bot": {
+      "sha256": "d5213a985eb0a096fefafdbe9d2bc0396c5ed844ef1b2ebbfc0daf34d4255937"
+    },
+    "bin/linux-x86_64/driving-server": {
+      "sha256": "420807b540f018325d9fa04f64946713239a1f4e931713e0e5e6a400bdcfb78f"
+    },
+    "bindings/check_abi_coverage.py": {
+      "sha256": "a8eb3bffd968749a19c42df5efd3765d4defdfd696b10e4f9d13a9344f336a6b"
+    },
+    "bindings/cpp/Makefile": {
+      "sha256": "fc8e99e7ddf4a30f43149886bafbce29f5754db0fb19ff000088cc9decdb8160"
+    },
+    "bindings/cpp/README.md": {
+      "sha256": "8dae7add7571204b4e9fcea8977463e7bed23ed952be4be844e005d62d036b73"
+    },
+    "bindings/cpp/benchmarks/results/milestone9-native.txt": {
+      "sha256": "cee62c52968d27b16a1178f9d7363ff63bc6e81463a5daf2510bff0d05cd614c"
+    },
+    "bindings/cpp/benchmarks/wrapper_overhead.cpp": {
+      "sha256": "16eb4e081fdd4664d7a08f070df47cd3afe733e8ae47441f3a2f2ad0603f4662"
+    },
+    "bindings/cpp/examples/basic_world.cpp": {
+      "sha256": "85e3a5ec787af9bafc9019c8f59fabc569bbb337852a312706ce4500861c0fb9"
+    },
+    "bindings/cpp/include/dense/dense_sim.hpp": {
+      "sha256": "eabec1ac17389181c6594fc3ee68aca568c8dcb3d861d9d73284f088d24fc550"
+    },
+    "bindings/cpp/include/dense_sim.hpp": {
+      "sha256": "eabec1ac17389181c6594fc3ee68aca568c8dcb3d861d9d73284f088d24fc550"
+    },
+    "bindings/cpp/tests/test_binding.cpp": {
+      "sha256": "ebb3821dc502cb016e4413507bc31170a7ff1d9d6ac0fa6851642ba8b5f49947"
+    },
+    "bindings/python/COMMERCIAL-LICENSE.md": {
+      "sha256": "1341f9a68c5020ffdfda36e9ccc16a46008f0d351ed790680c565d330de65708"
+    },
+    "bindings/python/LICENSE.md": {
+      "sha256": "304747dac430e031f87a1744159bea7c583f5025125bfabbac9af8ed65e068ac"
+    },
+    "bindings/python/Makefile": {
+      "sha256": "7a6d26bb57a3251d9cd9d5b7f10306823cf8fc97c94a2880d94b93d2e6dec09f"
+    },
+    "bindings/python/README.md": {
+      "sha256": "4c4f027b3aed1197ab5aab530d825d593af11a253fa715f8254128971b59c262"
+    },
+    "bindings/python/benchmarks/benchmark_binding.py": {
+      "sha256": "929ddd18f1cd0d043fe45f91bc6370245e3ca920d2dbc6b75e714f8d1acce7f3"
+    },
+    "bindings/python/dist/.gitignore": {
+      "sha256": "684888c0ebb17f374298b65ee2807526c066094c701bcc7ebbe1c1095f494fc1"
+    },
+    "bindings/python/dist/dense_sim-0.4.5-cp311-cp311-linux_x86_64.whl": {
+      "sha256": "203a7878263342cdb0f0c20e0cfdae46cf0d7de9d2d8fdf9f306603df877e11f"
+    },
+    "bindings/python/dist/dense_sim-0.4.5-cp312-cp312-linux_x86_64.whl": {
+      "sha256": "f4150c89a36c224d2bf49ae617dfda59df811d89352cc871052062f6c2a1e8ef"
+    },
+    "bindings/python/dist/dense_sim-0.4.5-cp313-cp313-linux_x86_64.whl": {
+      "sha256": "c0fe579234b8f16061f06c17a2435e85e2923ce0d056692c9ae2b70d7bc8f165"
+    },
+    "bindings/python/dist/dense_sim-0.4.5-cp314-cp314-linux_x86_64.whl": {
+      "sha256": "9603bbd29ff7c97d45d54cee0c8063caab9fc7444887c783c0ac33d76715ea39"
+    },
+    "bindings/python/pyproject.toml": {
+      "sha256": "458c4c26430b0adde676a38254b422eec4bd39aa0601196231755e08ef06a3e4"
+    },
+    "bindings/python/setup.py": {
+      "sha256": "f17706d5e456795deb50e4b4d43a6fda3c9a676fa407147c92cdf37eee8b5c07"
+    },
+    "bindings/python/src/dense_sim/__init__.py": {
+      "sha256": "78cf51510174afd05cd19a82196e17afbd0a1940a303adad528764a38e411b02"
+    },
+    "bindings/python/src/dense_sim/__init__.pyi": {
+      "sha256": "921de6987bae57b8b80a3c96f106f760072d5f3084b402bd15f99976d4159b96"
+    },
+    "bindings/python/src/dense_sim/_dense_sim.c": {
+      "sha256": "1349457bb133905384c370c9f4db2abe57a0378668c0186f4ea0181731af2ccb"
+    },
+    "bindings/python/src/dense_sim/py.typed": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "bindings/python/tests/test_binding.py": {
+      "sha256": "1d767b8a2ad21c50e841feaf328ce06ee2ca8c15cdfa0867423cf16ce56a2a7b"
+    },
+    "bindings/rust/Cargo.lock": {
+      "sha256": "fa4dcf3d22b3e64a0a3c201d32c34ca88d1dff97958fe530093436c785fafeb8"
+    },
+    "bindings/rust/Cargo.toml": {
+      "sha256": "709b27ad87a043d842e98b656d7f97602d5eb1c96f794aa08195696a28b6e7e4"
+    },
+    "bindings/rust/Makefile": {
+      "sha256": "90e778159825dbd65f8d606a55ed4cb84bab64d00c58fbf136de3d355456ee46"
+    },
+    "bindings/rust/README.md": {
+      "sha256": "751e83c199b077aca52474ddfe93d457265dfd90d73833f71938b62b998c066c"
+    },
+    "bindings/rust/build.rs": {
+      "sha256": "19d16661b691dca503ce6f528a4bd9f311b07da82c1cb4128effe6437c2b7e1f"
+    },
+    "bindings/rust/examples/basic_world.rs": {
+      "sha256": "9bde2c2c793327895477afbed46cf3b69eebe37fc393c28588c35fb944d98429"
+    },
+    "bindings/rust/src/lib.rs": {
+      "sha256": "dd5ac14a3b8c90828667c6d7d7c8963ae1f5642a312b4a498b8f426c525224db"
+    },
+    "bindings/rust/tests/binding.rs": {
+      "sha256": "5a2e6bcdaa5088099c8c36f3ae5de821eb0fb76a338b7baee3b1bc78667ca516"
+    },
+    "build_python_wheels.sh": {
+      "sha256": "9ec681c27ae69de904847877533f196b722e73d780c4952c7c932fb85927db55"
+    },
+    "cmake/Dense/DenseConfig.cmake": {
+      "sha256": "8be381966949c0f3f6a13fa4e068f04ebfe27ee1c5c9013311dd4497de7b46c5"
+    },
+    "cmake/Dense/DenseConfigVersion.cmake": {
+      "sha256": "1270e3d657f45b87927682607c46a370abf9b39747dbced79f986c03d3d63ff3"
+    },
+    "cmake/Dense/DenseTargets.cmake": {
+      "sha256": "3006ae0f4a6af1d13ba481427f981acb3cb01bd5e4af8b4c9b7e2fb8ac9d3882"
+    },
+    "densebench/0.4.2/01-dense-0.3.8-vs-0.4.2-overview.png": {
+      "sha256": "03595cebcac56caae481c04dec332c5e754dca387319152a13eac8dbfbbf2fcf"
+    },
+    "densebench/0.4.2/02-dense-observer-scaling.png": {
+      "sha256": "9fb636790f96e705f92d0ada62d9576329119ee29efc850d918f2346bd151e40"
+    },
+    "densebench/0.4.2/03-dense-all-to-all.png": {
+      "sha256": "492df1f52bfb79a1b7da0d211863af37c6e341b9b0d71ddcacdae3681ac25a7e"
+    },
+    "densebench/0.4.2/04-dense-entity-recreation.png": {
+      "sha256": "b83ee9c4edac73ea9e373ddebd9a5384cb974e4cf88276d302e1aae4eb05334f"
+    },
+    "densebench/0.4.2/05-dense-retained-memory.png": {
+      "sha256": "6088fbabae2e51cdc4d876a8a9ef5f8fb936b05c440049d21405a6bfe0535024"
+    },
+    "densebench/0.4.2/06-dense-work-counters.png": {
+      "sha256": "efc9c6dbb52b293bc64619ef765d0d76b301cb753792a6741610ae83297a4ae4"
+    },
+    "densebench/0.4.2/07-dense-controls-and-tails.png": {
+      "sha256": "19da12c0fff77d96b645877fa05a9ecb080f74101e09aabf1c37fe63eff79e6c"
+    },
+    "densebench/0.4.2/08-dense-complete-matrix-1.png": {
+      "sha256": "0c9d9f8acac7fb9d5a14e20d32baeb44fe9fece0df892a8c3a9d83efb837c157"
+    },
+    "densebench/0.4.2/09-dense-complete-matrix-2.png": {
+      "sha256": "53461214ae0580c996843d53bcac9d8996c6606672ba886be1c34c0961aa9328"
+    },
+    "densebench/0.4.2/10-dense-complete-matrix-3.png": {
+      "sha256": "d31218a55543c2d66edd7a6234a14e4cd5b788b8502602a6ea69d02af5f05a90"
+    },
+    "densebench/0.4.4/01-dense-0.4.2-vs-0.4.4-overview.png": {
+      "sha256": "70cbe1e1488f5532c3c9ce317fc68ee3ee53148ad99c708da36d3c6bd5c5ef1a"
+    },
+    "densebench/0.4.4/01-dense-0.4.2-vs-0.4.4-overview.svg": {
+      "sha256": "1491932ca4ba3028f33c0ed5df5a2f768560768ed07326ecd3aeac14c1d6d328"
+    },
+    "densebench/0.4.4/02-dense-type-mask-scaling.png": {
+      "sha256": "b3fc5e07410973146acf9340106d9357762b951758a87d08e2f20f8d556372f9"
+    },
+    "densebench/0.4.4/02-dense-type-mask-scaling.svg": {
+      "sha256": "daad542055f30ae651b49b13e0cfa10e92f536afe6aae92cfaed3367c56138d7"
+    },
+    "densebench/0.4.4/03-dense-shared-simulation-controls.png": {
+      "sha256": "70343505874af1c24b9f3403b7c86b41dd2b0ce2d028013880d0902455eaa81a"
+    },
+    "densebench/0.4.4/03-dense-shared-simulation-controls.svg": {
+      "sha256": "419ae703ab933a8859255308a98313337c51a087ac2990802cc7b5dc042e38be"
+    },
+    "densebench/0.4.4/04-dense-workset-departure.png": {
+      "sha256": "d01c30c39247197d92685aab107ffc49f916941c287172f12c7f4668a13053c1"
+    },
+    "densebench/0.4.4/04-dense-workset-departure.svg": {
+      "sha256": "ab53819731240f2fc56776f5bed21ec076d0aea67b699ac216cd8a507ebb2040"
+    },
+    "densebench/0.4.4/05-dense-shared-network-preparation.png": {
+      "sha256": "5f930d061925bb6aa4593ab6c0215b75d80d6a9d458da1297b9f028a011e22eb"
+    },
+    "densebench/0.4.4/05-dense-shared-network-preparation.svg": {
+      "sha256": "8cc874b1eacf761ad22d0862f84f1c5cf4a739678ca92ca2e423551642ac1b83"
+    },
+    "densebench/0.4.4/06-dense-complete-cpu-pipeline.png": {
+      "sha256": "57d5fd1d8db81150becbed3f8ea64aa39089c5ea6e8c910dbf9446dfd41b418d"
+    },
+    "densebench/0.4.4/06-dense-complete-cpu-pipeline.svg": {
+      "sha256": "dbd53ad309912580081d5500a06e8fe8ffe2a30221e1170d37720a55cc33b2df"
+    },
+    "densebench/0.4.4/07-dense-concurrent-udp.png": {
+      "sha256": "ba8555d0d4597bf539d79c421f96ead5dee5c63eac286ab510fb1bce53dfae18"
+    },
+    "densebench/0.4.4/07-dense-concurrent-udp.svg": {
+      "sha256": "f96001e5897fada1afdf54af0374efd48381271d0e1f2b754d715a4b7c63d1d2"
+    },
+    "densebench/0.4.4/08-dense-peak-and-retained-memory.png": {
+      "sha256": "6b7956507ef3e1d09902591d157a9052e8e201fde33eb3d476068f462a8d7c4b"
+    },
+    "densebench/0.4.4/08-dense-peak-and-retained-memory.svg": {
+      "sha256": "673dc9ec632c65e3fc375c250d69d502e097141a175801c4f186f1fab55f8de1"
+    },
+    "densebench/0.4.4/09-dense-controls-and-tails.png": {
+      "sha256": "2d176d115caeda3397d8293628609e74a22cbd48fa22620c5a89e54600043462"
+    },
+    "densebench/0.4.4/09-dense-controls-and-tails.svg": {
+      "sha256": "41c5734e83bad004f54f587f504675ec138aef0903e6b2452d43e24ec35acad4"
+    },
+    "densebench/0.4.4/10-dense-complete-simulation-matrix.png": {
+      "sha256": "c7ffa1187088553513353a31f5ba4d674d19b6365d04026a2d1d0b51fd5b861a"
+    },
+    "densebench/0.4.4/10-dense-complete-simulation-matrix.svg": {
+      "sha256": "aa1a2191bf4e8f99c3f8172f0af2e8f1e8a5a4034485555f8c3672b3a0028530"
+    },
+    "densebench/0.4.4/11-dense-complete-delivery-matrix.png": {
+      "sha256": "a1604fc2f9dde991fe4714794a35b10ed61a3b6872bbb63b5b317393bc854c8b"
+    },
+    "densebench/0.4.4/11-dense-complete-delivery-matrix.svg": {
+      "sha256": "079cfc5d90fc02a2c790466b87b3464250a2d6bbd0225fdef2aa95ed301f1e11"
+    },
+    "densebench/0.4.4/plates.json": {
+      "sha256": "a8f97d70be84d4a37824052fe47b804b23828da9fbe666f6520d354827757f07"
+    },
+    "densebench/chart_dark.png": {
+      "sha256": "dd253c9d366bfb598cb9866d80aacc51dfd8413fad05cc14ebd4165206f29016"
+    },
+    "densebench/chart_light.png": {
+      "sha256": "3eec3fd3d1214c09ca0442d9f4cf91065c336680263fd5eef1182aa6ba7168c4"
+    },
+    "densebench/dense-1000-local.txt": {
+      "sha256": "8597c4c970302f67077a6ba7bdeec7fe1974527119a7ea877635cf19d0d202a4"
+    },
+    "densebench/dense-10000-local.txt": {
+      "sha256": "cac7f9e69b40d75eec6beada56fe18e778db82eb39c66da523c7cb78615a3eaa"
+    },
+    "densebench/dense-all-to-all.png": {
+      "sha256": "7423b60e651400a6f95b03b227ed58dc5f836bdd30f5679c2e1d69d1f9beb7eb"
+    },
+    "densebench/dense-bench-budget.png": {
+      "sha256": "e05c0094fbc9d2e5b7da40ff2e8c42699ccc613e4f6d3dc4c21736f24935029c"
+    },
+    "densebench/dense-bench-python-binding.png": {
+      "sha256": "ea713118d306b8c9b9ef428ef0fee54c4ef0fbc8d5e273e15315e948f64f4664"
+    },
+    "densebench/dense-bench-scenario.png": {
+      "sha256": "3338aa54711187565c2dfbb58140732c19515011b36c44f98a7cf9a3d33e3c69"
+    },
+    "densebench/dense-logo-square.png": {
+      "sha256": "f0c0be8ed698bb6291aeb113e54a2811f5cf463eb0b697c6679bc1ae3daeb827"
+    },
+    "densebench/dense_bench_all_to_all.png": {
+      "sha256": "38c31ab637c0ed013b2771f7adc250184f93d95cda89e96f329d24368a8290f9"
+    },
+    "densebench/dense_bench_swarm.png": {
+      "sha256": "ed1053d557dc3d350ecb7b7691e11b89523d6c7474a56127f912b53c22cdaf38"
+    },
+    "densebench/dense_density_wall.html": {
+      "sha256": "69e0709b980c3e5a347e5d9c9c58d80f9ae4f795b1fda67ab2329693b011b79c"
+    },
+    "densebench/densescalingperplayer.png": {
+      "sha256": "054eca66edcfc988773ce77f250ea838a78177a3a3ebcb005b6ef92d8f1bdce5"
+    },
+    "densebench/densescalingticktime.png": {
+      "sha256": "972105591d723cf5279670e0f72275a20801c7faf5ada1f490a3aeb867e8c088"
+    },
+    "densebench/density-wall.png": {
+      "sha256": "a02c3280b1ac6ac5e0477491c498a2d2ab71b1c7841368e10881bcf89b183ced"
+    },
+    "densebench/python-benchmark.png": {
+      "sha256": "4346527c1e5fabffdeef67ea23b1f41f84b55dff1ef1f82bc0b2a2389a521fa3"
+    },
+    "docs/ABI-COMPATIBILITY.md": {
+      "sha256": "bd7e85b8b98c91feb94f4e6290e62e95da93059d6863dbf18ad1d0d0bf9d4519"
+    },
+    "docs/BENCHMARK-SCOPE.md": {
+      "sha256": "e16a95c629ae61a9bf4056a14b1846c8a743d1e910728f8de70f1fa3b58b9451"
+    },
+    "docs/BENCHMARKS-0.4.2.md": {
+      "sha256": "d62811354374a6d1c4094d17bf11fdb163337b53123b87c194451cadbd66d6d2"
+    },
+    "docs/BENCHMARKS-0.4.4.md": {
+      "sha256": "2c61e76b42f44183f8b3e2d6b5f73273ee61f4193039e124d7544de4468cdca7"
+    },
+    "docs/BENCHMARKS-2026-07-28.md": {
+      "sha256": "2cc4ea8694374b3e72edb6be0a4430a74ffc258924bbbf31e260c0e86f6ac4fa"
+    },
+    "docs/BINARY-LAYOUT.md": {
+      "sha256": "bdccf76cccb330a91a4faf01e15c27444c05aee2f0b350c317bc67dd872fb0e1"
+    },
+    "docs/BINDINGS.md": {
+      "sha256": "c9303fda5b5d2711e16220f25413bace9256edfab02b8053f2d1e5958e0aab65"
+    },
+    "docs/DENSEDB.md": {
+      "sha256": "29f1161bccab33719868df7fddb92a05bacc739e64f54712cff15a42cccfbf75"
+    },
+    "docs/INSTALLATION.md": {
+      "sha256": "c07f4b0ba53b914caa999292cfe0b08ed26abc1c0c1ce14606a05603a87114b8"
+    },
+    "docs/LIBDENSE-SIM.md": {
+      "sha256": "29c2563528b672a0284873bda9b0ddf67af64b01536cca47e2e9173939c5d695"
+    },
+    "docs/PATHFINDING_POLICY.md": {
+      "sha256": "5863a8884c5d72a6122e3f1cd6cfa241ca1b7fafd1b9e2d0bf9acee6b7926811"
+    },
+    "docs/PLATFORM-COMPATIBILITY.md": {
+      "sha256": "9d6c9e48ed40663d7f35d966f3cd28e7c0fe2a2f2901bfe9d49cf511d78f08cd"
+    },
+    "docs/README.md": {
+      "sha256": "d7845c4dbb2afd471f7393cb463706da29fc0357048030e8dbfba1b682056b2c"
+    },
+    "docs/RELEASE-CHECKLIST.md": {
+      "sha256": "6b05d16be86fdc90be997b68ccd4e1c463355e23c7d63118a62af7f6c4b47232"
+    },
+    "docs/RELEASE-NOTES-0.4.5.md": {
+      "sha256": "b58c72ac67c037d986759a96419e06eae10df5990510bdc55f099be0562e8fff"
+    },
+    "docs/SECURITY-AND-SUPPLY-CHAIN.md": {
+      "sha256": "93f774f1d879075db487fca8e877042258a6315e014d62cf7e3d5e095d11adf6"
+    },
+    "docs/architecture.md": {
+      "sha256": "88169b91727696aab31287ef6bc56bc6941aa890c0376a1e013f7e6c50131274"
+    },
+    "docs/compact-wire.md": {
+      "sha256": "4071508e1a4a98d9f8de78225e41981bcf33a46eec845454e176dc5a63c0fec4"
+    },
+    "docs/delivery-workers.md": {
+      "sha256": "19209f90a960ead625587dda1ef4e16bffbfa129e85613c71324708828cacee2"
+    },
+    "docs/determinism.md": {
+      "sha256": "e10ead396798c74f8ca88bc5c63c873b0931cf01af0b95855fede838118d3cee"
+    },
+    "docs/grouped-state.md": {
+      "sha256": "02590ad782d7e6afed8e6a3d328997e0fb770991ecf3ecc31c262bd3e011e736"
+    },
+    "docs/mmo-integration.md": {
+      "sha256": "7dd5054245ef057a2bbd6e5df2590a87681f4ca0e94a399b40f411c4782ce853"
+    },
+    "docs/module-dependencies.md": {
+      "sha256": "651919285e329275f4aa1120553d66686cd9d554f374410aae3b100d15629bb2"
+    },
+    "docs/modules/densedb.md": {
+      "sha256": "b19eda8a2bda44d58ad356e5e8467b108379e60dbf37ed8e55b612b132c1f1c0"
+    },
+    "docs/modules/libdense_ai.md": {
+      "sha256": "8914224f37b7ccacc6ae331d724c87c399b5c182993e1747bad574edc9f343b6"
+    },
+    "docs/modules/libdense_collision.md": {
+      "sha256": "1df3a0c70d402e5fa54e56d6f0c6cc0d9494c9715da1d543e6a0c633c9d54a21"
+    },
+    "docs/modules/libdense_nav.md": {
+      "sha256": "1ce78dfffc135caa0147452c948b764ad2ff086c114685f9234e80684d128ee4"
+    },
+    "docs/modules/libdense_net.md": {
+      "sha256": "26d3624fc97dcbf2a295e3c8c2b7cb9cf30aa1403f05d3f2327ec06084111394"
+    },
+    "docs/modules/libdense_sched.md": {
+      "sha256": "0ff6137aeb45b990fd52803bf6752791294dff7ed7755e61fab018fed97496a4"
+    },
+    "docs/modules/libdense_sim.md": {
+      "sha256": "871f436e00814f8c55f026df35729d3fe39c625531aae6f5a1cd1cd33ca3fd94"
+    },
+    "docs/network-modes-0.4.5.md": {
+      "sha256": "13bf8079c869331356fe1737058a2dacc5634ca753d967d00ee2f7ee3a1f9f2b"
+    },
+    "docs/performance-policy.md": {
+      "sha256": "78396ccd7d29ebb4f8b817eda76ccd2d9442344b1863adcc0b585b6ecf3ce31c"
+    },
+    "docs/replay-and-audit.md": {
+      "sha256": "04a751dce78f15f8a8a1716f0c1dbcf8852a82a2525b91d8e0aabab0398ed654"
+    },
+    "docs/simulation-authority.md": {
+      "sha256": "28cbebf3b8f8d4cb50c3c277104c308612650e2333d25536d4b25d5faaa72c9c"
+    },
+    "docs/time-dilation.md": {
+      "sha256": "c91e3df0bd01157c22fe8ad1e9874d69663d5ab4e1a4ef99e2a1edd29fe8f408"
+    },
+    "docs/windows-hosting.md": {
+      "sha256": "53c5d8020eab2241b37756849dd12ca2c8893ed325eb81ff9b4ea8e28bf2ef65"
+    },
+    "docs/world-sizing.md": {
+      "sha256": "fd6342912784635f6179ee726d3b4f2261c1bc1fc997a232c71c25af257cdb14"
+    },
+    "include/dense/dense_ai.h": {
+      "sha256": "67a353a815eb97e70f8d2071239d8753000973f3989abc93ea3cb8ef6b3550ac"
+    },
+    "include/dense/dense_collision.h": {
+      "sha256": "35588e31c42586c72fa70b66672af518cdc40a8ab4119f786a9ba014bcf01e83"
+    },
+    "include/dense/dense_delivery.h": {
+      "sha256": "a896a41fa2a1a6c6c104e9e22b16ecfe0606cb6f197773170e2b96e9be5888ef"
+    },
+    "include/dense/dense_delivery_sim.h": {
+      "sha256": "c6a5d1ba6938cc5bd45327f51e5e67bd2e78b1dbde49c0692baae60780cf49e3"
+    },
+    "include/dense/dense_nav.h": {
+      "sha256": "e5f40be66a4f71f2740c12374f0f48836f2374e8c99c28874cdb757573de258a"
+    },
+    "include/dense/dense_nav_collision_bridge.h": {
+      "sha256": "78fb51345d6d4d2f9fcd2133ecc4b2b7cd9fe8367e01078b0c732feb32164d73"
+    },
+    "include/dense/dense_net.h": {
+      "sha256": "0e8b67114290032fe9794a0c2fe40f5d4824c47d66f01f10018eed2156bdd063"
+    },
+    "include/dense/dense_net_grouped.h": {
+      "sha256": "428d79e2565127463d2ce130081721424a40e49ca9cd895b2f1fc97f05370220"
+    },
+    "include/dense/dense_net_sim_bridge.h": {
+      "sha256": "3762d7d1a10e7a2c44d935e17758f2b10233e45f883454ea0d79f3377f7f96c9"
+    },
+    "include/dense/dense_net_wire.h": {
+      "sha256": "f249a9b8ee1851ac9bfb872a9dc96bddc13e2486e85b229ce2183cf12f9b1593"
+    },
+    "include/dense/dense_sched.h": {
+      "sha256": "287e4ba58c7b4c6250a8d09fe0f4b1c77171be01a92e350b281fa137e8984ad7"
+    },
+    "include/dense/dense_sched_time.h": {
+      "sha256": "56ac213e9b125f573fb6d458dc8ac4e15756039c7d5bec31035b35fca181e5ea"
+    },
+    "include/dense/dense_sim.h": {
+      "sha256": "19df395494906ac037c80ca2c9847116dd1f629906c0a00ec563c95c303917bd"
+    },
+    "include/dense/densedb.h": {
+      "sha256": "22bd8cda2c4dacad924e912e450c268905927aaa441eeac024a3af0efdce90ff"
+    },
+    "install.sh": {
+      "sha256": "387135af701499d5303d5fbdd07cf73b8731a37d5315318abebffa879a9df632"
+    },
+    "lib/linux-x86_64/libdense_ai.a": {
+      "sha256": "262d6a79ef51db09bbcbde13cb1d514d8d7c38cc1f59f77b6f155806c9678cd8"
+    },
+    "lib/linux-x86_64/libdense_ai.so": {
+      "target": "libdense_ai.so.0"
+    },
+    "lib/linux-x86_64/libdense_ai.so.0": {
+      "target": "libdense_ai.so.0.3.0"
+    },
+    "lib/linux-x86_64/libdense_ai.so.0.3.0": {
+      "sha256": "09fe5acc50c4245be15bf788d7c19b73fb5442d14e717733607851919f5659b6"
+    },
+    "lib/linux-x86_64/libdense_collision.a": {
+      "sha256": "8271af2e00922b3bbafc94eaf4f7f01864895f7d8e20f974bb86347fe6c1ea75"
+    },
+    "lib/linux-x86_64/libdense_collision.so": {
+      "target": "libdense_collision.so.0"
+    },
+    "lib/linux-x86_64/libdense_collision.so.0": {
+      "target": "libdense_collision.so.0.3.0"
+    },
+    "lib/linux-x86_64/libdense_collision.so.0.3.0": {
+      "sha256": "dfa77ff65e272939f0a74fa1c47b27a93bd6536356290047c38c057b79ad73f6"
+    },
+    "lib/linux-x86_64/libdense_delivery.a": {
+      "sha256": "20c4eb93fb39da81a9e46a3ada2e0e7a39ceb102352e5f90ee463a388df83fa2"
+    },
+    "lib/linux-x86_64/libdense_delivery.so": {
+      "target": "libdense_delivery.so.0"
+    },
+    "lib/linux-x86_64/libdense_delivery.so.0": {
+      "target": "libdense_delivery.so.0.4.5"
+    },
+    "lib/linux-x86_64/libdense_delivery.so.0.4.5": {
+      "sha256": "89868ab993093d257602dbf64f71f53598ef108316b3d77a77f6349347b26615"
+    },
+    "lib/linux-x86_64/libdense_nav.a": {
+      "sha256": "7542acf1b8e8dcc8fade3a68d562686637b83b16c697a1871f3b14bad3ea4afc"
+    },
+    "lib/linux-x86_64/libdense_nav.so": {
+      "target": "libdense_nav.so.0"
+    },
+    "lib/linux-x86_64/libdense_nav.so.0": {
+      "target": "libdense_nav.so.0.3.0"
+    },
+    "lib/linux-x86_64/libdense_nav.so.0.3.0": {
+      "sha256": "849bb11f29f18773351886884010cec08b430b43d4154635bc0ee6afa78f2451"
+    },
+    "lib/linux-x86_64/libdense_net.a": {
+      "sha256": "f73e56db55ef35bc3a554332e9d01076c17f7f0c78a61235ec62f2d899a166d4"
+    },
+    "lib/linux-x86_64/libdense_net.so": {
+      "target": "libdense_net.so.0"
+    },
+    "lib/linux-x86_64/libdense_net.so.0": {
+      "target": "libdense_net.so.0.3.5"
+    },
+    "lib/linux-x86_64/libdense_net.so.0.3.5": {
+      "sha256": "6e420b6478234fb4678c309901e91aabe3a7337794679f216789b6b1f65269c0"
+    },
+    "lib/linux-x86_64/libdense_sched.a": {
+      "sha256": "977dbad5123d651801ac8369acb86151b1523e100950ca3708d3a17ad9e01215"
+    },
+    "lib/linux-x86_64/libdense_sched.so": {
+      "target": "libdense_sched.so.0"
+    },
+    "lib/linux-x86_64/libdense_sched.so.0": {
+      "target": "libdense_sched.so.0.3.0"
+    },
+    "lib/linux-x86_64/libdense_sched.so.0.3.0": {
+      "sha256": "e877fe4700a2434d48fc0d09e9d48dd572d33975475fcc873667f6e5e1b8ee2e"
+    },
+    "lib/linux-x86_64/libdense_sim.a": {
+      "sha256": "dbab58e6a5fe5791ea8b74162f403f05f0436d7d0b18d67cf79339867fb0d47f"
+    },
+    "lib/linux-x86_64/libdense_sim.so": {
+      "target": "libdense_sim.so.0"
+    },
+    "lib/linux-x86_64/libdense_sim.so.0": {
+      "target": "libdense_sim.so.0.4.5"
+    },
+    "lib/linux-x86_64/libdense_sim.so.0.4.5": {
+      "sha256": "cd105c3170baecc734b4f550c861be2769e268b68890395db40e2784bd1ea63f"
+    },
+    "lib/linux-x86_64/libdensedb.a": {
+      "sha256": "afc6e36aec5f8a36ada45eddacc81a04538e6c332af78d8da064e72faed5f675"
+    },
+    "lib/linux-x86_64/libdensedb.so": {
+      "target": "libdensedb.so.0"
+    },
+    "lib/linux-x86_64/libdensedb.so.0": {
+      "target": "libdensedb.so.0.3.0"
+    },
+    "lib/linux-x86_64/libdensedb.so.0.3.0": {
+      "sha256": "da6cfb7d76799928f355a33453baf5961e8d3154bd4ffab8feb518fafb2338df"
+    },
+    "logo-square.png": {
+      "sha256": "f0c0be8ed698bb6291aeb113e54a2811f5cf463eb0b697c6679bc1ae3daeb827"
+    },
+    "logo.png": {
+      "sha256": "1b515d279aa51462bf242a1e1afe9919983aa22b97664570631285002b228d4b"
+    },
+    "pkgconfig/libdense_ai.pc.in": {
+      "sha256": "c3c30b0ea11bb3d0dc1abd69432682667a8b2503c9ed0c056fc70a03621dc651"
+    },
+    "pkgconfig/libdense_collision.pc.in": {
+      "sha256": "470b6392a4c6c2bcf42fa89a080b7d514ff0ff00ce4f219a9e36f966586c00c6"
+    },
+    "pkgconfig/libdense_delivery.pc.in": {
+      "sha256": "e79351fa085b21804b41f34eac37902bb96933b8f4733d9149349015f1b39b03"
+    },
+    "pkgconfig/libdense_nav.pc.in": {
+      "sha256": "9e8b9fc96dba4496fbbfa07352d7afce1b4a7a278a48324a35455f10495871bb"
+    },
+    "pkgconfig/libdense_net.pc.in": {
+      "sha256": "d09ed65f885aa3d2877fe9bdb3db2541cace22169769577496c6b5cd653832b7"
+    },
+    "pkgconfig/libdense_sched.pc.in": {
+      "sha256": "8c89b7793a01bffb9f1d9e8827bcea7a657b4a243baad41a6979c08682e0b316"
+    },
+    "pkgconfig/libdense_sim.pc.in": {
+      "sha256": "50613198b6a57e26b925d1b9a7a143fc647a10edbc6cebf3df7110992a63cd3d"
+    },
+    "pkgconfig/libdensedb.pc.in": {
+      "sha256": "971d3309b54a8360b09d65719e958027f3a19a8583b50b3ab1ed33cec2f35fa8"
+    },
+    "release/abi/densedb.exports": {
+      "sha256": "06f60f20e8ea099d608cd8c4f850cf0460f660df1600af9a1c2d2f4a4dce4546"
+    },
+    "release/abi/libdense_ai.exports": {
+      "sha256": "29ee5e36bff4b0a15fce3e42b718caa3d34c767c20bc85053bd428936767b5c9"
+    },
+    "release/abi/libdense_collision.exports": {
+      "sha256": "62a90ee517fc44d07c732bc07170fe03b560453e9bae171356f820f43280f4e3"
+    },
+    "release/abi/libdense_delivery.exports": {
+      "sha256": "fd1e137427f81601c06852d330f9a6070efb0f4ea78f5dcb2cdc5a580001e383"
+    },
+    "release/abi/libdense_nav.exports": {
+      "sha256": "e1ee16a95349186ac5e9d9186e4b6b46d484b63313fe864b7c0fe6d73b783c17"
+    },
+    "release/abi/libdense_net.exports": {
+      "sha256": "4b24274d21eb612177d27b3ced21a74720204c9c017266db8bc79846010e1dd2"
+    },
+    "release/abi/libdense_sched.exports": {
+      "sha256": "3d06216d4104dd8823309fe7f44659785bf7c5a39a21919980b6b57f2c3cbd89"
+    },
+    "release/abi/libdense_sim.exports": {
+      "sha256": "691366bea8cb634f45e863e1e306dca3898f0cd7fd1d73deab130a28e20fdd2a"
+    },
+    "release/abi/libdensedb.exports": {
+      "sha256": "06f60f20e8ea099d608cd8c4f850cf0460f660df1600af9a1c2d2f4a4dce4546"
+    },
+    "release/abi/linux-aarch64.txt": {
+      "sha256": "b68c5dfdbfe986be2f54523ca6b0755ac7ee930e697413357469c4f253f83e43"
+    },
+    "release/abi/linux-x86_64.txt": {
+      "sha256": "b68c5dfdbfe986be2f54523ca6b0755ac7ee930e697413357469c4f253f83e43"
+    },
+    "release/api/dense_delivery.api": {
+      "sha256": "cf8a4d38a0c273ce9474b7a477e9ac5ec331f5bac9f2cf90a66bdf2f855b6189"
+    },
+    "release/api/dense_delivery_sim.api": {
+      "sha256": "259829f7b19d26414d4f2dd64952e29bc58e6919767d92c267064b5efcc1cd0c"
+    },
+    "release/api/dense_net_grouped.api": {
+      "sha256": "f8a8c6e15c6b81f834852860d3953ff551a698aa5747a3d17b78e450cb6c89c6"
+    },
+    "release/api/dense_sched_time.api": {
+      "sha256": "3020c11a5146aa059c7ee80ce34cb1fc6b373e585ea2562eb4312639d748b73d"
+    },
+    "release/api/dense_sim-0.3.0.api": {
+      "sha256": "36c47f7f6c38935bf91d7742a06adfe5f2a956778560900042cc5b80a5fa5e69"
+    },
+    "release/api/dense_sim.api": {
+      "sha256": "7d6663de500f218954a4085ba8a51a60a6408091fc9e0e950842bc91ee153d0d"
+    },
+    "release/api/densedb.api": {
+      "sha256": "9d12aa12c2ddb2563ca92158d28f1384ad0ba3304aaf1b7b237f0f5b72234fbc"
+    },
+    "release/benchmarks/0.4.2/all-to-all.jsonl": {
+      "sha256": "6df9b315edde1483e9a9034605f571630eb101c7c15ac9344faf6eafc5d4272b"
+    },
+    "release/benchmarks/0.4.2/comparison.csv": {
+      "sha256": "7a6565aa6db352cb2e57b985ea1c601fe7599dc9243d2e9f6fb739aa8a1b53b0"
+    },
+    "release/benchmarks/0.4.2/controls.jsonl": {
+      "sha256": "42c854363a5aa83c124c1c7867685b50c322c1f51559d0859bb04d64130c174b"
+    },
+    "release/benchmarks/0.4.2/matrix.jsonl": {
+      "sha256": "9686b48c144fbc3c3433756777755e403c2731ca675d03f195640660a990b641"
+    },
+    "release/benchmarks/0.4.2/summary.json": {
+      "sha256": "3d634e09d8412cf05adee083e1ee503737ff6e276466b3afc1f10625caa0ba61"
+    },
+    "release/benchmarks/0.4.4/comparison.csv": {
+      "sha256": "e762c43636f779eec8154065e8db44be6f99a326b68d39e92584ac6d5509690e"
+    },
+    "release/benchmarks/0.4.4/environment.json": {
+      "sha256": "f1e07e411ebb03bb63cef8ecfccf9f87ecf588f5c1da81357a6ec7dcee3c7177"
+    },
+    "release/benchmarks/0.4.4/manifests/0.4.2/manifest.json": {
+      "sha256": "33759921870c3b27a10ca87baecb577884e60b8cebb1728deb4b3a39c74f3fa0"
+    },
+    "release/benchmarks/0.4.4/manifests/0.4.4/manifest.json": {
+      "sha256": "7144580fdfd40227dac3ab3f471f2c90fc7226b80ac9fcab3290100bf82473f1"
+    },
+    "release/benchmarks/0.4.4/samples.jsonl": {
+      "sha256": "8ea90c2824bc4d74dcaa65dc3bc72eb9d3780bf82abb140634dfc3e22cb47f69"
+    },
+    "release/benchmarks/0.4.4/source-freeze.json": {
+      "sha256": "fde41eb5f525b732539d2c97c10541898c3e8efc78b2660508b199c9d9d69dab"
+    },
+    "release/benchmarks/0.4.4/summary.json": {
+      "sha256": "7cc83aea695a6fb768965f1359a4e1228fb641f1ea62f34ad8a25ed081349078"
+    },
+    "release/benchmarks/BENCHMARK_SUMMARY-2026-07-15.json": {
+      "sha256": "72c07b785262a6d52777aae42e9f58459ed4721fd2894308690cf9ffeb1e389b"
+    },
+    "release/benchmarks/BENCHMARK_SUMMARY.json": {
+      "sha256": "7c760a4d7bacc3fac7e8e16a8151f82c657f4f4ee5fa61fb735f32a72333ec33"
+    },
+    "release/benchmarks/benchmark-0.3.8-2026-09-11.txt": {
+      "sha256": "fbbf303eaddb085ade71480cb8f0993cca1a977705210760f87f016b3a6bdc33"
+    },
+    "release/benchmarks/benchmark_full_Ryzen_5600x_7.28.26.txt": {
+      "sha256": "fc05d93d1a7a32d45cc337734a0e55bec7f26b0b3bea7a57159f06ebac464075"
+    },
+    "release/benchmarks/overload-tuning.txt": {
+      "sha256": "d80fc5363633fb5d19b6f4c7149b53317aeef927eafa2537d473a21d8ccff5b6"
+    },
+    "release/benchmarks/phase-profile-summary.json": {
+      "sha256": "37ea56aac1bc7e09e6779eb14be34ea715ac7c87e637c8cd4b9627b171e66359"
+    },
+    "release/benchmarks/phase-profile-summary.md": {
+      "sha256": "18a80041c7d9070afd31e0f099d19cb3f38c632e48ff0a496bb39ecb8e58db47"
+    },
+    "release/benchmarks/rc-gate.txt": {
+      "sha256": "739c5aa3f8f476c5e7d3d13588f896ee8742672ed1797203d5506e19a01a20b3"
+    },
+    "release/validation/0.4.4.json": {
+      "sha256": "d61d71891f3de24827da488b4284ffaacfb4eea7ff253cf68fe273020f5295a9"
+    },
+    "release/validation/0.4.5-bug-review.json": {
+      "sha256": "6cd37678dbd635e92487f5db9560cdee75be1adebfbce231cff230b701cfb6a2"
+    },
+    "release/validation/0.4.5-time-sdk.json": {
+      "sha256": "bc19fbeeab7791a770c4bf3c6de62f623320fb8196d5f463f1e6d64d1253dde2"
+    },
+    "release/validation/0.4.5.json": {
+      "sha256": "a305e064ee85ae532eca3618b3d14b71ce20c31659a6baae3c169cedca8a21b8"
+    },
+    "tools/check-content.py": {
+      "sha256": "b6f9d59a3853a1118c9d260f2ce5cfaecbda85dc331059d53e749f1d70db6d64"
+    },
+    "tools/generate-checksums.sh": {
+      "sha256": "f53201b8620fb6966f28c751bb948bfd122d7ea595b0ca9108ab6bfe9698f62b"
+    },
+    "uninstall.sh": {
+      "sha256": "0c330296598318e72df90be74a37b94bd8c84d64a4085da49f2b5e08d95c2aa3"
+    },
+    "verify-release.sh": {
+      "sha256": "eab6e56f885745f06f092821695dbdeca3d60e334d2cdf9f94678ca102593369"
+    }
+  }
+}

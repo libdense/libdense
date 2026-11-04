@@ -6,10 +6,11 @@ ERRORS=0
 WARNINGS=0
 METADATA_ONLY=0
 
-RELEASE_VERSION="0.4.4"
-PYTHON_BINDING_VERSION="0.4.4"
+RELEASE_VERSION="0.4.5"
+PYTHON_BINDING_VERSION="0.4.5"
 
 LIBRARIES=(
+    dense_delivery
     dense_sim
     dense_net
     dense_sched
@@ -20,7 +21,8 @@ LIBRARIES=(
 )
 
 declare -A COMPONENT_VERSIONS=(
-    [dense_sim]="0.4.4"
+    [dense_delivery]="0.4.5"
+    [dense_sim]="0.4.5"
     [dense_net]="0.3.5"
     [dense_sched]="0.3.0"
     [dense_collision]="0.3.0"
@@ -30,10 +32,15 @@ declare -A COMPONENT_VERSIONS=(
 )
 
 HEADERS=(
+    dense_delivery.h
+    dense_delivery_sim.h
     dense_sim.h
     dense_net.h
     dense_net_sim_bridge.h
+    dense_net_wire.h
+    dense_net_grouped.h
     dense_sched.h
+    dense_sched_time.h
     dense_collision.h
     dense_nav.h
     dense_nav_collision_bridge.h
@@ -331,6 +338,10 @@ if ((METADATA_ONLY == 0)) && [[ -f "$ROOT_DIR/SHA256SUMS" ]] && command -v sha25
     if ! (cd "$ROOT_DIR" && sha256sum --check --quiet SHA256SUMS); then
         error "SHA256SUMS validation failed"
     fi
+fi
+
+if ((METADATA_ONLY == 0)); then
+    python3 "$ROOT_DIR/tools/check-content.py" || error "public payload verification failed"
 fi
 
 if ((ERRORS > 0)); then

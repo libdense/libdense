@@ -1,0 +1,33 @@
+{
+  "stage": "BUG-REVIEW-20261103",
+  "qualified_target": "Linux x86-64",
+  "status": "P2 capture-failure bug fixed; reviewed candidate, not published",
+  "findings": [
+    {
+      "id": "BR-01",
+      "priority": "P2",
+      "status": "fixed",
+      "trigger": "invalid simulation capture over an idle sealed publication",
+      "before": "older data remains admissible",
+      "after": "idle sealed state invalidated before validation; busy publication untouched",
+      "abi_or_wire_change": false
+    }
+  ],
+  "passed": [
+    "pre-fix reproduction fails with stale submit DN_OK",
+    "48 capture failure cases, explicit rebuild and four busy-ownership cases",
+    "exact worker 1/2/4/8 behavior and 60 constructor failures",
+    "ASan/UBSan updated workers, static/shared",
+    "200000 exact-sized hostile parser inputs under ASan/UBSan",
+    "wire/compact/UDP, grouped/Mithsteel and scheduler tests",
+    "combined time/network/worker integration",
+    "installed static/shared C and CMake C/C++",
+    "API freeze and exports"
+  ],
+  "limits": [
+    "prior complete portable CI remains historical qualification, not rerun in this pass",
+    "no native ARM64/Windows, TSan, LSan or new performance pass",
+    "GCC analyzer delivery warning manually triaged as an impossible constructor-cleanup path; time/grouped/capture analysis clean"
+  ],
+  "source_boundary": "six historical baseline identities verified; no sender or relay promotion"
+}

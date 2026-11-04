@@ -1,11 +1,14 @@
 # Public Release Checklist
 
+Validated 2026-11-02 for v0.4.5.
+
 This checklist applies to the Linux x86-64 release bundle. Other targets need
 separate artifact validation.
 
 ## Artifacts
 
-- [x] public C headers;
+- [x] public C headers, including `dense_net_wire.h`;
+- [x] four headless demo binaries with legacy defaults;
 - [x] versioned shared libraries and relative SONAME links;
 - [x] static libraries;
 - [x] C++ wrapper header;
@@ -34,3 +37,6 @@ separate artifact validation.
 
 Keep `LICENSE.md` unmodified. Binary redistribution by recipients remains
 subject to its distribution conditions, including Section 8.
+
+Native ARM64/Windows, graphical clients and LeakSanitizer are outside this
+validation. The Linux ASan/UBSan checks ran with leak scanning disabled.

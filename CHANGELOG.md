@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.4.5 - 2026-11-02
+
+- Add opt-in compact framing with 6-byte headers for fixed-size messages and
+  8-byte headers for variable-size messages.
+- Add opt-in grouped state to send one group ID for multiple entity updates.
+- Add opt-in two-byte Mithsteel wire profile.
+- Add opt-in workers for replication updates across multiple cores. Linux only support currently. (`libdense_delivery`)
+- Add opt-in Time Bending / Time Dilation to slow simulation ticks. Think of `Eve Online`.
+
 ## 0.4.4 - 2026-10-16
 
 - Prepare eligible homogeneous replication groups once.

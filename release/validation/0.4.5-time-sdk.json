@@ -1,0 +1,43 @@
+{
+  "stage": "TIME-SDK-20261102",
+  "status": "all v0.4.5 SDK opt-ins implemented; Linux x86-64 release candidate; not published",
+  "qualified_target": "Linux x86-64",
+  "public_time_functions": 7,
+  "passed": [
+    "complete Linux portable CI including deterministic optimized/sanitized replay and CMake package checks",
+    "integer-scale scheduling, bounded ramps, snapshots, epochs, overflow and explicit backlog recovery",
+    "10000 exact constant-scale deadlines and 1000000 ns independent randomized oracle",
+    "ASan/UBSan time-control tests and combined integration using static/shared libraries",
+    "12 combined cases: legacy/compact, 1/2 workers, scales 1.0/0.5/0.1",
+    "20/10/2 fixed simulation steps per second with 1000 real-time service calls and 9 reliable retransmissions in each case",
+    "installed static/shared time, worker and documented example consumers; CMake C/C++",
+    "default/optional staging, relocated CMake, missing component/archive and Windows worker rejection",
+    "all module API freezes and shared-library export checks",
+    "public installed static/shared C and CMake C/C++ with nested libdir",
+    "isolated source/public install and complete uninstall",
+    "public verifier with zero warnings and seven negative controls"
+  ],
+  "limits": [
+    "LSan disabled because process inspection is unavailable; allocation counters are tested",
+    "no TSan claim",
+    "no native ARM64/Windows runtime qualification in this environment",
+    "no new performance or equivalent real-time capacity claim",
+    "application owns authority/authentication, timer domains, session exclusivity and bounded service-loop work"
+  ],
+  "source_boundary": "selected source after six historical identity checks; public payload excludes private source/research, relays and unpromoted sender changes",
+  "elf_glibc_requirements": {
+    "bin/linux-x86_64/arena-bot": "2.34",
+    "bin/linux-x86_64/arena-server": "2.34",
+    "bin/linux-x86_64/driving-bot": "2.34",
+    "bin/linux-x86_64/driving-server": "2.34",
+    "lib/linux-x86_64/libdense_ai.so.0.3.0": "2.14",
+    "lib/linux-x86_64/libdense_collision.so.0.3.0": "2.14",
+    "lib/linux-x86_64/libdense_delivery.so.0.4.5": "2.34",
+    "lib/linux-x86_64/libdense_nav.so.0.3.0": "2.14",
+    "lib/linux-x86_64/libdense_net.so.0.3.5": "2.14",
+    "lib/linux-x86_64/libdense_sched.so.0.3.0": "2.4",
+    "lib/linux-x86_64/libdense_sim.so.0.4.5": "2.14",
+    "lib/linux-x86_64/libdensedb.so.0.3.0": "2.33"
+  },
+  "runtime_note": "The optional delivery SDK and demos require glibc 2.34. Other SDK shared libraries require at most glibc 2.33. Symbol requirements do not prove runtime compatibility on older distributions. Retained Python wheels have their historical validation scope."
+}

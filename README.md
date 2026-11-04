@@ -2,7 +2,7 @@
   <img src="logo.png" alt="Dense logo" width="800">
 </p>
 
-# Dense | Current release: 0.4.4
+# Dense | v0.4.5 release candidate
 
 **A high-density multiplayer state engine for all-to-all observer simulations.**
 
@@ -25,6 +25,19 @@ C++, and Rust wrapper source. Core C implementation source is not included.
 > 
 > Dense reduces time complexity, a number like 10,000 players is laughable doable.
 
+
+## v0.4.5 release candidate
+
+The public SDK offers independently opt-in [compact framing](docs/compact-wire.md),
+[grouped state and two-byte Mithsteel](docs/grouped-state.md),
+[local delivery workers](docs/delivery-workers.md), and
+[Time Bending / Time Dilation](docs/time-dilation.md).
+Legacy framing and one application-owned thread remain defaults.
+
+Time controls keep fixed simulation steps and real-time networking separate.
+The worker SDK has its own static/shared library and explicit CMake component.
+See [release notes](docs/RELEASE-NOTES-0.4.5.md) for availability and validation.
+Historical benchmark tables retain their original measurement scope.
 
 ## Additional Project Links
 - Videos at https://www.youtube.com/@YggEngine
@@ -148,8 +161,8 @@ For a **100 ms simulation tick budget (10 Hz)**:
 | Public-ID C API | ~449,000 | ~347,000 |
 | Internal known-slot | ~565,000 | ~454,000 |
 
-**~450,000 is the largest tested public-API population whose worst recorded
-tick remained below 100 ms. An i9-14900KS would bench about ~630k based on single-core performance scores.**
+The population estimates above interpolate mean and p99 timings. They do not
+establish a worst-tick guarantee or performance on a different CPU.
 
 ### libdense_net
 
@@ -222,8 +235,9 @@ libdense/
 |-- README.md, CHANGELOG.md, VERSION, MANIFEST.md
 |-- LICENSE.md, COMMERCIAL-LICENSE.md, SECURITY.md, SUPPORT.md
 |-- install.sh, uninstall.sh, verify-release.sh, SHA256SUMS
-|-- include/dense/          public C headers (9)
+|-- include/dense/          public C headers (14)
 |-- lib/linux-x86_64/       Linux x86-64 shared + static libraries (7)
+|-- bin/linux-x86_64/       headless Arena and Driving demonstrations
 |-- pkgconfig/              pkg-config templates
 |-- bindings/               Python, C++, and Rust wrappers (full source)
 |-- docs/                   documentation and per-module references
@@ -242,7 +256,7 @@ sudo ./install.sh
 
 The archive verifier excludes Git metadata. In a Git checkout, export the
 release with `git archive` before running it. The shared-library bundle
-requires Linux x86-64 with glibc 2.33 or newer.
+requires Linux x86-64 with glibc 2.34 or newer.
 
 Selected options (see `docs/INSTALLATION.md` for staging and packaging):
 
@@ -298,3 +312,7 @@ Start at `docs/README.md`. Highlights:
 See `LICENSE.md`, `COMMERCIAL-LICENSE.md`, and `SECURITY.md`. Binary
 redistribution remains subject to the distribution conditions in
 `LICENSE.md`.
+
+The optional headless demo executables require glibc 2.34 or newer. The shared
+SDK libraries require glibc 2.34 or newer; Python extension symbols require
+glibc 2.14, subject to the interpreter's own requirements.

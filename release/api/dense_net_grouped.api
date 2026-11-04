@@ -1,0 +1,56 @@
+#ifndef DENSE_NET_GROUPED_H
+#define DENSE_NET_GROUPED_H
+#include "dense_net.h"
+#ifdef __cplusplus
+extern "C" {
+#endif
+#define DN_GROUPED_VERSION 1u
+#define DN_GROUPED_SLOTS 16u
+#define DN_GROUPED_STATE_SIZE 48u
+#define DN_GROUPED_HEADER_SIZE 20u
+#define DN_GROUPED_MAX_SIZE 800u
+#define DN_GROUPED_WIDTH_FIELDS 0u
+#define DN_GROUPED_WIDTH_MITHSTEEL 2u
+enum {
+DN_GROUPED_RAW,
+DN_GROUPED_FIELDS,
+DN_GROUPED_TEMPLATE,
+DN_GROUPED_ASSET
+};
+typedef struct dn_grouped_state {
+uint64_t id, tick;
+int32_t x, y, vx, vy;
+uint16_t heading, health;
+uint32_t score, flags, input_sequence;
+} dn_grouped_state;
+typedef struct dn_grouped_asset {
+uint32_t group, epoch;
+uint64_t tick;
+uint16_t mask, full_mask;
+uint8_t state[DN_GROUPED_SLOTS][DN_GROUPED_STATE_SIZE];
+} dn_grouped_asset;
+typedef struct dn_grouped_stats {
+uint64_t records, exceptions, correction_bytes, code_bytes;
+uint64_t trials, fallback, exhausted;
+} dn_grouped_stats;
+DN_API bool dn_grouped_state_write(uint8_t out[48], const dn_grouped_state *state);
+DN_API bool dn_grouped_state_read(dn_grouped_state *out, const uint8_t state[48]);
+DN_API uint16_t dn_grouped_mask(const uint8_t *data);
+DN_API bool dn_grouped_header(const uint8_t *data, size_t size);
+DN_API size_t dn_grouped_asset_encode(uint8_t out[DN_GROUPED_MAX_SIZE],
+const dn_grouped_asset *asset, uint16_t mask, bool full);
+DN_API bool dn_grouped_asset_decode(dn_grouped_asset *out,
+const uint8_t *data, size_t size);
+DN_API size_t dn_grouped_encode(uint8_t out[DN_GROUPED_MAX_SIZE], uint32_t group,
+uint64_t tick, uint16_t mask, const uint8_t state[DN_GROUPED_SLOTS][48],
+const dn_grouped_asset *base, unsigned width, unsigned *budget,
+dn_grouped_stats *stats);
+DN_API int dn_grouped_decode(uint8_t out[DN_GROUPED_SLOTS][48],
+const uint8_t *data, size_t size, const dn_grouped_asset *base);
+DN_API uint16_t dn_grouped_code(const uint8_t state[48], unsigned width);
+DN_API bool dn_grouped_predict(uint8_t out[48], const uint8_t base[48],
+uint64_t tick, uint16_t code, unsigned width);
+#ifdef __cplusplus
+}
+#endif
+#endif

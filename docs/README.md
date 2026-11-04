@@ -29,3 +29,9 @@
 - `LIBDENSE-SIM.md` - spatial kernel behavior and public invariants.
 - `DENSEDB.md` - database, WATCH, and durability behavior.
 - `modules/` - per-library reference notes for all seven libraries.
+
+## v0.4.5
+
+- [Release notes](RELEASE-NOTES-0.4.5.md)
+- [Network modes and headless demos](network-modes-0.4.5.md)
+- [Compact wire API](compact-wire.md)
