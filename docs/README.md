@@ -28,7 +28,13 @@
 - `world-sizing.md` - sizing worlds, regions, and capacity planning.
 - `LIBDENSE-SIM.md` - spatial kernel behavior and public invariants.
 - `DENSEDB.md` - database, WATCH, and durability behavior.
-- `modules/` - per-library reference notes for all seven libraries.
+- `modules/` - per-library reference notes for all seven libraries and experimental libdense_gpu.
+
+## v0.4.8 release candidate
+
+- [Release notes](RELEASE-NOTES-0.4.8.md)
+- [libdense_gpu (experimental)](modules/libdense_gpu.md)
+- [Release-candidate plates](../densebench/0.4.7/README.md)
 
 ## v0.4.5
 

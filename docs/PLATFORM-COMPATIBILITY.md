@@ -1,12 +1,12 @@
 # Platform Compatibility
 
-Release: `0.4.5`
+Release: `0.4.8` (release candidate)
 
 ## Included artifacts
 
 | Target | Role | Native libraries | Python wheels |
 |---|---|---|---|
-| Linux x86-64 | Client and server | Eight shared libraries and eight static archives, including DenseDB and the optional delivery SDK | CPython 3.11, 3.12, 3.13, and 3.14 |
+| Linux x86-64 | Client and server | Nine shared libraries and nine static archives: the seven family libraries including DenseDB, the optional delivery SDK, and experimental libdense_gpu | CPython 3.11, 3.12, 3.13, and 3.14 |
 
 The artifacts are 64-bit and little-endian. The shared-library SONAME major
 remains `0`. The public ABI identifiers remain:
@@ -16,21 +16,32 @@ DS_ABI_VERSION=1
 DDB_ABI_VERSION=2
 ```
 
-The aggregate SDK, `libdense_sim` and `libdense_delivery` are version 0.4.5. `libdense_net` remains
+The aggregate SDK, `libdense_sim` and `libdense_delivery` are version 0.4.8. `libdense_net` remains
 version 0.3.5; the other native modules and DenseDB remain version 0.3.0.
+Experimental `libdense_gpu` is version 0.1.7.
 Linux layout records for x86-64 and AArch64 are retained under `release/abi/`.
 
 ## Linux runtime compatibility
 
 The included shared-library bundle requires glibc 2.34 or newer, as determined
 from its ELF symbol requirements. The optional delivery library sets this
-floor. The other shared SDK libraries require at most glibc 2.33. Static archives are
-linked into the consumer application; the final toolchain and selected system
-libraries determine that application's runtime requirements.
+floor. The other shared SDK libraries require at most glibc 2.33, and
+libdense_gpu at most glibc 2.16. Static archives are linked into the consumer
+application; the final toolchain and selected system libraries determine that
+application's runtime requirements.
 
 The Python extensions require glibc symbols through version 2.14 and have no
 runtime `libdense_sim.so` dependency. The Python interpreter may require a
 newer glibc. Wheels use the `linux_x86_64` platform tag, not a manylinux tag.
+
+## libdense_gpu backends
+
+The CPU backend is the default and needs nothing beyond libc. The OpenGL 4.3
+compute backend needs a context of version 4.3 or later created by the
+application and an OpenGL loader supplied through the configuration; the
+library itself links no OpenGL library. It is qualified on one machine (RTX
+3070, NVIDIA 535.261.03) and checked on Mesa llvmpipe. AMD and Intel drivers,
+Windows and WebGL/OpenGL ES are not covered.
 
 ## Python compatibility
 

@@ -1,5 +1,9 @@
 # Performance and Allocation Policy
 
+Published performance results in README files and benchmark reports target the
+Linux server. Windows builds are compatibility checks; their timings must not be
+mixed into Linux performance tables or presented as Linux-equivalent capacity.
+
 ## Measure representative work
 
 Synthetic microbenchmarks are useful for diagnosis, but a structural conversion merges only when a representative workload improves without unacceptable regressions in memory, determinism, initialization, sanitizer behavior, adversarial-key handling, or maintainability.

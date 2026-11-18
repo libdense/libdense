@@ -14,17 +14,26 @@ release/abi/linux-aarch64.txt
 The verifier compares exported native symbols against the normalized public API
 snapshots and checks the shared-library SONAMEs. The
 `release/api/dense_sim-0.3.0.api` snapshot retains the pre-extension baseline;
-`release/api/dense_sim.api` records the 0.4.4 version of the unchanged 0.3.6 public surface.
+`release/api/dense_sim.api` records the 0.4.8 version of the unchanged 0.3.6 public surface.
 
 Within one ABI major version, consumers should still rebuild when public struct
 layout or function declarations change during a prerelease series. The current
-aggregate release is `0.4.4`, not a final 1.0 ABI commitment.
+aggregate release is `0.4.8`, not a final 1.0 ABI commitment.
 
 ## Borrowed views
 
 Fanout and WATCH views point into library-owned memory. They must not be retained
 past their documented invalidation boundary. Language bindings preserve these
 rules through generation checks or language lifetimes where possible.
+
+## 0.4.8
+
+Function declarations, structure layouts and exported symbols of every SDK
+library are those of 0.4.5; `release/api/dense_sim.api` differs only in the
+version macros. Header comments now document corrected behavior (collision
+endpoint handling, receive truncation, token-bucket deadlines). Experimental
+libdense_gpu 0.1.7 is outside these guarantees: `release/abi/libdense_gpu.exports`
+records this build, and its API and ABI may change.
 
 ## Simulation 0.4.4
 

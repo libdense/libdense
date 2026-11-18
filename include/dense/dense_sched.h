@@ -596,8 +596,12 @@ DSC_API uint64_t dsc_token_bucket_available(
     uint64_t now_ns
 );
 /*
- * Earliest now_ns at which take(amount) could succeed; UINT64_MAX if
- * amount exceeds capacity.
+ * For an initialized bucket, returns 0 before the first take/available call
+ * or when the requested tokens are already present. Otherwise returns the
+ * earliest refill timestamp for amount, assuming no intervening takes.
+ * Returns UINT64_MAX for NULL, amount above capacity, or a deadline beyond
+ * the uint64_t range. An exact UINT64_MAX deadline shares that sentinel.
+ * The query does not start or mutate the bucket.
  */
 DSC_API uint64_t dsc_token_bucket_next_available_ns(
     const dsc_token_bucket *bucket,

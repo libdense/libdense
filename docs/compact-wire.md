@@ -1,10 +1,10 @@
 # Opt-in compact framing
 
-Compact framing is an opt-in SDK feature in v0.4.5. The normal SDK
+Compact framing is an opt-in SDK feature since v0.4.5. The normal SDK
 includes `dense_net_wire.h` and its exported functions. Existing registry,
 session and UDP entry points continue to use legacy framing until the
 application explicitly selects a negotiated compact registry or endpoint.
-The family release is 0.4.5; existing component SONAME majors are unchanged.
+The family release is 0.4.8; existing component SONAME majors are unchanged.
 
 | Field | Legacy frame | Compact frame |
 |---|---:|---:|

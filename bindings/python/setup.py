@@ -55,7 +55,7 @@ class DenseBuildExt(build_ext):
 
 setup(
     name="dense-sim",
-    version="0.4.5",
+    version="0.4.8",
     description="Python binding for libdense_sim",
     package_dir={"": "src"},
     packages=["dense_sim"],

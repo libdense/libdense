@@ -6,8 +6,8 @@ ERRORS=0
 WARNINGS=0
 METADATA_ONLY=0
 
-RELEASE_VERSION="0.4.5"
-PYTHON_BINDING_VERSION="0.4.5"
+RELEASE_VERSION="0.4.8"
+PYTHON_BINDING_VERSION="0.4.8"
 
 LIBRARIES=(
     dense_delivery
@@ -18,17 +18,19 @@ LIBRARIES=(
     dense_nav
     dense_ai
     densedb
+    dense_gpu
 )
 
 declare -A COMPONENT_VERSIONS=(
-    [dense_delivery]="0.4.5"
-    [dense_sim]="0.4.5"
+    [dense_delivery]="0.4.8"
+    [dense_sim]="0.4.8"
     [dense_net]="0.3.5"
     [dense_sched]="0.3.0"
     [dense_collision]="0.3.0"
     [dense_nav]="0.3.0"
     [dense_ai]="0.3.0"
     [densedb]="0.3.0"
+    [dense_gpu]="0.1.7"
 )
 
 HEADERS=(
@@ -46,6 +48,7 @@ HEADERS=(
     dense_nav_collision_bridge.h
     dense_ai.h
     densedb.h
+    dense_gpu.h
 )
 
 usage() {

@@ -1,5 +1,27 @@
 # Changelog
 
+## 0.4.8 - release candidate - 2026-11-18
+
+- Shared replication batches queue in one session lane and flush in bulk copies
+  (2,000 clients over a 64x64 world: 298.4 ms to 6.7 ms per tick on my Ryzen 5 5600X).
+- Simulation is faster: the M6 benchmarks are 26.8% faster than 0.4.5!
+  (Thanks to the Dense-Superoptimizer)
+- Collision: out-of-range candidates are rejected before commit and a move that would end inside an obstacle is cancelled.
+- Fixes: token-bucket refill and deadlines, the 32-bit legacy frame-size
+  check, compact loopback receive and bootstrap replies, the grouped
+  predictor's stale-baseline budget, and loopback capacity overflow.
+- [WIP] Formal lean verification
+- [Experimental] Add opt-in `libdense_gpu` 0.1.7
+
+### `libdense_gpu` 0.1.7
+- Only useful for non-networked simulations.
+- The OpenGL 4.3 compute backend runs on a GL context your game provides; libdense_gpu never creates one.
+- Experimental so the API/ABI may still change.
+- NVIDIA 3070 p50:
+  (GPU vs 12 CPU threads vs 1 CPU thread)
+  1-mllion: 27.9 ms vs 227.1 ms vs 1,029 ms
+  10-million: 583.9 ms vs 3,357 ms vs 14,655 ms
+
 ## 0.4.5 - 2026-11-02
 
 - Add opt-in compact framing with 6-byte headers for fixed-size messages and

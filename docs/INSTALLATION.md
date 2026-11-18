@@ -3,16 +3,8 @@
 ## Files installed
 
 ```text
-<PREFIX>/include/dense/dense_sim.h
-<PREFIX>/include/dense/dense_net.h
-<PREFIX>/include/dense/dense_net_sim_bridge.h
-<PREFIX>/include/dense/dense_sched.h
-<PREFIX>/include/dense/dense_collision.h
-<PREFIX>/include/dense/dense_nav.h
-<PREFIX>/include/dense/dense_nav_collision_bridge.h
-<PREFIX>/include/dense/dense_ai.h
-<PREFIX>/include/dense/densedb.h
-<PREFIX>/include/dense/dense_sim.hpp
+<PREFIX>/include/dense/*.h                 15 public C headers, including experimental dense_gpu.h
+<PREFIX>/include/dense/dense_sim.hpp       C++ wrapper (unless --no-cpp)
 <PREFIX>/<LIBDIR>/libdense_sim.so*        libdense_sim.a
 <PREFIX>/<LIBDIR>/libdense_net.so*        libdense_net.a
 <PREFIX>/<LIBDIR>/libdense_sched.so*      libdense_sched.a
@@ -20,8 +12,11 @@
 <PREFIX>/<LIBDIR>/libdense_nav.so*        libdense_nav.a
 <PREFIX>/<LIBDIR>/libdense_ai.so*         libdense_ai.a
 <PREFIX>/<LIBDIR>/libdensedb.so*          libdensedb.a
+<PREFIX>/<LIBDIR>/libdense_delivery.so*   libdense_delivery.a
+<PREFIX>/<LIBDIR>/libdense_gpu.so*        libdense_gpu.a (experimental)
 <PREFIX>/<LIBDIR>/pkgconfig/libdense_*.pc and libdensedb.pc
-<PREFIX>/share/doc/dense/*
+<PREFIX>/<LIBDIR>/cmake/Dense/*.cmake      CMake package (not covering libdense_gpu)
+<PREFIX>/share/doc/dense/*                 (unless --no-docs)
 <PREFIX>/share/dense/install-manifest.txt
 ```
 

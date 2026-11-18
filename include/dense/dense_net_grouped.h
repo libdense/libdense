@@ -84,7 +84,9 @@ DN_API bool dn_grouped_asset_decode(dn_grouped_asset *out,
  * pass a baseline only for recipients that ACKed that exact epoch and coverage.
  * NULL or changed identities use raw fallback. width=0 groups explicit fields;
  * width=2 tries Mithsteel only with a full baseline, sufficient *budget and
- * tick distance <=1024. one trial per selected slot, exact residual correction,
+ * tick at/after the baseline and distance <=1024. stale baselines fall back
+ * without spending budget or counting trials/exhaustion. the caller owns and
+ * replenishes the shared budget. one trial per selected slot, exact correction,
  * explicit fields if prediction is not smaller. budget and stats are required.
  * encode once per coverage/readiness cohort and share through dn_replication.
  * buffers/state/base must not overlap. zero indicates invalid input; counters

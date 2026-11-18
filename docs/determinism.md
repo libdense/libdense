@@ -65,3 +65,13 @@ from `f9ee2ebe47713aee` to `45dac673272c989e` after normalized delivery
 comparison. Releases 0.3.8 through 0.4.2 preserve that order and checksum.
 The replay library fingerprint is `dense-family/0.4.2`; recordings with a different library
 fingerprint must be replayed with the matching release.
+
+## 0.4.8
+
+The family fingerprint is `dense-family/0.4.8`. The 240-tick record/replay
+harness still matches the pinned final checksum `45dac673272c989e`; public
+simulation ABI version 1 and the replay format are unchanged. The 0.4.7
+collision corrections can change contact times, normals and selected
+contacts, so recordings whose outcome depends on collisions can produce
+different results under 0.4.8 even where the harness checksum agrees.
+Version-pinned recordings require the matching library fingerprint.

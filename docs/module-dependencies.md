@@ -32,3 +32,11 @@ No public module may depend on another module's private headers. `dense_core` re
 - `libdense_nav` may compile its collision rasterization bridge when `DENSE_COLLISION_DIR` is supplied.
 
 These are explicit public integration seams, not permission to bypass authority boundaries.
+
+## Experimental modules
+
+- `libdense_gpu` (0.1.7 in 0.4.8) depends on nothing: not on `dense_core`,
+  not on another module, and not on OpenGL or SDL at link time. No module
+  depends on it. This release ships it as its own header, libraries and
+  pkg-config file; it is outside the bindings, the CMake package and the
+  frozen API baselines.

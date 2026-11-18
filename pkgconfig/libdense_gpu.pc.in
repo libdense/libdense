@@ -1,0 +1,10 @@
+prefix=@PREFIX@
+exec_prefix=${prefix}
+libdir=${prefix}/@LIBDIR@
+includedir=${prefix}/include/dense
+
+Name: libdense_gpu
+Description: Experimental exact bulk spatial queries with CPU and OpenGL 4.3 compute backends
+Version: @VERSION@
+Libs: -L${libdir} -ldense_gpu
+Cflags: -I${includedir}

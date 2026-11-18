@@ -262,7 +262,16 @@ DN_API dn_result dn_raw_transport_receive(
 );
 DN_API void dn_raw_transport_close(dn_raw_transport *transport);
 
-/* Loopback: two bounded SPSC rings forming a client/authority pair.  */
+/* Loopback: two bounded SPSC rings forming a client/authority pair.
+ * Creation returns DN_ERR_CAPACITY when 2 * queue_capacity * max_packet_size
+ * does not fit in size_t, and DN_ERR_OUT_OF_MEMORY when it fits but cannot
+ * be allocated.
+ * Each successful receive consumes one queued datagram, copies at most
+ * packet_capacity bytes and reports that copied count. Excess bytes are
+ * discarded, matching UDP truncation; a larger-buffer retry cannot recover
+ * them. A zero-capacity receive consumes a datagram and reports zero.
+ * Supply valid packet/packet_size pointers. On AGAIN/CLOSED outputs are unchanged.
+ */
 
 typedef struct dn_loopback_link dn_loopback_link;
 
@@ -279,6 +288,11 @@ DN_API dn_raw_transport dn_loopback_authority_transport(dn_loopback_link *link);
  * UDP: non-blocking datagram socket. bind_address may be NULL (client
  * side, ephemeral port). remote_address may be NULL, in which case the
  * transport locks onto the first peer a packet is received from.
+ * Successful receive consumes a datagram and reports the copied prefix length;
+ * excess bytes are discarded (including normalized Winsock WSAEMSGSIZE).
+ * A result filling packet_capacity may be truncated. Use an extra byte when
+ * the caller must detect datagrams above its accepted limit. Receive capacities
+ * above INT_MAX are clamped to INT_MAX on Windows. Supply valid output pointers.
  * Addresses are "host:port" strings (IPv4).
  */
 typedef struct dn_udp_transport dn_udp_transport;

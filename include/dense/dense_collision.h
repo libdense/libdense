@@ -265,9 +265,10 @@ DC_API dc_result dc_circle_aabb_overlap_many(
 
 typedef struct dc_hit {
     bool hit;
-    /* Q16.16 time of impact along the motion, 0..DC_T_ONE. */
+    /* Q16.16 time along the motion, 0..DC_T_ONE. Separated circle/corner
+     * contacts use the exact grid floor before position rounding/pushout. */
     uint32_t t;
-    dc_vec2 position;   /* center position at impact (backed off) */
+    dc_vec2 position;   /* rounded center plus one-unit normal-sign pushout */
     /* Face hits: axis unit normal. Corner/body hits: un-normalized
      * radial vector from the struck point/center toward the mover. */
     dc_vec2 normal;
@@ -351,6 +352,21 @@ typedef struct dc_move_many_result {
  * Authoritative move for a registered body: sweep from its current
  * position toward `to`, optionally slide along axis-aligned contacts,
  * optionally commit the result (broadphase + trigger events).
+ * DC_OK guarantees final_position is within +/- DC_COORD_MAX on both axes.
+ * A pushout beyond that range returns DC_ERR_RANGE, with or without COMMIT,
+ * before changing the body or trigger memberships. The candidate result and
+ * completed sweep/move counters remain available on that late error.
+ * After the range gate, strict penetration of any selected blocker cancels
+ * the move: final_position is the original position, moved/slid are false,
+ * blocked is true, and first_hit retains the original sweep diagnostic.
+ * Touching is allowed. Statics use blocking_layers; bodies also require
+ * BLOCK_ON_BODIES and exclude the mover. Triggers are not blockers.
+ * DC_OK therefore gives a clear endpoint or the unchanged original position.
+ * An initially nonpenetrating body stays nonpenetrating. Initial overlaps
+ * need not be resolved: this is not a depenetration solver or a proof that the
+ * entire swept path is clear. Internal endpoint checks do not count as queries.
+ * COMMIT still calls the normal position/trigger update, including on a canceled
+ * move; its errors propagate and that update is not generally failure-atomic.
  */
 DC_API dc_result dc_validate_move(
     dc_world *world,

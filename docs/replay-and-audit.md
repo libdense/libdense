@@ -16,8 +16,8 @@ Dense family/library fingerprint
 ```
 
 The reader rejects an expected-header mismatch before returning records. The
-library fingerprint is a compile-time manifest of the Dense 0.4.2 family and its
-public ABI generations. An intentional version or ABI change must update that
+library fingerprint is a compile-time manifest of the Dense family version (0.4.8)
+and its public ABI generations. An intentional version or ABI change must update that
 manifest and the replay baseline.
 
 ## Record stream

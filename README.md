@@ -2,7 +2,7 @@
   <img src="logo.png" alt="Dense logo" width="800">
 </p>
 
-# Dense | v0.4.5 release candidate
+# Dense | v0.4.8 release candidate
 
 **A high-density multiplayer state engine for all-to-all observer simulations.**
 
@@ -25,20 +25,6 @@ C++, and Rust wrapper source. Core C implementation source is not included.
 > 
 > Dense reduces time complexity, a number like 10,000 players is laughable doable.
 
-
-## v0.4.5 release candidate
-
-The public SDK offers independently opt-in [compact framing](docs/compact-wire.md),
-[grouped state and two-byte Mithsteel](docs/grouped-state.md),
-[local delivery workers](docs/delivery-workers.md), and
-[Time Bending / Time Dilation](docs/time-dilation.md).
-Legacy framing and one application-owned thread remain defaults.
-
-Time controls keep fixed simulation steps and real-time networking separate.
-The worker SDK has its own static/shared library and explicit CMake component.
-See [release notes](docs/RELEASE-NOTES-0.4.5.md) for availability and validation.
-Historical benchmark tables retain their original measurement scope.
-
 ## Additional Project Links
 - Videos at https://www.youtube.com/@YggEngine
 - Book at https://yggengine.com/book
@@ -55,6 +41,8 @@ Historical benchmark tables retain their original measurement scope.
 | `libdense_nav` | Sparse navigation grids, deterministic paths, flow fields, caches, and collision rasterization |
 | `libdense_ai` | Deterministic agent memory, behavior trees, scheduler-sliced execution, and intent production |
 | `densedb` | Single-writer state tables, WATCH views, WAL durability, snapshots, and recovery |
+| `libdense_delivery` | Optional: explicitly owned publications and Linux delivery workers |
+| `libdense_gpu` | Experimental: exact bulk spatial queries for local simulations, CPU and OpenGL 4.3 compute backends |
 
 ## Authority and dependency direction
 
@@ -235,8 +223,8 @@ libdense/
 |-- README.md, CHANGELOG.md, VERSION, MANIFEST.md
 |-- LICENSE.md, COMMERCIAL-LICENSE.md, SECURITY.md, SUPPORT.md
 |-- install.sh, uninstall.sh, verify-release.sh, SHA256SUMS
-|-- include/dense/          public C headers (14)
-|-- lib/linux-x86_64/       Linux x86-64 shared + static libraries (7)
+|-- include/dense/          public C headers (15, one experimental)
+|-- lib/linux-x86_64/       Linux x86-64 shared + static libraries (9, one experimental)
 |-- bin/linux-x86_64/       headless Arena and Driving demonstrations
 |-- pkgconfig/              pkg-config templates
 |-- bindings/               Python, C++, and Rust wrappers (full source)

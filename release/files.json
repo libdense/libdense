@@ -1,11 +1,11 @@
 {
-  "release": "0.4.5",
+  "release": "0.4.8",
   "files": {
     ".gitignore": {
       "sha256": "9a1bed02e642b8d1fd53156c76093ee185f072c94f3df682a5459084377789fb"
     },
     "CHANGELOG.md": {
-      "sha256": "fd687bb03085137d4a23940911388a7cde65fdc1d5f603caa23c6cce1a6fd527"
+      "sha256": "e802286de88a7b5251bad54884e6fed0d6406a06bca4ac56d7e62a39b1f016d2"
     },
     "COMMERCIAL-LICENSE.md": {
       "sha256": "1341f9a68c5020ffdfda36e9ccc16a46008f0d351ed790680c565d330de65708"
@@ -17,10 +17,10 @@
       "sha256": "304747dac430e031f87a1744159bea7c583f5025125bfabbac9af8ed65e068ac"
     },
     "MANIFEST.md": {
-      "sha256": "7ebbbeab64211145a02bb905184c255f162bcbdb212a70754d42fa9f64095b03"
+      "sha256": "ab944ffcadb343186741f96100ba2fa75682410c9d9bcb28dd8bb8e837ccc48b"
     },
     "README.md": {
-      "sha256": "b494dc0db56f0e98c17d366f696d1fba46637c914bec9d816fb3363e89c916ff"
+      "sha256": "fd202af0b3358f3b027866a6e7c9d549636f87b2a6301407d9a2c1d8f9a386e3"
     },
     "SECURITY.md": {
       "sha256": "66edc46a91e0065a0f0a37b1028838821170a2dece7a02c68f1d0280fa92a0b3"
@@ -29,19 +29,19 @@
       "sha256": "dbb69b2d601410d32c4c796112edf3f2066b7861d27708f12449b1953f66224a"
     },
     "VERSION": {
-      "sha256": "345a551b61a5dc33388b9bf40df339c9a0d9446ced7eeaeb576e3dbf4321918e"
+      "sha256": "8dc19b59c6f48b20d0e0a6c88776e3ba06ec397e58c41694a785ad610ba67df2"
     },
     "bin/linux-x86_64/arena-bot": {
-      "sha256": "ca316dab67567fd5f7e38ea2ab5315be609c9b93f332d15e5412c39519904af4"
+      "sha256": "85132be56fbc894cee5f6b47ea5eeac944e2dd08bb82a62957043af6ec35c75c"
     },
     "bin/linux-x86_64/arena-server": {
-      "sha256": "c2c44937e85772872e44b48440a228b2595413986ac9759d02408a9591d4a78f"
+      "sha256": "e5d007c20642124d3f8c182c022812115d69ac74c0ee80909986c6585d8572d7"
     },
     "bin/linux-x86_64/driving-bot": {
-      "sha256": "d5213a985eb0a096fefafdbe9d2bc0396c5ed844ef1b2ebbfc0daf34d4255937"
+      "sha256": "7f27f8a1d990b4e0493d1b062f4712cc3cb9644f8765fbe990a07043e8ab9732"
     },
     "bin/linux-x86_64/driving-server": {
-      "sha256": "420807b540f018325d9fa04f64946713239a1f4e931713e0e5e6a400bdcfb78f"
+      "sha256": "34bf46901a45fec3bea665651032ea6a859a5023fb3a7cfaf3748cbe0b3913da"
     },
     "bindings/check_abi_coverage.py": {
       "sha256": "a8eb3bffd968749a19c42df5efd3765d4defdfd696b10e4f9d13a9344f336a6b"
@@ -85,29 +85,26 @@
     "bindings/python/benchmarks/benchmark_binding.py": {
       "sha256": "929ddd18f1cd0d043fe45f91bc6370245e3ca920d2dbc6b75e714f8d1acce7f3"
     },
-    "bindings/python/dist/.gitignore": {
-      "sha256": "684888c0ebb17f374298b65ee2807526c066094c701bcc7ebbe1c1095f494fc1"
+    "bindings/python/dist/dense_sim-0.4.8-cp311-cp311-linux_x86_64.whl": {
+      "sha256": "4c1b1bd4464ae3305ec1b192c2c5b7426f07dcb69096656d576436966887e332"
     },
-    "bindings/python/dist/dense_sim-0.4.5-cp311-cp311-linux_x86_64.whl": {
-      "sha256": "203a7878263342cdb0f0c20e0cfdae46cf0d7de9d2d8fdf9f306603df877e11f"
+    "bindings/python/dist/dense_sim-0.4.8-cp312-cp312-linux_x86_64.whl": {
+      "sha256": "760d79da4361fd69bd2c633ca5832f3a12e6031ec76108ff07fbcf89794ccd63"
     },
-    "bindings/python/dist/dense_sim-0.4.5-cp312-cp312-linux_x86_64.whl": {
-      "sha256": "f4150c89a36c224d2bf49ae617dfda59df811d89352cc871052062f6c2a1e8ef"
+    "bindings/python/dist/dense_sim-0.4.8-cp313-cp313-linux_x86_64.whl": {
+      "sha256": "e44376bcf867ba89684c42281f9478b0fce98bd8cea0a113dd1c60603a835c0e"
     },
-    "bindings/python/dist/dense_sim-0.4.5-cp313-cp313-linux_x86_64.whl": {
-      "sha256": "c0fe579234b8f16061f06c17a2435e85e2923ce0d056692c9ae2b70d7bc8f165"
-    },
-    "bindings/python/dist/dense_sim-0.4.5-cp314-cp314-linux_x86_64.whl": {
-      "sha256": "9603bbd29ff7c97d45d54cee0c8063caab9fc7444887c783c0ac33d76715ea39"
+    "bindings/python/dist/dense_sim-0.4.8-cp314-cp314-linux_x86_64.whl": {
+      "sha256": "302a39b1af10e1698f0db59cad4b7d3feb92a3ba4f8ef72b7130c2a17ed09d0b"
     },
     "bindings/python/pyproject.toml": {
       "sha256": "458c4c26430b0adde676a38254b422eec4bd39aa0601196231755e08ef06a3e4"
     },
     "bindings/python/setup.py": {
-      "sha256": "f17706d5e456795deb50e4b4d43a6fda3c9a676fa407147c92cdf37eee8b5c07"
+      "sha256": "a2ecea2f0a5dc32c4becaddb65080d5aff5c36fd17c5331f6bf4e8a1f96b31d9"
     },
     "bindings/python/src/dense_sim/__init__.py": {
-      "sha256": "78cf51510174afd05cd19a82196e17afbd0a1940a303adad528764a38e411b02"
+      "sha256": "54f6495cfe088ed0330407366c503a5e74e7b0c22f0a2885486e51da7e2dfc8d"
     },
     "bindings/python/src/dense_sim/__init__.pyi": {
       "sha256": "921de6987bae57b8b80a3c96f106f760072d5f3084b402bd15f99976d4159b96"
@@ -122,10 +119,10 @@
       "sha256": "1d767b8a2ad21c50e841feaf328ce06ee2ca8c15cdfa0867423cf16ce56a2a7b"
     },
     "bindings/rust/Cargo.lock": {
-      "sha256": "fa4dcf3d22b3e64a0a3c201d32c34ca88d1dff97958fe530093436c785fafeb8"
+      "sha256": "cca231c29c1d2109c74d33be7b8eacd1680c20768eeea7dd427fec8468b2c9cd"
     },
     "bindings/rust/Cargo.toml": {
-      "sha256": "709b27ad87a043d842e98b656d7f97602d5eb1c96f794aa08195696a28b6e7e4"
+      "sha256": "052d138dd6f30545ec2f2bd8813c5d5049de39f56ed4e9b8f792186ea19ae2ab"
     },
     "bindings/rust/Makefile": {
       "sha256": "90e778159825dbd65f8d606a55ed4cb84bab64d00c58fbf136de3d355456ee46"
@@ -149,10 +146,10 @@
       "sha256": "9ec681c27ae69de904847877533f196b722e73d780c4952c7c932fb85927db55"
     },
     "cmake/Dense/DenseConfig.cmake": {
-      "sha256": "8be381966949c0f3f6a13fa4e068f04ebfe27ee1c5c9013311dd4497de7b46c5"
+      "sha256": "7eeed294f95e366d92481f774c6b2106ec609c62f728962716d5c4a6b9fc24fe"
     },
     "cmake/Dense/DenseConfigVersion.cmake": {
-      "sha256": "1270e3d657f45b87927682607c46a370abf9b39747dbced79f986c03d3d63ff3"
+      "sha256": "dd4a46b2c77359673b5374b707b51f43448947df94d143fc33cb90f1c7663f0e"
     },
     "cmake/Dense/DenseTargets.cmake": {
       "sha256": "3006ae0f4a6af1d13ba481427f981acb3cb01bd5e4af8b4c9b7e2fb8ac9d3882"
@@ -256,6 +253,42 @@
     "densebench/0.4.4/plates.json": {
       "sha256": "a8f97d70be84d4a37824052fe47b804b23828da9fbe666f6520d354827757f07"
     },
+    "densebench/0.4.7/01-overview.png": {
+      "sha256": "c6a10a9b1983e331a4480fe0629746c14a52028cb144507b6cd8fc01398c6fd0"
+    },
+    "densebench/0.4.7/02-density-change.png": {
+      "sha256": "c60ccbe1da1b604263bba5dd10f1daff77db5c2cc6d4bc61f6a29a23495506d5"
+    },
+    "densebench/0.4.7/03-bandwidth-memory.png": {
+      "sha256": "c9b9d2d8b1855fcc74bf11908a6734509a73903251eabd43f156fb754f4164b3"
+    },
+    "densebench/0.4.7/04-complete-tick.png": {
+      "sha256": "f00d3efb607a83c6498f839882bc4da13d8a68f94f5ea3c6b18f5b071f6c663d"
+    },
+    "densebench/0.4.7/05-tails-controls.png": {
+      "sha256": "d1b6db8d88b28fc9ab342e0734e523eff79383cc303f712d2920bfca9ea762cf"
+    },
+    "densebench/0.4.7/06-simulation-m6.png": {
+      "sha256": "1b97ce4f0542f23017d1102e1182e2cc51b4bf6f1cd4966965ff20c08a91999a"
+    },
+    "densebench/0.4.7/07-costs.png": {
+      "sha256": "196a855974e84795d176a697f1f2083c89208b5ff0c4948b6fe4a7f157eb97d9"
+    },
+    "densebench/0.4.7/08-verification.png": {
+      "sha256": "cad7827ab69db25ee1f827bacbbf19bbaa1287ca688936210970f82b77bab559"
+    },
+    "densebench/0.4.7/09-defaults-opt-ins.png": {
+      "sha256": "5d9dc9dcb24369b43e4c08daf2b7c0c3d7e57784bcb413ec4c450ac372fe76c8"
+    },
+    "densebench/0.4.7/10-platforms.png": {
+      "sha256": "318388e5f0d58083ad85e0eef707da4ee1d9f7628e322e81d1eaec537bbf5ccb"
+    },
+    "densebench/0.4.7/README.md": {
+      "sha256": "892f134fa5384a331839b685563cd7d18e699e42e17cc74977ccd07d1372204e"
+    },
+    "densebench/0.4.7/libdense-v0.4.7-plates.pdf": {
+      "sha256": "07a3968c6ab655bf18af6b217bf38a5313be1debf2936bad0677a6a7c789a244"
+    },
     "densebench/chart_dark.png": {
       "sha256": "dd253c9d366bfb598cb9866d80aacc51dfd8413fad05cc14ebd4165206f29016"
     },
@@ -305,7 +338,7 @@
       "sha256": "4346527c1e5fabffdeef67ea23b1f41f84b55dff1ef1f82bc0b2a2389a521fa3"
     },
     "docs/ABI-COMPATIBILITY.md": {
-      "sha256": "bd7e85b8b98c91feb94f4e6290e62e95da93059d6863dbf18ad1d0d0bf9d4519"
+      "sha256": "119c0bba7630b8baec2aac4a1b0f35ceb0927d0bb419c65f474f9451499df82e"
     },
     "docs/BENCHMARK-SCOPE.md": {
       "sha256": "e16a95c629ae61a9bf4056a14b1846c8a743d1e910728f8de70f1fa3b58b9451"
@@ -320,16 +353,16 @@
       "sha256": "2cc4ea8694374b3e72edb6be0a4430a74ffc258924bbbf31e260c0e86f6ac4fa"
     },
     "docs/BINARY-LAYOUT.md": {
-      "sha256": "bdccf76cccb330a91a4faf01e15c27444c05aee2f0b350c317bc67dd872fb0e1"
+      "sha256": "a3281853e68aacdec9353ffaf66bec1dea6186740f6bb7aabd79b4ffd320bd61"
     },
     "docs/BINDINGS.md": {
-      "sha256": "c9303fda5b5d2711e16220f25413bace9256edfab02b8053f2d1e5958e0aab65"
+      "sha256": "0193482352ef599287acfcd86312cea6b03b7b8dd8bff5766da3e184d3de11ab"
     },
     "docs/DENSEDB.md": {
       "sha256": "29f1161bccab33719868df7fddb92a05bacc739e64f54712cff15a42cccfbf75"
     },
     "docs/INSTALLATION.md": {
-      "sha256": "c07f4b0ba53b914caa999292cfe0b08ed26abc1c0c1ce14606a05603a87114b8"
+      "sha256": "27c5ee2956a5aaee2d4c00b9a4a9e1d19243a1db77d168db18147c753c0059b2"
     },
     "docs/LIBDENSE-SIM.md": {
       "sha256": "29c2563528b672a0284873bda9b0ddf67af64b01536cca47e2e9173939c5d695"
@@ -338,16 +371,19 @@
       "sha256": "5863a8884c5d72a6122e3f1cd6cfa241ca1b7fafd1b9e2d0bf9acee6b7926811"
     },
     "docs/PLATFORM-COMPATIBILITY.md": {
-      "sha256": "9d6c9e48ed40663d7f35d966f3cd28e7c0fe2a2f2901bfe9d49cf511d78f08cd"
+      "sha256": "ac5de17900ba11bddc7305b53102f4dd8b101ea52e63d2dea5138e12886638c4"
     },
     "docs/README.md": {
-      "sha256": "d7845c4dbb2afd471f7393cb463706da29fc0357048030e8dbfba1b682056b2c"
+      "sha256": "3b57a9950f0d3cd9e0ae34dab94dddba77212e2dcfb7b29452b546164a041f13"
     },
     "docs/RELEASE-CHECKLIST.md": {
-      "sha256": "6b05d16be86fdc90be997b68ccd4e1c463355e23c7d63118a62af7f6c4b47232"
+      "sha256": "031df821078dcfb3a160efb91edf43d7cc88c894a1ce571cf6cf94e53fb76992"
     },
     "docs/RELEASE-NOTES-0.4.5.md": {
       "sha256": "b58c72ac67c037d986759a96419e06eae10df5990510bdc55f099be0562e8fff"
+    },
+    "docs/RELEASE-NOTES-0.4.8.md": {
+      "sha256": "dcef70e345fd6e13324e65c31af53a1f5d991c7692aa1cf3dc956ac662122b07"
     },
     "docs/SECURITY-AND-SUPPLY-CHAIN.md": {
       "sha256": "93f774f1d879075db487fca8e877042258a6315e014d62cf7e3d5e095d11adf6"
@@ -356,13 +392,13 @@
       "sha256": "88169b91727696aab31287ef6bc56bc6941aa890c0376a1e013f7e6c50131274"
     },
     "docs/compact-wire.md": {
-      "sha256": "4071508e1a4a98d9f8de78225e41981bcf33a46eec845454e176dc5a63c0fec4"
+      "sha256": "6a6e4d20386a34905ff03f4b4e05488af560afff031de00e4a16d97580c7a369"
     },
     "docs/delivery-workers.md": {
       "sha256": "19209f90a960ead625587dda1ef4e16bffbfa129e85613c71324708828cacee2"
     },
     "docs/determinism.md": {
-      "sha256": "e10ead396798c74f8ca88bc5c63c873b0931cf01af0b95855fede838118d3cee"
+      "sha256": "858df0323c43b9ee861b4fd1ab846070a49df70c13d6105f2ba21ca791b4ecbd"
     },
     "docs/grouped-state.md": {
       "sha256": "02590ad782d7e6afed8e6a3d328997e0fb770991ecf3ecc31c262bd3e011e736"
@@ -371,7 +407,7 @@
       "sha256": "7dd5054245ef057a2bbd6e5df2590a87681f4ca0e94a399b40f411c4782ce853"
     },
     "docs/module-dependencies.md": {
-      "sha256": "651919285e329275f4aa1120553d66686cd9d554f374410aae3b100d15629bb2"
+      "sha256": "d69186017a56f013e009dafc281f57ca0edb8b9ef8ef87bbd8d2d11afb13f1cc"
     },
     "docs/modules/densedb.md": {
       "sha256": "b19eda8a2bda44d58ad356e5e8467b108379e60dbf37ed8e55b612b132c1f1c0"
@@ -381,6 +417,9 @@
     },
     "docs/modules/libdense_collision.md": {
       "sha256": "1df3a0c70d402e5fa54e56d6f0c6cc0d9494c9715da1d543e6a0c633c9d54a21"
+    },
+    "docs/modules/libdense_gpu.md": {
+      "sha256": "c04122ebf66efb73c5f26f9f0433628f15dbdddddfafce6d69db50468ff6b296"
     },
     "docs/modules/libdense_nav.md": {
       "sha256": "1ce78dfffc135caa0147452c948b764ad2ff086c114685f9234e80684d128ee4"
@@ -398,10 +437,10 @@
       "sha256": "13bf8079c869331356fe1737058a2dacc5634ca753d967d00ee2f7ee3a1f9f2b"
     },
     "docs/performance-policy.md": {
-      "sha256": "78396ccd7d29ebb4f8b817eda76ccd2d9442344b1863adcc0b585b6ecf3ce31c"
+      "sha256": "ae8653ce2eaa38f5d77cc04d2f7fd6a1ed33fbdf96545e906cadbee88cc4e190"
     },
     "docs/replay-and-audit.md": {
-      "sha256": "04a751dce78f15f8a8a1716f0c1dbcf8852a82a2525b91d8e0aabab0398ed654"
+      "sha256": "9803d9f982682eb208c5d4874a9f52a00281326583f004d538f4a5c413df6d2b"
     },
     "docs/simulation-authority.md": {
       "sha256": "28cbebf3b8f8d4cb50c3c277104c308612650e2333d25536d4b25d5faaa72c9c"
@@ -419,13 +458,16 @@
       "sha256": "67a353a815eb97e70f8d2071239d8753000973f3989abc93ea3cb8ef6b3550ac"
     },
     "include/dense/dense_collision.h": {
-      "sha256": "35588e31c42586c72fa70b66672af518cdc40a8ab4119f786a9ba014bcf01e83"
+      "sha256": "d8388054cceb37bdefde9da69f743133f5d9386c2987a55124beebf894b3d34a"
     },
     "include/dense/dense_delivery.h": {
       "sha256": "a896a41fa2a1a6c6c104e9e22b16ecfe0606cb6f197773170e2b96e9be5888ef"
     },
     "include/dense/dense_delivery_sim.h": {
       "sha256": "c6a5d1ba6938cc5bd45327f51e5e67bd2e78b1dbde49c0692baae60780cf49e3"
+    },
+    "include/dense/dense_gpu.h": {
+      "sha256": "a0364b4d73c6befc8fe1a8f83c1b4bf88d5a0e7e39a44afd58f2a0d21a063894"
     },
     "include/dense/dense_nav.h": {
       "sha256": "e5f40be66a4f71f2740c12374f0f48836f2374e8c99c28874cdb757573de258a"
@@ -434,34 +476,34 @@
       "sha256": "78fb51345d6d4d2f9fcd2133ecc4b2b7cd9fe8367e01078b0c732feb32164d73"
     },
     "include/dense/dense_net.h": {
-      "sha256": "0e8b67114290032fe9794a0c2fe40f5d4824c47d66f01f10018eed2156bdd063"
+      "sha256": "965105538e5388d762c36613f667e487e098137e121224f8560002147402e8b5"
     },
     "include/dense/dense_net_grouped.h": {
-      "sha256": "428d79e2565127463d2ce130081721424a40e49ca9cd895b2f1fc97f05370220"
+      "sha256": "511e9d3d12fa0d224f35d9f1205381657e32476b4f846aa60a77ebac90c4b49a"
     },
     "include/dense/dense_net_sim_bridge.h": {
       "sha256": "3762d7d1a10e7a2c44d935e17758f2b10233e45f883454ea0d79f3377f7f96c9"
     },
     "include/dense/dense_net_wire.h": {
-      "sha256": "f249a9b8ee1851ac9bfb872a9dc96bddc13e2486e85b229ce2183cf12f9b1593"
+      "sha256": "7eeac96a20ebdd87d5d2f81878f5604bec79a4ff76c003bf07909c6c0fe48f68"
     },
     "include/dense/dense_sched.h": {
-      "sha256": "287e4ba58c7b4c6250a8d09fe0f4b1c77171be01a92e350b281fa137e8984ad7"
+      "sha256": "1179c3c153d6a4328a8d0195d18577654a7c2fb5945d5585d65ddb3ae23afbb3"
     },
     "include/dense/dense_sched_time.h": {
       "sha256": "56ac213e9b125f573fb6d458dc8ac4e15756039c7d5bec31035b35fca181e5ea"
     },
     "include/dense/dense_sim.h": {
-      "sha256": "19df395494906ac037c80ca2c9847116dd1f629906c0a00ec563c95c303917bd"
+      "sha256": "c7bed08b1d06b50603251698d529c910e44ded8a72034b4632bcb8fb83653d6c"
     },
     "include/dense/densedb.h": {
       "sha256": "22bd8cda2c4dacad924e912e450c268905927aaa441eeac024a3af0efdce90ff"
     },
     "install.sh": {
-      "sha256": "387135af701499d5303d5fbdd07cf73b8731a37d5315318abebffa879a9df632"
+      "sha256": "30761f04211b3631d6ffae21662849d704766fb2c1b62b75b1dc36db6d08f661"
     },
     "lib/linux-x86_64/libdense_ai.a": {
-      "sha256": "262d6a79ef51db09bbcbde13cb1d514d8d7c38cc1f59f77b6f155806c9678cd8"
+      "sha256": "702ed3c6186f845db87d2427b451d58997587f6cdf646a37f20651c03920c8a3"
     },
     "lib/linux-x86_64/libdense_ai.so": {
       "target": "libdense_ai.so.0"
@@ -470,10 +512,10 @@
       "target": "libdense_ai.so.0.3.0"
     },
     "lib/linux-x86_64/libdense_ai.so.0.3.0": {
-      "sha256": "09fe5acc50c4245be15bf788d7c19b73fb5442d14e717733607851919f5659b6"
+      "sha256": "14e1b8a67583c14f6f0b8130432980c911ef187a9ec3497a2a4679c47d66ddde"
     },
     "lib/linux-x86_64/libdense_collision.a": {
-      "sha256": "8271af2e00922b3bbafc94eaf4f7f01864895f7d8e20f974bb86347fe6c1ea75"
+      "sha256": "0d695d1e11475690d832bf9109794a077ad30cf8bfd70ffcc27fe0696129710b"
     },
     "lib/linux-x86_64/libdense_collision.so": {
       "target": "libdense_collision.so.0"
@@ -482,22 +524,34 @@
       "target": "libdense_collision.so.0.3.0"
     },
     "lib/linux-x86_64/libdense_collision.so.0.3.0": {
-      "sha256": "dfa77ff65e272939f0a74fa1c47b27a93bd6536356290047c38c057b79ad73f6"
+      "sha256": "6325b739f5eafea0f4b2fd24e2387b2709d08d1da499af28e6103a023290878a"
     },
     "lib/linux-x86_64/libdense_delivery.a": {
-      "sha256": "20c4eb93fb39da81a9e46a3ada2e0e7a39ceb102352e5f90ee463a388df83fa2"
+      "sha256": "07c68db1cce9f33d4c97b3d03deb33a444b434ab94c82cadbb3375e729218945"
     },
     "lib/linux-x86_64/libdense_delivery.so": {
       "target": "libdense_delivery.so.0"
     },
     "lib/linux-x86_64/libdense_delivery.so.0": {
-      "target": "libdense_delivery.so.0.4.5"
+      "target": "libdense_delivery.so.0.4.8"
     },
-    "lib/linux-x86_64/libdense_delivery.so.0.4.5": {
-      "sha256": "89868ab993093d257602dbf64f71f53598ef108316b3d77a77f6349347b26615"
+    "lib/linux-x86_64/libdense_delivery.so.0.4.8": {
+      "sha256": "0feaa780c1cacaf726073242721e6ed67e23e5e195d7df401d2dd5e7e8b25838"
+    },
+    "lib/linux-x86_64/libdense_gpu.a": {
+      "sha256": "4e319552d844296e2cb95057592dc6da60ccd3f80f5c03cb7d2d397118aebaf3"
+    },
+    "lib/linux-x86_64/libdense_gpu.so": {
+      "target": "libdense_gpu.so.0"
+    },
+    "lib/linux-x86_64/libdense_gpu.so.0": {
+      "target": "libdense_gpu.so.0.1.7"
+    },
+    "lib/linux-x86_64/libdense_gpu.so.0.1.7": {
+      "sha256": "029942155b1aef2e375ede9ba818b0676e8caed93f3fdebcca5696de33e5c219"
     },
     "lib/linux-x86_64/libdense_nav.a": {
-      "sha256": "7542acf1b8e8dcc8fade3a68d562686637b83b16c697a1871f3b14bad3ea4afc"
+      "sha256": "bed71c001a765ca15c074ce86da872cd2dbd533ec10f93bdfd92afb4470a027d"
     },
     "lib/linux-x86_64/libdense_nav.so": {
       "target": "libdense_nav.so.0"
@@ -506,10 +560,10 @@
       "target": "libdense_nav.so.0.3.0"
     },
     "lib/linux-x86_64/libdense_nav.so.0.3.0": {
-      "sha256": "849bb11f29f18773351886884010cec08b430b43d4154635bc0ee6afa78f2451"
+      "sha256": "81c83b920946ccef1892d763e7be90a01a7e1d3b2d5cd956a484afa650409649"
     },
     "lib/linux-x86_64/libdense_net.a": {
-      "sha256": "f73e56db55ef35bc3a554332e9d01076c17f7f0c78a61235ec62f2d899a166d4"
+      "sha256": "144ea16b10e6d88653bfca5397b097f92e9f67c77e2e2b10b314410ee92f1771"
     },
     "lib/linux-x86_64/libdense_net.so": {
       "target": "libdense_net.so.0"
@@ -518,10 +572,10 @@
       "target": "libdense_net.so.0.3.5"
     },
     "lib/linux-x86_64/libdense_net.so.0.3.5": {
-      "sha256": "6e420b6478234fb4678c309901e91aabe3a7337794679f216789b6b1f65269c0"
+      "sha256": "f172323842770f43122768c5ac0e54b9e0f3233a663d2951536b3d01a531cf1a"
     },
     "lib/linux-x86_64/libdense_sched.a": {
-      "sha256": "977dbad5123d651801ac8369acb86151b1523e100950ca3708d3a17ad9e01215"
+      "sha256": "26fbb3f41bf0c8ca5b5702581df20b2dbc6763134b82b6372ca24df1b650169e"
     },
     "lib/linux-x86_64/libdense_sched.so": {
       "target": "libdense_sched.so.0"
@@ -530,22 +584,22 @@
       "target": "libdense_sched.so.0.3.0"
     },
     "lib/linux-x86_64/libdense_sched.so.0.3.0": {
-      "sha256": "e877fe4700a2434d48fc0d09e9d48dd572d33975475fcc873667f6e5e1b8ee2e"
+      "sha256": "6c903bff260a6b6244e5788c23a2f8c016184add99f732b29eb881d049cbc963"
     },
     "lib/linux-x86_64/libdense_sim.a": {
-      "sha256": "dbab58e6a5fe5791ea8b74162f403f05f0436d7d0b18d67cf79339867fb0d47f"
+      "sha256": "7d34b7d04411f889091bb2b35301d719b55c6dd759d30a4607d394c436ea64e1"
     },
     "lib/linux-x86_64/libdense_sim.so": {
       "target": "libdense_sim.so.0"
     },
     "lib/linux-x86_64/libdense_sim.so.0": {
-      "target": "libdense_sim.so.0.4.5"
+      "target": "libdense_sim.so.0.4.8"
     },
-    "lib/linux-x86_64/libdense_sim.so.0.4.5": {
-      "sha256": "cd105c3170baecc734b4f550c861be2769e268b68890395db40e2784bd1ea63f"
+    "lib/linux-x86_64/libdense_sim.so.0.4.8": {
+      "sha256": "e3ef3c5c4bf339a3a0d3ee5863893312c113e2769b232f39852eff1c20298ca6"
     },
     "lib/linux-x86_64/libdensedb.a": {
-      "sha256": "afc6e36aec5f8a36ada45eddacc81a04538e6c332af78d8da064e72faed5f675"
+      "sha256": "eb441d62d7adb73c63fcaccb41a68d472b8c9c631be0426733447d2ab9450ade"
     },
     "lib/linux-x86_64/libdensedb.so": {
       "target": "libdensedb.so.0"
@@ -554,7 +608,7 @@
       "target": "libdensedb.so.0.3.0"
     },
     "lib/linux-x86_64/libdensedb.so.0.3.0": {
-      "sha256": "da6cfb7d76799928f355a33453baf5961e8d3154bd4ffab8feb518fafb2338df"
+      "sha256": "6b6a98d48f834dde3a19c292623406e7deefacbbc2aea2a326f0a91a0d1fd05f"
     },
     "logo-square.png": {
       "sha256": "f0c0be8ed698bb6291aeb113e54a2811f5cf463eb0b697c6679bc1ae3daeb827"
@@ -570,6 +624,9 @@
     },
     "pkgconfig/libdense_delivery.pc.in": {
       "sha256": "e79351fa085b21804b41f34eac37902bb96933b8f4733d9149349015f1b39b03"
+    },
+    "pkgconfig/libdense_gpu.pc.in": {
+      "sha256": "686bccff21061a5b4dda4fda63d5d8904eb6f6b453394dbff983aa94791b251a"
     },
     "pkgconfig/libdense_nav.pc.in": {
       "sha256": "9e8b9fc96dba4496fbbfa07352d7afce1b4a7a278a48324a35455f10495871bb"
@@ -597,6 +654,9 @@
     },
     "release/abi/libdense_delivery.exports": {
       "sha256": "fd1e137427f81601c06852d330f9a6070efb0f4ea78f5dcb2cdc5a580001e383"
+    },
+    "release/abi/libdense_gpu.exports": {
+      "sha256": "265fd0ac71e41f9d2157cfb3da160b134fbad18fa3c94e0d7cb5d7815afe3a0c"
     },
     "release/abi/libdense_nav.exports": {
       "sha256": "e1ee16a95349186ac5e9d9186e4b6b46d484b63313fe864b7c0fe6d73b783c17"
@@ -635,7 +695,7 @@
       "sha256": "36c47f7f6c38935bf91d7742a06adfe5f2a956778560900042cc5b80a5fa5e69"
     },
     "release/api/dense_sim.api": {
-      "sha256": "7d6663de500f218954a4085ba8a51a60a6408091fc9e0e950842bc91ee153d0d"
+      "sha256": "3d96bf205798137f33d3ff6818b0ca46277c3efd1936f8ba63085eec34388749"
     },
     "release/api/densedb.api": {
       "sha256": "9d12aa12c2ddb2563ca92158d28f1384ad0ba3304aaf1b7b237f0f5b72234fbc"
@@ -712,6 +772,9 @@
     "release/validation/0.4.5.json": {
       "sha256": "a305e064ee85ae532eca3618b3d14b71ce20c31659a6baae3c169cedca8a21b8"
     },
+    "release/validation/0.4.8-rc.json": {
+      "sha256": "9bc78db003966901b0c815fbb26521ba9bb9e528cce40bfd421e3c8a503eb320"
+    },
     "tools/check-content.py": {
       "sha256": "b6f9d59a3853a1118c9d260f2ce5cfaecbda85dc331059d53e749f1d70db6d64"
     },
@@ -722,7 +785,7 @@
       "sha256": "0c330296598318e72df90be74a37b94bd8c84d64a4085da49f2b5e08d95c2aa3"
     },
     "verify-release.sh": {
-      "sha256": "eab6e56f885745f06f092821695dbdeca3d60e334d2cdf9f94678ca102593369"
+      "sha256": "88b228fe56d998110db84e0a96432d0448a9d4991a54e3de03e6937ecb3b4a25"
     }
   }
 }

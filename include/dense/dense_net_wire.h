@@ -71,7 +71,17 @@ DN_API dn_result dn_wire_registry_create(const dn_wire_handshake *handshake,
  * bootstrap retries separately. inner is borrowed and is never closed here.
  * session max_packet_size must be selected_cap - DN_WIRE_TAG_SIZE. a transport
  * that already isolates incarnations can omit the tag. initialized objects
- * cannot be copied, concurrently used, or reinitialized before destruction. */
+ * cannot be copied, concurrently used, or reinitialized before destruction.
+ * inner.receive must consume each successful datagram, store at most the given
+ * capacity and report the copied length, truncating longer datagrams to that
+ * capacity. The built-in loopback and UDP transports satisfy this contract.
+ * The adapter requests selected_cap + 1 bytes, counts and drops oversized,
+ * short and foreign-tag datagrams, and tries at most 64 receives per call.
+ * A caller buffer smaller than an accepted payload returns BUFFER_TOO_SMALL
+ * after consuming that datagram; it cannot be recovered by retrying. Other
+ * inner errors pass through. No progress guarantee is made for a custom inner
+ * transport that retains oversized datagrams or violates the capacity contract.
+ */
 typedef struct dn_wire_transport {
     dn_raw_transport inner;
     uint64_t tag;
@@ -108,7 +118,11 @@ typedef void (*dn_wire_udp_trace_fn)(void *context, uint64_t now_ns,
  * use the ordinary server poll/remove/destroy functions. config.max_packet_size
  * is the outer cap. the dispatcher supplies tags, fixed handshake deadlines
  * and duplicate-response limits; it invokes the normal accept callback only
- * after CONFIRM. this does not authenticate the peer. next_nonce must satisfy
+ * after CONFIRM. bootstrap replies are best effort: failed replies retain the
+ * committed negotiation and retry limits, and do not fail the poll. receive
+ * errors and other control errors retain their existing handling. ordinary data
+ * sends still report transport failures. this does not authenticate the peer.
+ * next_nonce must satisfy
  * the uniqueness contract above; zero signals failure. both timeouts and the
  * pending limit must be nonzero, with maximum_pending <= max_sessions.
  * use the returned registry for server replication, not config.registry.

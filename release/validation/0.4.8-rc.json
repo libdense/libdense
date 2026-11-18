@@ -1,0 +1,60 @@
+{
+  "release": "0.4.8",
+  "stage": "release candidate",
+  "date": "2026-11-18",
+  "status": "release candidate; target-hardware release run pending",
+  "published_by_this_workflow": false,
+  "platform": "Linux x86-64",
+  "build_host": "Ubuntu 24.04.5 LTS, glibc 2.39",
+  "compiler": "GCC 13.3.0 (Ubuntu 13.3.0-6ubuntu2~24.04.1)",
+  "build": "libdense 0.4.8 release-candidate source; family libraries with DELIVERY_WORKERS=1; libdense_gpu through its own target; demos headless with WIRE=1 against the staged SDK",
+  "checks": {
+    "full_family_tests": "passed (make test DELIVERY_WORKERS=1)",
+    "delivery_worker_tests": "passed (make test-delivery-workers)",
+    "libdense_gpu_cpu_backend_tests": "passed (make test-cpu, including export check)",
+    "deterministic_replay_ticks": 240,
+    "deterministic_replay_final_checksum": "45dac673272c989e",
+    "verify_release": "passed",
+    "public_api_abi_exports": "passed: nine libraries against release/abi",
+    "frozen_sdk_headers": "passed: dense_net_grouped, dense_delivery, dense_delivery_sim, dense_sched_time",
+    "staged_install_uninstall": "passed: 105 installed paths, empty stage after uninstall",
+    "installed_consumers": {
+      "pkg_config_shared": "seven family modules, libdense_delivery, libdense_gpu",
+      "pkg_config_static": "seven family modules, libdense_gpu; no libdense runtime dependency",
+      "cmake_components": "sim collision nav sched ai net densedb server delivery",
+      "libdense_gpu": "CPU backend k-nearest result checked"
+    },
+    "cpp_wrapper": "passed",
+    "rust_wrapper_tests": 5,
+    "python_wheel_tests": {
+      "cp311": 14,
+      "cp312": 14,
+      "cp313": 14,
+      "cp314": 14
+    },
+    "demo_loopback_runs": "Arena legacy, compact, grouped, mithsteel; Driving legacy, compact: server and bot exit 0",
+    "negative_controls": "6 rejected: missing library, header drift, stray source, delivery exports, libdense_gpu exports, stale wheel"
+  },
+  "elf_glibc_requirements": {
+    "libdense_delivery": "2.34",
+    "libdensedb": "2.33",
+    "libdense_gpu": "2.16",
+    "libdense_sim, net, collision, nav, ai": "2.14",
+    "libdense_sched": "2.4",
+    "demos": "2.34",
+    "python_extensions": "2.14"
+  },
+  "defaults": {
+    "wire": "legacy",
+    "workers": "no automatic workers",
+    "libdense_gpu": "experimental, opt-in, CPU backend by default",
+    "research_candidates": "excluded"
+  },
+  "limitations": [
+    "Performance figures are release-candidate figures from the 0.4.7 run of the same library sources",
+    "The libdense_gpu OpenGL backend was not exercised for this build; the build host has no GPU",
+    "No native ARM64 or Windows execution",
+    "No graphical client execution"
+  ],
+  "public_contents": "Binaries, public API headers, wrapper source, documentation, plates and public benchmark records; no core or demo implementation source, private research, logs or source archives"
+}
